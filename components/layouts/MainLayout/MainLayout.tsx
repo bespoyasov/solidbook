@@ -9,8 +9,7 @@ type Props = {
 }
 
 class MainLayout extends PureComponent<Props> {
-  static defaultProps = {
-  }
+  static defaultProps = {}
   render() {
     const { title, children } = this.props
     return (
