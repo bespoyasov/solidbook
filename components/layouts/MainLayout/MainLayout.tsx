@@ -35,7 +35,7 @@ class MainLayout extends PureComponent<Props> {
 
         {children}
 
-        <footer>{'I`m here to stay'}</footer>
+        <footer>I`m here to stay</footer>
       </div>
     )
   }

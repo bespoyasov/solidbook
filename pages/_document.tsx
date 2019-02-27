@@ -2,7 +2,7 @@ import Document, { Head, Main, NextDocumentContext, NextScript, AnyPageProps } f
 import { ServerStyleSheet } from 'styled-components'
 import Body from 'components/Body'
 
-export default class MyDocument extends Document {
+export default class MyDocument extends Document<> {
   static async getInitialProps(ctx: NextDocumentContext) {
     const sheet = new ServerStyleSheet()
     const page = ctx.renderPage((App: any) => (props: AnyPageProps) =>
