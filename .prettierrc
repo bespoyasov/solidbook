@@ -1,0 +1,45 @@
+{
+	"printWidth": 120,
+	"proseWrap": "always",
+	"singleQuote": true,
+	"semi": false,
+	"bracketSpacing": true,
+	"parser": "babel",
+	"trailingComma": "none",
+	"overrides": [
+		{
+			"files": [
+				"*.ts",
+				"*.tsx"
+			],
+			"options": {
+				"parser": "typescript"
+			}
+		},
+		{
+			"files": "*.md",
+			"options": {
+				"parser": "markdown"
+			}
+		},
+		{
+			"files": "*.yml",
+			"options": {
+				"parser": "yaml"
+			}
+		},
+		{
+			"files": "*.json",
+			"options": {
+				"parser": "json",
+				"printWidth": 80
+			}
+		},
+		{
+			"files": "*.css",
+			"options": {
+				"parser": "css"
+			}
+		}
+	]
+}
