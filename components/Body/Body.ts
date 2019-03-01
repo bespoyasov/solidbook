@@ -13,4 +13,16 @@ export default styled.body`
   p {
     margin: 1em 0;
   }
+
+  a {
+    color: #0000fe;
+  }
+
+  a:visited {
+    color: #542189;
+  }
+
+  a:hover {
+    color: #fb3347;
+  }
 `
