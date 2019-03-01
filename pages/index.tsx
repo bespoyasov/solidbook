@@ -82,5 +82,22 @@ export default () => (
         мы будем использовать.
       </p>
     </section>
+
+    <section>
+      <h2>Материалы к разделу</h2>
+      <ul>
+        <li>
+          <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">
+            Объектно-ориентированное программирование
+          </a>
+        </li>
+        <li>
+          <a href="https://wiki.lesswrong.com/wiki/The_map_is_not_the_territory">Карта ≠ территория</a>
+        </li>
+        <li>
+          <a href="https://basarat.gitbooks.io/typescript/">TypeScript Deep Dive</a>
+        </li>
+      </ul>
+    </section>
   </MainLayout>
 )
