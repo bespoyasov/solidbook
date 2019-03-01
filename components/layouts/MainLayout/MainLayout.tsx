@@ -2,6 +2,7 @@ import * as React from 'react'
 import { PureComponent } from 'react'
 import Head from 'next/head'
 import Header from '../../Header'
+import Center from '../Center'
 
 type Props = {
   title?: string
@@ -17,11 +18,14 @@ class MainLayout extends PureComponent<Props> {
         <Head>
           <title>{title}</title>
         </Head>
+
         <Header />
 
-        {children}
+        <Center>{children}</Center>
 
-        <footer>I`m here to stay</footer>
+        <footer>
+          <Center>I`m here to stay</Center>
+        </footer>
       </div>
     )
   }
