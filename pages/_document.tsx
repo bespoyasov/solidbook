@@ -31,6 +31,12 @@ export default class MyDocument extends Document<IProps> {
           <meta name="msapplication-TileColor" content="#f7e144" />
           <meta name="theme-color" content="#ffffff" />
           <style>{`
+            *,
+            *::after,
+            *::before {
+              box-sizing: border-box;
+            }
+
             html, body, #__next {
               width: 100%;
               height: 100%;
