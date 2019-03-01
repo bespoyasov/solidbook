@@ -12,8 +12,13 @@ export default styled.body`
 
   h1,
   h2,
-  p {
+  p,
+  ul {
     margin: 1rem 0;
+  }
+
+  p + ul {
+    margin-top: -1rem;
   }
 
   h1 {
