@@ -3,6 +3,7 @@ import { PureComponent } from 'react'
 import Head from 'next/head'
 import Navigation from '../../Navigation'
 import Header from '../../Header'
+import Footer from '../../Footer'
 import Center from '../Center'
 
 import { Grid, MainContent } from './style'
@@ -31,9 +32,7 @@ class MainLayout extends PureComponent<Props> {
           </Grid>
         </Center>
 
-        <footer>
-          <Center>I`m here to stay</Center>
-        </footer>
+        <Footer />
       </div>
     )
   }
