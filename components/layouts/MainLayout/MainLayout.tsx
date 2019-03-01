@@ -1,25 +1,10 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { PureComponent } from 'react'
 import Head from 'next/head'
 import Header from '../../Header'
 import Center from '../Center'
 
-const Grid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 2.6rem 0;
-`
-
-const Nav = styled.nav`
-  width: 30%;
-  max-width: 280px;
-`
-
-const MainContent = styled.main`
-  flex: 1;
-`
+import { Grid, Nav, MainContent } from './style'
 
 type Props = {
   title?: string
