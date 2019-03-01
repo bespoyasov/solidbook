@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
 import Head from 'next/head'
+import MainContent from '../../MainContent'
 
 type Props = {
   title?: string
@@ -17,7 +18,7 @@ class MainLayout extends PureComponent<Props> {
           <title>{title}</title>
         </Head>
 
-        {children}
+        <MainContent>{children}</MainContent>
       </div>
     )
   }
