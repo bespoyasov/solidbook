@@ -7,11 +7,6 @@ export const Grid = styled.div`
   padding: 2.5rem 0;
 `
 
-export const Nav = styled.nav`
-  width: 30%;
-  max-width: 280px;
-`
-
 export const MainContent = styled.main`
   flex: 1;
 

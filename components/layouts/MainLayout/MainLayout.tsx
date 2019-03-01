@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
 import Head from 'next/head'
+import Navigation from '../../Navigation'
 import Header from '../../Header'
 import Center from '../Center'
 
-import { Grid, Nav, MainContent } from './style'
+import { Grid, MainContent } from './style'
 
 type Props = {
   title?: string
@@ -25,7 +26,7 @@ class MainLayout extends PureComponent<Props> {
 
         <Center>
           <Grid>
-            <Nav>Здесь будет содержание</Nav>
+            <Navigation />
             <MainContent>{children}</MainContent>
           </Grid>
         </Center>
