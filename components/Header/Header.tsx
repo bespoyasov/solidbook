@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import Link from 'next/link'
+import Logo from '../Logo'
 import HeaderWrapper from './style'
 
 type Props = {}
@@ -10,19 +10,7 @@ class Header extends PureComponent<Props> {
   render() {
     return (
       <HeaderWrapper>
-        <nav>
-          <Link href="/">
-            <a>Home</a>
-          </Link>{' '}
-          |
-          <Link href="/about">
-            <a>About</a>
-          </Link>{' '}
-          |
-          <Link href="/contact">
-            <a>Contact</a>
-          </Link>
-        </nav>
+        <Logo />
       </HeaderWrapper>
     )
   }
