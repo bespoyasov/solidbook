@@ -10,8 +10,20 @@ export default styled.body`
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 
+  h1,
+  h2,
   p {
-    margin: 1em 0;
+    margin: 1rem 0;
+  }
+
+  h1 {
+    font-size: 2em;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    line-height: 1.3;
   }
 
   a {
