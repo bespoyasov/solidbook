@@ -1,6 +1,7 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
+import { ThemeProvider } from 'styled-components'
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -21,7 +22,9 @@ export default class MyApp extends App {
         <Head>
           <title>SOLID</title>
         </Head>
-        <Component {...pageProps} />
+        <ThemeProvider theme={{}}>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </Container>
     )
   }
