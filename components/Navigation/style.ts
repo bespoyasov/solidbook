@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const Nav = styled.nav`
   width: 30%;
-  max-width: 280px;
-  padding-right: 35px;
+  max-width: 300px;
+  padding-right: 40px;
   position: relative;
 
   &::before {
