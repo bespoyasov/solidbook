@@ -9,7 +9,7 @@ import Center from '../Center'
 import { Grid, MainContent } from './style'
 
 type Props = {
-  title?: string
+  title: string
   children?: React.ReactNode
 }
 
