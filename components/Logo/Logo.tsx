@@ -3,10 +3,7 @@ import { PureComponent } from 'react'
 import Link from 'next/link'
 import LogoWrapper from './style'
 
-type Props = {}
-
-class Logo extends PureComponent<Props> {
-  static defaultProps = {}
+class Logo extends PureComponent {
   render() {
     return (
       <LogoWrapper>
