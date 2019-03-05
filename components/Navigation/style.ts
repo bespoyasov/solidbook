@@ -19,7 +19,7 @@ export const Nav = styled.nav`
   }
 `
 
-export const NavSection = styled.div`
+export const Section = styled.div`
   margin: 2.5rem 0 0 0;
   padding: 0 0 0 25px;
   font-size: 0.9rem;
@@ -44,4 +44,9 @@ export const NavSection = styled.div`
     line-height: 1.2em;
     margin: 0.8em 0;
   }
+`
+
+export const SubSection = styled.div`
+  margin: 0 0 1.5rem;
+  padding: 0 0 0 15px;
 `
