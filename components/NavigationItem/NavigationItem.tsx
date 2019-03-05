@@ -12,6 +12,7 @@ class NavigationItem extends PureComponent<Props> {
   render() {
     const { href, children } = this.props
     return (
+      // TODO: replace stub with real functionality
       <Container className={href === '/' ? 'active' : ''}>
         <Link href={href}>
           <a>{children}</a>
