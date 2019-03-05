@@ -5,6 +5,9 @@ export const theme = {
   purple: '#542189',
   red: '#fb3347',
 
+  lightestGrey: 'rgba(0, 0, 0, 0.06)',
+  lightGrey: 'rgba(0, 0, 0, 0.12)',
+
   font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;`
 }
 
