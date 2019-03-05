@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export default styled.div`
   font-size: 2.3rem;
-  font-weight: 700;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 
   a,
   a:visited {
