@@ -1,6 +1,5 @@
 import Document, { Head, Main, NextDocumentContext, NextScript, AnyPageProps } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
-import Body from 'components/Body'
 
 interface IProps {
   styleTags: any
@@ -46,10 +45,10 @@ export default class MyDocument extends Document<IProps> {
           `}</style>
           {styleTags}
         </Head>
-        <Body>
+        <body>
           <Main />
           <NextScript />
-        </Body>
+        </body>
       </html>
     )
   }
