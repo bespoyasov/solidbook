@@ -3,7 +3,7 @@ import VisuallyHidden from 'components/VisuallyHidden'
 import Abbr from 'components/Formatters/Abbr'
 
 export default () => (
-  <MainLayout>
+  <MainLayout title="Введение">
     <h1>О чём это</h1>
     <section>
       <VisuallyHidden>
