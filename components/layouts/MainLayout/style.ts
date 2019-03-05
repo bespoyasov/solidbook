@@ -10,10 +10,6 @@ export const Grid = styled.div`
 export const MainContent = styled.main`
   flex: 1;
 
-  h1 {
-    margin-top: 0;
-  }
-
   section + section {
     margin-top: 2.5rem;
   }

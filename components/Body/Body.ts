@@ -10,11 +10,14 @@ export default styled.body`
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 
-  h1,
-  h2,
   p,
   ul {
-    margin: 1rem 0;
+    margin: 0 0 1rem 0;
+  }
+
+  h1,
+  h2 {
+    margin: 0 0 0.25rem 0;
   }
 
   p + ul {
