@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import Link from 'next/link'
 import PointsCounter from '../PointsCounter'
 import { Nav, NavSection } from './style'
+import NavigationItem from '../NavigationItem'
 
 class Navigation extends PureComponent {
   render() {
@@ -14,34 +14,22 @@ class Navigation extends PureComponent {
           <h3>Содержание</h3>
           <ul>
             <li>
-              <Link href="/">
-                <a>Введение</a>
-              </Link>
+              <NavigationItem href="/">Введение</NavigationItem>
             </li>
             <li>
-              <Link href="/">
-                <a>Принцип единственной ответственности</a>
-              </Link>
+              <NavigationItem href="/">Принцип единственной ответственности</NavigationItem>
             </li>
             <li>
-              <Link href="/">
-                <a>Принцип открытости и закрытости</a>
-              </Link>
+              <NavigationItem href="/">Принцип открытости и закрытости</NavigationItem>
             </li>
             <li>
-              <Link href="/">
-                <a>Принцип подстановки Барбары Лисков</a>
-              </Link>
+              <NavigationItem href="/">Принцип подстановки Барбары Лисков</NavigationItem>
             </li>
             <li>
-              <Link href="/">
-                <a>Принцип разделения интерфейса</a>
-              </Link>
+              <NavigationItem href="/">Принцип разделения интерфейса</NavigationItem>
             </li>
             <li>
-              <Link href="/">
-                <a>Принцип инверсии зависимостей</a>
-              </Link>
+              <NavigationItem href="/">Принцип инверсии зависимостей</NavigationItem>
             </li>
           </ul>
         </NavSection>
