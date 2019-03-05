@@ -17,19 +17,19 @@ class Navigation extends PureComponent {
               <NavigationItem href="/">Введение</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/">Принцип единственной ответственности</NavigationItem>
+              <NavigationItem href="/single-responsibility">Принцип единственной ответственности</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/">Принцип открытости и закрытости</NavigationItem>
+              <NavigationItem href="/open-closed">Принцип открытости и закрытости</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/">Принцип подстановки Барбары Лисков</NavigationItem>
+              <NavigationItem href="/substitution">Принцип подстановки Барбары Лисков</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/">Принцип разделения интерфейса</NavigationItem>
+              <NavigationItem href="/interface-segregation">Принцип разделения интерфейса</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/">Принцип инверсии зависимостей</NavigationItem>
+              <NavigationItem href="/dependency-inversion">Принцип инверсии зависимостей</NavigationItem>
             </li>
           </ul>
         </NavSection>
