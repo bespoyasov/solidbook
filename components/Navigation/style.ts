@@ -45,8 +45,3 @@ export const Section = styled.div`
     margin: 0.8em 0;
   }
 `
-
-export const SubSection = styled.div`
-  margin: 0 0 1.5rem;
-  padding: 0 0 0 15px;
-`

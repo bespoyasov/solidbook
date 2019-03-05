@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
 import PointsCounter from '../PointsCounter'
-import { Nav, Section, SubSection } from './style'
+import { Nav, Section } from './style'
 import NavigationItem from '../NavigationItem'
 
 class Navigation extends PureComponent {
@@ -15,26 +15,6 @@ class Navigation extends PureComponent {
           <ul>
             <li>
               <NavigationItem href="/">Введение</NavigationItem>
-
-              <SubSection>
-                <ul>
-                  <li>
-                    <NavigationItem href="/#about">О чём это?</NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/#why-oop">Почему ООП?</NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/#what-principles">О каких принципах пойдёт речь?</NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/#whats-the-plan">Какой план?</NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/#links">Материалы к разделу</NavigationItem>
-                  </li>
-                </ul>
-              </SubSection>
             </li>
             <li>
               <NavigationItem href="/single-responsibility">Принцип единственной ответственности</NavigationItem>
