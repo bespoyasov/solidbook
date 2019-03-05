@@ -18,4 +18,8 @@ export default styled.div`
   &.active {
     font-weight: 700;
   }
+
+  &.active::before {
+    background: black;
+  }
 `
