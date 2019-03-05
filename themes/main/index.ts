@@ -46,6 +46,12 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.3;
   }
 
+  h3 {
+    font-size: .8em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
   a {
     color: ${theme.blue};
   }
