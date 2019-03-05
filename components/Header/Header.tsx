@@ -3,10 +3,7 @@ import { PureComponent } from 'react'
 import Logo from '../Logo'
 import HeaderWrapper from './style'
 
-type Props = {}
-
-class Header extends PureComponent<Props> {
-  static defaultProps = {}
+class Header extends PureComponent {
   render() {
     return (
       <HeaderWrapper>
