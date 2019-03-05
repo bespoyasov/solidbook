@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Nav = styled.nav`
   width: 30%;
   max-width: 300px;
-  padding-right: 40px;
+  padding: 0 40px 2rem 0;
   position: relative;
 
   &::before {
