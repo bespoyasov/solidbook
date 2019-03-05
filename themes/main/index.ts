@@ -7,6 +7,7 @@ export const theme = {
 
   lightestGrey: 'rgba(0, 0, 0, 0.06)',
   lightGrey: 'rgba(0, 0, 0, 0.12)',
+  lightGreyOpaque: '#f0f0f0',
 
   font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;`
 }
