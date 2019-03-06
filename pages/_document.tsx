@@ -1,6 +1,5 @@
 import Document, { Head, Main, NextDocumentContext, NextScript, AnyPageProps } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
-import Body from 'components/Body'
 
 interface IProps {
   styleTags: any
@@ -31,6 +30,12 @@ export default class MyDocument extends Document<IProps> {
           <meta name="msapplication-TileColor" content="#f7e144" />
           <meta name="theme-color" content="#ffffff" />
           <style>{`
+            *,
+            *::after,
+            *::before {
+              box-sizing: border-box;
+            }
+
             html, body, #__next {
               width: 100%;
               height: 100%;
@@ -40,10 +45,10 @@ export default class MyDocument extends Document<IProps> {
           `}</style>
           {styleTags}
         </Head>
-        <Body>
+        <body>
           <Main />
           <NextScript />
-        </Body>
+        </body>
       </html>
     )
   }

@@ -1,10 +1,15 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
+import Navigation from '../../Navigation'
+import Header from '../../Header'
+import Footer from '../../Footer'
+import Center from '../Center'
+
+import { Grid, MainContent } from './style'
 
 type Props = {
-  title?: string
+  title: string
   children?: React.ReactNode
 }
 
@@ -17,25 +22,17 @@ class MainLayout extends PureComponent<Props> {
         <Head>
           <title>{title}</title>
         </Head>
-        <header>
-          <nav>
-            <Link href="/">
-              <a>Home</a>
-            </Link>{' '}
-            |
-            <Link href="/about">
-              <a>About</a>
-            </Link>{' '}
-            |
-            <Link href="/contact">
-              <a>Contact</a>
-            </Link>
-          </nav>
-        </header>
 
-        {children}
+        <Header />
 
-        <footer>I`m here to stay</footer>
+        <Center>
+          <Grid>
+            <Navigation />
+            <MainContent>{children}</MainContent>
+          </Grid>
+        </Center>
+
+        <Footer />
       </div>
     )
   }
