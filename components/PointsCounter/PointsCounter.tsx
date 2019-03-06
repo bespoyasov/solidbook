@@ -6,7 +6,7 @@ function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-const emojiList = ['🥑', '🏆', '🎉', '✨', '💥', '⭐', '🎇', '🥇', '🍭']
+const emojiList = ['🥑', '🏆', '🎉', '✨', '💥', '⭐', '🍭']
 const randomEmoji = emojiList[getRandomInt(0, emojiList.length - 1)]
 
 class PointsCounter extends PureComponent {
