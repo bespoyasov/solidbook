@@ -1,10 +1,21 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import Container from './style'
+import { Container, Big, Share } from './style'
 
 class Navigation extends PureComponent {
   render() {
-    return <Container>0/1000</Container>
+    return (
+      <Container>
+        <Big>
+          810<span>✨</span>
+        </Big>
+        <span>из 1000</span>
+
+        <Share>
+          <img src="/static/i-twitter.svg" alt="Твитнуть" />
+        </Share>
+      </Container>
+    )
   }
 }
 
