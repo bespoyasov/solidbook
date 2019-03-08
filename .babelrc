@@ -16,8 +16,6 @@
       "prismjs",
       {
         "languages": ["typescript"],
-        "plugins": ["line-numbers"],
-        "css": false
       }
     ]
   ]
