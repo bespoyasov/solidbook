@@ -29,6 +29,7 @@ export default class MyDocument extends Document<IProps> {
           <link rel="mask-icon" href="satics/favicon/safari-pinned-tab.svg" color="#323330" />
           <meta name="msapplication-TileColor" content="#f7e144" />
           <meta name="theme-color" content="#ffffff" />
+          <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css" />
           <style>{`
             *,
             *::after,
