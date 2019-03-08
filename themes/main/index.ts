@@ -67,8 +67,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   code {
-    font-size: 1em;
-    font-family: monospace;
+    font-size: 0.8em;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   }
 
   p code {
