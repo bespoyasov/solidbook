@@ -1,8 +1,12 @@
 import VisuallyHidden from 'components/VisuallyHidden'
 import Abbr from 'components/Formatters/Abbr'
-import MainLayout from 'components/layouts/MainLayout'
+import MainLayout from 'components/layouts/main'
 
-export default props => <MainLayout title="Введение" {...props} />
+export const meta = {
+  title: 'Введение'
+}
+
+export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 # О чём это
 
@@ -21,11 +25,12 @@ export default props => <MainLayout title="Введение" {...props} />
 Бизнес-правила — это территория. Код — [карта](https://wiki.lesswrong.com/wiki/The_map_is_not_the_territory) этой территории. Чем точнее карта, тем проще
 справляться с изменениями в требованиях и даже предвидеть их.
 
-В этой серии статей мы хотим рассказать и показать на примерах, как принципы [ООП](https://ru.wikipedia.org/wiki/Объектно-ориентированное_программирование) могут помочь спроектировать устойчивую систему.
+В этой серии статей мы хотим рассказать и показать на примерах, как принципы [ООП](https://ru.wikipedia.org/wiki/Объектно-ориентированное_программирование)
+могут помочь спроектировать устойчивую систему.
 
 ## Почему ООП?
 
-<p><Abbr title="Объектно-ориентированное программирование">ООП</Abbr> вызывает споры.</p>
+ ООП вызывает споры.
 
 Война парадигм может создать впечатление, что подход ООП устарел и плох. Но как минимум в одном он хорош — с ним проще выделять сущности и проводить параллели с
 частями системы из реальности, которую мы собираемся моделировать.
