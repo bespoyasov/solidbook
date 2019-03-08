@@ -25,7 +25,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   p,
-  ul {
+  ul,
+  pre {
     margin: 0 0 1rem 0;
   }
 
@@ -73,8 +74,13 @@ export const GlobalStyle = createGlobalStyle`
 
   p code {
     display: inline-block;
-    background: rgba(0,0,0,.08);
+    background: #f5f7ff;
     padding: 0.01em 0.4em;
     border-radius: 0.3em;
+  }
+
+  pre {
+    border-radius: 0.3em;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1)
   }
 `
