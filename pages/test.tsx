@@ -1,29 +1,33 @@
 import MainLayout from 'components/layouts/MainLayout'
 import Abbr from 'components/Formatters/Abbr'
+import usePrism from '../hooks/usePrism'
 
-export default () => (
-  <MainLayout title="Принцип единой ответственности">
-    <h1>Примеры из идеального мира</h1>
-    <p>
-      В идеальном мире каждый класс в коде решает одну и только одну задачу, а все задачи структурированы и разделены.
-      Классы в этом случае дополняют друг друга, а их совокупность детально описывает систему.
-    </p>
-    <p>
-      Допустим, у нас есть задача создать отчёт об активности пользователей и вывести его в нескольких вариантах: как{' '}
-      строку <Abbr>HTML</Abbr> или <Abbr>TXT</Abbr>.
-    </p>
+export default () => {
+  usePrism()
 
-    <section>
-      <h2>Отчёт</h2>
-
+  return (
+    <MainLayout title="Принцип единой ответственности">
+      <h1>Примеры из идеального мира</h1>
       <p>
-        Мы создадим класс <code>ReportExporter</code>, который будет заниматься только экспортом данных. Определять
-        необходимый формат будет класс <code>FormatSelector</code>. А форматированием данных будут заниматься классы:{' '}
-        <code>HtmlFormatter</code> и <code>TxtFormatter</code>.
+        В идеальном мире каждый класс в коде решает одну и только одну задачу, а все задачи структурированы и разделены.
+        Классы в этом случае дополняют друг друга, а их совокупность детально описывает систему.
+      </p>
+      <p>
+        Допустим, у нас есть задача создать отчёт об активности пользователей и вывести его в нескольких вариантах: как{' '}
+        строку <Abbr>HTML</Abbr> или <Abbr>TXT</Abbr>.
       </p>
 
-      <pre>{`
-// тип данных для отчёта
+      <section>
+        <h2>Отчёт</h2>
+
+        <p>
+          Мы создадим класс <code>ReportExporter</code>, который будет заниматься только экспортом данных. Определять
+          необходимый формат будет класс <code>FormatSelector</code>. А форматированием данных будут заниматься классы:{' '}
+          <code>HtmlFormatter</code> и <code>TxtFormatter</code>.
+        </p>
+
+        <pre>
+          <code className="lang-ts">{`// тип данных для отчёта
 type ReportData = {
     content: string,
     date: Date,
@@ -51,7 +55,9 @@ class ReportExporter {
         return formatter.format()
     }
 }
-`}</pre>
-    </section>
-  </MainLayout>
-)
+`}</code>
+        </pre>
+      </section>
+    </MainLayout>
+  )
+}
