@@ -11,6 +11,15 @@
         "displayName": true,
         "preprocess": false
       }
+    ],
+    [
+      "prismjs",
+      {
+        "languages": ["typescript"],
+        "plugins": ["line-numbers"],
+        "theme": "twilight",
+        "css": false
+      }
     ]
   ]
 }
