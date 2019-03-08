@@ -10,6 +10,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-source-maps": "^0.0.3",
     "@zeit/next-typescript": "^1.1.1",
+    "babel-plugin-prismjs": "^1.0.2",
     "dotenv": "^6.2.0",
     "next": "^8.0.3",
     "prismjs": "^1.15.0",

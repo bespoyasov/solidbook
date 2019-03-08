@@ -1235,6 +1235,11 @@ babel-loader@8.0.2:
     mkdirp "^0.5.1"
     util.promisify "^1.0.0"
 
+babel-plugin-prismjs@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-prismjs/-/babel-plugin-prismjs-1.0.2.tgz#837bf6b32168b3ba624c054fc755946deb1b63fa"
+  integrity sha512-WbUE86Aih6h6daLpyavuikEXECrkon21oWh4MOHa5stMfY/IK1e/Sr79qEGhl7KrL16fMChB3tdbVR82ubnzOg==
+
 babel-plugin-react-require@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-react-require/-/babel-plugin-react-require-3.0.0.tgz#2e4e7b4496b93a654a1c80042276de4e4eeb20e3"
