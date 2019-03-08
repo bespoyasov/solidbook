@@ -1,36 +1,14 @@
 import MainLayout from 'components/layouts/MainLayout'
-import VisuallyHidden from 'components/VisuallyHidden'
+// import VisuallyHidden from 'components/VisuallyHidden'
 import Abbr from 'components/Formatters/Abbr'
+import Text from 'texts/00_preface/index.mdx'
 
 export default () => (
   <MainLayout title="Введение">
     <h1>О чём это</h1>
-    <section>
-      <VisuallyHidden>
-        <h2>Введение</h2>
-      </VisuallyHidden>
-      <p>Программировать — сложно.</p>
-      <p>
-        Хороший код должен адекватно отражать систему, которую описывает, и должен быть устойчив к изменениям в этой
-        системе.
-      </p>
-      <p>
-        Проблемы с кодом возникают, когда он перестаёт соответствовать реальности — бизнес-требованиям, правилам
-        поведения частей системы, их отношениям друг с другом.
-      </p>
-      <p>
-        Бизнес-правила — это территория. Код —{' '}
-        <a href="https://wiki.lesswrong.com/wiki/The_map_is_not_the_territory">карта</a> этой территории. Чем точнее
-        карта, тем проще справляться с изменениями в требованиях и даже предвидеть их.
-      </p>
-      <p>
-        В этой серии статей мы хотим рассказать и показать на примерах, как принципы{' '}
-        <Abbr title="Объектно-ориентированное программирование">
-          <a href="https://ru.wikipedia.org/wiki/Объектно-ориентированное_программирование">ООП</a>
-        </Abbr>{' '}
-        могут помочь спроектировать устойчивую систему.
-      </p>
-    </section>
+
+      <Text  />
+
 
     <section>
       <h2>

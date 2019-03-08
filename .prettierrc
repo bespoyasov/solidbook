@@ -23,6 +23,13 @@
 			}
 		},
 		{
+			"files": "*.mdx",
+			"options": {
+				"printWidth": 160,
+				"parser": "mdx"
+			}
+		},
+		{
 			"files": "*.yml",
 			"options": {
 				"parser": "yaml"
