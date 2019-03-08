@@ -65,4 +65,13 @@ export const GlobalStyle = createGlobalStyle`
   a:hover {
     color: ${theme.red};
   }
+
+  code {
+    font-size: 1em;
+    font-family: monospace;
+    display: inline-block;
+    background: rgba(0,0,0,.08);
+    padding: 0.01em 0.4em;
+    border-radius: 0.3em;
+  }
 `
