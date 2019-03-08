@@ -8,7 +8,6 @@ export default class MyDocument extends Document<IProps> {
   static async getInitialProps(ctx: NextDocumentContext) {
     const sheet = new ServerStyleSheet()
     const page = ctx.renderPage((App: any) => (props: AnyPageProps) => {
-      console.log(App, props)
       return sheet.collectStyles(<App {...props} />) as React.ReactElement<any>
     })
     const styleTags = sheet.getStyleElement()
