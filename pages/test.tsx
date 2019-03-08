@@ -22,7 +22,7 @@ export default () => (
         <code>HtmlFormatter</code> и <code>TxtFormatter</code>.
       </p>
 
-      <pre>
+      <pre>{`
 // тип данных для отчёта
 type ReportData = {
     content: string,
@@ -51,7 +51,7 @@ class ReportExporter {
         return formatter.format()
     }
 }
-      </pre>
+`}</pre>
     </section>
   </MainLayout>
 )
