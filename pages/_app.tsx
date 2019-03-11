@@ -20,10 +20,9 @@ export default class MyApp extends App {
 
     return (
       <Container>
-        <Head>
-          <title>SOLID</title>
-        </Head>
+        <Head />
         <GlobalStyle />
+
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
         </ThemeProvider>
