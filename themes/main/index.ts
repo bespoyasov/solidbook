@@ -80,7 +80,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   pre {
+    display: block;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #f5f7ff;
     border-radius: 0.3em;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.1)
+    padding: 0.8em;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.1)
   }
 `
