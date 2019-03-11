@@ -1,10 +1,14 @@
-import MainLayout from 'components/layouts/MainLayout'
+import MainLayout from 'components/layouts/main'
 import Abbr from 'components/Formatters/Abbr'
 import TestForm from 'components/TestForm'
 import Code from 'components/Code'
 
+export const meta = {
+  title: 'Принцип единой ответственности'
+}
+
 export default () => (
-  <MainLayout title="Принцип единой ответственности">
+  <MainLayout meta={meta}>
     <h1>Примеры из идеального мира</h1>
     <p>
       В идеальном мире каждый класс в коде решает одну и только одну задачу, а все задачи структурированы и разделены.
