@@ -3,7 +3,6 @@ import { PureComponent } from 'react'
 import refractor from 'refractor'
 import rehype from 'rehype'
 import 'prismjs/themes/prism.css'
-import 'static/prism-ateliersulphurpool-light.css'
 
 type Props = {
   children?: React.ReactNode
