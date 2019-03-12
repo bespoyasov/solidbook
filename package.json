@@ -8,12 +8,16 @@
   },
   "dependencies": {
     "@mdx-js/tag": "^0.20.3",
+    "@zeit/next-css": "^1.0.1",
     "@zeit/next-source-maps": "^0.0.3",
     "@zeit/next-typescript": "^1.1.1",
+    "clsx": "^1.0.3",
     "dotenv": "^6.2.0",
     "next": "^8.0.3",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "refractor": "^2.6.2",
+    "rehype": "^7.0.0",
     "styled-components": "^4.1.3"
   },
   "devDependencies": {

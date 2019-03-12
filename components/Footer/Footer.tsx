@@ -14,7 +14,9 @@ class Footer extends PureComponent {
               <a href="https://github.com/dex157">Артём Самофалов</a>
             </span>
 
-            <span>2019</span>
+            <span>
+              <a href="https://github.com/open-tech-authors">Open tech authors</a>, 2019
+            </span>
           </Container>
         </Center>
       </Wrapper>

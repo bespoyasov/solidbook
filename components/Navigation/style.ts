@@ -22,7 +22,7 @@ export const Nav = styled.nav`
 export const Section = styled.div`
   margin: 2.5rem 0 0 0;
   padding: 0 0 0 25px;
-  font-size: 0.9rem;
+  font-size: ${props => props.theme.fontSizeSmall};
 
   a,
   a:visited {
