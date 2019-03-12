@@ -3,10 +3,12 @@ import { PureComponent } from 'react'
 import { Container, Big, Share } from './style'
 import NoSSR from 'react-no-ssr'
 
+Array.ge
+
 class PointsCounter extends PureComponent {
   emojiList = ['🥑', '🏆', '🎉', '✨', '💥', '⭐', '🍭']
   get randomEmoji(): string {
-    return this.emojiList[Math.floor(Math.random() * (this.emojiList.length - 1 + 1))]
+    return this.emojiList[Math.floor(Math.random() * this.emojiList.length)]
   }
 
   render() {
