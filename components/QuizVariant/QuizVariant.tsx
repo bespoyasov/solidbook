@@ -5,11 +5,11 @@ import VisuallyHidden from 'components/VisuallyHidden'
 import { Item } from './style'
 
 type Props = {
-  children?: React.ReactNode
   name: string
   value: string | number
-  selected: boolean
-  correct: boolean
+  selected?: boolean
+  correct?: boolean
+  children?: React.ReactNode
 }
 
 class TestItem extends PureComponent<Props> {
@@ -24,7 +24,6 @@ class TestItem extends PureComponent<Props> {
           <input type="checkbox" name={name} value={value} defaultChecked={selected} />
         </VisuallyHidden>
 
-        <div className="indicator" />
         <span>{children}</span>
       </Item>
     )
