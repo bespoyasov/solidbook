@@ -1,6 +1,6 @@
 import MainLayout from 'components/layouts/main'
 import Abbr from 'components/Formatters/Abbr'
-import TestForm from 'components/TestForm'
+import Quiz from 'components/Quiz'
 import Code from 'components/Code'
 
 export const meta = {
@@ -126,7 +126,7 @@ class TxtFormatter implements IFormatter {
 
     <section>
       <h2>Вопросы</h2>
-      <TestForm />
+      <Quiz />
     </section>
   </MainLayout>
 )
