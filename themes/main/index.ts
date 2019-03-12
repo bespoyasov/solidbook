@@ -10,6 +10,8 @@ export const theme = {
   grey: 'rgba(0, 0, 0, 0.3)',
   lightGreyOpaque: '#f0f0f0',
 
+  radius: '0.3em',
+
   font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;`
 }
 
@@ -76,7 +78,7 @@ export const GlobalStyle = createGlobalStyle`
     display: inline-block;
     background: #f5f7ff;
     padding: 0.01em 0.4em;
-    border-radius: 0.3em;
+    border-radius: ${theme.radius};
   }
 
   pre {
@@ -84,7 +86,7 @@ export const GlobalStyle = createGlobalStyle`
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     background: #f5f7ff;
-    border-radius: 0.3em;
+    border-radius: ${theme.radius};
     padding: 0.8em;
     box-shadow: inset 0 1px 3px rgba(0,0,0,.1)
   }
