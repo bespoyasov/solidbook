@@ -1,1 +1,1 @@
-export { default, Style } from './VisuallyHidden'
+export { default } from './VisuallyHidden'
