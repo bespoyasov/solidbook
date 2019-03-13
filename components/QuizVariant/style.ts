@@ -25,13 +25,12 @@ export const Item = styled.label`
 
   &.selected {
     border-color: black;
-  }
 
-  &.selected::after {
-    content: '🚫';
-  }
-
-  &.selected.correct::after {
-    content: '✅';
+    &.completed::after {
+      content: '🚫';
+    }
+    &.completed.correct::after {
+      content: '✅';
+    }
   }
 `
