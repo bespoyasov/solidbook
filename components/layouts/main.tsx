@@ -8,6 +8,7 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import Center from './Center'
 import Abbr from 'components/Formatters/Abbr'
+import Code from 'components/Code'
 
 const Grid = styled.div`
   display: flex;
@@ -48,7 +49,7 @@ class MainLayout extends PureComponent<IProps> {
         <Center>
           <Grid>
             <Navigation />
-            <MDXProvider components={{ abbr: Abbr }}>
+            <MDXProvider components={{ abbr: Abbr, pre: Code }}>
               <MainContent>{children}</MainContent>
             </MDXProvider>
           </Grid>
