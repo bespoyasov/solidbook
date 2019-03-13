@@ -22,7 +22,7 @@ const MainContent = styled.main`
   flex: 1;
 
   section + section {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
   }
 `
 
