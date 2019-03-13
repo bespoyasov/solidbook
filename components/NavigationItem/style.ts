@@ -22,4 +22,8 @@ export default styled.div`
   &.active::before {
     background: black;
   }
+
+  &.deep::before {
+    display: none;
+  }
 `
