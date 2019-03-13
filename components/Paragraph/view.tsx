@@ -3,9 +3,10 @@ import Typograf from 'typograf'
 
 class Paragraph extends PureComponent {
   typograf = new Typograf({ locale: ['ru', 'en-US'] })
-  render() {
+
+  renderWithReact() {
     const { children } = this.props
-    console.log(children)
+
     return (
       <p>
         {React.Children.map(children, child => {
@@ -21,6 +22,9 @@ class Paragraph extends PureComponent {
         })}
       </p>
     )
+  }
+  render() {
+    return this.renderWithReact()
   }
 }
 

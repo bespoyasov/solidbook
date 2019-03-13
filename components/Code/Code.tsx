@@ -19,20 +19,23 @@ class Code extends PureComponent<Props> {
 
     return (
       <pre>
-        {lang ? (
-          <code
-            className={`language-${lang}`}
-            dangerouslySetInnerHTML={{
-              __html: rehype()
-                .stringify({
-                  type: 'root',
-                  children: refractor.highlight(children, lang)
-                })
-                .toString()
-            }}
-          />
-        ) : (
-          <code>{children}</code>
+        {React.Children.map(
+          children,
+          (child: React.ReactElement): React.ReactElement => {
+            if (child.props.name !== 'code') return child
+
+            return React.createElement('code', {
+              ...child.props.props,
+              dangerouslySetInnerHTML: {
+                __html: rehype()
+                  .stringify({
+                    type: 'root',
+                    children: refractor.highlight(child.props.children, lang)
+                  })
+                  .toString()
+              }
+            })
+          }
         )}
       </pre>
     )

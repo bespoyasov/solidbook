@@ -16,6 +16,7 @@
     "next": "^8.0.3",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-no-ssr": "^1.1.0",
     "refractor": "^2.6.2",
     "rehype": "^7.0.0",
     "styled-components": "^4.1.3",

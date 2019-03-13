@@ -9,6 +9,7 @@ import Footer from 'components/Footer'
 import Center from './Center'
 import Abbr from 'components/Formatters/Abbr'
 import Paragraph from 'components/Paragraph';
+import Code from 'components/Code'
 
 const Grid = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const MainContent = styled.main`
   flex: 1;
 
   section + section {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
   }
 `
 
@@ -49,7 +50,7 @@ class MainLayout extends PureComponent<IProps> {
         <Center>
           <Grid>
             <Navigation />
-            <MDXProvider components={{ abbr: Abbr, p: Paragraph }}>
+            <MDXProvider components={{ abbr: Abbr, pre: Code, p: Paragraph }}>
               <MainContent>{children}</MainContent>
             </MDXProvider>
           </Grid>
