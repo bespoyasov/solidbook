@@ -24,7 +24,7 @@ class QuizVariant extends PureComponent<Props> {
     return (
       <Item className={clsx({ selected }, { correct }, { completed })}>
         <VisuallyHidden>
-          <input type="checkbox" name={name} value={value} defaultChecked={selected} />
+          <input type="checkbox" name={name} value={value} defaultChecked={selected} disabled={completed} />
         </VisuallyHidden>
 
         <span>{children}</span>

@@ -33,4 +33,13 @@ export const Item = styled.label`
       content: '✅';
     }
   }
+
+  &.completed {
+    cursor: default;
+
+    &:hover,
+    &:focus-within {
+      background: none;
+    }
+  }
 `
