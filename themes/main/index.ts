@@ -17,7 +17,9 @@ export const theme = {
   font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`,
   fontMonospace: `Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace`,
 
-  fontSizeSmall: `0.9rem`
+  fontSizeSmall: `0.9rem`,
+
+  adaptiveBreakpoint: '800px'
 }
 
 export const GlobalStyle = createGlobalStyle`
