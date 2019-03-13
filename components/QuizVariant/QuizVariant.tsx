@@ -2,15 +2,13 @@ import * as React from 'react'
 import { PureComponent } from 'react'
 import clsx from 'clsx'
 import VisuallyHidden from 'components/VisuallyHidden'
-import { Item } from './style'
+import { Label, Description, Item } from './style'
+import { QuizVariantData } from './types'
 
 type Props = {
-  name: string
-  value: string | number
+  question: string
   completed: boolean
-  selected?: boolean
-  correct?: boolean
-  children?: React.ReactNode
+  variant: QuizVariantData
 }
 
 class QuizVariant extends PureComponent<Props> {
@@ -19,15 +17,19 @@ class QuizVariant extends PureComponent<Props> {
   }
 
   render() {
-    const { children, name, value, selected, completed, correct } = this.props
+    const { question, completed, variant } = this.props
+    const { selected, correct, main, description } = variant
 
     return (
-      <Item className={clsx({ selected }, { correct }, { completed })}>
-        <VisuallyHidden>
-          <input type="checkbox" name={name} value={value} defaultChecked={selected} disabled={completed} />
-        </VisuallyHidden>
+      <Item>
+        <Label className={clsx({ selected }, { correct }, { completed })}>
+          <VisuallyHidden>
+            <input type="checkbox" name={question} value={main} defaultChecked={selected} disabled={completed} />
+          </VisuallyHidden>
 
-        <span>{children}</span>
+          <span>{main}</span>
+        </Label>
+        {completed && <Description>{description}</Description>}
       </Item>
     )
   }
