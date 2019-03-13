@@ -45,3 +45,7 @@ export const Section = styled.div`
     margin: 0.8em 0;
   }
 `
+
+export const SubSection = styled.div`
+  padding-left: 1em;
+`
