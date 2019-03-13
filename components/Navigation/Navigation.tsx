@@ -23,9 +23,7 @@ class Navigation extends PureComponent {
               <NavigationItem href="/open-closed/intro">Принцип открытости и закрытости</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/substliskov-substitution/introitution">
-                Принцип подстановки Барбары Лисков
-              </NavigationItem>
+              <NavigationItem href="/liskov-substitution/intro">Принцип подстановки Барбары Лисков</NavigationItem>
             </li>
             <li>
               <NavigationItem href="/isp/intro">Принцип разделения интерфейса</NavigationItem>
