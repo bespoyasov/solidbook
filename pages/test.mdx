@@ -1,120 +1,12 @@
 import MainLayout from 'components/layouts/main'
-import Abbr from 'components/Formatters/Abbr'
 import Quiz from 'components/Quiz'
-import Code from 'components/Code'
 
 export const meta = {
-  title: 'Принцип единой ответственности'
+  title: 'Тесты дизайн-решений'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# Примеры из идеального мира
-
-В идеальном мире каждый класс в коде решает одну и только одну задачу, а все задачи структурированы и разделены. Классы в этом случае дополняют друг друга, а их совокупность детально описывает систему.
-
-Допустим, у нас есть задача создать отчёт об активности пользователей и вывести его в нескольких вариантах: как строку HTML или TXT.
-
-## Отчёт
-
-Мы создадим класс `ReportExporter`, который будет заниматься только экспортом данных. Определять необходимый формат будет класс `FormatSelector`. А форматированием данных будут заниматься классы: `HtmlFormatter` и `TxtFormatter`.
-
-```ts
-// тип данных для отчёта
-type ReportData = {
-  content: string,
-  date: Date,
-  size: number,
-}
-
-// возможные форматы
-enum ReportTypes {
-  Html,
-  Txt,
-}
-
-// класс, который занимается экспортом данных
-class ReportExporter {
-  name: string
-  data: ReportData
-
-  constructor(name: string, data: ReportData) {
-    this.name = name
-    this.data = data
-  }
-
-  export(reportType: ReportTypes): string {
-    const formatter: IFormatter = new FormatSelector(reportType, this.data)
-    return formatter.format()
-  }
-}
-```
-
-## Форматы экспорта
-
-В соответствии с SRP форматирование данных — это отдельная задача. Поэтому для преобразования данных отчёта в необходимый формат мы создадим отдельные классы.
-
-```ts
-interface Formatter {
-  data: ReportData;
-  format(): string;
-}
-
-// класс для форматирования в HTML
-class HtmlFormatter implements Formatter {
-  data: ReportData
-
-  constructor(data: ReportData) {
-    this.data = data
-  }
-
-  format(): string {
-    // форматируем данные в HTML и возвращаем:
-    return 'html string'
-  }
-}
-
-// класс для форматирования в TXT
-class TxtFormatter implements Formatter {
-  data: ReportData
-
-  constructor(data: ReportData) {
-    this.data = data
-  }
-
-  format(): string {
-    // форматируем данные в TXT и возвращаем:
-    return 'txt string'
-  }
-}
-```
-
-## Выбор формата
-
-Принцип единой ответственности подсказывает, что выбор формата не входит ни в задачу форматирования данных, ни в задачу их подготовки. Поэтому существующие классы нам не подойдут.
-
-Создадим новый класс `FormatSelector`, который будет выбирать тип форматирования, в зависимости от настроек.
-
-```ts
-class FormatSelector {
-  formatters = {
-    ReportTypes.Html: HtmlFormatter,
-    ReportTypes.Txt: TxtFormatter,
-  }
-
-  constructor(reportType: ReportTypes, data: ReportData) {
-    const FormatterFactory = this.formatters[reportType]
-    return new FormatterFactory(data)
-  }
-}
-```
-
-Таким образом SRP помогает разделить ответственность за различные задачи между сущностями и сделать это так, чтобы каждая сущность занималась одной задачей.
-
-## Вопросы
+# Тесты дизайн-решений
 
 <Quiz />
-
-*[HTML]:Hyper text markup language
-*[TXT]:Тестовый формат файлов
-*[SRP]:Single responsibility principle
