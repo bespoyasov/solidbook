@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Item = styled.label`
+export const Label = styled.label`
   display: block;
   user-select: none;
   cursor: pointer;
@@ -42,4 +42,18 @@ export const Item = styled.label`
       background: none;
     }
   }
+`
+
+export const Description = styled.div`
+  font-style: italic;
+  color: ${props => props.theme.grey};
+  line-height: 1.4;
+
+  &:not(:empty) {
+    padding-top: 0.5em;
+  }
+`
+
+export const Item = styled.div`
+  margin: 0 0 1.2rem 0;
 `
