@@ -29,7 +29,7 @@ class QuizVariant extends PureComponent<Props> {
 
           <span>{main}</span>
         </Label>
-        {completed && <Description>{description}</Description>}
+        {!!description && completed && <Description>{description}</Description>}
       </Item>
     )
   }

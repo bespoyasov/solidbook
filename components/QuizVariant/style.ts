@@ -48,10 +48,6 @@ export const Description = styled.div`
   font-style: italic;
   color: ${props => props.theme.grey};
   line-height: 1.4;
-
-  &:not(:empty) {
-    padding-top: 0.5em;
-  }
 `
 
 export const Item = styled.div`
