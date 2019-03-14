@@ -15,10 +15,10 @@ const Grid = styled.div`
   padding: 2.5rem 0;
   display: grid;
   align-items: start;
-  grid-template-columns: 33% 1fr;
+  grid-template-columns: 33% auto;
 
   @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto;
   }
 `
 
