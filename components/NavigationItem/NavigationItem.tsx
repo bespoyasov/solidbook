@@ -19,7 +19,14 @@ class NavigationItem extends PureComponent<Props> {
     const { href, children, depth } = this.props
     return (
       // TODO: replace stub (href === '/srp/info') with real functionality
-      <Container className={clsx({ active: href === '/srp/intro' }, { deep: depth > 1 })}>
+      <Container
+        className={clsx(
+          { active: href === '/srp/intro' },
+          { deep: depth > 1 },
+          { completed: href === '/' },
+          { 'contains-active': href === '/srp' }
+        )}
+      >
         <Link href={href}>
           <a>{children}</a>
         </Link>
