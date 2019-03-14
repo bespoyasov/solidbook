@@ -1,0 +1,7 @@
+{
+  "name": "open-tech-authors-solid",
+  "version": 2,
+  "alias": ["open-tech-authors-solid"],
+  "type": "npm",
+  "public": true
+}
