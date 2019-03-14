@@ -25,6 +25,7 @@
     "@types/next": "8.0.1",
     "@types/react": "16.8.5",
     "@zeit/next-mdx": "^1.2.0",
+    "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-styled-components": "^1.10.0",
     "remark-abbr": "^1.3.0",
     "remark-sectionize": "^1.0.1",

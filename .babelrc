@@ -4,6 +4,7 @@
     "@zeit/next-typescript/babel"
   ],
   "plugins": [
+    "babel-plugin-root-import",
     [
       "styled-components",
       {
