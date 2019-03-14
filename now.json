@@ -1,0 +1,13 @@
+{
+  "name": "open-tech-authors-solid",
+  "version": 2,
+  "alias": ["open-tech-authors-solid"],
+  "scale": {
+    "bru1": {
+      "min": 1,
+      "max": "auto"
+    }
+  },
+  "type": "npm",
+  "public": true
+}
