@@ -12,11 +12,15 @@ import Paragraph from 'components/Paragraph';
 import Code from 'components/Code'
 
 const Grid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
   padding: 2.5rem 0;
-  align-items: flex-start;
+  display: grid;
+  align-items: start;
+  grid-template-columns: 33% auto;
+
+  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+    grid-template-columns: auto;
+  }
 `
 
 const MainContent = styled.main`
@@ -27,14 +31,14 @@ const MainContent = styled.main`
   }
 `
 
-type IProps = {
+type Props = {
   meta: {
     title: string
   }
   children?: React.ReactNode
 }
 
-class MainLayout extends PureComponent<IProps> {
+class MainLayout extends PureComponent<Props> {
   static defaultProps = {}
   render() {
     const { meta = { title: 'Solid' }, children } = this.props

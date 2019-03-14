@@ -7,21 +7,24 @@ import { Item } from './style'
 type Props = {
   name: string
   value: string | number
+  completed: boolean
   selected?: boolean
   correct?: boolean
   children?: React.ReactNode
 }
 
-class TestItem extends PureComponent<Props> {
-  static defaultProps = {}
+class QuizVariant extends PureComponent<Props> {
+  static defaultProps = {
+    completed: false
+  }
 
   render() {
-    const { children, name, value, selected, correct } = this.props
+    const { children, name, value, selected, completed, correct } = this.props
 
     return (
-      <Item className={clsx({ selected }, { correct })}>
+      <Item className={clsx({ selected }, { correct }, { completed })}>
         <VisuallyHidden>
-          <input type="checkbox" name={name} value={value} defaultChecked={selected} />
+          <input type="checkbox" name={name} value={value} defaultChecked={selected} disabled={completed} />
         </VisuallyHidden>
 
         <span>{children}</span>
@@ -30,4 +33,4 @@ class TestItem extends PureComponent<Props> {
   }
 }
 
-export default TestItem
+export default QuizVariant

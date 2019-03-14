@@ -25,13 +25,21 @@ export const Item = styled.label`
 
   &.selected {
     border-color: black;
+
+    &.completed::after {
+      content: '🚫';
+    }
+    &.completed.correct::after {
+      content: '✅';
+    }
   }
 
-  &.selected::after {
-    content: '🚫';
-  }
+  &.completed {
+    cursor: default;
 
-  &.selected.correct::after {
-    content: '✅';
+    &:hover,
+    &:focus-within {
+      background: none;
+    }
   }
 `
