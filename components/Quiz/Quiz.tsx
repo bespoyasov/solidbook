@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import Abbr from 'components/Formatters/Abbr'
-import QuizVariant from 'components/QuizVariant'
-import Button from 'components/Button'
+import Abbr from '~/components/Formatters/Abbr'
+import QuizVariant from '~/components/QuizVariant'
+import Button from '~/components/Button'
 import { Container, Heading, Description, Item } from './style'
 
 type Props = {
