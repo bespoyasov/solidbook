@@ -1,6 +1,7 @@
 {
-  "name": "open-tech-authors-solid",
+  "name": "ota-solid",
   "version": 2,
-  "alias": ["open-tech-authors-solid"],
-  "public": true
+  "alias": ["ota-solid"],
+  "public": true,
+  "builds": [{ "src": "next.config.js", "use": "@now/next" }]
 }
