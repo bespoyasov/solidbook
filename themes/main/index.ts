@@ -18,7 +18,8 @@ export const theme = {
   fontMonospace: `Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace`,
 
   fontSizeRegular: `1rem`,
-  fontSizeSmall: `0.9rem`
+  fontSizeSmall: `0.9rem`,
+  adaptiveBreakpoint: '800px'
 }
 
 export const GlobalStyle = createGlobalStyle`
