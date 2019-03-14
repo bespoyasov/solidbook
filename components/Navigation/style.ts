@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 export const Nav = styled.nav`
-  width: 30%;
-  max-width: 300px;
   padding: 0 40px 2rem 0;
   position: relative;
 
@@ -16,6 +14,11 @@ export const Nav = styled.nav`
     left: 7px;
     background: ${props => props.theme.lightestGrey};
     z-index: -1;
+  }
+
+  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+    padding: 0;
+    margin-bottom: 2rem;
   }
 `
 
@@ -44,4 +47,8 @@ export const Section = styled.div`
     line-height: 1.2em;
     margin: 0.8em 0;
   }
+`
+
+export const SubSection = styled.div`
+  padding-left: 1em;
 `

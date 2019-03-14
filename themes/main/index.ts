@@ -18,7 +18,8 @@ export const theme = {
   fontMonospace: `Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace`,
 
   fontSizeRegular: `1rem`,
-  fontSizeSmall: `0.9rem`
+  fontSizeSmall: `0.9rem`,
+  adaptiveBreakpoint: '800px'
 }
 
 export const GlobalStyle = createGlobalStyle`
@@ -26,7 +27,7 @@ export const GlobalStyle = createGlobalStyle`
     background: white;
     font-family: ${theme.font};
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.5;
     font-feature-settings: 'kern';
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -40,7 +41,7 @@ export const GlobalStyle = createGlobalStyle`
 
   h1,
   h2 {
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 0.5rem 0;
   }
 
   p + ul {

@@ -1,9 +1,179 @@
 import MainLayout from 'components/layouts/main'
 
 export const meta = {
-  title: 'Паттерны и приёмы рефакторинга'
+  title: 'Шаблоны проектирования и приёмы рефакторинга'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Шаблоны проектирования и приёмы рефакторинга
+
+Соблюдать принцип единой ответственности позволяют несколько шаблонов проектирования и приёмов рефакторинга.
+
+## Выделение класса
+[Выделение класса](https://refactoring.guru/ru/extract-class) — приём рефакторинга, при котором из большого класса с множеством слабо-связанных по смыслу полей и методов, выделяется один или несколько классов.
+
+Смысл приёма в том, чтобы явно выделить назначение класса. Идеальный результат — получить класс, который можно описать одной фразой или даже одним словом.
+
+В примере до рефакторинга мы имеем класс `Person`, который содержит внутри логику преобразования телефонного номера. После — логика преобразования телефонного номера вынесена в класс `PhoneNumber`. Класс `Person` теперь работает только с данными пользователя, а задача преобразования номера делегируется экземпляру класса `PhoneNumber` через зависимость в конструкторе.
+
+```ts
+// до рефакторинга
+class Person {
+  name: string;
+  phone: string;
+  officeCode: string;
+
+  constructor(name: string, phone: string, officeCode: string) {
+    this.name = name;
+    this.phone = phone;
+    this.officeCode = officeCode;
+  }
+
+  phoneNumberOf = (): string => {
+    return `${this.phone} доб. ${this.officeCode}`
+  }
+}
+
+// после
+interface PhoneNumber {
+  phone: string;
+  officeCode: string;
+  valueOf(): string
+}
+
+class PhoneNumber implements PhoneNumber {
+  phone: string;
+  officeCode: string;
+
+  constructor(phone: string, officeCode: string) {
+    this.phone = phone;
+    this.officeCode = officeCode;
+  }
+
+  valueOf = (): string => {
+    return `${this.phone} доб. ${this.officeCode}`
+  }
+}
+
+class Person {
+  name: string;
+  phoneNumber: PhoneNumber;
+
+  constructor(name: string, phoneNumber: PhoneNumber) {
+    this.name = name;
+    this.phoneNumber = phoneNumber
+  }
+
+  phoneNumberOf = (): string => {
+    return this.phoneNumber.valueOf()
+  }
+}
+```
+
+## Вопросы
+WIP
+
+## Фасад
+[Фасад](https://refactoring.guru/ru/design-patterns/facade) — шаблон проектирования, при котором сложная логика скрывается за вызовом более простого API.
+
+Фасад обеспечивает простое общение со сложной частью системы, беря ответственность за настройку и вызов специфических методов конкретных объектов на себя.
+
+Один из минусов фасада в том, что он может превратиться в [Божественный объект](https://ru.wikipedia.org/wiki/Божественный_объект).
+
+В примере мы выносим инициализацию и настройки классов `Square` и `Circle` в фасад `ShapeFacade`. После этого мы можем вызывать метод `.areaOf()` фасада и получать площадь любой фигуры, которая подготовлена внутри фасада.
+
+```ts
+class Square extends Figure {
+  length: number
+
+  constructor(length: number) {
+    this.length = length
+  }
+
+  areaOf(): number {
+    return this.length ** 2
+  }
+}
+
+class Circle extends Figure {
+  radius: number
+
+  constructor(radius: number) {
+    this.radius = radius
+  }
+
+  areaOf(): number {
+    return Math.PI * (this.radius ** 2)
+  }
+}
+
+// применение фасада
+class ShapeFacade {
+  square: Square
+  circle: Circle
+
+  constructor() {
+    this.square = new Square(42)
+    this.circle = new Circle(42)
+  }
+
+  areaOf(figure: string): number {
+    switch (figure) {
+      case 'square': return this.square.areaOf()
+      case 'circle': return this.circle.areaOf()
+      default: return 0
+    }
+  }
+}
+```
+
+## Вопросы
+WIP
+
+## Прокси
+[Прокси](https://refactoring.guru/ru/design-patterns/proxy) — шаблон проектирования, при котором общение с каким-то объектом контролирует другой объект-заместитель (прокси). Он позволяет расширять функциональность существующих классов, не меняя их.
+
+В примере мы используем прокси `LoggedRequest`, чтобы не примешивать логирование в класс, который реализует запросы к серверу `RequestClient`.
+
+```ts
+class RequestClient {
+  async request(url: string): Promise<any> {
+    try {
+      const response = await fetch(url)
+      const data = await response.json()
+      return data
+    }
+    catch (e) {
+      return null
+    }
+  }
+}
+
+class LoggedRequest {
+  loggee: RequestClient
+
+  constructor(loggee: RequestClient) {
+    this.loggee = loggee
+  }
+
+  async request(url: string): Promise<any> {
+    console.log(`Performed request to ${url}`)
+    return await this.loggee.request(url)
+  }
+}
+```
+
+## Вопросы
+WIP
+
+## Материалы к разделу
+- [Выделение класса](https://ru.wikipedia.org/wiki/Выделение_частного_класса_данных)
+- [Пример использования выделения класса](https://refactoring.guru/ru/extract-class)
+- [Фасад](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-facade)
+- [Пример использования фасада](https://refactoring.guru/ru/design-patterns/facade)
+- [Божественный объект](https://ru.wikipedia.org/wiki/Божественный_объект )
+- [Прокси](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-proxy)
+- [Пример использования прокси](https://refactoring.guru/ru/design-patterns/proxy)
+
+*[API]:Application programming interface
