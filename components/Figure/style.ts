@@ -13,7 +13,7 @@ export default styled.figure`
   figcaption {
     font-style: italic;
     color: ${props => props.theme.grey};
-    font-size: ${props => props.theme.fontSizeSmall};
+    font-size: ${props => props.theme.fontSizeTiny};
     line-height: 1.4;
   }
 `
