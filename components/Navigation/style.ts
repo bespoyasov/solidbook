@@ -51,4 +51,5 @@ export const Section = styled.div`
 
 export const SubSection = styled.div`
   padding-left: 1em;
+  margin-bottom: 1.5rem;
 `
