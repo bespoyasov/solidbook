@@ -20,5 +20,19 @@ export const quiz1 = {
       description:
         'Да, но это следствие основной причины — выбор формата не относится ни к форматированию данных, ни к подготовке их к экспорту, поэтому правильно его вынести в отдельный модуль'
     }
-  ]
+  ],
+  checks: {
+    srp1: {
+      correct: true,
+      selected: true
+    },
+    srp2: {
+      correct: false,
+      selected: true
+    },
+    srp3: {
+      correct: false,
+      selected: false
+    }
+  }
 }
