@@ -4,6 +4,12 @@
     "@zeit/next-typescript/babel"
   ],
   "plugins": [
+    ["babel-plugin-root-import",
+      {
+        "rootPathSuffix": ".",
+        "rootPathPrefix": "~"
+      }
+    ],
     [
       "styled-components",
       {

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
 import clsx from 'clsx'
-import VisuallyHidden from 'components/VisuallyHidden'
+import VisuallyHidden from '~/components/VisuallyHidden'
 import { Label, Description, Item } from './style'
 import { QuizVariantData } from './types'
 
