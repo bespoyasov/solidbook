@@ -10,7 +10,7 @@ type Props = {
   variants: QuizVariantData[]
 }
 
-class TestForm extends PureComponent<Props> {
+class Quiz extends PureComponent<Props> {
   static defaultProps = {
     completed: false
   }
@@ -32,4 +32,4 @@ class TestForm extends PureComponent<Props> {
   }
 }
 
-export default TestForm
+export default Quiz
