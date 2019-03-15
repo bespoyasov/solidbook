@@ -19,6 +19,11 @@ export const Nav = styled.nav`
   @media (max-width: ${props => props.theme.breakpoint}) {
     padding: 0;
     margin-bottom: 2rem;
+
+    &::before {
+      left: 0;
+      top: 35px;
+    }
   }
 `
 
@@ -53,7 +58,12 @@ export const Section = styled.div`
   }
 
   @media (max-width: ${props => props.theme.breakpoint}) {
+    padding-left: 15px;
     margin-top: 0;
+
+    h3 {
+      margin-left: -18px;
+    }
   }
 `
 
