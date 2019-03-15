@@ -5,7 +5,7 @@ export default styled.div`
   padding: 0 2rem;
   margin: auto;
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     padding: 0 1rem;
   }
 `

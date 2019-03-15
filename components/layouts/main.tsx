@@ -17,7 +17,7 @@ const Grid = styled.div`
   align-items: start;
   grid-template-columns: 33% auto;
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     grid-template-columns: auto;
     padding-top: 1.5rem;
   }

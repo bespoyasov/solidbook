@@ -16,7 +16,7 @@ export const Nav = styled.nav`
     z-index: -1;
   }
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     padding: 0;
     margin-bottom: 2rem;
   }
@@ -52,7 +52,7 @@ export const Section = styled.div`
     margin-top: 0;
   }
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     margin-top: 0;
   }
 `

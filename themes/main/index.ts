@@ -20,7 +20,7 @@ export const theme = {
 
   fontSizeRegular: `1rem`,
   fontSizeSmall: `0.9rem`,
-  adaptiveBreakpoint: '800px'
+  breakpoint: '800px'
 }
 
 export const GlobalStyle = createGlobalStyle`

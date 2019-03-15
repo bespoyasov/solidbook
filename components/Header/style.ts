@@ -6,7 +6,7 @@ export default styled.header`
   font-size: 1rem;
   text-align: center;
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     padding: 0.2rem 0;
   }
 `

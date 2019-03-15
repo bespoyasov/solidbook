@@ -10,7 +10,7 @@ export const Container = styled.article`
   font-size: ${props => props.theme.fontSizeSmall};
   text-align: center;
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     box-shadow: none;
     position: absolute;
     right: 0;
@@ -26,7 +26,7 @@ export const Big = styled.big`
   font-weight: 700;
   color: black;
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     font-size: 1em;
     display: inline-block;
     margin-right: 0.25em;
@@ -54,7 +54,7 @@ export const Share = styled.button`
     height: 16px;
   }
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     display: none;
   }
 `

@@ -16,7 +16,7 @@ export default styled.div`
     color: #fb3347;
   }
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     font-size: 2rem;
   }
 `
