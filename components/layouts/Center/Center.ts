@@ -4,4 +4,8 @@ export default styled.div`
   max-width: 1000px;
   padding: 0 2rem;
   margin: auto;
+
+  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+    padding: 0 1rem;
+  }
 `
