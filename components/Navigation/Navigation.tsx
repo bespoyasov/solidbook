@@ -17,37 +17,37 @@ class Navigation extends PureComponent {
               <NavigationItem href="/">Введение</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/srp/intro">Принцип единственной ответственности</NavigationItem>
+              <NavigationItem href="/srp">Принцип единственной ответственности</NavigationItem>
 
               <SubSection>
                 <ul>
                   <li>
-                    <NavigationItem href="/" depth={2}>
+                    <NavigationItem href="/srp/intro" depth={2}>
                       Введение и понятия
                     </NavigationItem>
                   </li>
                   <li>
-                    <NavigationItem href="/" depth={2}>
+                    <NavigationItem href="/srp/in-ideal-world" depth={2}>
                       Примеры из идеального мира
                     </NavigationItem>
                   </li>
                   <li>
-                    <NavigationItem href="/" depth={2}>
+                    <NavigationItem href="/srp/in-real-life" depth={2}>
                       Примеры из реальной жизни
                     </NavigationItem>
                   </li>
                   <li>
-                    <NavigationItem href="/" depth={2}>
+                    <NavigationItem href="/srp/patterns" depth={2}>
                       Шаблоны проектирования и приёмы рефакторинга
                     </NavigationItem>
                   </li>
                   <li>
-                    <NavigationItem href="/" depth={2}>
+                    <NavigationItem href="/srp/antipatterns" depth={2}>
                       Антипаттерны
                     </NavigationItem>
                   </li>
                   <li>
-                    <NavigationItem href="/" depth={2}>
+                    <NavigationItem href="/srp/limits-and-caveats" depth={2}>
                       Ограничения и подводные камни
                     </NavigationItem>
                   </li>
@@ -55,16 +55,16 @@ class Navigation extends PureComponent {
               </SubSection>
             </li>
             <li>
-              <NavigationItem href="/open-closed/intro">Принцип открытости и закрытости</NavigationItem>
+              <NavigationItem href="/open-closed">Принцип открытости и закрытости</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/liskov-substitution/intro">Принцип подстановки Барбары Лисков</NavigationItem>
+              <NavigationItem href="/liskov-substitution">Принцип подстановки Барбары Лисков</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/isp/intro">Принцип разделения интерфейса</NavigationItem>
+              <NavigationItem href="/isp">Принцип разделения интерфейса</NavigationItem>
             </li>
             <li>
-              <NavigationItem href="/di/intro">Принцип инверсии зависимостей</NavigationItem>
+              <NavigationItem href="/di">Принцип инверсии зависимостей</NavigationItem>
             </li>
           </ul>
         </Section>
