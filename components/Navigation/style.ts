@@ -47,6 +47,14 @@ export const Section = styled.div`
     line-height: 1.2em;
     margin: 0.8em 0;
   }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+    margin-top: 0;
+  }
 `
 
 export const SubSection = styled.div`
