@@ -19,8 +19,21 @@ export default styled.div`
     font-weight: 700;
   }
 
-  &.active::before {
+  &.contains-active::before {
     background: black;
+  }
+
+  &.completed::before {
+    width: 15px;
+    height: 15px;
+    left: -25px;
+    top: 1px;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    content: '✓';
+    color: white;
+    background: ${props => props.theme.green};
   }
 
   &.deep::before {
