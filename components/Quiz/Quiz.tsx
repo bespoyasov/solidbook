@@ -1,16 +1,11 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import QuizVariant, { QuizVariantData } from '~/components/QuizVariant'
+import QuizVariant from '~/components/QuizVariant'
 import Button from '~/components/Button'
 import { Container, Heading } from './style'
+import { QuizData } from './types'
 
-type Props = {
-  question: string
-  completed: boolean
-  variants: QuizVariantData[]
-}
-
-class Quiz extends PureComponent<Props> {
+class Quiz extends PureComponent<QuizData> {
   static defaultProps = {
     completed: false
   }
