@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next",
     "now-build": "next build",
+    "test": "jest --watchAll",
     "start": "next start"
   },
   "dependencies": {

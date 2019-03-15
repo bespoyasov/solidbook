@@ -7,7 +7,7 @@ import Typograf from 'typograf'
  */
 class Typografy {
   private static _instance: Typografy
-  typograf: any
+  private typograf: any
   public static get instance() {
     return this._instance || (this._instance = new this())
   }

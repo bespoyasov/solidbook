@@ -20,7 +20,7 @@ function typografReactNodes(node: ReactElement) {
 
     for (let i = 0; i < children.length; i++) {
       const hasNext = !!children[i + 1]
-      const hasLast = !!children[i - 1]
+      const hasPrev = !!children[i - 1]
       const current = children[i]
 
       if (typeof current === 'string') {
@@ -33,7 +33,7 @@ function typografReactNodes(node: ReactElement) {
           typeografedText = typeografedText.substring(0, index)
 
           result.push(typeografedText)
-        } else if (hasLast) {
+        } else if (hasPrev) {
           const nextWord = getFirstWordFromNode(children[i - 1])
 
           let typeografedText = typograf.transform(nextWord + current)
