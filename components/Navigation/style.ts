@@ -60,4 +60,8 @@ export const Section = styled.div`
 export const SubSection = styled.div`
   padding-left: 1.25em;
   margin-bottom: 1.5rem;
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    padding-left: 0;
+  }
 `
