@@ -15,4 +15,8 @@ export default styled.div`
   a:hover {
     color: #fb3347;
   }
+
+  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+    font-size: 2rem;
+  }
 `
