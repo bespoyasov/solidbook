@@ -1,0 +1,7 @@
+{
+  "name": "ota-solid",
+  "version": 2,
+  "alias": ["ota-solid"],
+  "public": true,
+  "builds": [{ "src": "next.config.js", "use": "@now/next" }]
+}

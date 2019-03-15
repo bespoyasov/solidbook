@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import Typografy from 'domain/text/typografy'
+import Typografy from '~/domain/text/typografy'
 
 function typografReactNodes(node: ReactElement) {
   const typograf = Typografy.instance
