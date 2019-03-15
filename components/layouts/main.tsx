@@ -19,6 +19,7 @@ const Grid = styled.div`
 
   @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
     grid-template-columns: auto;
+    padding-top: 1.5rem;
   }
 `
 
