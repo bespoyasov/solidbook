@@ -13,7 +13,7 @@ class PointsCounter extends PureComponent {
     return (
       <Container>
         <Big>
-          810
+          810{' '}
           <Emoji>
             <NoSSR>{this.randomEmoji}</NoSSR>
           </Emoji>

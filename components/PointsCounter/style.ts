@@ -15,6 +15,7 @@ export const Container = styled.article`
     position: absolute;
     right: 0;
     padding: 0;
+    top: -0.2em;
   }
 `
 
@@ -51,5 +52,9 @@ export const Share = styled.button`
   img {
     width: 18px;
     height: 16px;
+  }
+
+  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+    display: none;
   }
 `
