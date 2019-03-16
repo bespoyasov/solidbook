@@ -1,13 +1,15 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { PureComponent } from 'react'
+import { withRouter, SingletonRouter } from 'next/router'
 import Link from 'next/link'
 import Container from './style'
 
 interface Props {
   href: string
-  depth: number
+  depth?: number
   children: React.ReactChild
+  router?: SingletonRouter
 }
 
 class NavigationItem extends PureComponent<Props> {
@@ -16,17 +18,16 @@ class NavigationItem extends PureComponent<Props> {
   }
 
   render() {
-    const { href, children, depth } = this.props
+    const { href, children, depth, router } = this.props
+
+    const deep = depth > 1
+    const completed = false
+
+    const active = router.pathname === href
+    const contains = router.pathname.includes(href) && !active
+
     return (
-      // TODO: replace stub (href === '/srp/info') with real functionality
-      <Container
-        className={clsx(
-          { active: href === '/srp/intro' },
-          { deep: depth > 1 },
-          { completed: href === '/' },
-          { 'contains-active': href === '/srp' }
-        )}
-      >
+      <Container className={clsx({ active }, { deep }, { completed }, { 'contains-active': contains })}>
         <Link href={href}>
           <a>{children}</a>
         </Link>
@@ -35,4 +36,4 @@ class NavigationItem extends PureComponent<Props> {
   }
 }
 
-export default NavigationItem
+export default withRouter(NavigationItem)
