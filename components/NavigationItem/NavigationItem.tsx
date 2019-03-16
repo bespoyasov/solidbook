@@ -24,11 +24,12 @@ class NavigationItem extends PureComponent<Props> {
     const deep = depth > 1
     const completed = false
 
-    const active = pathname === href
-    const contains = !active && pathname.includes(href)
+    const indexRoute = href === '/'
+    const activePage = pathname === href
+    const contains = !activePage && !indexRoute && pathname.includes(href)
 
     return (
-      <Container className={clsx({ active }, { deep }, { completed }, { 'contains-active': contains })}>
+      <Container className={clsx({ active: activePage }, { deep }, { completed }, { 'contains-active': contains })}>
         <Link href={href}>
           <a>{children}</a>
         </Link>
