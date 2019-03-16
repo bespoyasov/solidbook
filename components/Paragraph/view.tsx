@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
-import typografReactNode from './typografReactNode'
+import TypografReactNode from './TypografReactNode'
 
 class Paragraph extends PureComponent {
   render() {
     const { children } = this.props
-    return typografReactNode(<p>{children}</p>)
+    return TypografReactNode.process(<p>{children}</p>)
   }
 }
 

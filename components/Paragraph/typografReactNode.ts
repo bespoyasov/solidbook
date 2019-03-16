@@ -15,10 +15,10 @@ class TypografyReactNode {
       return node
     }
 
-    return this.processFewChildren(children, node)
+    return this.processChildren(children, node)
   }
 
-  private static processFewChildren(elements: ReactChild[], parent: ReactElement): ReactElement {
+  private static processChildren(elements: ReactChild[], parent: ReactElement): ReactElement {
     const typograf = Typografy.instance
 
     const result = elements.reduce((acc, element, index, elements) => {
@@ -41,10 +41,10 @@ class TypografyReactNode {
         }
 
         if (hasNext) {
-          let word = new TextNode(elements[index + 1]).lastWord
+          let word = new TextNode(elements[index + 1]).firstWord
           word = typograf.transform(word)
           const wordIndex = typografedSentence.indexOf(word)
-          typografedSentence = typografedSentence.substring(0, wordIndex + word.length)
+          typografedSentence = typografedSentence.substring(0, wordIndex)
         }
         acc.push(typografedSentence)
       } else {

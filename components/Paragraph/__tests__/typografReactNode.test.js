@@ -27,16 +27,15 @@ describe('Typograf rules', () => {
         <span>с</span> изменениями
       </p>
     )
-    console.log(resultNode)
     expect(resultNode.props.children[1].charCodeAt(0)).toEqual(NON_BREAK_SPACE_CODE)
   })
 
-  it('common/nbsp/afterShortWord with nested component #3', () => {
+  it.only('common/nbsp/afterShortWord with nested component #3', () => {
     const resultNode = TypografyReactNode.process([SPACE_SYBMOL, <p>ООП</p>, SPACE_SYBMOL, 'вызывает'])
     expect(resultNode.props.children[2]).toEqual(SPACE_SYBMOL)
   })
 
-  it('common/nbsp/afterShortWord with nested component #3', () => {
+  it('common/nbsp/afterShortWord with nested component #4', () => {
     const resultNode = TypografyReactNode.process([SPACE_SYBMOL])
 
     expect(resultNode.props.children).toEqual(SPACE_SYBMOL)
