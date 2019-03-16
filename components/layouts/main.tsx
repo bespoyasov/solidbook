@@ -23,8 +23,6 @@ const Grid = styled.div`
 `
 
 const MainContent = styled.main`
-  flex: 1;
-
   section + section {
     margin-top: 1.5rem;
   }
