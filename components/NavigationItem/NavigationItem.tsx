@@ -19,12 +19,13 @@ class NavigationItem extends PureComponent<Props> {
 
   render() {
     const { href, children, depth, router } = this.props
+    const { pathname } = router
 
     const deep = depth > 1
     const completed = false
 
-    const active = router.pathname === href
-    const contains = router.pathname.includes(href) && !active
+    const active = pathname === href
+    const contains = !active && pathname.includes(href)
 
     return (
       <Container className={clsx({ active }, { deep }, { completed }, { 'contains-active': contains })}>
