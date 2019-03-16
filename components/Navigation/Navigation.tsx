@@ -1,12 +1,19 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
+import { withRouter, SingletonRouter } from 'next/router'
 import PointsCounter from '../PointsCounter'
 import { Nav, Section, SubSection } from './style'
 import NavigationItem from '../NavigationItem'
 import routes from './routes'
 
-class Navigation extends PureComponent {
+interface Props {
+  router?: SingletonRouter
+}
+
+class Navigation extends PureComponent<Props> {
   render() {
+    const { pathname } = this.props.router
+
     return (
       <Nav>
         <PointsCounter />
@@ -18,7 +25,7 @@ class Navigation extends PureComponent {
               <li key={link}>
                 <NavigationItem href={link}>{name}</NavigationItem>
 
-                {!!subnav && (
+                {!!subnav && pathname.includes(link) && (
                   <SubSection>
                     <ul>
                       {subnav.map(({ link, name }) => (
@@ -40,4 +47,4 @@ class Navigation extends PureComponent {
   }
 }
 
-export default Navigation
+export default withRouter(Navigation)
