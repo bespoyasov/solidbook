@@ -11,7 +11,7 @@ const route = (link: string, name: string, subnav?: RouteShape[]): RouteShape =>
 })
 
 export default [
-  route('/', 'Введение'),
+  route('/preface', 'Введение'),
   route('/srp', 'Принцип единственной ответственности', [
     route('/srp/intro', 'Введение и понятия'),
     route('/srp/in-ideal-world', 'Примеры из идеального мира'),
