@@ -1,20 +1,33 @@
 import { useEffect } from 'react'
-import Router from 'next/router'
+import Router, { withRouter } from 'next/router'
 
-function useRedirect(res) {
+const redirects = [
+  { from: '/srp', to: '/srp/intro' },
+  { from: '/open-closed', to: '/open-closed/intro' },
+  { from: '/liskov-substitution', to: '/liskov-substitution/intro' },
+  { from: '/isp', to: '/isp/intro' },
+  { from: '/di', to: '/di/intro' }
+]
+
+function useRedirect(res, router) {
+  const { pathname } = router
+  const redirect = redirects.filter(({ from }) => from === pathname)[0]
+
   useEffect(() => {
     if (res) {
       res.writeHead(302, {
-        Location: '/srp/intro'
+        Location: redirect.to
       })
       res.end()
     } else {
-      Router.push('/srp/intro')
+      Router.push(redirect.to)
     }
   })
 }
 
-export default function Redirect({ res }) {
-  useRedirect(res)
+function Redirect({ res, router }) {
+  useRedirect(res, router)
   return null
 }
+
+export default withRouter(Redirect)
