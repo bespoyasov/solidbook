@@ -4,6 +4,34 @@ import PointsCounter from '../PointsCounter'
 import { Nav, Section, SubSection } from './style'
 import NavigationItem from '../NavigationItem'
 
+type LinkShape = {
+  link: string
+  name: string
+  subnav?: LinkShape[]
+}
+
+const link = (link: string, name: string, subnav?: LinkShape[]): LinkShape => ({
+  link,
+  name,
+  subnav
+})
+
+const routes = [
+  link('/', 'Введение'),
+  link('/srp', 'Принцип единственной ответственности', [
+    link('/srp/intro', 'Введение и понятия'),
+    link('/srp/in-ideal-world', 'Примеры из идеального мира'),
+    link('/srp/in-real-life', 'Примеры из реальной жизни'),
+    link('/srp/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
+    link('/srp/antipatterns', 'Антипаттерны'),
+    link('/srp/limits-and-caveats', 'Ограничения и подводные камни')
+  ]),
+  link('/open-closed', 'Принцип открытости и закрытости'),
+  link('/liskov-substitution', 'Принцип подстановки Барбары Лисков'),
+  link('/isp', 'Принцип разделения интерфейса'),
+  link('/di', 'Принцип инверсии зависимостей')
+]
+
 class Navigation extends PureComponent {
   render() {
     return (
@@ -13,59 +41,25 @@ class Navigation extends PureComponent {
         <Section>
           <h3>Содержание</h3>
           <ul>
-            <li>
-              <NavigationItem href="/">Введение</NavigationItem>
-            </li>
-            <li>
-              <NavigationItem href="/srp">Принцип единственной ответственности</NavigationItem>
+            {routes.map(({ link, name, subnav }) => (
+              <li key={link}>
+                <NavigationItem href={link}>{name}</NavigationItem>
 
-              <SubSection>
-                <ul>
-                  <li>
-                    <NavigationItem href="/srp/intro" depth={2}>
-                      Введение и понятия
-                    </NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/srp/in-ideal-world" depth={2}>
-                      Примеры из идеального мира
-                    </NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/srp/in-real-life" depth={2}>
-                      Примеры из реальной жизни
-                    </NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/srp/patterns" depth={2}>
-                      Шаблоны проектирования и приёмы рефакторинга
-                    </NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/srp/antipatterns" depth={2}>
-                      Антипаттерны
-                    </NavigationItem>
-                  </li>
-                  <li>
-                    <NavigationItem href="/srp/limits-and-caveats" depth={2}>
-                      Ограничения и подводные камни
-                    </NavigationItem>
-                  </li>
-                </ul>
-              </SubSection>
-            </li>
-            <li>
-              <NavigationItem href="/open-closed">Принцип открытости и закрытости</NavigationItem>
-            </li>
-            <li>
-              <NavigationItem href="/liskov-substitution">Принцип подстановки Барбары Лисков</NavigationItem>
-            </li>
-            <li>
-              <NavigationItem href="/isp">Принцип разделения интерфейса</NavigationItem>
-            </li>
-            <li>
-              <NavigationItem href="/di">Принцип инверсии зависимостей</NavigationItem>
-            </li>
+                {!!subnav && (
+                  <SubSection>
+                    <ul>
+                      {subnav.map(({ link, name }) => (
+                        <li key={link}>
+                          <NavigationItem href={link} depth={2}>
+                            {name}
+                          </NavigationItem>
+                        </li>
+                      ))}
+                    </ul>
+                  </SubSection>
+                )}
+              </li>
+            ))}
           </ul>
         </Section>
       </Nav>
