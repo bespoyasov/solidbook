@@ -14,6 +14,10 @@ class ReactTextNode {
     return ReactTextNode.lastNodeWord(this.node)
   }
 
+  public get isString(): boolean {
+    return typeof this.node === 'string'
+  }
+
   private static firstNodeWord(node: ReactChild): string {
     return this.getWordByPosition(node, 'first')
   }

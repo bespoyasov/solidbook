@@ -1,68 +1,60 @@
-import React, { ReactElement } from 'react'
+import React, { ReactChild, ReactElement } from 'react'
 import Typografy from '~/domain/text/typografy'
+import TextNode from '~/domain/react/textNode'
 
-function typografReactNodes(node: ReactElement) {
-  const typograf = Typografy.instance
-  let children
+class TypografyReactNode {
+  public static process(node: ReactChild) {
+    const typograf = Typografy.instance
+    if (typeof node === 'number' || typeof node === 'string') return typograf.transform(String(node))
 
-  if (node && node.props && node.props.children) {
-    children = React.Children.toArray(node.props.children)
-  } else if (Array.isArray(node)) {
-    children = node
-  }
+    const children = Array.isArray(node) ? node : React.Children.toArray(node.props.children)
 
-  if (React.Children.count(children) === 1) {
-    return React.cloneElement(node, { children: typograf.transform(children) })
-  } else if (React.Children.count(children) === 0) {
-    return node
-  } else {
-    const result = []
-
-    for (let i = 0; i < children.length; i++) {
-      const hasNext = !!children[i + 1]
-      const hasPrev = !!children[i - 1]
-      const current = children[i]
-
-      if (typeof current === 'string') {
-        if (hasNext) {
-          const nextWord = getFirstWordFromNode(children[i + 1])
-
-          let typeografedText = typograf.transform(current + nextWord)
-          const index = typeografedText.lastIndexOf(nextWord)
-
-          typeografedText = typeografedText.substring(0, index)
-
-          result.push(typeografedText)
-        } else if (hasPrev) {
-          const nextWord = getFirstWordFromNode(children[i - 1])
-
-          let typeografedText = typograf.transform(nextWord + current)
-          typeografedText = typeografedText.replace(nextWord, '')
-
-          result.push(typeografedText)
-        }
-      } else {
-        result.push(current)
-      }
+    if (React.Children.count(children) === 1) {
+      return React.cloneElement(node, { children: typograf.transform(children[0]) })
+    } else if (React.Children.count(children) === 0) {
+      return node
     }
-    return React.cloneElement(node, { children: result })
+
+    return this.processFewChildren(children, node)
+  }
+
+  private static processFewChildren(elements: ReactChild[], parent: ReactElement): ReactElement {
+    const typograf = Typografy.instance
+
+    const result = elements.reduce((acc, element, index, elements) => {
+      const hasNext = index + 1 < elements.length
+      const hasPrev = index > 0
+
+      if (typeof element === 'string') {
+        let words = []
+        if (hasPrev) words.push(new TextNode(elements[index - 1]).lastWord)
+        words.push(element)
+        if (hasNext) words.push(new TextNode(elements[index + 1]).firstWord)
+
+        let typografedSentence = typograf.transform(words.join(''))
+
+        if (hasPrev) {
+          let word = new TextNode(elements[index - 1]).lastWord
+          word = typograf.transform(word)
+          const wordIndex = typografedSentence.indexOf(word)
+          typografedSentence = typografedSentence.substring(wordIndex + word.length, typografedSentence.length)
+        }
+
+        if (hasNext) {
+          let word = new TextNode(elements[index + 1]).lastWord
+          word = typograf.transform(word)
+          const wordIndex = typografedSentence.indexOf(word)
+          typografedSentence = typografedSentence.substring(0, wordIndex + word.length)
+        }
+        acc.push(typografedSentence)
+      } else {
+        acc.push(element)
+      }
+      return acc
+    }, [])
+
+    return React.cloneElement(parent, { children: result })
   }
 }
 
-function getFirstWordFromNode(node: ReactElement) {
-  if (typeof node === 'string') {
-    return getFirstWord(node)
-  } else if (node.props.children === 'string') {
-    return getFirstWord(node.props.children)
-  } else if (Array.isArray(node.props.children)) {
-    return getFirstWordFromNode(node.props.children[0])
-  } else {
-    return getFirstWordFromNode(node.props.children)
-  }
-}
-
-function getFirstWord(str: string) {
-  return str.split(' ')[0]
-}
-
-export default typografReactNodes
+export default TypografyReactNode
