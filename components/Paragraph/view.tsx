@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import TypografReactNode from './TypografReactNode'
+import TypografReactNode from '~/domain/typografy/reactChilds'
 
 class Paragraph extends PureComponent {
   render() {

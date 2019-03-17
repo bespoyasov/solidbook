@@ -1,9 +1,10 @@
 import React from 'react'
-import TypografyReactNode from '../TypografReactNode'
+import TypografyReactNode from '../index'
 
 const NON_BREAK_SPACE_CODE = 160
 const BREAK_SPACE_CODE = 32
-const SPACE_SYBMOL = ' '
+const LESS_THEN_EQUAL_CODE = 8804
+const BREAK_SPACE_SYBMOL = ' '
 
 describe('Typograf rules', () => {
   it('common/nbsp/afterShortWord with simple component', () => {
@@ -30,14 +31,20 @@ describe('Typograf rules', () => {
     expect(resultNode.props.children[1].charCodeAt(0)).toEqual(NON_BREAK_SPACE_CODE)
   })
 
-  it.only('common/nbsp/afterShortWord with nested component #3', () => {
-    const resultNode = TypografyReactNode.process([SPACE_SYBMOL, <p>ООП</p>, SPACE_SYBMOL, 'вызывает'])
-    expect(resultNode.props.children[2]).toEqual(SPACE_SYBMOL)
+  it('common/nbsp/afterShortWord with nested component #3', () => {
+    const resultNode = TypografyReactNode.process([BREAK_SPACE_SYBMOL, <p>ООП</p>, BREAK_SPACE_SYBMOL, 'вызывает'])
+
+    expect(resultNode.props.children[1]).toEqual(BREAK_SPACE_SYBMOL)
   })
 
   it('common/nbsp/afterShortWord with nested component #4', () => {
-    const resultNode = TypografyReactNode.process([SPACE_SYBMOL])
+    const resultNode = TypografyReactNode.process([BREAK_SPACE_SYBMOL])
 
-    expect(resultNode.props.children).toEqual(SPACE_SYBMOL)
+    expect(resultNode.props.children).toEqual(BREAK_SPACE_SYBMOL)
+  })
+
+  it('common/number/mathSigns + common/nbsp/afterShortWord', () => {
+    const resultNode = TypografyReactNode.process(<p><span>{`<=`}</span> b</p>)
+    expect(resultNode.props.children[0].props.children.charCodeAt(0)).toEqual(LESS_THEN_EQUAL_CODE)
   })
 })

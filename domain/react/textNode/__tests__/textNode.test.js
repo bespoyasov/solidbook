@@ -11,11 +11,19 @@ describe('TextNode firstWord', () => {
   })
 
   it('return "super" from <p><span>super</span>duper</p>', () => {
-    expect(new TextNode(<p><span>super</span>duper</p>).firstWord).toEqual('super')
+    expect(
+      new TextNode(
+        (
+          <p>
+            <span>super</span>duper
+          </p>
+        )
+      ).firstWord
+    ).toEqual('super')
   })
 
   it('return "super" from ["super", "man"]', () => {
-    expect(new TextNode(["super", "man"]).firstWord).toEqual('super')
+    expect(new TextNode(['super', 'man']).firstWord).toEqual('super')
   })
 })
 
@@ -29,10 +37,22 @@ describe('TextNode lastWord', () => {
   })
 
   it('return "duper" from <p><span>super</span>duper</p>', () => {
-    expect(new TextNode(<p><span>super</span>duper</p>).lastWord).toEqual('duper')
+    expect(
+      new TextNode(
+        (
+          <p>
+            <span>super</span>duper
+          </p>
+        )
+      ).lastWord
+    ).toEqual('duper')
   })
 
   it('return "man" from ["super", "man"]', () => {
-    expect(new TextNode(["super", "man"]).lastWord).toEqual('man')
+    expect(new TextNode(['super', 'man']).lastWord).toEqual('man')
+  })
+
+  it('return undefined from ["super", true]', () => {
+    expect(new TextNode(['super', true]).lastWord).toEqual(undefined)
   })
 })
