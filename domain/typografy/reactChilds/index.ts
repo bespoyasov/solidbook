@@ -77,6 +77,10 @@ class TypografyReactNode {
                   )
                 )
                 break
+
+              default:
+                acc.push(element)
+                break
             }
           }
 
