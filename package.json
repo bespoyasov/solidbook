@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "next",
-    "now-build": "next build",
     "test": "jest --watchAll",
+    "now-build": "next build && next export -o dist",
     "start": "next start"
   },
   "dependencies": {
