@@ -7,11 +7,9 @@ import styled from 'styled-components'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Center from './Center'
-
 import Paragraph from '~/components/Paragraph';
 import Abbr from '~/components/Formatters/Abbr'
 import Code from '~/components/Code'
-
 
 const Grid = styled.div`
   width: 100%;
