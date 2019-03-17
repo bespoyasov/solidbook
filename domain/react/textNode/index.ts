@@ -41,10 +41,6 @@ class ReactTextNode {
           ? this.firstNodeWord((node as ReactElement).props.children)
           : this.lastNodeWord((node as ReactElement).props.children)
 
-      case TYPES.NULL:
-      case TYPES.BOOLEAN:
-      case TYPES.UNDEFINED:
-      case TYPES.REACT_ELEMENT_WITHOUT_CHILDREN:
       default:
         return undefined
     }
