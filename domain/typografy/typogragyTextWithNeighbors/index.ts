@@ -1,5 +1,5 @@
 import TextNode from '~/domain/react/textNode'
-import Typografy from '~/domain/text/typografy'
+import Typografy from '~/domain/typografy'
 
 function typografTextWithNeighbors(node: string, prevWord?: string, nextWord?: string): string {
   let words: string[] = []

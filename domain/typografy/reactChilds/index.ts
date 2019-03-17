@@ -1,5 +1,5 @@
 import React, { ReactChild, ReactElement } from 'react'
-import Typografy from '~/domain/text/typografy'
+import Typografy from '~/domain/typografy'
 import TextNode from '~/domain/react/textNode'
 import typografTextWithNeighbors from '~/domain/typografy/typogragyTextWithNeighbors'
 import { getType, TYPES } from '~/domain/react/childType'
