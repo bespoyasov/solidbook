@@ -4,7 +4,7 @@ import TextNode from '~/domain/react/textNode'
 import typografTextWithNeighbors from '~/domain/typografy/textWithNeighbors'
 import { getType, TYPES } from '~/domain/react/childType'
 
-class TypografyReactNode {
+class TypografyReactChildren {
   public static processElement(node: ReactChild) {
     switch (getType(node)) {
       case TYPES.STRING:
@@ -22,10 +22,6 @@ class TypografyReactNode {
           node as ReactElement
         )
 
-      case TYPES.NULL:
-      case TYPES.UNDEFINED:
-      case TYPES.BOOLEAN:
-      case TYPES.REACT_ELEMENT_WITHOUT_CHILDREN:
       default:
         return node
     }
@@ -93,4 +89,4 @@ class TypografyReactNode {
   }
 }
 
-export default TypografyReactNode
+export default TypografyReactChildren
