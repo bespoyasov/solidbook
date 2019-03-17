@@ -31,7 +31,7 @@ class TypografyReactNode {
     }
   }
 
-  private static processElementList(elements: ReactChild[], parent: ReactElement): ReactElement {
+  public static processElementList(elements: ReactChild[], parent: ReactElement): ReactElement {
     switch (elements.length) {
       case 0:
         return React.cloneElement(parent, { children: elements })
