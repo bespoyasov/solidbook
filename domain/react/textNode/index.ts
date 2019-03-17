@@ -51,8 +51,8 @@ class ReactTextNode {
   }
 
   private static getLastWord(str: string) {
-    const wordCount = str.split(' ').length
-    return str.split(' ')[wordCount - 1]
+    const words = str.split(' ')
+    return words[words.length - 1]
   }
 
   private static lastElement<A>(arr: A[]): A {
