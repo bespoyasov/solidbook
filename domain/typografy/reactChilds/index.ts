@@ -5,7 +5,7 @@ import typografTextWithNeighbors from '~/domain/typografy/typogragyTextWithNeigh
 import { getType, TYPES } from '~/domain/react/childType'
 
 class TypografyReactNode {
-  public static process(node: ReactChild) {
+  public static processElement(node: ReactChild) {
     switch (getType(node)) {
       case TYPES.STRING:
         return Typografy.instance.transform(node as string)
@@ -14,10 +14,13 @@ class TypografyReactNode {
         return Typografy.instance.transform(String(node))
 
       case TYPES.ARRAY:
-        return this.processChildren((node as unknown) as Array<ReactChild>, ([] as unknown) as ReactElement)
+        return this.processElementList((node as unknown) as Array<ReactChild>, ([] as unknown) as ReactElement)
 
       case TYPES.REACT_ELEMENT_WITH_CHILDREN:
-        return this.processChildren(React.Children.toArray((node as ReactElement).props.children), node as ReactElement)
+        return this.processElementList(
+          React.Children.toArray((node as ReactElement).props.children),
+          node as ReactElement
+        )
 
       case TYPES.NULL:
       case TYPES.UNDEFINED:
@@ -28,7 +31,7 @@ class TypografyReactNode {
     }
   }
 
-  private static processChildren(elements: ReactChild[], parent: ReactElement): ReactElement {
+  private static processElementList(elements: ReactChild[], parent: ReactElement): ReactElement {
     switch (elements.length) {
       case 0:
         return React.cloneElement(parent, { children: elements })
@@ -38,7 +41,7 @@ class TypografyReactNode {
           case TYPES.STRING:
             return React.cloneElement(parent, { children: Typografy.instance.transform(elements[0] as string) })
           default:
-            return React.cloneElement(parent, { children: this.process(elements[0]) })
+            return React.cloneElement(parent, { children: this.processElement(elements[0]) })
         }
 
       default: {
@@ -63,12 +66,12 @@ class TypografyReactNode {
                 break
 
               case TYPES.ARRAY:
-                acc.push(this.processChildren((element as unknown) as ReactChild[], element as ReactElement))
+                acc.push(this.processElementList((element as unknown) as ReactChild[], element as ReactElement))
                 break
 
               case TYPES.REACT_ELEMENT_WITH_CHILDREN:
                 acc.push(
-                  this.processChildren(
+                  this.processElementList(
                     React.Children.toArray((element as ReactElement).props.children),
                     element as ReactElement
                   )
