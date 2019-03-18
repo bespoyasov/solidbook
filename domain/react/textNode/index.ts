@@ -34,7 +34,7 @@ class ReactTextNode {
       case TYPES.ARRAY:
         return position === 'first'
           ? this.firstNodeWord(node[0])
-          : this.lastNodeWord(this.lastElement((node as unknown) as Array<any>))
+          : this.lastNodeWord(this.lastElement((node as unknown) as Array<ReactChild>))
 
       case TYPES.REACT_ELEMENT_WITH_CHILDREN:
         return position === 'first'

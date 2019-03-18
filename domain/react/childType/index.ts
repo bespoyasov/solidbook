@@ -1,15 +1,15 @@
 import { ReactChild, isValidElement } from 'react'
 import { isNull } from 'util'
 
-export const TYPES = {
-  NULL: 'NULL',
-  UNDEFINED: 'UNDEFINED',
-  BOOLEAN: 'BOOLEAN',
-  STRING: 'STRING',
-  ARRAY: 'ARRAY',
-  NUMBER: 'NUMBER',
-  REACT_ELEMENT_WITH_CHILDREN: 'REACT_ELEMENT_WITH_CHILDREN',
-  REACT_ELEMENT_WITHOUT_CHILDREN: 'REACT_ELEMENT_WITHOUT_CHILDREN'
+export enum TYPES {
+  NULL,
+  UNDEFINED,
+  BOOLEAN,
+  STRING,
+  ARRAY,
+  NUMBER,
+  REACT_ELEMENT_WITH_CHILDREN,
+  REACT_ELEMENT_WITHOUT_CHILDREN
 }
 
 export function getType(node: ReactChild) {
