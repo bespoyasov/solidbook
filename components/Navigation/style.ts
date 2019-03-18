@@ -16,9 +16,14 @@ export const Nav = styled.nav`
     z-index: -1;
   }
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     padding: 0;
     margin-bottom: 2rem;
+
+    &::before {
+      left: 0;
+      top: 35px;
+    }
   }
 `
 
@@ -47,9 +52,26 @@ export const Section = styled.div`
     line-height: 1.2em;
     margin: 0.8em 0;
   }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    padding-left: 15px;
+    margin-top: 0;
+
+    h3 {
+      margin-left: -18px;
+    }
+  }
 `
 
 export const SubSection = styled.div`
   padding-left: 1.25em;
   margin-bottom: 1.5rem;
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    padding-left: 0;
+  }
 `

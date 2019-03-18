@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import { Container, Big, Share } from './style'
+import { Container, Big, Share, Emoji } from './style'
 import NoSSR from 'react-no-ssr'
 
 class PointsCounter extends PureComponent {
@@ -13,7 +13,10 @@ class PointsCounter extends PureComponent {
     return (
       <Container>
         <Big>
-          810<NoSSR>{this.randomEmoji}</NoSSR>
+          810
+          <Emoji>
+            <NoSSR>{this.randomEmoji}</NoSSR>
+          </Emoji>
         </Big>
 
         <span>из 1000</span>
