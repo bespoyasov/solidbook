@@ -8,6 +8,7 @@ import Container from './style'
 interface Props {
   href: string
   depth?: number
+  section?: string
   children: React.ReactChild
   router?: SingletonRouter
 }
@@ -18,18 +19,17 @@ class NavigationItem extends PureComponent<Props> {
   }
 
   render() {
-    const { href, children, depth, router } = this.props
+    const { href, children, depth, section, router } = this.props
     const { pathname } = router
 
     const deep = depth > 1
     const completed = false
 
-    const indexRoute = href === '/'
-    const activePage = pathname === href
-    const contains = !activePage && !indexRoute && pathname.includes(href)
+    const contains = pathname.includes(section)
+    const active = pathname === href
 
     return (
-      <Container className={clsx({ active: activePage }, { deep }, { completed }, { 'contains-active': contains })}>
+      <Container className={clsx({ active }, { deep }, { completed }, { 'contains-active': contains })}>
         <Link href={href}>
           <a>{children}</a>
         </Link>
