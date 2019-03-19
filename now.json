@@ -3,5 +3,5 @@
   "version": 2,
   "alias": ["ota-solid"],
   "public": true,
-  "builds": [{ "src": "next.config.js", "use": "@now/next" }]
+  "builds": [{ "src": "package.json", "use": "@now/static-build" }]
 }
