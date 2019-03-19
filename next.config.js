@@ -16,7 +16,6 @@ module.exports = withCSS(
   withMDX(
     withSourceMaps(
       withTypescript({
-        target: 'serverless',
         pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
       })
     )

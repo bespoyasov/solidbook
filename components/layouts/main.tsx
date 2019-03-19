@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Center from './Center'
+import Paragraph from '~/components/Paragraph';
 import Abbr from '~/components/Formatters/Abbr'
 import Code from '~/components/Code'
 
@@ -17,8 +18,9 @@ const Grid = styled.div`
   align-items: start;
   grid-template-columns: 33% auto;
 
-  @media (max-width: ${props => props.theme.adaptiveBreakpoint}) {
+  @media (max-width: ${props => props.theme.breakpoint}) {
     grid-template-columns: auto;
+    padding-top: 1.5rem;
   }
 `
 
@@ -51,7 +53,7 @@ class MainLayout extends PureComponent<Props> {
         <Center>
           <Grid>
             <Navigation />
-            <MDXProvider components={{ abbr: Abbr, pre: Code }}>
+            <MDXProvider components={{ abbr: Abbr, pre: Code, p: Paragraph }}>
               <MainContent>{children}</MainContent>
             </MDXProvider>
           </Grid>
