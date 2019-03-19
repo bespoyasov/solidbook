@@ -1,18 +1,20 @@
 type RouteShape = {
   link: string
   name: string
+  section?: string
   subnav?: RouteShape[]
 }
 
-const route = (link: string, name: string, subnav?: RouteShape[]): RouteShape => ({
+const route = (link: string, name: string, section?: string, subnav?: RouteShape[]): RouteShape => ({
   link,
   name,
+  section,
   subnav
 })
 
 export default [
   route('/', 'Введение'),
-  route('/srp', 'Принцип единственной ответственности', [
+  route('/srp/intro', 'Принцип единственной ответственности', 'srp', [
     route('/srp/intro', 'Введение и понятия'),
     route('/srp/in-ideal-world', 'Примеры из идеального мира'),
     route('/srp/in-real-life', 'Примеры из реальной жизни'),
@@ -20,7 +22,7 @@ export default [
     route('/srp/antipatterns', 'Антипаттерны'),
     route('/srp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
-  route('/open-closed', 'Принцип открытости и закрытости', [
+  route('/open-closed/intro', 'Принцип открытости и закрытости', 'open-closed', [
     route('/open-closed/intro', 'Введение и понятия'),
     route('/open-closed/in-ideal-world', 'Примеры из идеального мира'),
     route('/open-closed/in-real-life', 'Примеры из реальной жизни'),
@@ -28,7 +30,7 @@ export default [
     route('/open-closed/antipatterns', 'Антипаттерны'),
     route('/open-closed/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
-  route('/liskov-substitution', 'Принцип подстановки Барбары Лисков', [
+  route('/liskov-substitution/intro', 'Принцип подстановки Барбары Лисков', 'liskov-substitution', [
     route('/liskov-substitution/intro', 'Введение и понятия'),
     route('/liskov-substitution/in-ideal-world', 'Примеры из идеального мира'),
     route('/liskov-substitution/in-real-life', 'Примеры из реальной жизни'),
@@ -36,7 +38,7 @@ export default [
     route('/liskov-substitution/antipatterns', 'Антипаттерны'),
     route('/liskov-substitution/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
-  route('/isp', 'Принцип разделения интерфейса', [
+  route('/isp/intro', 'Принцип разделения интерфейса', 'isp', [
     route('/isp/intro', 'Введение и понятия'),
     route('/isp/in-ideal-world', 'Примеры из идеального мира'),
     route('/isp/in-real-life', 'Примеры из реальной жизни'),
@@ -44,7 +46,7 @@ export default [
     route('/isp/antipatterns', 'Антипаттерны'),
     route('/isp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
-  route('/di', 'Принцип инверсии зависимостей', [
+  route('/di/intro', 'Принцип инверсии зависимостей', 'di', [
     route('/di/intro', 'Введение и понятия'),
     route('/di/in-ideal-world', 'Примеры из идеального мира'),
     route('/di/in-real-life', 'Примеры из реальной жизни'),

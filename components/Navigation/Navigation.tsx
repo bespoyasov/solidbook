@@ -21,13 +21,13 @@ class Navigation extends PureComponent<Props> {
         <Section>
           <h3>Содержание</h3>
           <ul>
-            {routes.map(({ link, name, root, subnav }) => (
+            {routes.map(({ link, name, section, subnav }) => (
               <li key={link}>
-                <NavigationItem href={link} section={root}>
+                <NavigationItem href={link} section={section}>
                   {name}
                 </NavigationItem>
 
-                {!!subnav && pathname.includes(root) && (
+                {!!subnav && pathname.includes(section) && (
                   <SubSection>
                     <ul>
                       {subnav.map(({ link, name }) => (
