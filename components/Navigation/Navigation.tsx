@@ -12,13 +12,14 @@ interface Props {
 
 class Navigation extends PureComponent<Props> {
   isActive = link => {
-    const { pathname } = this.props.router
-    return pathname === link
+    return this.props.router.pathname === link
+  }
+
+  isRoot = section => {
+    return this.props.router.pathname.includes(section)
   }
 
   render() {
-    const { pathname } = this.props.router
-
     return (
       <Nav>
         <PointsCounter />
@@ -27,7 +28,7 @@ class Navigation extends PureComponent<Props> {
           <h3>Содержание</h3>
           <ul>
             {routes.map(({ link, name, section, subnav }) => {
-              const root = pathname.includes(section)
+              const root = this.isRoot(section)
 
               return (
                 <li key={link}>
