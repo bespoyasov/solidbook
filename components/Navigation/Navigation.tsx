@@ -11,6 +11,11 @@ interface Props {
 }
 
 class Navigation extends PureComponent<Props> {
+  isActive = link => {
+    const { pathname } = this.props.router
+    return pathname === link
+  }
+
   render() {
     const { pathname } = this.props.router
 
@@ -21,27 +26,31 @@ class Navigation extends PureComponent<Props> {
         <Section>
           <h3>Содержание</h3>
           <ul>
-            {routes.map(({ link, name, section, subnav }) => (
-              <li key={link}>
-                <NavigationItem href={link} section={section}>
-                  {name}
-                </NavigationItem>
+            {routes.map(({ link, name, section, subnav }) => {
+              const root = pathname.includes(section)
 
-                {!!subnav && pathname.includes(section) && (
-                  <SubSection>
-                    <ul>
-                      {subnav.map(({ link, name }) => (
-                        <li key={link}>
-                          <NavigationItem href={link} depth={2}>
-                            {name}
-                          </NavigationItem>
-                        </li>
-                      ))}
-                    </ul>
-                  </SubSection>
-                )}
-              </li>
-            ))}
+              return (
+                <li key={link}>
+                  <NavigationItem href={link} root={root} active={this.isActive(link)}>
+                    {name}
+                  </NavigationItem>
+
+                  {!!subnav && root && (
+                    <SubSection>
+                      <ul>
+                        {subnav.map(({ link, name }) => (
+                          <li key={link}>
+                            <NavigationItem href={link} active={this.isActive(link)} depth={2}>
+                              {name}
+                            </NavigationItem>
+                          </li>
+                        ))}
+                      </ul>
+                    </SubSection>
+                  )}
+                </li>
+              )
+            })}
           </ul>
         </Section>
       </Nav>
