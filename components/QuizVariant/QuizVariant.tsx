@@ -2,7 +2,8 @@ import * as React from 'react'
 import { useContext } from 'react'
 import clsx from 'clsx'
 import VisuallyHidden from '~/components/VisuallyHidden'
-import { Label, Description, Item } from './style'
+import Code from '~/components/Code'
+import { Label, Description, Item, CodeWrapper } from './style'
 import { QuizVariantData } from './types'
 import QuizContext from '../../context/quiz'
 
@@ -14,7 +15,7 @@ type Props = {
 
 function QuizVariant(props: Props) {
   const { question, completed, variant } = props
-  const { main, description, id } = variant
+  const { main, code, description, id } = variant
 
   const context = useContext(QuizContext)
   const { selected, correct } = context[id]
@@ -26,7 +27,12 @@ function QuizVariant(props: Props) {
           <input type="checkbox" name={question} value={main} defaultChecked={selected} disabled={completed} />
         </VisuallyHidden>
 
-        <span>{main}</span>
+        <div>{main}</div>
+        {!!code && (
+          <CodeWrapper>
+            <Code>{code}</Code>
+          </CodeWrapper>
+        )}
       </Label>
       {!!description && completed && <Description>{description}</Description>}
     </Item>
