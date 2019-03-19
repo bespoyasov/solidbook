@@ -1,7 +1,7 @@
 import MainLayout from '~/components/layouts/main'
 import Quiz from '~/components/Quiz'
 import QuizContext from '../context/quiz'
-import {quiz1} from '../domain/quiz/srp'
+import {quiz1, quiz2} from '../domain/quiz/srp'
 
 export const meta = {
   title: 'Тесты дизайн-решений'
@@ -18,5 +18,12 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
   <Quiz
     question={quiz1.question}
     variants={quiz1.variants}
+    completed />
+</QuizContext.Provider>
+
+<QuizContext.Provider value={quiz2.checks}>
+  <Quiz
+    question={quiz2.question}
+    variants={quiz2.variants}
     completed />
 </QuizContext.Provider>
