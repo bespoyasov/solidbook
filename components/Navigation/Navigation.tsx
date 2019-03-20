@@ -11,12 +11,14 @@ interface Props {
 }
 
 class Navigation extends PureComponent<Props> {
-  isActive = link => {
-    return this.props.router.pathname === link
-  }
+  isIndex = (link: string): boolean => link === '/'
 
-  isRoot = section => {
-    return this.props.router.pathname.includes(section)
+  isActive = (link: string): boolean => this.props.router.pathname === link
+
+  isSectionRoot = (link: string): boolean => (link.match(/\//g) || []).length === 1
+
+  containsActive = (link: string): boolean => {
+    return this.props.router.pathname.includes(link) && this.isSectionRoot(link) && !this.isIndex(link)
   }
 
   render() {
@@ -27,16 +29,16 @@ class Navigation extends PureComponent<Props> {
         <Section>
           <h3>Содержание</h3>
           <ul>
-            {routes.map(({ link, name, section, subnav }) => {
-              const root = this.isRoot(section)
+            {routes.map(({ link, name, subnav }) => {
+              const containsActive = this.containsActive(link)
 
               return (
                 <li key={link}>
-                  <NavigationItem href={link} root={root} active={this.isActive(link)}>
+                  <NavigationItem href={link} containsActive={containsActive} active={this.isActive(link)}>
                     {name}
                   </NavigationItem>
 
-                  {!!subnav && root && (
+                  {!!subnav && containsActive && (
                     <SubSection>
                       <ul>
                         {subnav.map(({ link, name }) => (
