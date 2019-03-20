@@ -7,8 +7,16 @@ export const Container = styled.article`
   box-shadow: 0 2px 10px ${props => props.theme.lightGrey};
   color: ${props => props.theme.grey};
   background: white;
-  font-size: 0.9rem;
+  font-size: ${props => props.theme.fontSizeSmall};
   text-align: center;
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    box-shadow: none;
+    position: absolute;
+    right: 0;
+    padding: 0;
+    top: -0.2em;
+  }
 `
 
 export const Big = styled.big`
@@ -17,6 +25,17 @@ export const Big = styled.big`
   line-height: 1;
   font-weight: 700;
   color: black;
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    font-size: 1em;
+    display: inline-block;
+    margin-right: 0.25em;
+  }
+`
+
+export const Emoji = styled.span`
+  display: inline-block;
+  min-width: 1.5em;
 `
 
 export const Share = styled.button`
@@ -33,5 +52,9 @@ export const Share = styled.button`
   img {
     width: 18px;
     height: 16px;
+  }
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    display: none;
   }
 `

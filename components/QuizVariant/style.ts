@@ -54,3 +54,12 @@ export const Description = styled.div`
 export const Item = styled.div`
   margin: 0 0 1.2rem 0;
 `
+
+export const CodeWrapper = styled.div`
+  margin-top: 0.5em;
+
+  pre {
+    margin: 0 -1.4rem 0.25em 0;
+    box-shadow: inset 0 0 1px ${props => props.theme.lightGrey};
+  }
+`
