@@ -7,9 +7,9 @@ import Container from './style'
 interface Props {
   href: string
   depth: number
-  root?: boolean
   active?: boolean
   completed?: boolean
+  containsActive?: boolean
   children: React.ReactChild
 }
 
@@ -19,11 +19,12 @@ class NavigationItem extends PureComponent<Props> {
   }
 
   render() {
-    const { href, children, root, depth, active, completed } = this.props
-    const deep = depth > 1
+    const { href, children, containsActive, depth, active, completed } = this.props
 
     return (
-      <Container className={clsx({ root }, { deep }, { active }, { completed })}>
+      <Container
+        className={clsx({ deep: depth > 1 }, { active }, { completed }, { 'contains-active': containsActive })}
+      >
         <Link href={href}>
           <a>{children}</a>
         </Link>
