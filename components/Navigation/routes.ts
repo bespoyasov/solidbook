@@ -20,13 +20,13 @@ export default [
     route('/srp/antipatterns', 'Антипаттерны'),
     route('/srp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
-  route('/open-closed', 'Принцип открытости и закрытости', [
-    route('/open-closed', 'Введение и понятия'),
-    route('/open-closed/in-ideal-world', 'Примеры из идеального мира'),
-    route('/open-closed/in-real-life', 'Примеры из реальной жизни'),
-    route('/open-closed/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/open-closed/antipatterns', 'Антипаттерны'),
-    route('/open-closed/limits-and-caveats', 'Ограничения и подводные камни')
+  route('/ocp', 'Принцип открытости и закрытости', [
+    route('/ocp', 'Введение и понятия'),
+    route('/ocp/in-ideal-world', 'Примеры из идеального мира'),
+    route('/ocp/in-real-life', 'Примеры из реальной жизни'),
+    route('/ocp/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
+    route('/ocp/antipatterns', 'Антипаттерны'),
+    route('/ocp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/liskov-substitution', 'Принцип подстановки Барбары Лисков', [
     route('/liskov-substitution', 'Введение и понятия'),
