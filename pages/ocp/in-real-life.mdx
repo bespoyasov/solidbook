@@ -31,10 +31,8 @@ class StorageService {
 Если же мы привяжем зависимость не через конкретный объект, а через интерфейс, то получим возможность подменять зависимость на лету. Этот паттерн называется [инъекция зависимостей](https://ru.wikipedia.org/wiki/Внедрение_зависимости) (DI).
 
 ```ts
-declare type JSONString = string
-
 interface Storage {
-  getItem(key: string): JSONString
+  getItem(key: string): any
 }
 
 interface StorageDependencies {
@@ -94,12 +92,83 @@ describe('StorageService', () => {
 
 ## Инъекция зависимостей и расширение функциональности
 
-<!-- Тот же класс, но теперь мы хотим взять другой Date, чтобы настроить заранее часовой пояс -->
+Теперь представим, что в приложении появляются два места, где используются разные хранилища: `localStorage` в одном и `verySophisticatedStorage` в другом.
+
+Если наш класс зависел напрямую от `localStorage`, у нас проблемы. При добавлении нового хранилища, нам придётся проверять, с каким из хранилищ мы имеем дело. А если API хранилищ сильно отличается, то код метода `get` сильно разрастётся из-за проверок и [адаптеров](https://ru.wikipedia.org/wiki/Адаптер_(шаблон_проектирования)).
+
+```ts
+class StorageService {
+  storageType: string
+
+  constructor(storageType: string) {
+    this.storageType = storageType
+  }
+
+  get(key: string): any {
+    if (this.storageType === 'verySophisticatedStorage') {
+      return verySophisticatedStorage.getByKey(key)
+    }
+
+    return JSON.parse(localStorage.getItem(key))
+  }
+}
+```
+
+С другой стороны, если мы зависим от интерфейса, то метод `get` и конструктор класса `StorageService` не изменятся. Разное API хранилищ мы приведём к одному виду через адаптеры (отдельные новые сущности), которые будут имплементировать интерфейс `Storage`.
+
+```ts
+interface Storage {
+  getItem(key: string): any
+}
+
+// добавляем адаптер для verySophisticatedStorage;
+// он будет имплементировать интерфейс Storage,
+// поэтому его можно будет передать как зависимость для StorageService
+class SophisticatedStorageAdapter implements Storage {
+  getItem(key: string): any {
+    return verySophisticatedStorage.getByKey(key)
+  }
+}
+
+// то же для localStorage
+class LocalStorageAdapter implements Storage {
+  getItem(key: string): any {
+    return JSON.parse(localStorage.getItem(key))
+  }
+}
+
+// код класса StorageService не меняется!
+class StorageService {
+  storage: Storage
+
+  constructor({ storage = localStorage }: StorageDependencies) {
+    this.storage = storage
+  }
+
+  get(key: string): any {
+    // вся реализация методов обоих хранилищ скрыта за адаптерами
+    return this.storage.getItem(key)
+  }
+}
+
+// работает как со старым хранилищем
+const storageServiceWithLocalStorage = new StorageService({
+  storage: new LocalStorageAdapter()
+})
+
+// так и с новым
+const storageServiceWithSophisticatedStorage = new StorageService({
+  storage: new SophisticatedStorageAdapter()
+})
+```
+
+Таким образом новые бизнес-требования не затронут код уже созданного модуля `StorageService`, а будут внедрены через создание новых сущностей.
 
 ## Материалы к разделу
 - [Инъекция зависимостей](https://ru.wikipedia.org/wiki/Внедрение_зависимости)
 - [Мок-объект](https://ru.wikipedia.org/wiki/Mock-объект)
 - [Разработка через тестирование](https://bespoyasov.ru/ttt-tdd/)
+- [Адаптер, шаблон](https://ru.wikipedia.org/wiki/Адаптер_(шаблон_проектирования))
 - [Jest](https://jestjs.io)
 
 *[OCP]:Open-closed principle
