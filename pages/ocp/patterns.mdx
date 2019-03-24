@@ -119,7 +119,6 @@ class BaseGreeting implements Greeting {
   }
 }
 
-
 // в интерфейсе декоратора указываем поле wrappee,
 // это объект, функционльность которого мы будем расширять
 interface GreetingDecorator {
@@ -147,7 +146,77 @@ class GreetingWithUppercase implements GreetingDecorator {
 
 Сама философия этого шаблона повторяет принцип открытости-закрытости — мы не меняем базовый класс, а добавляем сущности, которые содержат в себе изменения бизнес-требований.
 
-## Обзёрвер
+## Вопросы
+WIP
+
+## Наблюдатель
+
+[Наблюдатель](https://refactoring.guru/ru/design-patterns/observer) — шаблон, который создаёт механизм подписки, когда некоторые сущности могут реагировать на поведение других.
+
+В примере ниже у нас будет класс `SoftwareEngineerApplicant`, который будет реагировать на появление вакансий в экземпляре класса `HrAgency`.
+
+```ts
+// интерфейс соискателя описывает его имя и желаемую позицию
+interface Applicant {
+  name: string
+  position: string
+}
+
+// интерфейс наблюдателя описывает метод,
+// который будет вызываться наблюдаемым объектом при наступлении события
+interface ApplicantObserver {
+  onPositionCreated(position: string): void
+}
+
+// в соответствии с SRP интерфейсы Applicant и ApplicantObserver — разные сущности;
+class SoftwareEngineerApplicant implements Applicant, ApplicantObserver {
+  name: string
+  position: string
+
+  constructor(name: string, position: string) {
+    this.name = name
+    this.position = position
+  }
+
+  // описываем, что необходимо сделать при наступлении нужного события
+  onPositionCreated(position: string) {
+    if (position !== this.position) return
+    console.log(`Hello! My name is ${this.name}, I would like to apply to a ${position} position`)
+  }
+}
+
+// наблюдаемый объект хранит в себе список наблюдателей,
+// которых будет уведомлять о наступлении события
+interface PositionObservable {
+  positions: string[]
+  applicants: ApplicantObserver[]
+  append(position: string): void
+}
+
+class HrAgency implements PositionObservable {
+  positions: string[] = []
+  applicants: ApplicantObserver[]
+
+  constructor(applicants: ApplicantObserver[]) {
+    this.applicants = applicants || []
+  }
+
+  // когда появляется новая вакансия...
+  append(position: string): void {
+    this.positions.push(position)
+
+    // ...уведомляем об этом всех наблюдателей
+    this.applicants.forEach(applicant => {
+      applicant.onPositionCreated(position)
+    })
+  }
+}
+```
+
+Этот шаблон позволяет добавлять новых наблюдателей без необходимости менять код наблюдаемого объекта.
+
+## Вопросы
+WIP
 
 ## Замена прямого наследования на полиморфизм и композицию
 
