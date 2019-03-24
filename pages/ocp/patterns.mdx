@@ -1,9 +1,246 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Паттерны и приёмы рефакторинга'
+  title: 'Шаблоны проектирования и приёмы рефакторинга'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Шаблоны проектирования и приёмы рефакторинга
+
+Соблюдать принцип открытости-закрытости помогают несколько шаблонов проектирования и приёмов рефакторинга.
+
+## Абстрактная фабрика
+
+[Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory) — это сущность которая создаёт другие сущности по заданным правилам, например, инстанциирует классы или создаёт объекты.
+
+[Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory) — это фабрика, которая создаёт фабрики.
+
+Этот шаблон позволяет создавать сущности без привязки к конкретным классам — то есть без привязки к реализации. Это позволяет добавлять новые типы сущностей, изменяя минимально необходимое количество модулей.
+
+Рассмотрим применение абстрактной фабрики на том же примере с отчётом, что [был у нас в разделе об SRP](/srp/in-ideal-world).
+
+В этом примере работа для абстрактной фабрики — выбор класса, который будет заниматься форматированием.
+
+```ts
+// часть с интерфейсом Formatter и классами,
+// имплементирующими его, остаётся такой же
+
+// добавляется новый интерфейс, описывающий фабрику фабрик
+interface FormatterFactory {
+  createFormatter(data: ReportData): Formatter
+}
+
+// метод createFormatter возвращает абстрактный интерфейс,
+// поэтому обе фабрики ниже взаимозаменяемы
+class HtmlFormatterFactory implements FormatterFactory {
+  createFormatter(data: ReportData) {
+    return new HtmlFormatter(data)
+  }
+}
+
+class TxtFormatterFactory implements FormatterFactory {
+  createFormatter(data: ReportData) {
+    return new TxtFormatter(data)
+  }
+}
+
+// при конфигурации приложение выберет нужный тип фабрики и будет работать с ним;
+// коду приложения при этом будет не важно, с какой фабрикой он будет работать,
+// потому что он будет зависеть от интерфейсов, а не от конкретных классов
+class AppConfigurator {
+  reportType: ReportTypes
+
+  constructor(reportType: ReportTypes) {
+    this.reportType = reportType
+  }
+
+  configure(reportData: ReportData): FormatterFactory {
+    if (this.reportType === ReportTypes.Html) {
+      return new HtmlFormatterFactory(reportData)
+    }
+    else return new TxtFormatterFactory(reportData)
+  }
+}
+```
+
+## Вопросы
+WIP
+
+## Стратегия
+
+В прошлом примере мы избавились от необходимости менять код форматеров при добавлении новых требований. Но вы могли заметить, что в методе `configure` класса `AppConfigurator` есть условие, которое проверяет тип формата для отчёта.
+
+По-хорошему подобные условия [следует заменять](https://softwareengineering.stackexchange.com/a/302782) на динамический выбор нужных сущностей. С этим может помочь ещё один шаблон — [стратегия](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-strategy).
+
+Этот шаблон позволяет менять настройки, конфигурацию или алгоритм в зависимости от ситуации и требований. В нашем случае стратегии мы отадим выбор необходимой фабрики:
+
+```ts
+function formatterStrategy(reportType: ReportTypes): FormatterFactory {
+  const formatters = {
+    [ReportTypes.Html]: HtmlFormatterFactory,
+    [ReportTypes.Txt]: TxtFormatterFactory
+  }
+
+  return new formatters[reportType]()
+}
+```
+
+Теперь выбор фабрик стал динамическим, и при изменении требований нам потребуется только добавить новую сущность и обновить список фабрик.
+
+## Вопросы
+WIP
+
+## Декоратор
+
+[Декоратор](https://refactoring.guru/ru/design-patterns/decorator) — это шаблон, который заключается в создании обёрток с дополнительной функциональнстью для объектов. Такие обёртки позволяют не изменять сам объект, но при этом расширять его функциональность.
+
+Отличие декоратора от наследования в возможности расширять функциональность динамически, без необходимости описывать каждый класс-наследник отдельно.
+
+В примере мы создаём класс `BaseGreeting`, метод `greet` которого будет выводить строку с приветствием пользователя. Декоратор `GreetingWithUppercase` будет приводить строку с приветствием к верхнему регистру.
+
+```ts
+interface Greeting {
+  username: string
+  greet(): string
+}
+
+// базовая функциональность описывается в классе,
+// который будет обёрнут с помощью декораторов
+class BaseGreeting implements Greeting {
+  username: string
+
+  constructor(username: string) {
+    this.username = username
+  }
+
+  greet = (): string => {
+    return `Hello, ${this.username}!`
+  }
+}
+
+// в интерфейсе декоратора указываем поле wrappee,
+// это объект, функционльность которого мы будем расширять
+interface GreetingDecorator {
+  wrappee: Greeting
+  greet(): string
+}
+
+class GreetingWithUppercase implements GreetingDecorator {
+  wrappee: Greeting
+
+  constructor(wrappee: Greeting) {
+    this.wrappee = wrappee
+  }
+
+  greet = (): string => {
+    // 1. используем базовое поведение
+    const baseGreeting = this.wrappee.greet()
+    // 2. расширяем его и
+    // 3. убеждаемся, что тип возвращаемого значения
+    //    совпадает с указанным в типе Greeting
+    return baseGreeting.toUpperCase()
+  }
+}
+```
+
+Сама философия этого шаблона повторяет принцип открытости-закрытости — мы не меняем базовый класс, а добавляем сущности, которые содержат в себе изменения бизнес-требований.
+
+## Вопросы
+WIP
+
+## Наблюдатель
+
+[Наблюдатель](https://refactoring.guru/ru/design-patterns/observer) — шаблон, который создаёт механизм подписки, когда некоторые сущности могут реагировать на поведение других.
+
+В примере ниже у нас будет класс `SoftwareEngineerApplicant`, который будет реагировать на появление вакансий в экземпляре класса `HrAgency`.
+
+```ts
+// интерфейс соискателя описывает его имя и желаемую позицию
+interface Applicant {
+  name: string
+  position: string
+}
+
+// интерфейс наблюдателя описывает метод,
+// который будет вызываться наблюдаемым объектом при наступлении события
+interface ApplicantObserver {
+  onPositionCreated(position: string): void
+}
+
+// в соответствии с SRP интерфейсы Applicant и ApplicantObserver — разные сущности;
+class SoftwareEngineerApplicant implements Applicant, ApplicantObserver {
+  name: string
+  position: string
+
+  constructor(name: string, position: string) {
+    this.name = name
+    this.position = position
+  }
+
+  // описываем, что необходимо сделать при наступлении нужного события
+  onPositionCreated(position: string) {
+    if (position !== this.position) return
+    console.log(`Hello! My name is ${this.name}, I would like to apply to a ${position} position`)
+  }
+}
+
+// наблюдаемый объект хранит в себе список наблюдателей,
+// которых будет уведомлять о наступлении события
+interface PositionObservable {
+  positions: string[]
+  applicants: ApplicantObserver[]
+  append(position: string): void
+}
+
+class HrAgency implements PositionObservable {
+  positions: string[] = []
+  applicants: ApplicantObserver[]
+
+  constructor(applicants: ApplicantObserver[]) {
+    this.applicants = applicants || []
+  }
+
+  // когда появляется новая вакансия...
+  append(position: string): void {
+    this.positions.push(position)
+
+    // ...уведомляем об этом всех наблюдателей
+    this.applicants.forEach(applicant => {
+      applicant.onPositionCreated(position)
+    })
+  }
+}
+```
+
+Этот шаблон позволяет добавлять новых наблюдателей без необходимости менять код наблюдаемого объекта.
+
+## Вопросы
+WIP
+
+## Замена прямого наследования на полиморфизм и композицию
+
+Модули, зависящие от конкретных классов, связаны с ними слишком сильно, из-за чего изменение в одном модуле затронет изменение в другом.
+
+[Замена](https://blog.goyello.com/2014/02/11/example-of-just-in-time-design-refactor-to-open-closed/) прямого наследования на полиморфизм или композицию — это приём рефакторинга, который ослабляет связанность модулей через введение абстракций: интерфейсов, обёрток и т.д.
+
+Примером может послужить [пример](/ocp/in-ideal-world) из раздела «В идеальном мире», где мы вводили прослойку из интерфейса `Shape`. Когда класс `AreaCalculator` начинает зависеть от интерфейса, а не от конкретных классов, изменение в требованиях не затрагивает код класса `AreaCalculator`.
+
+## Вопросы
+WIP
+
+## Материалы к разделу
+- [Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory)
+- [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory)
+- [Стратегия](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-strategy)
+- [Фабричный метод и применение стратегии](https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/)
+- [Декоратор](https://refactoring.guru/ru/design-patterns/decorator)
+- [Decorator and Factory, Colorado CS, PDF](https://www.cs.colorado.edu/~kena/classes/5448/f09/lectures/18-decoratorfactory.pdf)
+- [Наблюдатель](https://refactoring.guru/ru/design-patterns/observer)
+- [Example of Just-in-time design: refatoring to OCP](https://blog.goyello.com/2014/02/11/example-of-just-in-time-design-refactor-to-open-closed/)
+- [Refactor to the Open-Closed, PDF](http://www.netobjectives.net/files/books/esad/essential-skills-refactor-open-closed.pdf)
+
+*[OCP]:Open-closed principle
+*[SRP]:Single responsibility principle
+*[CS]:Computer science
+*[PDF]:Portable document format
