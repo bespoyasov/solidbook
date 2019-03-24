@@ -1,9 +1,96 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Паттерны и приёмы рефакторинга'
+  title: 'Шаблоны проектирования и приёмы рефакторинга'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Шаблоны проектирования и приёмы рефакторинга
+
+Соблюдать принцип открытости-закрытости помогают несколько шаблонов проектирования и приёмов рефакторинга.
+
+## Абстрактная фабрика
+
+[Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory) — это сущность которая создаёт другие сущности по заданным правилам, например, инстанциирует классы или создаёт объекты.
+
+[Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory) — это фабрика, которая создаёт фабрики.
+
+Этот шаблон позволяет создавать сущности без привязки к конкретным классам — то есть без привязки к реализации. Это позволяет добавлять новые типы сущностей, изменяя минимально необходимое количество модулей.
+
+Рассмотрим применение абстрактной фабрики на том же примере с отчётом, что [был у нас в разделе об SRP](/srp/in-ideal-world).
+
+В этом примере работа для абстрактной фабрики — выбор класса, который будет заниматься форматированием.
+
+```ts
+// часть с интерфейсом Formatter и классами,
+// имплементирующими его, остаётся такой же
+
+// добавляется новый интерфейс, описывающий фабрику фабрик
+interface FormatterFactory {
+  data: ReportData
+  createFormatter(): Formatter
+}
+
+// метод createFormatter возвращает абстрактный интерфейс,
+// поэтому обе фабрики ниже взаимозаменяемы
+class HtmlFormatterFactory implements FormatterFactory {
+  data: ReportData
+
+  constructor(data: ReportData) {
+    this.data = data
+  }
+
+  createFormatter(): Formatter {
+    return new HtmlFormatter(this.data)
+  }
+}
+
+class TxtFormatterFactory implements FormatterFactory {
+  data: ReportData
+
+  constructor(data: ReportData) {
+    this.data = data
+  }
+
+  createFormatter(): Formatter {
+    return new TxtFormatter(this.data)
+  }
+}
+
+// при конфигурации приложение выберет нужный тип фабрики и будет работать с ним;
+// коду приложения при этом будет не важно, с какой фабрикой он будет работать,
+// потому что он будет зависеть от интерфейсов, а не от конкретных классов
+class AppConfigurator {
+  reportType: ReportTypes
+
+  constructor(reportType: ReportTypes) {
+    this.reportType = reportType
+  }
+
+  configure(reportData: ReportData): FormatterFactory {
+    if (this.reportType === ReportTypes.Html) {
+      return new HtmlFormatterFactory(reportData)
+    }
+    else return new TxtFormatterFactory(reportData)
+  }
+}
+```
+
+## Стратегия
+
+https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/
+
+## Декоратор
+
+## Обзёрвер
+
+## Замена прямого наследования на полиморфизм и композицию
+
+## Материалы к разделу
+- [Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory)
+- [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory)
+- [Фабричный метод и принцип открытости-закрытости](https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/)
+
+*[OCP]:Open-closed principle
+*[SRP]:Single responsibility principle
