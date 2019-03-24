@@ -28,33 +28,20 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 // добавляется новый интерфейс, описывающий фабрику фабрик
 interface FormatterFactory {
-  data: ReportData
-  createFormatter(): Formatter
+  createFormatter(data: ReportData): Formatter
 }
 
 // метод createFormatter возвращает абстрактный интерфейс,
 // поэтому обе фабрики ниже взаимозаменяемы
 class HtmlFormatterFactory implements FormatterFactory {
-  data: ReportData
-
-  constructor(data: ReportData) {
-    this.data = data
-  }
-
-  createFormatter(): Formatter {
-    return new HtmlFormatter(this.data)
+  createFormatter(data: ReportData) {
+    return new HtmlFormatter(data)
   }
 }
 
 class TxtFormatterFactory implements FormatterFactory {
-  data: ReportData
-
-  constructor(data: ReportData) {
-    this.data = data
-  }
-
-  createFormatter(): Formatter {
-    return new TxtFormatter(this.data)
+  createFormatter(data: ReportData) {
+    return new TxtFormatter(data)
   }
 }
 
@@ -77,9 +64,32 @@ class AppConfigurator {
 }
 ```
 
+## Вопросы
+WIP
+
 ## Стратегия
 
-https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/
+В прошлом примере мы избавились от необходимости менять код форматеров при добавлении новых требований. Но вы могли заметить, что в методе `configure` класса `AppConfigurator` есть условие, которое проверяет тип формата для отчёта.
+
+По-хорошему подобные условия [следует заменять](https://softwareengineering.stackexchange.com/a/302782) на динамический выбор нужных сущностей. С этим может помочь ещё один шаблон — [стратегия](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-strategy).
+
+Этот шаблон позволяет менять настройки, конфигурацию или алгоритм в зависимости от ситуации и требований. В нашем случае стратегии мы отадим выбор необходимой фабрики:
+
+```ts
+function formatterStrategy(reportType: ReportTypes): FormatterFactory {
+  const formatters = {
+    [ReportTypes.Html]: HtmlFormatterFactory,
+    [ReportTypes.Txt]: TxtFormatterFactory
+  }
+
+  return new formatters[reportType]()
+}
+```
+
+Теперь выбор фабрик стал динамическим, и при изменении требований нам потребуется только добавить новую сущность и обновить список фабрик.
+
+## Вопросы
+WIP
 
 ## Декоратор
 
@@ -90,7 +100,8 @@ https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/
 ## Материалы к разделу
 - [Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory)
 - [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory)
-- [Фабричный метод и принцип открытости-закрытости](https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/)
+- [Стратегия](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-strategy)
+- [Фабричный метод и применение стратегии](https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/)
 
 *[OCP]:Open-closed principle
 *[SRP]:Single responsibility principle
