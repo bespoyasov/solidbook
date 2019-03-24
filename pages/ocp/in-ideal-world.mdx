@@ -97,9 +97,9 @@ interface Shape {
 }
 ```
 
-Это по сути своей ограничение на поведение сущностей внутри системы — гипотеза того, как они друг с другом взаимодействуют. В целом люди плохо умеют прогнозировать и предсказывать, но опытный проектировщик, имея достаточно знаний о проектируемой системе, может сделать хорошее предположение.
+Это по сути своей ограничение на поведение сущностей внутри системы — гипотеза того, как они друг с другом взаимодействуют. В целом люди плохо умеют прогнозировать и предсказывать. И хотя опытный проектировщик, имея достаточно знаний о проектируемой системе, может сделать хорошее предположение, OCP предполагает методику [Just-in-time design](https://agiledesign.org/2015/01/18/jit-just-in-time-and-software-development/). Она предполагает внесение изменений и добавление сущностей по мере необходимости, не раньше.
 
-Классы фигур теперь будут подчиняться этому ограничению и имплементировать интерфейс `Shape`:
+Вернёмся к примеру. Сейчас классы фигур будут подчиняться новому ограничению и имплементировать интерфейс `Shape`:
 
 ```ts
 // 1. указываем, что класс имплементирует интерфейс,
@@ -164,6 +164,7 @@ class AreaCalculator {
 - [A simple example of the Open/Closed Principle](http://joelabrahamsson.com/a-simple-example-of-the-openclosed-principle/)
 - [Understanding SOLID: Open Closed Principle](https://codeburst.io/understanding-solid-principles-open-closed-principle-e2b588b6491f)
 - [The OCP and what hides behind it](https://hackernoon.com/the-open-closed-principle-c3dc45419784)
+- [Just-in-time design](https://agiledesign.org/2015/01/18/jit-just-in-time-and-software-development/)
 
 ## Вопросы
 WIP
