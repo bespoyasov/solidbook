@@ -93,6 +93,60 @@ WIP
 
 ## Декоратор
 
+[Декоратор](https://refactoring.guru/ru/design-patterns/decorator) — это шаблон, который заключается в создании обёрток с дополнительной функциональнстью для объектов. Такие обёртки позволяют не изменять сам объект, но при этом расширять его функциональность.
+
+Отличие декоратора от наследования в возможности расширять функциональность динамически, без необходимости описывать каждый класс-наследник отдельно.
+
+В примере мы создаём класс `BaseGreeting`, метод `greet` которого будет выводить строку с приветствием пользователя. Декоратор `GreetingWithUppercase` будет приводить строку с приветствием к верхнему регистру.
+
+```ts
+interface Greeting {
+  username: string
+  greet(): string
+}
+
+// базовая функциональность описывается в классе,
+// который будет обёрнут с помощью декораторов
+class BaseGreeting implements Greeting {
+  username: string
+
+  constructor(username: string) {
+    this.username = username
+  }
+
+  greet = (): string => {
+    return `Hello, ${this.username}!`
+  }
+}
+
+
+// в интерфейсе декоратора указываем поле wrappee,
+// это объект, функционльность которого мы будем расширять
+interface GreetingDecorator {
+  wrappee: Greeting
+  greet(): string
+}
+
+class GreetingWithUppercase implements GreetingDecorator {
+  wrappee: Greeting
+
+  constructor(wrappee: Greeting) {
+    this.wrappee = wrappee
+  }
+
+  greet = (): string => {
+    // 1. используем базовое поведение
+    const baseGreeting = this.wrappee.greet()
+    // 2. расширяем его и
+    // 3. убеждаемся, что тип возвращаемого значения
+    //    совпадает с указанным в типе Greeting
+    return baseGreeting.toUpperCase()
+  }
+}
+```
+
+Сама философия этого шаблона повторяет принцип открытости-закрытости — мы не меняем базовый класс, а добавляем сущности, которые содержат в себе изменения бизнес-требований.
+
 ## Обзёрвер
 
 ## Замена прямого наследования на полиморфизм и композицию
@@ -102,6 +156,9 @@ WIP
 - [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory)
 - [Стратегия](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-strategy)
 - [Фабричный метод и применение стратегии](https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/)
+- [Декоратор](https://refactoring.guru/ru/design-patterns/decorator)
+- [Decorator and Factory, Colorado CS](https://www.cs.colorado.edu/~kena/classes/5448/f09/lectures/18-decoratorfactory.pdf)
 
 *[OCP]:Open-closed principle
 *[SRP]:Single responsibility principle
+*[CS]:Computer science
