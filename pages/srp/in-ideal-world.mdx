@@ -41,7 +41,7 @@ class ReportExporter {
   }
 
   export(reportType: ReportTypes): string {
-    const formatter: IFormatter = new FormatSelector(reportType, this.data)
+    const formatter: Formatter = new FormatSelector(reportType, this.data)
     return formatter.format()
   }
 }
@@ -95,8 +95,8 @@ class TxtFormatter implements Formatter {
 ```ts
 class FormatSelector {
   formatters = {
-    ReportTypes.Html: HtmlFormatter,
-    ReportTypes.Txt: TxtFormatter,
+    [ReportTypes.Html]: HtmlFormatter,
+    [ReportTypes.Txt]: TxtFormatter,
   }
 
   constructor(reportType: ReportTypes, data: ReportData) {
