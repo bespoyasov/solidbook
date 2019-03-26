@@ -19,6 +19,11 @@ export default styled.div`
     font-weight: 700;
   }
 
+  &.contains-active {
+    font-weight: 400;
+  }
+
+  &.active::before,
   &.contains-active::before {
     background: black;
   }

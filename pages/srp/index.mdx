@@ -17,7 +17,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 Причиной изменения будем называть обновление бизнес-правил, которое вынуждает менять код какого-либо модуля.
 
-Принцип единой ответственности (Single responsibility principle, SRP) означает, что у модуля должна быть только одна причина для изменения. Весь код, который меняется по этой причине, должен быть собран в этом модуле.
+[Принцип единой ответственности](https://ru.wikipedia.org/wiki/Принцип_единственной_ответственности) (Single responsibility principle, SRP) означает, что у модуля должна быть только одна причина для изменения. Весь код, который меняется по этой причине, должен быть собран в этом модуле.
 
 Проще говоря принцип предлагает нам проводить границы между модулями так, чтобы изменение в бизнес-правилах затрагивало как можно меньше модулей, в идеале — один.
 
@@ -33,7 +33,8 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 ## Материалы к разделу
 - [Think you understand SRP?](https://hackernoon.com/you-dont-understand-the-single-responsibility-principle-abfdd005b137)
 - [3 способа нарушить SRP](https://habr.com/ru/post/330142/)
-- [Принцип единой ответственности](https://code.tutsplus.com/ru/tutorials/solid-part-1-the-single-responsibility-principle--net-36074)
+- [Принцип единой ответственности](https://ru.wikipedia.org/wiki/Принцип_единственной_ответственности)
+- [SOLID: Часть 1, SRP](https://code.tutsplus.com/ru/tutorials/solid-part-1-the-single-responsibility-principle--net-36074)
 
 ## Вопросы
 **В чём заключается суть принципа единой ответственности?**
@@ -57,3 +58,4 @@ _Побуждает создавать модули, которые меняют
 
 *[API]:Application programming interface
 *[SRP]:Single responsibility principle
+*[SOLID]:Principles of object oriented design

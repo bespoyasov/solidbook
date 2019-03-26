@@ -7,6 +7,9 @@ import Container from './style'
 interface Props {
   href: string
   depth: number
+  active?: boolean
+  completed?: boolean
+  containsActive?: boolean
   children: React.ReactChild
 }
 
@@ -16,16 +19,11 @@ class NavigationItem extends PureComponent<Props> {
   }
 
   render() {
-    const { href, children, depth } = this.props
+    const { href, children, containsActive, depth, active, completed } = this.props
+
     return (
-      // TODO: replace stub (href === '/srp/info') with real functionality
       <Container
-        className={clsx(
-          { active: href === '/srp/intro' },
-          { deep: depth > 1 },
-          { completed: href === '/' },
-          { 'contains-active': href === '/srp' }
-        )}
+        className={clsx({ deep: depth > 1 }, { active }, { completed }, { 'contains-active': containsActive })}
       >
         <Link href={href}>
           <a>{children}</a>
