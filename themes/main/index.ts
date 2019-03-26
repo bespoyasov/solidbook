@@ -80,6 +80,7 @@ export const GlobalStyle = createGlobalStyle`
 
   code {
     font-size: 0.8em;
+    font-style: normal;
     font-family: ${theme.fontMonospace};
   }
 
