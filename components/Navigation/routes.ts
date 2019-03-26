@@ -28,13 +28,13 @@ export default [
     route('/ocp/antipatterns', 'Антипаттерны'),
     route('/ocp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
-  route('/liskov-substitution', 'Принцип подстановки Барбары Лисков', [
-    route('/liskov-substitution', 'Введение и понятия'),
-    route('/liskov-substitution/in-ideal-world', 'Примеры из идеального мира'),
-    route('/liskov-substitution/in-real-life', 'Примеры из реальной жизни'),
-    route('/liskov-substitution/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/liskov-substitution/antipatterns', 'Антипаттерны'),
-    route('/liskov-substitution/limits-and-caveats', 'Ограничения и подводные камни')
+  route('/lsp', 'Принцип подстановки Барбары Лисков', [
+    route('/lsp', 'Введение и понятия'),
+    route('/lsp/in-ideal-world', 'Примеры из идеального мира'),
+    route('/lsp/in-real-life', 'Примеры из реальной жизни'),
+    route('/lsp/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
+    route('/lsp/antipatterns', 'Антипаттерны'),
+    route('/lsp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/isp', 'Принцип разделения интерфейса', [
     route('/isp', 'Введение и понятия'),
