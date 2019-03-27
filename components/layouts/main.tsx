@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Center from './Center'
-import Paragraph from '~/components/Paragraph';
+import Paragraph from '~/components/Paragraph'
 import Abbr from '~/components/Formatters/Abbr'
 import Code from '~/components/Code'
 
@@ -16,17 +16,15 @@ const Grid = styled.div`
   padding: 2.5rem 0;
   display: grid;
   align-items: start;
-  grid-template-columns: 33% auto;
+  grid-template-columns: 33% 67%;
 
   @media (max-width: ${props => props.theme.breakpoint}) {
-    grid-template-columns: auto;
+    grid-template-columns: 100%;
     padding-top: 1.5rem;
   }
 `
 
 const MainContent = styled.main`
-  flex: 1;
-
   section + section {
     margin-top: 1.5rem;
   }

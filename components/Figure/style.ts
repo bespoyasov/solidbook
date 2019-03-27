@@ -3,8 +3,8 @@ import styled from 'styled-components'
 export default styled.figure`
   width: auto;
   max-width: 100%;
-  text-align: left;
-  margin: 0 0 1.25rem;
+  text-align: center;
+  margin: 1.5rem 0 2rem;
 
   img {
     max-width: 100%;

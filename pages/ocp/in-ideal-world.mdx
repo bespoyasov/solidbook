@@ -1,0 +1,174 @@
+import MainLayout from '~/components/layouts/main'
+
+export const meta = {
+  title: 'В идеальном мире'
+}
+
+export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
+
+# Примеры из идеального мира
+
+В идеальном мире при изменении бизнес-требований код модулей менять не приходится, а для реализации новых требований достаточно добавить новую сущность.
+
+## Нарушение OCP и конкретика
+
+Ключ к пониманию OCP — применение абстракций в местах стыка модулей. Рассмотрим пример: требуется написать программу, которая будет считать площади фигур на экране. Допустим, у нас есть класс прямоугольника `Rectangle`:
+
+```ts
+class Rectangle {
+  width: number
+  height: number
+
+  constructor(width: number, height: number) {
+    this.width = width
+    this.height = height
+  }
+}
+```
+
+Следуя SRP подсчёт площади всех фигур мы вынесем в отдельный класс `AreaCalculator`. Вначале напишем его, не следуя принципу открытости-закрытости:
+
+```ts
+class AreaCalculator {
+  shapes: Rectangle[]
+
+  constructor(shapes: Rectangle[]) {
+    this.shapes = shapes
+  }
+
+  totalAreaOf = (): number => {
+    return this.shapes.reduce((tally: number, shape: Rectangle) => {
+      return tally += (shape.width * shape.height)
+    }, 0)
+  }
+}
+```
+
+Проблема в том, что если придётся добавить новую фигуру, например, круг, то для правильной работы, необходимо будет изменить и код класса `AreaCalculator`.
+
+```ts
+class Circle {
+  radius: number
+
+  constructor(radius: number) {
+    this.radius = radius
+  }
+
+  areaOf = (): number => {
+    return Math.PI * (this.radius ** 2)
+  }
+}
+
+class AreaCalculator {
+  // 1. приходится менять тип
+  shapes: [Rectangle|Circle]
+
+  constructor(shapes: [Rectangle|Circle]) {
+    this.shapes = shapes
+  }
+
+  totalAreaOf = (): number => {
+    return this.shapes.reduce((tally: number, shape: Rectangle | Circle) => {
+      // 2. приходится проверять, какой тип,
+      //    чтобы применить правильный расчёт
+      if (shape instanceof Rectangle) {
+        return tally += (shape.width * shape.height)
+      }
+      else if (shape instanceof Circle) {
+        return tally += (shape.radius ** 2 * Math.PI)
+      }
+      else return tally
+    }, 0)
+  }
+}
+```
+
+И подобные изменения придётся проводить для каждой новой фигуры.
+
+Основной индикатор проблемы с принципом открытости-закрытости — появление проверки на `instanceof`. Если внутри кода модуля проверяется реализация, значит модуль жёстко привязан к другому, и изменения в требованиях заставят менять код этого модуля.
+
+## Применение OCP и абстракции
+
+Чтобы исправить ситуацию, свяжем модули через абстракцию. Создадим интерфейс `Shape`, который будет описывать поведение любой фигуры, которую наша система может содержать.
+
+```ts
+interface Shape {
+  areaOf(): number
+}
+```
+
+Это по сути ограничение на поведение сущностей внутри системы — гипотеза того, как они друг с другом взаимодействуют. В целом люди плохо умеют прогнозировать и предсказывать. И хотя опытный проектировщик, имея достаточно знаний о проектируемой системе, может сделать хорошее предположение, OCP всё же предлагает методику [Just-in-time design](https://agiledesign.org/2015/01/18/jit-just-in-time-and-software-development/). Она предполагает внесение изменений и добавление сущностей по мере необходимости, но не раньше.
+
+Вернёмся к примеру. Сейчас классы фигур подчиняются новому ограничению и имплементируют интерфейс `Shape`:
+
+```ts
+// 1. указываем, что класс имплементирует интерфейс,
+//    это задаст ограничение на методы класса
+class Rectangle implements Shape {
+  width: number
+  height: number
+
+  constructor(width: number, height: number) {
+    this.width = width
+    this.height = height
+  }
+
+  // 2. без этого метода класс считается не готовым
+  //    он же позволит абстрагироваться от реализации конкретной фигуры
+  areaOf = (): number => {
+    return this.width * this.height
+  }
+}
+
+// те же изменения проводим для круга
+class Circle implements Shape {
+  radius: number
+
+  constructor(radius: number) {
+    this.radius = radius
+  }
+
+  areaOf = (): number => {
+    return Math.PI * (this.radius ** 2)
+  }
+}
+```
+
+Теперь, когда у классов есть ограничения и правила, мы можем применить абстракцию, чтобы привязать их к `AreaCalculator`:
+
+```ts
+class AreaCalculator {
+  // 1. теперь тип абстрактный,
+  //    мы можем указывать какие угодно фигуры
+  //    при условии, что они имплементирут Shape
+  shapes: Shape[]
+
+  constructor(shapes: Shape[]) {
+    this.shapes = shapes
+  }
+
+  totalAreaOf = (): number => {
+    return this.shapes.reduce((tally: number, shape: Shape) => {
+      // 2. никаких проверок на классы, только вызов areaOf
+      //    если даже мы добавим треугольник,
+      //    нам не придётся менять код калькулятора,
+      return tally += shape.areaOf()
+    }, 0)
+  }
+}
+```
+
+## Материалы к разделу
+- [Open-closed principle, Duke CS, PDF](https://www2.cs.duke.edu/courses/fall07/cps108/papers/ocp.pdf)
+- [A simple example of the Open/Closed Principle](http://joelabrahamsson.com/a-simple-example-of-the-openclosed-principle/)
+- [Understanding SOLID: Open Closed Principle](https://codeburst.io/understanding-solid-principles-open-closed-principle-e2b588b6491f)
+- [The OCP and what hides behind it](https://hackernoon.com/the-open-closed-principle-c3dc45419784)
+- [Just-in-time design](https://agiledesign.org/2015/01/18/jit-just-in-time-and-software-development/)
+
+## Вопросы
+WIP
+
+*[OCP]:Open-closed principle
+*[SRP]:Single responsibility principle
+*[SOLID]:Principles of object oriented design
+*[PDF]:Portable document format
