@@ -194,8 +194,7 @@ class BaseGreeting implements Greeting {
   }
 }
 
-// в интерфейсе декоратора указываем поле wrappee,
-// это объект, функционльность которого мы будем расширять
+// wrappee — объект, функциональность которого мы будем расширять
 interface GreetingDecorator {
   wrappee: Greeting
   greet(): string
@@ -211,9 +210,7 @@ class GreetingWithUppercase implements GreetingDecorator {
   greet = (): string => {
     // 1. используем базовое поведение
     const baseGreeting = this.wrappee.greet()
-    // 2. расширяем его и
-    // 3. убеждаемся, что тип возвращаемого значения
-    //    совпадает с указанным в типе Greeting
+    // 2. расширяем его
     return baseGreeting.toUpperCase()
   }
 }
@@ -221,8 +218,64 @@ class GreetingWithUppercase implements GreetingDecorator {
 
 Сама философия этого шаблона повторяет принцип открытости-закрытости — мы не меняем базовый класс, а добавляем сущности, которые содержат в себе изменения бизнес-требований.
 
+Разница между декоратором и прокси в том, что прокси всегда предоставляет тот же интерфейс, в то время как декоратор может предоставлять расширенный интерфейс.
+
 ## Вопросы
-WIP
+**В чём польза шаблона «Декоратор»?**
+
+_В расширении функциональности модулей через обёртки без изменения кода этих модулей_
+
+_В возможности расширять функциональность классов и методов динамически, без необходимости использовать наследование_
+
+_В возможности выделить логику, не относящуюся напрямую к функциональности модуля в другую сущность_
+
+**Какой из классов ниже использует шаблон декоратор для удаления всех пробелов из приветствия?**
+
+Вариант 1 (Не совпадает тип поля `wrappee` и не указан интерфейс, который имплементирует этот класс)
+```ts
+class GreetingWithoutSpaces {
+  wrappee: object
+
+  constructor(wrappee) {
+    this.wrappee = wrappee
+  }
+
+  greet = (): string => {
+    return this.wrappee.greet().repalce(/\s/g, '')
+  }
+}
+```
+
+Вариант 2 (Класс имплементирует неправильный интерфейс)
+```ts
+class GreetingWithoutSpaces implements Greeting {
+  wrappee: Greeting
+
+  constructor(wrappee: Greeting) {
+    this.wrappee = wrappee
+  }
+
+  greet = (): string => {
+    return this.wrappee.greet().repalce(/\s/g, '')
+  }
+}
+```
+
+_Вариант 3_
+```ts
+class GreetingWithoutSpaces implements GreetingDecorator {
+  wrappee: Greeting
+
+  constructor(wrappee: Greeting) {
+    this.wrappee = wrappee
+  }
+
+  greet = (): string => {
+    return this.wrappee.greet().repalce(/\s/g, '')
+  }
+}
+```
+
 
 ## Наблюдатель
 
