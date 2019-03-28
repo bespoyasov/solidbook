@@ -281,7 +281,7 @@ class GreetingWithoutSpaces implements GreetingDecorator {
 
 [Наблюдатель](https://refactoring.guru/ru/design-patterns/observer) — шаблон, который создаёт механизм подписки, когда некоторые сущности могут реагировать на поведение других.
 
-В примере ниже у нас есть класс `SoftwareEngineerApplicant`, который реагироует на появление вакансий в экземпляре класса `HrAgency`.
+В примере ниже у нас есть класс `SoftwareEngineerApplicant`, который реагирует на появление вакансий в экземпляре класса `HrAgency`.
 
 ```ts
 // интерфейс соискателя описывает его имя и желаемую позицию
@@ -292,12 +292,11 @@ interface Applicant {
 
 // интерфейс наблюдателя описывает метод,
 // который будет вызываться наблюдаемым объектом при наступлении события
-interface ApplicantObserver {
-  onPositionCreated(position: string): void
+interface ApplicantObserver extends Applicant {
+  update(position: string): void
 }
 
-// в соответствии с SRP интерфейсы Applicant и ApplicantObserver — разные сущности;
-class SoftwareEngineerApplicant implements Applicant, ApplicantObserver {
+class SoftwareEngineerApplicant implements ApplicantObserver {
   name: string
   position: string
 
@@ -307,36 +306,54 @@ class SoftwareEngineerApplicant implements Applicant, ApplicantObserver {
   }
 
   // описываем, что необходимо сделать при наступлении нужного события
-  onPositionCreated(position: string) {
+  update(position: string) {
     if (position !== this.position) return
     console.log(`Hello! My name is ${this.name}, I would like to apply to a ${position} position`)
   }
 }
 
+
+// базовый интерфейс наблюдаемого объекта
+interface Observable {
+  subscribe(event: string, data: any): void
+  unsubscribe(event: string, data: any): void
+  notify(event: string, data: any): void
+}
+
 // наблюдаемый объект хранит в себе список наблюдателей,
 // которых будет уведомлять о наступлении события
-interface PositionObservable {
-  positions: string[]
-  applicants: ApplicantObserver[]
+interface PositionObservable extends Observable {
   append(position: string): void
+  listeners: {
+    [key: string]: ApplicantObserver[]
+  }
 }
 
 class HrAgency implements PositionObservable {
-  positions: string[] = []
-  applicants: ApplicantObserver[]
+  listeners: {
+    [key: string]: ApplicantObserver[]
+  } = {}
 
-  constructor(applicants: ApplicantObserver[]) {
-    this.applicants = applicants || []
+  subscribe = (event: string, applicant: ApplicantObserver): void => {
+    this.listeners[event] = this.listeners[event] || []
+    this.listeners[event].push(applicant)
   }
 
-  // когда появляется новая вакансия...
-  append(position: string): void {
-    this.positions.push(position)
+  unsubscribe = (event: string, applicant: ApplicantObserver): void => {
+    this.listeners[event] = (this.listeners[event] || []).filter(listener =>
+      listener.name !== applicant.name)
+  }
 
-    // ...уведомляем об этом всех наблюдателей
-    this.applicants.forEach(applicant => {
-      applicant.onPositionCreated(position)
+  // уведомляем всех наблюдателей...
+  notify = (event: string, data: any): void => {
+    (this.listeners[event] || []).forEach(listener => {
+      listener.update(data)
     })
+  }
+
+  // ...когда появляется новая вакансия
+  append = (position: string): void => {
+    this.notify('newPosition', position)
   }
 }
 ```
@@ -344,7 +361,6 @@ class HrAgency implements PositionObservable {
 Этот шаблон позволяет добавлять новых наблюдателей без необходимости менять код наблюдаемого объекта.
 
 ## Вопросы
-WIP
 
 ## Замена прямого наследования на полиморфизм и композицию
 
