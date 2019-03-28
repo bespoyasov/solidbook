@@ -292,7 +292,11 @@ interface Applicant {
 
 // интерфейс наблюдателя описывает метод,
 // который будет вызываться наблюдаемым объектом при наступлении события
-interface ApplicantObserver extends Applicant {
+interface Observer {
+  update(data: any): void
+}
+
+interface ApplicantObserver extends Applicant, Observer {
   update(position: string): void
 }
 
@@ -305,7 +309,6 @@ class SoftwareEngineerApplicant implements ApplicantObserver {
     this.position = position
   }
 
-  // описываем, что необходимо сделать при наступлении нужного события
   update(position: string) {
     if (position !== this.position) return
     console.log(`Hello! My name is ${this.name}, I would like to apply to a ${position} position`)
@@ -315,19 +318,19 @@ class SoftwareEngineerApplicant implements ApplicantObserver {
 
 // базовый интерфейс наблюдаемого объекта
 interface Observable {
-  subscribe(event: string, data: any): void
-  unsubscribe(event: string, data: any): void
-  notify(event: string, data: any): void
+  subscribe(observer: Observer): void
+  unsubscribe(observer: Observer): void
+  notify(data: any): void
 }
 
 // наблюдаемый объект хранит в себе список наблюдателей,
 // которых будет уведомлять о наступлении события
-interface PositionObservable extends Observable {
-  append(position: string): void
+interface NewPositionObservable extends Observable {
   listeners: ApplicantObserver[]
+  notify(position: string): void
 }
 
-class HrAgency implements PositionObservable {
+class HrAgency implements NewPositionObservable {
   listeners: ApplicantObserver[] = []
 
   subscribe = (applicant: ApplicantObserver): void => {
@@ -335,19 +338,15 @@ class HrAgency implements PositionObservable {
   }
 
   unsubscribe = (applicant: ApplicantObserver): void => {
-    this.listeners = this.listeners.filter(listener => listener.name !== applicant.name)
+    this.listeners = this.listeners.filter(listener =>
+      listener.name !== applicant.name)
   }
 
-  // уведомляем всех наблюдателей...
-  notify = (data: any): void => {
+  // уведомляем всех наблюдателей, когда появляется новая вакансия
+  notify = (position: string): void => {
     this.listeners.forEach(listener => {
-      listener.update(data)
+      listener.update(position)
     })
-  }
-
-  // ...когда появляется новая вакансия
-  append = (position: string): void => {
-    this.notify(position)
   }
 }
 ```
