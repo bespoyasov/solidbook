@@ -324,36 +324,30 @@ interface Observable {
 // которых будет уведомлять о наступлении события
 interface PositionObservable extends Observable {
   append(position: string): void
-  listeners: {
-    [key: string]: ApplicantObserver[]
-  }
+  listeners: ApplicantObserver[]
 }
 
 class HrAgency implements PositionObservable {
-  listeners: {
-    [key: string]: ApplicantObserver[]
-  } = {}
+  listeners: ApplicantObserver[] = []
 
-  subscribe = (event: string, applicant: ApplicantObserver): void => {
-    this.listeners[event] = this.listeners[event] || []
-    this.listeners[event].push(applicant)
+  subscribe = (applicant: ApplicantObserver): void => {
+    this.listeners.push(applicant)
   }
 
-  unsubscribe = (event: string, applicant: ApplicantObserver): void => {
-    this.listeners[event] = (this.listeners[event] || []).filter(listener =>
-      listener.name !== applicant.name)
+  unsubscribe = (applicant: ApplicantObserver): void => {
+    this.listeners = this.listeners.filter(listener => listener.name !== applicant.name)
   }
 
   // уведомляем всех наблюдателей...
-  notify = (event: string, data: any): void => {
-    (this.listeners[event] || []).forEach(listener => {
+  notify = (data: any): void => {
+    this.listeners.forEach(listener => {
       listener.update(data)
     })
   }
 
   // ...когда появляется новая вакансия
   append = (position: string): void => {
-    this.notify('newPosition', position)
+    this.notify(position)
   }
 }
 ```
