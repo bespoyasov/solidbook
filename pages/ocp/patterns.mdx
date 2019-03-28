@@ -296,11 +296,11 @@ interface Observer {
   update(data: any): void
 }
 
-interface ApplicantObserver extends Applicant, Observer {
+interface NewPositionObserver extends Applicant, Observer {
   update(position: string): void
 }
 
-class SoftwareEngineerApplicant implements ApplicantObserver {
+class SoftwareEngineerApplicant implements NewPositionObserver {
   name: string
   position: string
 
@@ -315,7 +315,6 @@ class SoftwareEngineerApplicant implements ApplicantObserver {
   }
 }
 
-
 // базовый интерфейс наблюдаемого объекта
 interface Observable {
   subscribe(observer: Observer): void
@@ -326,18 +325,18 @@ interface Observable {
 // наблюдаемый объект хранит в себе список наблюдателей,
 // которых будет уведомлять о наступлении события
 interface NewPositionObservable extends Observable {
-  listeners: ApplicantObserver[]
+  listeners: NewPositionObserver[]
   notify(position: string): void
 }
 
 class HrAgency implements NewPositionObservable {
-  listeners: ApplicantObserver[] = []
+  listeners: NewPositionObserver[] = []
 
-  subscribe = (applicant: ApplicantObserver): void => {
+  subscribe = (applicant: NewPositionObserver): void => {
     this.listeners.push(applicant)
   }
 
-  unsubscribe = (applicant: ApplicantObserver): void => {
+  unsubscribe = (applicant: NewPositionObserver): void => {
     this.listeners = this.listeners.filter(listener =>
       listener.name !== applicant.name)
   }
@@ -354,6 +353,73 @@ class HrAgency implements NewPositionObservable {
 Этот шаблон позволяет добавлять новых наблюдателей без необходимости менять код наблюдаемого объекта.
 
 ## Вопросы
+**Чем полезен механизм подписки шаблона «Наблюдатель»?**
+
+_Позволяет создать объект, который уведомляет другие о неком событии без необходимости связывать их напрямую_
+
+_Позволяет создавать объекты, которые могут реагировать на события в наблюдаемом объекте без необходимости менять код наблюдаемого объекта_
+
+_Позволяет динамически подписывать наблюдателей на события и отписывать их от событий_
+
+**Допустим, дан класс более общего наблюдаемого объекта:**
+```ts
+class ConcreteObservable implements Observable {
+  listeners: { [key: string]: Observer[] } = {}
+
+  subscribe = (event: string, observer: Observer): void => {
+    // добавить объект в this.listeners[event]
+  }
+
+  unsubscribe = (event: string, observer: Observer): void => {
+    // удалить объект из this.listeners[event]
+  }
+
+  notify = (event: string, data: any): void => {
+    // уведомить всех из this.listeners[event]
+  }
+}
+```
+**Какой из интерфейсов он реализует?**
+
+Вариант 1 (Не совпадают сигнатуры всех методов и типы полей)
+```ts
+interface Observable {
+  listeners: Observer[]
+  subscribe(observer: Observer): void
+  unsubscribe(observer: Observer): void
+  notify(data: any): void
+}
+```
+
+Вариант 2 (Не совпадает тип поля `listeners`)
+```ts
+interface Observable {
+  listeners: Observer[]
+  subscribe(event: string, observer: Observer): void
+  unsubscribe(event: string, observer: Observer): void
+  notify(event: string, data: any): void
+}
+```
+
+_Вариант 3_
+```ts
+interface Observable {
+  listeners: { [key: string]: Observer[] } = {}
+  subscribe(event: string, observer: Observer): void
+  unsubscribe(event: string, observer: Observer): void
+  notify(event: string, data: any): void
+}
+```
+
+Вариант 4 (Не совпадает интерфейс передаваемого внутрь методов наблюдателя, должен быть `Observer`)
+```ts
+interface Observable {
+  listeners: { [key: string]: Observer[] } = {}
+  subscribe(event: string, observer: Observable): void
+  unsubscribe(event: string, observer: Observable): void
+  notify(event: string, data: any): void
+}
+```
 
 ## Замена прямого наследования на полиморфизм и композицию
 
