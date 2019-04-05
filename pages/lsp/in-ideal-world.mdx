@@ -6,4 +6,180 @@ export const meta = {
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# В идеальном мире
+
+Вернёмся к примеру с классами `Rectangle` и `Square` из [введения](/lsp).
+
+Согласно LSP нам необходимо использовать общий интерфейс для обоих классов и не наследовать `Square` от `Rectangle`. Этот общий интерфейс должен быть таким, чтобы в классах, имплементирующих его, предусловия не были более сильными, а постусловия не были более слабыми.
+
+У нас есть несколько способов решить эту проблему.
+
+## Абстрактный класс-родитель
+
+Первый способ — переделать иерархию так, чтобы `Square` наследовался не от `Rectangle`, а чтобы они оба наследовались от общего родителя. Создадим класс `RightAngleShape`, чтобы описать фигуры с прямым углом:
+
+```ts
+abstract class RightAngleShape {
+  // используется для изменения ширины или высоты,
+  // доступен только внутри класса и наследников:
+  protected setSide(size: number, side?: 'width' | 'height'): void {}
+
+  abstract areaOf(): number
+}
+```
+
+Классы `Rectangle` и `Square` будут наследоваться от `RightAngleShape` и переопределять методы, поведение которых специфично для каждого из них:
+
+```ts
+class Square extends RightAngleShape {
+  edge: number
+
+  constructor(size: number) {
+    super()
+    this.edge = size
+  }
+
+  // переопределяем изменение стороны квадрата...
+  protected setSide(size: number): void {
+    this.edge = size
+  }
+
+  setWidth(size: number): void {
+    this.setSide(size)
+  }
+
+  // ...и вычисление площади
+  areaOf(): number {
+    return this.edge ** 2
+  }
+}
+
+class Rectangle extends RightAngleShape {
+  width: number
+  height: number
+
+  constructor(width: number, height: number) {
+    super()
+    this.width = width
+    this.height = height
+  }
+
+  // переопределяем изменение ширины и высоты...
+  protected setSide(size: number, side: 'width' | 'height'): void {
+    this[side] = size
+  }
+
+  setWidth(size: number) {
+    this.setSide(size, 'width')
+  }
+
+  setHeight(size: number) {
+    this.setSide(size, 'height')
+  }
+
+  // ...и вычисление площади
+  areaOf(): number {
+    return this.width *  this.height
+  }
+}
+```
+
+Теперь поведение наследников не конфликует с поведением базового класса. Это позволит использовать и `Rectangle`, и `Square` там, где объявлено использование `RightAngleShape`.
+
+## Интерфейс
+
+Общий родительский класс — это только одно из решений. [Мы помним](/ocp), что наследование лучше заменить на более абстрактные вещи, например, на интерфейс. Второй способ заключается именно в использовании интерфейса.
+
+Мы можем превратить родительский класс `RightAngleShape` в интерфейс `Shape` с описанным методом `areaOf`, а также описать интерфейсы для фигур, у которых есть ширина (`WidthfulShape`) и высота (`HeightfulShape`):
+
+```ts
+interface Shape {
+  areaOf(): number
+}
+
+interface WidthfulShape {
+  setWidth(size: number): void
+}
+
+interface HeightfulShape {
+  setHeight(size: number): void
+}
+```
+
+Классы `Rectangle` и `Square` тогда могут имплементировать их так:
+
+```ts
+// указываем, что необходимо реализовать в этом классе
+type SquareShape = Shape & WidthfulShape
+
+class Square implements SquareShape {
+  edge: number
+
+  constructor(size: number) {
+    this.edge = size
+  }
+
+  protected setSide(size: number): void {
+    this.edge = size
+  }
+
+  // указываем метод, меняющий ширину (описан в WidthfulShape)...
+  setWidth(size: number) {
+    this.setSide(size)
+  }
+
+  // ...и метод, который считает площадь (описан в Shape)
+  areaOf(): number {
+    return this.edge ** 2
+  }
+}
+
+
+// для прямоугльника кроме площади и ширины необходимо указать и высоту,
+// поэтому добавляем интерфейс HeightfulShape...
+type RectShape = Shape & WidthfulShape & HeightfulShape
+type ShapeSide = 'width' | 'height'
+
+class Rectangle implements RectShape {
+  width: number
+  height: number
+
+  constructor(width: number, height: number) {
+    this.width = width
+    this.height = height
+  }
+
+  protected setSide(size: number, side: ShapeSide): void {
+    this[side] = size
+  }
+
+  setWidth(size: number) {
+    this.setSide(size, 'width')
+  }
+
+  // ...и реализуем метод, описанный в HeightfulShape
+  setHeight(size: number) {
+    this.setSide(size, 'height')
+  }
+
+  areaOf(): number {
+    return this.width *  this.height
+  }
+}
+```
+
+Теперь с помощью интерфейсов мы можем композировать свойства, которые необходимо реализовать для сущностей. Мы автоматически соблюдаем [OCP], избегая прямого наследования и привязывась к абстракциям, а не к конкретным классам.
+
+Следуя же LSP, мы проектируем поведение сущностей так, чтобы оно не конфликтовало с базовой абстракцией. Это позволяет нам использовать любой из классов `Rectangle` или `Square` там, где заявлено использование как `Shape`, так и `WidthfulShape`.
+
+## Материалы к разделу
+
+- [The Liskov Substitution Principle, PDF](http://www.labri.fr/perso/clement/enseignements/ao/LSP.pdf)
+- [SOLID Principles by Examples: Liskov Substitution Principle](https://dzone.com/articles/solid-principles-by-examples-liskov-substitution-p)
+
+## Вопросы
+WIP
+
+*[OCP]:Open-closed principle
+*[LSP]:Liskov Substitution Principle
+*[SOLID]:Principles of object oriented design
