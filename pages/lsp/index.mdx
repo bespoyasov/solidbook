@@ -32,6 +32,10 @@ class Rectangle {
   setHeight(height: number) {
     this.height = height
   }
+
+  areaOf(): number {
+    return this.width * this.height
+  }
 }
 ```
 
@@ -41,17 +45,17 @@ class Square extends Rectangle {
   width: number
   height: number
 
-  constructor(width: number, height: number) {
-    super(width, height);
+  constructor(size: number) {
+    super(size, size);
   }
 
   setWidth(width: number) {
     this.width = width
-    this.height = height
+    this.height = width
   }
 
   setHeight(height: number) {
-    this.width = width
+    this.width = height
     this.height = height
   }
 }
@@ -71,7 +75,7 @@ square.setHeight(40) // тоже меняет ширину и высоту, ок
 function testShapeSize(figure: Rectangle) {
   figure.setWidth(10)
   figure.setHeight(20)
-  assert(figure.width * figure.height === 200)
+  assert(figure.areaOf() === 200)
   // условие не сработает, если figure — экземпляр класса Square
 }
 ```
@@ -83,9 +87,9 @@ function testShapeSize(figure: Rectangle) {
 ## Принцип подстановки Барбары Лисков
 [Принцип подстановки Барбары Лисков](https://ru.wikipedia.org/wiki/Принцип_подстановки_Барбары_Лисков) (Liskov Substitution Principle, LSP) решает эту проблему, вводя ограничения для иерархии объектов.
 
-Сам принцип звучит так: функции, которые используют базовый тип, должны иметь возможность использовать подтипы базового типа, не зная об этом.
+Звучит он так: функции, которые используют базовый тип, должны иметь возможность использовать подтипы базового типа, не зная об этом.
 
-Если простыми словами, то классы-наследники не должны противоречить базовому классу. Тогда поведение таких классов будет ожидаемым для функций, которые используют базовый класс.
+Простыми словами классы-наследники не должны противоречить базовому классу. Например, не могут предоставлять интерфейс уже базового. Поведение наследников должно быть ожидаемым для функций, которые используют базовый класс.
 
 Принцип тесно связан с понятием [контрактного программирования](https://ru.wikipedia.org/wiki/Контрактное_программирование). В частности полезны отношения предусловий и постусловий для базового и наследников:
 - предусловия не могут быть усилены в подклассе;
@@ -109,7 +113,7 @@ assert((figure.width === newWidth) && (figure.height === oldHeight))
 const oldHeight = figure.height
 figure.setWidth(newWidth)
 
-// постусловие ослаблено
+// постусловие ослаблено, абстракция неправильная
 assert((figure.width === newWidth))
 ```
 
