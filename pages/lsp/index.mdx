@@ -68,11 +68,11 @@ square.setHeight(40) // тоже меняет ширину и высоту, ок
 Но если мы используем базовый класс `Rectangle`, как интерфейс, а работаем с конкретным классом `Square`, могут возникнуть проблемы:
 
 ```ts
-function testShapeSize(r: Rectangle) {
-  r.setWidth(10)
-  r.setHeight(20)
-  assert(r.width * r.height === 200)
-  // условие не сработает, если r — экземпляр класса Square
+function testShapeSize(figure: Rectangle) {
+  figure.setWidth(10)
+  figure.setHeight(20)
+  assert(figure.width * figure.height === 200)
+  // условие не сработает, если figure — экземпляр класса Square
 }
 ```
 
@@ -97,20 +97,20 @@ function testShapeSize(r: Rectangle) {
 Если мы работаем с методом `setHeight` класса `Rectangle`, то после вызова метода мы будем наблюдать ситуацию, когда:
 
 ```ts
-const oldHeight = r.height
-r.setWidth(newWidth)
+const oldHeight = figure.height
+figure.setWidth(newWidth)
 
-assert((r.width === newWidth) && (r.height === oldHeight))
+assert((figure.width === newWidth) && (figure.height === oldHeight))
 ```
 
 Но в случае с квадратом это не так. Постусловие — свойства или состояние после выполнения метода — ослабляется:
 
 ```ts
-const oldHeight = s.height
-s.setWidth(newWidth)
+const oldHeight = figure.height
+figure.setWidth(newWidth)
 
 // постусловие ослаблено
-assert((s.width === newWidth))
+assert((figure.width === newWidth))
 ```
 
 Из-за этого использовать `Square` вместо `Rectangle` без дополнительных проверок или изменения уже существующих компонентов невозможно.
