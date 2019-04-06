@@ -150,16 +150,43 @@ class Guest extends BaseUser implements UserWithAccess {
 
 Преимущество композиции — в [высокой абстрактности](https://en.wikipedia.org/wiki/Composition_over_inheritance), которая позволяет строить более гибкие отношения между сущностями.
 
+## React и JSX
+
+Ещё один пример LSP — это React-компоненты, а точнее их реализация в JSX. Синтаксис JSX построен таким образом, что мы можем писать разметку компонентов в HTML-подобном виде:
+
+```ts
+interface ComponentProps {
+  title: string
+}
+
+// пример React-компонента
+const ExampleReactComponent: FunctionComponent<ComponentProps> = ({
+  title
+}: ComponentProps): ReactElement => (
+  <div>
+    <h1>{title}</h1>
+    <OtherComponent />
+  </div>
+)
+```
+
+В примере выше можно заметить, что наряду с «обычными HTML-тегами» (`<div>` и `<h1>`) также рендерится и `<OtherComponent />` — другой React-компонент.
+
+Возможность использовать компоненты точно так же, как «обычные теги», — это и есть реализация принципа подстановки Лисков. Мы можем заменить «обычный тег» на компонент, потому что и те и другие — это реализация `ReactElement`, который описывает, как именно они должны вести себя.
+
+## Вопросы
+WIP
+
 ## Материалы к разделу
 - [Liskov Substitution Principle, Hackernoon](https://hackernoon.com/liskov-substitution-principle-a982551d584a)
 - [Liskov Substitution Principle, Maksim Ivanov](https://maksimivanov.com/posts/liskov-substitution-principle/)
 - [How does strengthening of preconditions and weakening of postconditions violate Liskov substitution principle?](https://softwareengineering.stackexchange.com/questions/187613/how-does-strengthening-of-preconditions-and-weakening-of-postconditions-violate)
 - [Composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
 - [Liskov Substitution Principle and the Composition Root - A Perspective](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective)
-
-## Вопросы
-WIP
+- [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)
 
 *[OCP]:Open-closed principle
 *[LSP]:Liskov Substitution Principle
 *[ООП]:Объектно-ориентированное программирование
+*[JSX]:JavaScript XML
+*[HTML]:Hypertext markup language
