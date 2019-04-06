@@ -6,4 +6,160 @@ export const meta = {
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# В реальной жизни
+
+Наследование предполагает иерархическую структуру сущностей, но с такими структурами есть проблемы. Основная проблема — когда одна из сущностей не вписывается в эту иерархию.
+
+Индикатор такой проблемы — проверки на принадлежность типу или классу перед выполнением какой-то операции или перед возвращением результата.
+
+LSP помогает выявлять проблемные абстракции при проектировании и строить ирерахию сущностей с учётом подобных проблем.
+
+Как и [OCP](/ocp), LSP подводит к выводу, что большие и сложные иерархии сущностей, основанные на наследовании, — это хрупкий и опасный инструмент, вместо которого [лучше использовать композицию](https://en.wikipedia.org/wiki/Composition_over_inheritance).
+
+## Иерархия пользователей
+
+В одном из проектов стояла задача построить иерархию пользовательских ролей. Разработчики столкнулись с проблемой, когда один из типов пользователей не вписывался в существовавшую иерарихю.
+
+В проекте был класс `User`, который описывал сущность пользователя приложения. В нём были описаны методы для работы с сессией, определением прав этого пользователя и обновлением данных профиля:
+
+```ts
+class User {
+  constructor() {
+    // ...
+  }
+
+  getSessionID(): ID {
+    return this.sessID
+  }
+
+  hasAccess(action: Actions): boolean {
+    // ...
+    return access
+  }
+
+  updateProfile(data: Profile): CommandStatus {
+    // ...
+    return status
+  }
+}
+```
+
+Этот класс покрывал собой все роли пользователей, которые были в начале проект: админ, руководитель группы пользователей, обычный пользователь.
+
+В какой-то момент в приложении появился «гостевой режим». У гостей были ограниченные права, и не было профиля. Из-за отсутствия профиля в классе `Guest` метод `updateProfile` усиливал своё предусловие:
+
+```ts
+// гости налсдуются от пользователей
+class Guest extends User {
+  constructor() {
+    super()
+  }
+
+  hasAccess(action: Actions): boolean {
+    // тут всё ок, описываем логику доступов для гостей
+    return access
+  }
+
+  updateProfile(data: Profile): CommandStatus {
+    // а вот тут проблема: у гостей профиля нет,
+    // из-за чего приходится выбрасывать исключение;
+    // гостевой режим как бы заставляет нас учитывать большее количество
+    // обстоятельств, прежде чем выполнить обновление профиля
+    throw new Error('Guests don\'t have profiles')
+  }
+}
+```
+
+## Применяем LSP
+
+Попробуем решить проблему, применив LSP. Согласно принципу `Guest` должен быть заменяем на класс, от которого он наследуется, а приложение при этом не должно взрываться.
+
+Введём общий интерфейс `User`, который будет содержать всё общее, что есть у гостей и пользователей.
+
+```ts
+interface User {
+  getSessionID(): ID
+}
+```
+
+Для описания доступов и работы с данными профиля создадим отдельные интерфейсы: `UserWithAccess` и `UserWithProfile`:
+
+```ts
+// здесь всё, что относится к доступам
+interface UserWithAccess {
+  hasAccess(action: Actions): boolean
+}
+
+// здесь — к профилю
+interface UserWithProfile {
+  updateProfile(data: Profile): CommandStatus
+}
+```
+
+Опишем базовый класс; от него будут наследоваться остальные классы гостей и пользователей:
+
+```ts
+class BaseUser implements User {
+  constructor() {
+    // ...
+  }
+
+  getSessionID(): ID {
+    return this.sessID
+  }
+}
+
+// у обычных пользователей добавляем методы
+// для работы с профилем и для работы с доступами
+class RegularUser extends BaseUser implements UserWithAccess, UserWithProfile {
+  constructor() {
+    super()
+  }
+
+  hasAccess(action: Actions): boolean {
+    // ...
+    return access
+  }
+
+  updateProfile(data: Profile): CommandStatus {
+    // ...
+    return status
+  }
+}
+
+// для гостей же достаточно описать только доступы
+class Guest extends BaseUser implements UserWithAccess {
+  constructor() {
+    super()
+  }
+
+  hasAccess(action: Actions): boolean {
+    // ...
+    return access
+  }
+}
+```
+
+Теперь обновлять профиль мы можем только у сущностей, которые реализуют интерфейс `UserWithProfile`. Из-за этого проверять, является ли пользователь гостем, перед обновением данных профиля не нужно, ведь гости не реализуют этот интерфейс, а значит такой функциональности у них нет.
+
+## Композиция или наследование
+
+ООП — не про наследование и классы, а про отношение между сущностями и их поведение. В нём вполне успешно можно применять композицию — когда разные свойства объектов сочетаются в новом объекте.
+
+При описании класса `RegularUser` в примере выше мы указали, что он реализует два интерфейса `UserWithAccess` и `UserWithProfile`. Каждый из интерфейсов отвечает за какую-то часть функциональности, которую мы сочетаем `RegularUser` — это и есть композиция.
+
+Преимущество композиции — в [высокой абстрактности](https://en.wikipedia.org/wiki/Composition_over_inheritance), которая позволяет строить более гибкие отношения между сущностями.
+
+## Материалы к разделу
+- [Liskov Substitution Principle, Hackernoon](https://hackernoon.com/liskov-substitution-principle-a982551d584a)
+- [Liskov Substitution Principle, Maksim Ivanov](https://maksimivanov.com/posts/liskov-substitution-principle/)
+- [How does strengthening of preconditions and weakening of postconditions violate Liskov substitution principle?](https://softwareengineering.stackexchange.com/questions/187613/how-does-strengthening-of-preconditions-and-weakening-of-postconditions-violate)
+- [Composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
+- [Liskov Substitution Principle and the Composition Root - A Perspective](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective)
+
+## Вопросы
+WIP
+
+*[OCP]:Open-closed principle
+*[LSP]:Liskov Substitution Principle
+*[ООП]:Объектно-ориентированное программирование
