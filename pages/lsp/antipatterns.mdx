@@ -46,7 +46,7 @@ class Article {
 }
 ```
 
-Если опубликованная статья при попытке публикации выбрасывает исключение, _которое не было описано в базовом классе_, то [мы нарушаем LSP](https://www.codeproject.com/Articles/648987/Violating-Liskov-Substitution-Principle-LSP):
+Если опубликованная статья при попытке публикации выбрасывает исключение, _которое не было описано в базовом классе_, то [мы нарушаем LSP](https://softwareengineering.stackexchange.com/questions/170138/is-this-a-violation-of-the-liskov-substitution-principle):
 
 ```ts
 class Published extends Article {
@@ -70,7 +70,7 @@ class Article {
   // ...
 
   protected canPublish(): boolean {
-    return this.status !== ArticleStatus.Published
+    return this.status === ArticleStatus.Draft
   }
 
   publish(): void {
@@ -101,15 +101,49 @@ WIP
 
 ## Интерфейс, которому нельзя доверять
 
-https://stackoverflow.com/questions/20861107/can-anyone-provide-an-example-of-the-liskov-substitution-principle-lsp-using-v
+Более тонкое нарушение LSP — это [«пустая» реализация интерфейса](https://stackoverflow.com/questions/20861107/can-anyone-provide-an-example-of-the-liskov-substitution-principle-lsp-using-v).
+
+Если опереться на пример выше, то пустой реализацией было бы описание метода `Publish` для опубликованной статьи таким образом:
+
+```ts
+class Published extends Article {
+  // ...
+
+  publish(): void {
+    return
+  }
+}
+```
+
+Вроде, всё хорошо: метод описывает правильное поведение, усиления предусловия нет. Но если посмотреть на ситуацию в терминах [контрактного программирования](/lsp/patterns), то метод `publish` должен менять состояние статьи с `Draft` на `Published`, чего не будет происходить:
+
+```ts
+class Article {
+  // ...
+
+  publish(): void {
+    // проверяем, что состояние позволяет публиковать статью
+    // именно эта проверка в Published вызовет ошибку
+    this.contract.require(this.canPublish() === true)
+
+    // ...
+
+    // проверяем, что состояние поменялось на Published
+    this.contract.ensure(this.status === ArticleStatus.Published)
+  }
+}
+```
+
+«Пустая» реализация интерфейса также нарушает [принцип сегрегации интерфейса](/isp).
+
+## Вопросы
+WIP
 
 ## Материалы к разделу
 - [Состояние](https://refactoring.guru/ru/design-patterns/state)
+- [Does the state pattern violate LSP?](https://softwareengineering.stackexchange.com/questions/181922/does-the-state-pattern-violate-liskov-substitution-principle)
 - [Violating LSP](https://www.codeproject.com/Articles/648987/Violating-Liskov-Substitution-Principle-LSP)
 - [Examples of LSP violation](https://stackoverflow.com/questions/20861107/can-anyone-provide-an-example-of-the-liskov-substitution-principle-lsp-using-v)
 - [Common pitfalls and bad practices](https://medium.com/@ipapikas/solid-series-3-5-liskov-substitution-principle-c71500ce9d29)
-
-
-https://softwareengineering.stackexchange.com/questions/181922/does-the-state-pattern-violate-liskov-substitution-principle
 
 *[LSP]:Liskov Substitution Principle
