@@ -1,4 +1,5 @@
 import MainLayout from '~/components/layouts/main'
+import Figure from '~/components/Figure'
 
 export const meta = {
   title: 'Введение'
@@ -6,6 +7,63 @@ export const meta = {
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Введение
 
-https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective
+[Проблема банана и джунглей](https://dzone.com/articles/lamenting-the-death-of-object-oriented-programming) — одна из тех, за которые [не любят](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53) ООП. Простыми словами суть её выражается так: при наследовании класс-потомок получает вместе с нужной функциональностью кучу неиспользуемой и ненужной.
+
+Однако, проблема возникает [не столько из-за ООП как такового](https://medium.com/@ninja_76550/why-object-oriented-matters-71d86401c44b), сколько из-за неправильной модели системы. [Принцип разделения интерфейса](https://ru.wikipedia.org/wiki/Принцип_разделения_интерфейса) (Interface Segregation Principle, ISP) содержит правила и ограничения, которые помогают с этой проблемой справляться.
+
+## Принцип разделения интерфейса
+
+Звучит ISP так: _сущности не должны зависеть от интерфейсов, которые они не используют_.
+
+Когда принцип нарушается, сущности подвержены _всем_ изменениям в интерфейсах, от которых они зависят. Это приводит к высокой связанности модулей друг с другом.
+
+ ISP побуждает проектировать интерфейсы так, чтобы изменения затрагивали только те модули, на функциональность которых они действительно влияют. Чаще всего это означает, что интерфейсы приходится дробить (разделять).
+
+## Пример задачи
+
+Допустим, требуется сделать программу, которая будет играть определённую ноту каждые несколько секунд. В наивном подходе с наследованием нам придётся построить нечто похожее на вот такую иерархию:
+
+<Figure>
+  <img src="/static/isp-problem.svg" />
+  <figcaption>Структура, которая нарушает ISP</figcaption>
+</Figure>
+
+Проблема этой структуры в том, что мы представляем класс `SoundEmitter` потомком класса `TimeInterval`, хотя они друг с другом не связаны. Отсюда и возникает «необходимость» тащить ненужный код, как зависимость для потомков класса `TimeInterval`.
+
+ISP предлагает два подхода к решению этой проблемы с помощью разделения интерфейсов: через делегирование и через множественное наследование.
+
+## Разделение через делегирование
+
+Этот подход подразумевает использование шаблона проектирования под названием [адаптер](https://refactoring.guru/ru/design-patterns/adapter).
+
+Мы не будем связывать `SoundEmitter` и `TimeInterval` непосредственно друг с другом. Мы будем связывать их через дополнительный слой (адаптер), который будет транслировать сообщения от одной сущности другой.
+
+<Figure>
+  <img src="/static/isp-adapter.svg" />
+  <figcaption>Использование адаптера для связывания сущностей</figcaption>
+</Figure>
+
+О плюсах и минусах подробно поговорим в [разделе](/isp/patterns) с шаблонами проектирования и приёмами рефакторинга.
+
+## Разделение через множественное наследование
+
+Второй вариант предполагает, кто `IntervalSoundEmitter` бует наследоваться и от `TimeInterval`, и от `SoundEmitter`. Это позволит отвязать родительские классы друг от друга и использовать только нужную функциональность и только в классе `IntervalSoundEmitter`.
+
+<Figure>
+  <img src="/static/isp-mult-inheritance.svg" />
+  <figcaption>Вариант структуры с множественным наследованием</figcaption>
+</Figure>
+
+## Материалы к разделу
+- [Принцип разделения интерфейса](https://ru.wikipedia.org/wiki/Принцип_разделения_интерфейса)
+- [Interface Segregation Principle, Object Mentor, Inc, PDF](http://www.labri.fr/perso/clement/enseignements/ao/ISP.pdf)
+- [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53)
+- [Lamenting the Death of Object-Oriented Programming. Again?](https://dzone.com/articles/lamenting-the-death-of-object-oriented-programming)
+- [Why Object Oriented Matters](https://medium.com/@ninja_76550/why-object-oriented-matters-71d86401c44b)
+- [Адаптер](https://refactoring.guru/ru/design-patterns/adapter)
+
+*[ООП]:Объектно-ориентированное программирование
+*[ISP]:Interface Segregation Principle
+*[PDF]:Portable document format
