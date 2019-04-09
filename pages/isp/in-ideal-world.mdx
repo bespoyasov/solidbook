@@ -6,4 +6,86 @@ export const meta = {
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# В идеальном мире
+
+В идеально-спроектированной системе сущности зависят только от тех интерфейсов, функциональность которых реализуют. Чаще всего это приводит к дроблению интерфейсов на меньшие. Рассмотрим на примерах.
+
+## «Пустая» реализация
+
+Допустим, у нас есть класс `Programmer`, который описывает программиста из офиса некоей компании. Сотрудники пишут код и иногда едят пиццу, которую компания заказывает в офис.
+
+```ts
+interface Progammer {
+  writeCode(): void
+  eatPizza(slicesCount: number): void
+}
+
+class RegularProgrammer implements Progammer {
+  constructor() {/*...*/}
+  writeCode(): void {/*...*/}
+  eatPizza(slicesCount: number): void {/*...*/}
+}
+```
+
+Через какое-то время компания начала нанимать фрилансеров, которые работают удалённо, и пиццу не едят. Если мы используем тот же интерфейс, то класс `Freelancer` должен будет реализовать метод `eatPizza`, хотя он ему и не нужен — это [«пустая» реализация интерфейса](/isp/antipatterns).
+
+```ts
+class Freelancer implements Progammer {
+  constructor() {/*...*/}
+  writeCode(): void {/*...*/}
+  eatPizza(slicesCount: number): void {
+    // здесь будет пусто —
+    // это сигнал, что интерфейс пора дробить
+  }
+}
+```
+
+## Разделение интерфейса
+
+Мы можем избежать проблемы из примера выше, если разделим интерфейс `Progammer` на два: `CodeProducer` и `PizzaConsumer`.
+
+```ts
+interface CodeProducer {
+  writeCode(): void
+}
+
+interface PizzaConsumer {
+  eatPizza(slicesCount: number): void
+}
+```
+
+Теперь и `RegularProgrammer`, и `Freelancer` будут реализовывать только те интерфейсы, которые им действительно нужны:
+
+```ts
+class RegularProgrammer implements CodeProducer, PizzaConsumer {
+  constructor() {/*...*/}
+  writeCode(): void {/*...*/}
+  eatPizza(slicesCount: number): void {/*...*/}
+}
+
+class Freelancer implements CodeProducer {
+  constructor() {/*...*/}
+  writeCode(): void {/*...*/}
+  // метод eatPizza уже не нужен
+}
+```
+
+## Сравнение с SRP, влияние на LSP
+
+ISP можно сравнить с [SRP](/srp) только для интерфейсов. Если приглядеться, то действительно будет заметно, что дробление интерфейсов заставляет делить ответственность между ними.
+
+Если мы применяем ISP, мы получаем больше интерфейсов с меньшим количеством методов в каждом. Если мы применяем SRP, получаем больше модулей с меньшим количество методов в каждом. Применение обоих принципов разом заставляет делать [контракты](/lsp/patterns) между модулями проще, что снижает вероятность нарушения [LSP](/lsp).
+
+## Материалы к разделу
+
+- [Interface Segregation Principle, Object Mentor, Inc, PDF](http://www.labri.fr/perso/clement/enseignements/ao/ISP.pdf)
+- [Interface Segregation Principle](https://www.oodesign.com/interface-segregation-principle.html)
+- [The Single Responsibility Principle and the Interface Segregation Principle](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective)
+
+## Вопросы
+WIP
+
+*[ISP]:Interface Segregation Principle
+*[PDF]:Portable document format
+*[LSP]:Liskov Substitution Principle
+*[SRP]:Single responsibility principle
