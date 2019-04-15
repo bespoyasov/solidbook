@@ -1,15 +1,67 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Паттерны и приёмы рефакторинга'
+  title: 'Шаблоны проектирования и приёмы рефакторинга'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Шаблоны проектирования и приёмы рефакторинга
 
-адаптер
-выделение интерфейса
+Следовать принципу разделения интерфейса помогают такие шаблоны проектирования как адаптер и выделение интерфейса, а также приём множественного наследования.
+
+## Адаптер
+
+[Адаптер](https://refactoring.guru/design-patterns/adapter) — шаблон проектирования, который позволяет объектам с несовместимыми интерфейсами работать вместе.
+
+С точки зрения ISP этот шаблон помогает держать интерфейсы чистыми и понятными, а при необходимости совместить несовместимые сущности — использовать специальную прослойку (адаптер).
+
+Приложение [Курсовик](https://bespoyasov.ru/blog/kursovik/) показывает курс доллара к рублю. Данные он берёт с сайта Центрального банка России. ЦБ отдаёт данные в формате XML, в то время как сам Курсовик работает с JSON.
+
+Адаптер помогает «подружить» модули, которые работают с XML, и модули, которые работают с JSON.
+
+```ts
+const ApiClient = {
+  async getXml(url: string): Promise<XmlString> {
+    const resonse = await fetch(url)
+    const data = await resonse.text()
+    return data
+  }
+}
+
+const xmlJsonAdapter = (xml: XmlString): JsonString => {
+  // ...конвертируем xml в json
+  return json
+}
+
+const parseCoure = (data: JsonString) => {
+  // ...
+  return course
+}
+
+(async () => {
+  const data = await ApiClient.getXml('...')
+  const course = parseCoure(xmlJsonAdapter(data))
+})()
+```
+
+Также адаптер [помогает справляться](https://bespoyasov.ru/blog/adapter-pattern/) со «сломанным» API от бекенда.
+
+## Выделение интерфейса
 https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective
-множественное наледование
+
+## Множественное наледование
 https://www.typescriptlang.org/docs/handbook/mixins.html
+
+## Материалы к разделу
+- [Адаптер](https://refactoring.guru/design-patterns/adapter)
+- [Лекарство от сломанной обратной совместимости](https://bespoyasov.ru/blog/adapter-pattern/)
+
+## Вопросы
+WIP
+
+*[ISP]:Interface Segregation Principle
+*[XML]:eXtensible Markup Language
+*[JSON]:Javascript Object Notation
+*[ЦБ]:Центральный банк
+*[API]:Application Programming Interface
