@@ -1,4 +1,5 @@
 import MainLayout from '~/components/layouts/main'
+import Figure from '~/components/Figure'
 
 export const meta = {
   title: 'В реальной жизни'
@@ -6,4 +7,123 @@ export const meta = {
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# В реальной жизни
+
+ISP можно рассматривать, как SRP для интерфейсов. Его главная задача — спроектировать интерфейсы такими, чтобы в них не было ничего лишнего. Этот принцип помогает обнаружать более высокие абстракции и находить связи между сущнотями, которых вначале не было видно.
+
+## Койн
+
+Приложение [Койн](http://www.fuckgrechka.ru/c0in/) — это будущий преемник [Тяжеловато](http://fuckgrechka.ru/tzlvt/) и площадка для экспериментов.
+
+В Койне появилась возможность записывать не только траты, но и доходы. Разработчики использовали ISP, чтобы сделать работу с тратами и доходами более удобной.
+
+<Figure>
+  <img src='/static/coin.png' />
+  <figcaption>Список трат и доходов в Койне</figcaption>
+</Figure>
+
+В начале работы в приложении были только траты, поэтому в истории хранились только объекты типа `Spend`.
+
+```ts
+interface Spend {
+  amount: number;
+  date: Timestamp;
+  type: 'helpful' | 'harmful' | null;
+}
+
+type History = Spend[]
+```
+
+Когда в приложении добавились доходы, в истории стали храниться не только траты. У трат и доходов были общие поля, поэтому было логично вынести их в общий интерфейс `Record`, а интерфейс траты расширить от него:
+
+```ts
+type RecordTypes = 'spend' | 'income'
+type SpendTypes = 'helpful' | 'harmful' | null
+
+// все общие поля описаны в более абстрактном интерфейсе
+// так ISP помогает выявить скрытые связи между сущностями
+// и зависимости в их поведении
+interface Record {
+  amount: number;
+  date: Timestamp;
+  is: RecordTypes;
+  // поля type здесь уже нет,
+  // так как для доходов оно не нужно
+}
+
+// интерфейс траты расширяет интерфейс записи
+interface Spend extends Record {
+  type: SpendTypes;
+}
+```
+
+Тогда траты и доходы могли реализовать эти интерфейсы так, чтоб базовая запись описывала общее поведение, а трата и доход — только специфичное для них:
+
+```ts
+class RecordItem implements Record {
+  amount: number
+  date: Timestamp
+  is: RecordTypes
+
+  constructor(amount: number) {
+    this.amount = amount;
+    this.date = Date.now();
+  }
+}
+
+class SpendItem extends RecordItem implements Spend {
+  type: SpendTypes
+
+  constructor(amount: number, type: SpendTypes = null) {
+    super(amount);
+    this.is = 'spend';
+    this.type = type;
+  }
+}
+
+class IncomeItem extends RecordItem {
+  constructor(amount: number) {
+    super(amount);
+    this.is = 'income';
+  }
+}
+```
+
+## Задачник
+
+[Задачник](https://bespoyasov.ru/projects/taskman/) — это система управления задачами и учёта времени работы.
+
+Для напоминания о подходящих сроках задачи в Задачнике используются уведомления. Уведомления бывают разных типов: Push, SMS и почтовые.
+
+Согласно ISP, общие для всех типов поля и методы разработчики хранят в общем интерфейсе `Message`:
+
+```ts
+interface Message {
+  title: string
+  body: string
+  send(to: string[]): void
+}
+```
+
+Детали же — описывают конкретно под каждый тип уведомлений:
+
+```ts
+interface SmsMessage extends Message {
+  smsService: SmsService
+  // ...
+}
+
+interface PushMessage extends Message {
+  pushService: PushService
+  // ...
+}
+
+interface EmailMessage extends Message {
+  emailService: EmailService
+  // ...
+}
+```
+
+*[ISP]:Interface Segregation Principle
+*[SRP]:Single responsibility principle
+*[SMS]:Short Message Service
