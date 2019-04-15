@@ -17,7 +17,7 @@ export default [
     route('/srp/in-ideal-world', 'Примеры из идеального мира'),
     route('/srp/in-real-life', 'Примеры из реальной жизни'),
     route('/srp/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/srp/antipatterns', 'Антипаттерны'),
+    route('/srp/antipatterns', 'Антипаттерны и запахи'),
     route('/srp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/ocp', 'Принцип открытости и закрытости', [
@@ -25,7 +25,7 @@ export default [
     route('/ocp/in-ideal-world', 'Примеры из идеального мира'),
     route('/ocp/in-real-life', 'Примеры из реальной жизни'),
     route('/ocp/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/ocp/antipatterns', 'Антипаттерны'),
+    route('/ocp/antipatterns', 'Антипаттерны и запахи'),
     route('/ocp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/lsp', 'Принцип подстановки Барбары Лисков', [
@@ -33,7 +33,7 @@ export default [
     route('/lsp/in-ideal-world', 'Примеры из идеального мира'),
     route('/lsp/in-real-life', 'Примеры из реальной жизни'),
     route('/lsp/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/lsp/antipatterns', 'Антипаттерны'),
+    route('/lsp/antipatterns', 'Антипаттерны и запахи'),
     route('/lsp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/isp', 'Принцип разделения интерфейса', [
@@ -41,7 +41,7 @@ export default [
     route('/isp/in-ideal-world', 'Примеры из идеального мира'),
     route('/isp/in-real-life', 'Примеры из реальной жизни'),
     route('/isp/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/isp/antipatterns', 'Антипаттерны'),
+    route('/isp/antipatterns', 'Антипаттерны и запахи'),
     route('/isp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/di', 'Принцип инверсии зависимостей', [
@@ -49,7 +49,7 @@ export default [
     route('/di/in-ideal-world', 'Примеры из идеального мира'),
     route('/di/in-real-life', 'Примеры из реальной жизни'),
     route('/di/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/di/antipatterns', 'Антипаттерны'),
+    route('/di/antipatterns', 'Антипаттерны и запахи'),
     route('/di/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/afterwords', 'Заключение')
