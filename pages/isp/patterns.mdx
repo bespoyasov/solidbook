@@ -1,15 +1,101 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Паттерны и приёмы рефакторинга'
+  title: 'Шаблоны проектирования и приёмы рефакторинга'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Шаблоны проектирования и приёмы рефакторинга
 
-адаптер
-выделение интерфейса
-https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective
-множественное наледование
-https://www.typescriptlang.org/docs/handbook/mixins.html
+Следовать принципу разделения интерфейса помогают такие шаблоны проектирования как адаптер, а также приёмы выделения интерфейса и множественного наследования.
+
+## Адаптер
+
+[Адаптер](https://refactoring.guru/design-patterns/adapter) — шаблон проектирования, который позволяет объектам с несовместимыми интерфейсами работать вместе.
+
+С точки зрения ISP этот шаблон помогает держать интерфейсы чистыми и понятными, а при необходимости совместить несовместимые сущности — использовать специальную прослойку (адаптер).
+
+Приложение [Курсовик](https://bespoyasov.ru/blog/kursovik/) показывает курс доллара к рублю. Данные он берёт с сайта Центрального банка России. ЦБ отдаёт данные в формате XML, в то время как сам Курсовик работает с JSON.
+
+Адаптер помогает «подружить» модули, которые работают с XML, и модули, которые работают с JSON.
+
+```ts
+const ApiClient = {
+  async getXml(url: string): Promise<XmlString> {
+    const resonse = await fetch(url)
+    const data = await resonse.text()
+    return data
+  }
+}
+
+const xmlJsonAdapter = (xml: XmlString): JsonString => {
+  // ...конвертируем xml в json
+  return json
+}
+
+const parseCoure = (data: JsonString): CourseDict => {
+  // ...
+  return course
+}
+
+(async () => {
+  const data = await ApiClient.getXml('api_endpoint')
+  const course = parseCoure(xmlJsonAdapter(data))
+})()
+```
+
+Также адаптер [помогает справляться](https://bespoyasov.ru/blog/adapter-pattern/) со «сломанным» API от бекенда и преобразованием одних структур данных в другие.
+
+## Выделение интерфейса
+[Выделение интерфейса](https://refactoring.guru/ru/extract-interface) — это приём при котором одинаковые методы и поля выносят в собственный отдельный интерфейс.
+
+В качестве примера можно вернуться к [Койну из прошлого раздела](/isp/in-real-life). Интерфейс `Record` — это выделенный общий интерфейс, который включает в себя общие для траты и дохода поля.
+
+Выделение интерфейса тесно связано не только с ISP, но и с LSP. Например, оно используется при поиске [корня композиции](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective) и как вспомогательный инструмент для [выделения суперкласса](/lsp/patterns).
+
+## Множественное наледование
+[Множественное наследование](https://ru.wikipedia.org/wiki/Множественное_наследование) используется, например, чтобы реализовать функциональность нескольких интерфейсов:
+
+```ts
+// здесь Animal и Transport — это классы
+class Horse implements Animal, Transport {/*...*/}
+```
+
+В Typescript такое наследование реализуется через [миксины](https://www.typescriptlang.org/docs/handbook/mixins.html).
+
+До этих пор в книге для простоты повествования мы пропускали специальную функцию `applyMixins`, которая копирует функциональность из родительских классов:
+
+```ts
+function applyMixins(derivedCtor: any, baseCtors: any[]) {
+  baseCtors.forEach(baseCtor => {
+    Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
+      Object.defineProperty(derivedCtor.prototype, name, Object.getOwnPropertyDescriptor(baseCtor.prototype, name));
+    });
+  });
+}
+```
+
+Чтобы пример с классом `Horse` выше сработал, нам необходимо использовать `applyMixins` следующим образом:
+
+```ts
+applyMixins(Horse, [Animal, Transport]);
+```
+
+## Материалы к разделу
+- [Адаптер](https://refactoring.guru/design-patterns/adapter)
+- [Лекарство от сломанной обратной совместимости](https://bespoyasov.ru/blog/adapter-pattern/)
+- [Выделение интерфейса](https://refactoring.guru/ru/extract-interface)
+- [Liskov Substitution Principle and the Composition Root](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective)
+- [Множественное наследование](https://ru.wikipedia.org/wiki/Множественное_наследование)
+- [Mixins in Typescript](https://www.typescriptlang.org/docs/handbook/mixins.html)
+
+## Вопросы
+WIP
+
+*[ISP]:Interface Segregation Principle
+*[LSP]:Liskov Substitution Principle
+*[XML]:eXtensible Markup Language
+*[JSON]:Javascript Object Notation
+*[ЦБ]:Центральный банк
+*[API]:Application Programming Interface
