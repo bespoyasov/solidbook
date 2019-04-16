@@ -44,13 +44,13 @@ export default [
     route('/isp/antipatterns', 'Антипаттерны и запахи'),
     route('/isp/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
-  route('/di', 'Принцип инверсии зависимостей', [
-    route('/di', 'Введение и понятия'),
-    route('/di/in-ideal-world', 'Примеры из идеального мира'),
-    route('/di/in-real-life', 'Примеры из реальной жизни'),
-    route('/di/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
-    route('/di/antipatterns', 'Антипаттерны и запахи'),
-    route('/di/limits-and-caveats', 'Ограничения и подводные камни')
+  route('/dip', 'Принцип инверсии зависимостей', [
+    route('/dip', 'Введение и понятия'),
+    route('/dip/in-ideal-world', 'Примеры из идеального мира'),
+    route('/dip/in-real-life', 'Примеры из реальной жизни'),
+    route('/dip/patterns', 'Шаблоны проектирования и приёмы рефакторинга'),
+    route('/dip/antipatterns', 'Антипаттерны и запахи'),
+    route('/dip/limits-and-caveats', 'Ограничения и подводные камни')
   ]),
   route('/afterwords', 'Заключение')
 ]
