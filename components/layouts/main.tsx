@@ -26,7 +26,7 @@ const Grid = styled.div`
 
 const MainContent = styled.main`
   section > section {
-    margin-top: 2rem;
+    margin-top: 1.6rem;
   }
 `
 
