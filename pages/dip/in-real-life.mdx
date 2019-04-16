@@ -6,4 +6,22 @@ export const meta = {
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# В реальной жизни
+
+DIP помогает следовать другим принципам SOLID и упрощает тестирование.
+
+## DIP и тестирование
+
+Пистать тесты без следования DIP — возможно, но следуя принципу это делать проще. Если модуль зависит от абстракции, то его зависимость легче подменить [фейковым объектом](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
+
+
+
+Библиотека для IoC – http://inversify.io/
+
+## Материалы к разделу
+- [What's the difference between faking, mocking, and stubbing?](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing)
+- [Mock Objects, Design and DIP](https://www.slideshare.net/paskavatta/mo-dip-15104789)
+- [inversify.io](http://inversify.io/)
+
+*[DIP]:Dependency Inversion Principle
+*[SOLID]:Principles of object oriented design
