@@ -18,18 +18,79 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 В [примере](/ocp/patterns) из раздела об OCP класс `SoftwareEngineerApplicant` следит за появлением новой вакансии у `HrAgency`. Метод `update` решает, как обработать изменение состояния.
 
-Взаимодействие классов `SoftwareEngineerApplicant` и `HrAgency` «становится фреймворком», который следит за изменениями и вызывает нужные методы.
+Взаимодействие классов `SoftwareEngineerApplicant` и `HrAgency` [«становится фреймворком»](https://www.sitepoint.com/three-design-patterns-that-use-inversion-of-control/), который следит за изменениями и вызывает нужные методы.
 
 ## Шаблонный метод
 
+[Шаблонный метод](https://refactoring.guru/ru/design-patterns/template-method) — это шаблон, который определяет скелет алгоритма, а некоторые шаги даёт реализовывать подклассам. Так подклассы могут переопределять шаги алгоритма, не меняя общей структуры.
+
+В примере ниже шаблонный метод `brewBeverage` задаёт каркас алгоритма приготовления напитка.
+
+```ts
+abstract class BeverageMachine {
+  public brewBeverage(): Beverage {
+    this.turnOn()
+    this.prepareIngredients()
+    this.prepareContainer()
+    this.brew()
+    this.hook()
+  }
+
+  // базовые операции имеют реализацию
+  public turnOn(): void {
+    this.on = true
+  }
+
+  // специфичные для каждого подкласса операции
+  // будут переопределяться потомками
+  abstract public prepareIngredients(): void
+  abstract public prepareContainer(): void
+  abstract public brew(): void
+
+  // Хуки предоставляют дополнительные точки расширения
+  // в некоторых критических местах алгоритма;
+  // их переопределять не обязательно,
+  // так как есть дефолтная пустая реализация
+  public hook(): void {}
+}
+```
+
+Конкретные классы реализуют абстрактные методы базового. Они также могут переопределить и некоторые методы по умолчанию. Как правило, конкретные переопределяют только часть функциональности.
+
+```ts
+class CoffeeMachine extends BeverageMachine {
+  abstract public prepareIngredients(): void {
+    this.grindBeans()
+    this.heatMilk()
+  }
+
+  abstract public prepareContainer(): void {
+    this.getNewCup()
+  }
+
+  abstract public brew(): void {
+    this.pourEspresso()
+    this.pourMilk()
+  }
+
+  // ...
+}
+```
+
+В стандартной модели наследования потомки вызывают методы базового класса. [Здесь же наоборот](https://www.sitepoint.com/three-design-patterns-that-use-inversion-of-control/) — методы, реализованные в конкретных классах, вызываются в базовом через шаблонный метод.
+
+Преимущество такого подхода в повторном использовании алгоритма с различными вариациями. Опасность шаблона — в случайном нарушении [LSP](/lsp) при изменении функциональности подкласса.
+
 ## Локатор служб
 
-https://www.sitepoint.com/three-design-patterns-that-use-inversion-of-control/
 
 https://medium.com/@sawomirkowalski/design-patterns-dependency-injection-and-its-variations-16007d0fa367
 
 ## Материалы к разделу
 - [Наблюдатель](https://refactoring.guru/ru/design-patterns/observer)
+- [Шаблонный метод](https://refactoring.guru/ru/design-patterns/template-method)
+- [Three Design Patterns That Use IoC](https://www.sitepoint.com/three-design-patterns-that-use-inversion-of-control/)
+- [DI and its variations](https://medium.com/@sawomirkowalski/design-patterns-dependency-injection-and-its-variations-16007d0fa367)
 
 ## Вопросы
 WIP
@@ -37,3 +98,4 @@ WIP
 *[DIP]:Dependency Inversion Principle
 *[OCP]:Open-Closed Principle
 *[GUI]:Graphic User Interface
+*[LSP]:Liskov Substitution Principle
