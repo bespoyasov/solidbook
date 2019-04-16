@@ -6,4 +6,73 @@ export const meta = {
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# В идеальном мире
+
+В идеально-спроектированной системе модули зависят только от абстракций, сцепление — минимальна, а связность — максимальна.
+
+## Аутентификация пользователей
+
+Рассмотрим в качестве примера модуль аутентификации пользователей.
+
+```ts
+class MySqlConnection {/*...*/}
+
+class Auth {
+  connection: MySqlConnection
+
+  constructor(connection: MySqlConnection) {
+    this.connection = connection
+  }
+
+  authentificate(login: string, password: string) {/*...*/}
+}
+```
+
+В примере выше модуль `Auth` — высокоуровневый, а `MySqlConnection` — низкоуровневый. Пример нарушает DIP, потому что `Auth` зависит напрямую от `MySqlConnection`.
+
+Если мы сменим базу данных, то нам придётся менять и код модуля `Auth`. По-хорошему `Auth` не должен ничего знать о базе данных, которую мы используем. Ему достаточно знать, что есть какая-то база, к которой можно достучать через определённые методы — это работа интерфейса.
+
+```ts
+interface DataBaseConnection {
+  connect(host: string, user: string, password: string): void
+}
+
+class MySqlConnection implements DataBaseConnection {
+  constructor() {/*...*/}
+  connect(host: string, user: string, password: string): void {/*...*/}
+}
+```
+
+Теперь мы можем отвязать `Auth` от конкретной базы данных, указав в зависимости интерфейс.
+
+```ts
+class Auth {
+  // тип зависимости поменялся:
+  connection: DataBaseConnection
+
+  constructor(connection: DataBaseConnection) {
+    this.connection = connection
+  }
+
+  authentificate(login: string, password: string) {/*...*/}
+}
+```
+
+## OCP и LSP автоматом
+
+Исправленный вариант автоматически удовлетворяет двум другим принципам: OCP и LSP.
+
+Мы можем заменить одну БД на другую, если она реализует интерфейс `DataBaseConnection`, и приложение не сломается, как этого требует LSP. При изменении базы нам не придётся изменять код модуля `Auth` — так мы удовлетворяем OCP.
+
+## Материалы к разделу
+- [Принцип инверсии зависимостей, MakeDev](https://makedev.org/principles/solid/dip.html)
+- [Dependency Inversion Principle, oodesign](https://www.oodesign.com/dependency-inversion-principle.html)
+- [OCP vs DIP](https://softwareengineering.stackexchange.com/questions/220765/open-close-principle-ocp-vs-dependency-inversion-principle-dip)
+
+## Вопросы
+WIP
+
+*[DIP]:Dependency Inversion Principle
+*[OCP]:Open-Closed Principle
+*[LSP]:Liskov Substitution Principle
+*[БД]:База данных
