@@ -8,20 +8,82 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 # В реальной жизни
 
-DIP помогает следовать другим принципам SOLID и упрощает тестирование.
+Для большего контроля над зависимостями и урпощения тестирования DIP предлагает использовать инверсию контроля (Inversion of Control, IoC) и [инъекцию зависмостей](https://en.wikipedia.org/wiki/Dependency_injection) (Dependency Injection, DI).
 
-## DIP и тестирование
+## DIP, DI и тестирование
 
-Пистать тесты без следования DIP — возможно, но следуя принципу это делать проще. Если модуль зависит от абстракции, то его зависимость легче подменить [фейковым объектом](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
+Пистать тесты без следования DIP возможно, но следуя принципу это делать проще. Если модуль зависит от абстракции, то его зависимость легче подменить [фейковым объектом](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
 
+При тестировании удобно использовать DI, чтобы заменять зависимости на фейковые объекты.
 
+Вернёмся к примеру с аутентификацией. Для того, чтобы протестировать реализацию, которая не следует DIP, нам придётся создать экземпляр класса `MySqlConnection`:
 
-Библиотека для IoC – http://inversify.io/
+```ts
+describe('Auth', () => {
+  let connection: MySqlConnection;
+  let auth: Auth
+
+  beforeEach(() => {
+    connection = new MySqlConnection(/*...*/)
+    auth = new Auth(connection)
+  })
+
+  it('should successfully authentificate user', async () => {
+    const result: AuthResult = await auth.authentificate('Alex', '123')
+    expect(result.status).toEqual(200)
+  })
+})
+```
+
+Проблема — в производительности. Хороший юнит-тест [должен быть быстрым](https://bespoyasov.ru/ttt-tdd/), а создавать экземпляр настоящего объекта на каждый тест — ресурсозатратно.
+
+Кроме того, в плохой реализации класс `MySqlConnection` сам может зависеть от других модулей, экземпляры которых тоже будут создаваться. Всё это сильно тормозит тесты.
+
+Теперь попробуем протестировать реализацию, которая следует DIP:
+
+```ts
+class DbMock implements DataBaseConnection {
+  connect(host: string, user: string, password: string): void {
+    // дешёвые операции
+  }
+
+  // ...реализация только тех методов,
+  // которые понадобятся для тестов
+}
+
+describe('Auth', () => {
+  let connection: DataBaseConnection;
+  let auth: Auth
+
+  beforeEach(() => {
+    connection = new DbMock(/*...*/)
+    auth = new Auth(connection)
+  })
+
+  // ...
+})
+```
+
+Класс `DbMock` реализует интерфейс `DataBaseConnection`. Мы можем спроектировать максимально простым и лёгким, это ускорит работу теста.
+
+## Инверсия контроля
+
+DI — это частный случай [инверсии контроля](https://en.wikipedia.org/wiki/Inversion_of_control). При этом подходе контроль за выполнением программы отдаётся фреймворку, который знает, в какой момент и какую функцию надо вызвать. Цель IoC — сделать систему расширяемой.
+
+[Inversify](http://inversify.io/) предлагает решение для IoC на Typescript. Inversify предоставляет API для создания контейнеров с указанием зависимостей, которые потом подставляются автоматически.
 
 ## Материалы к разделу
+- [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection)
+- [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control)
 - [What's the difference between faking, mocking, and stubbing?](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing)
 - [Mock Objects, Design and DIP](https://www.slideshare.net/paskavatta/mo-dip-15104789)
-- [inversify.io](http://inversify.io/)
+- [Пример разработки Крестиков‑ноликов по TDD](https://bespoyasov.ru/ttt-tdd/)
+- [On DI, Loose Coupling and Unit Tests](https://bulldogjob.com/articles/971-on-dependency-injection-loose-coupling-and-unit-tests-in-c)
+- [Inversify.io](http://inversify.io/)
+- [Dependency Inversion with Inversify.io](https://codeburst.io/understanding-solid-principles-dependency-injection-d570c15560ab)
 
 *[DIP]:Dependency Inversion Principle
 *[SOLID]:Principles of object oriented design
+*[DI]:Dependency Injection
+*[TDD]:Test Driven Development
+*[API]:Application Programming Interface
