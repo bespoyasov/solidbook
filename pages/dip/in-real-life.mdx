@@ -8,13 +8,11 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 # В реальной жизни
 
-Для большего контроля над зависимостями и урпощения тестирования DIP предлагает использовать инверсию контроля (Inversion of Control, IoC) и [инъекцию зависмостей](https://en.wikipedia.org/wiki/Dependency_injection) (Dependency Injection, DI).
+Для большего контроля над зависимостями и урпощения тестирования DIP предлагает использовать [инверсию контроля](https://en.wikipedia.org/wiki/Inversion_of_control) (Inversion of Control, IoC) и [инъекцию зависмостей](https://en.wikipedia.org/wiki/Dependency_injection) (Dependency Injection, DI).
 
 ## DIP, DI и тестирование
 
 Пистать тесты без следования DIP возможно, но следуя принципу это делать проще. Если модуль зависит от абстракции, то его зависимость легче подменить [фейковым объектом](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
-
-При тестировании удобно использовать DI, чтобы заменять зависимости на фейковые объекты.
 
 Вернёмся к примеру с аутентификацией. Для того, чтобы протестировать реализацию, которая не следует DIP, нам придётся создать экземпляр класса `MySqlConnection`:
 
@@ -44,7 +42,8 @@ describe('Auth', () => {
 ```ts
 class DbMock implements DataBaseConnection {
   connect(host: string, user: string, password: string): void {
-    // дешёвые операции
+    // здесь дешёвые операции-заглушки,
+    // подключаться к базе совсем не обязательно
   }
 
   // ...реализация только тех методов,
