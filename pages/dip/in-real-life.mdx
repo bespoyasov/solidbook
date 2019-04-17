@@ -8,11 +8,11 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 # В реальной жизни
 
-Для большего контроля над зависимостями и урпощения тестирования DIP предлагает использовать [инверсию контроля](https://en.wikipedia.org/wiki/Inversion_of_control) (Inversion of Control, IoC) и [инъекцию зависмостей](https://en.wikipedia.org/wiki/Dependency_injection) (Dependency Injection, DI).
+Для большего контроля над зависимостями и упрощения тестирования DIP предлагает использовать [инверсию контроля](https://en.wikipedia.org/wiki/Inversion_of_control) (Inversion of Control, IoC) и [инъекцию зависимостей](https://en.wikipedia.org/wiki/Dependency_injection) (Dependency Injection, DI).
 
 ## DIP, DI и тестирование
 
-Пистать тесты без следования DIP возможно, но следуя принципу это делать проще. Если модуль зависит от абстракции, то его зависимость легче подменить [фейковым объектом](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
+Писать тесты без DIP возможно, но следуя принципу это делать проще. Если модуль зависит от абстракции, то его зависимость легче подменить [фейковым объектом](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
 
 Вернёмся к примеру с аутентификацией. Для того, чтобы протестировать реализацию, которая не следует DIP, нам придётся создать экземпляр класса `MySqlConnection`:
 
