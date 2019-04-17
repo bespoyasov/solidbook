@@ -64,6 +64,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: .8em;
     text-transform: uppercase;
     letter-spacing: 0.15em;
+    margin-bottom:0;
   }
 
   a {
