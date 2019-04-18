@@ -86,7 +86,69 @@ class EvenNumbersSummator {
 Теперь метод не начнёт свою работу, если какое-то из предусловий будет нарушено, как и не вернёт результат, если будет нарушено постусловие.
 
 ## Вопросы
-WIP
+**Какую проблему с точки зрения LSP решает класс `Contract`?**
+
+_Позволяет строго описать и ограничить условия функционирования сущностей_
+
+_Позволяет описать ожидания от результата работы конкретного метода_
+
+_Избавляет от поведения, которого противоречит поведению базовой сущности_
+
+_Помогает спроектировать сущность таким образом, чтобы её потомков можно было подменять друг другом_
+
+**Какой из классов-наследников `EvenNumbersSummator` не противоречит LSP?**
+
+Вариант 1 (Этот класс усиливает предусловие в методе `add`, что противоречит принципу.)
+```ts
+class EvenPositiveNumbersSummator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    super(contract)
+  }
+
+  add(a: number, b: number): number {
+    this.contract.require(a % 2 === 0, 'first arg is not even')
+    this.contract.require(b % 2 === 0, 'second arg is not even')
+
+    this.contract.require(a > 0, 'first arg is less than 0 or equal')
+    this.contract.require(b > 0, 'second arg is less than 0 or equal')
+
+    return a + b
+  }
+}
+```
+
+_Вариант 2_
+```ts
+class EvenNumbersCalculator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    super(contract)
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b
+  }
+}
+```
+
+Вариант 3 (Этот класс усиливает предусловие в конструкторе, превращая `contract` в обязательный аргумент, в то время как в бразовой сущности этот аргумент опционален.)
+```ts
+class EvenNumbersCalculator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    if (!contract) throw new Error('no contract was provided!')
+    super(contract)
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b
+  }
+}
+```
 
 ## Извлечение интерфейса, извлечение суперкласса
 
