@@ -183,7 +183,37 @@ class Rectangle implements RectShape {
 - [The Liskov substitution principle, Adaptive Code Via Agile, PDF](https://www.managementboek.nl/code/inkijkexemplaar/9780735683204/adaptive-code-via-c-agile-coding-with-design-patterns-and-solid-principles-engels-gary-mclean-hall.pdf)
 
 ## Вопросы
-WIP
+**Какую пользу несёт общий родительский интерфейс для классов `Square` и `Rectangle` с точки зрения LSP?**
+
+_Содержит и описывает в себе общую для обоих классов функциональность_
+
+_Предотвращает противоречие в поведении базовой сущности и её потомков_
+
+_Позволяет подменять `Square` и `Rectangle` друг другом во всех функциях, которые используют их общий интерфейс_
+
+_Позволяет композировать свойства без прямого наследования_
+
+**Допустим, требуется добавить круг и эллипс. Какой из вариантов добавления не будет противоречить LSP?**
+
+Вариант 1 (Прямое наследование здесь не подойдёт, потому что поведение эллипса отличается от поведения круга. Аналогично квадрату и прямоугольнику необходимо ввести общий базовый тип для обеих фигур.)
+```ts
+class Ellips {/*...*/}
+class Circle extends Ellips {/*...*/}
+```
+
+_Вариант 2_
+```ts
+abstract class EllipticShape {/*...*/}
+class Ellips extends EllipticShape {/*...*/}
+class Circle extends EllipticShape {/*...*/}
+```
+
+_Вариант 3_
+```ts
+interface EllipticShape {/*...*/}
+class Ellips implements Shape, EllipticShape {/*...*/}
+class Circle implements Shape, EllipticShape {/*...*/}
+```
 
 *[OCP]:Open-closed principle
 *[LSP]:Liskov Substitution Principle
