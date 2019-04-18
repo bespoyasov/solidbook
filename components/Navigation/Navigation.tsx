@@ -12,14 +12,14 @@ interface Props {
 }
 
 class Navigation extends PureComponent<Props> {
-  isIndex = (link: string): boolean => link === '/'
+  isSection = (link: string): boolean => !['/', '/afterwords'].includes(link)
 
   isActive = (link: string): boolean => this.props.router.pathname === link
 
   isSectionRoot = (link: string): boolean => countOccurencies(/\//g, link) === 1
 
   containsActive = (link: string): boolean => {
-    return this.props.router.pathname.includes(link) && this.isSectionRoot(link) && !this.isIndex(link)
+    return this.props.router.pathname.includes(link) && this.isSection(link) && this.isSectionRoot(link)
   }
 
   render() {
