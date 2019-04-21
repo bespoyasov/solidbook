@@ -8,12 +8,13 @@ import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Center from './Center'
 import Paragraph from '~/components/Paragraph'
+import PrevNext from '~/components/PrevNext'
 import Abbr from '~/components/Formatters/Abbr'
 import Code from '~/components/Code'
 
 const Grid = styled.div`
   width: 100%;
-  padding: 2.5rem 0;
+  padding: 2.5rem 0 0;
   display: grid;
   align-items: start;
   grid-template-columns: 33% 67%;
@@ -53,9 +54,12 @@ class MainLayout extends PureComponent<Props> {
         <Center>
           <Grid>
             <Navigation />
-            <MDXProvider components={{ abbr: Abbr, pre: Code, p: Paragraph }}>
-              <MainContent>{children}</MainContent>
-            </MDXProvider>
+            <div>
+              <MDXProvider components={{ abbr: Abbr, pre: Code, p: Paragraph }}>
+                <MainContent>{children}</MainContent>
+              </MDXProvider>
+              <PrevNext />
+            </div>
           </Grid>
         </Center>
 
