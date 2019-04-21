@@ -1,4 +1,4 @@
-type RouteShape = {
+export type RouteShape = {
   link: string
   name: string
   subnav?: RouteShape[]
