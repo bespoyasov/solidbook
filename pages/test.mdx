@@ -1,7 +1,5 @@
 import MainLayout from '~/components/layouts/main'
 import Quiz from '~/components/Quiz'
-import QuizContext from '../context/quiz'
-import {quiz1, quiz2} from '../domain/quiz/srp'
 
 export const meta = {
   title: 'Тесты дизайн-решений'
@@ -14,16 +12,5 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 Здесь тестируются дизайн-решения компонентов до тех пор, пока они не будут готовы для продакшена.
 
 ## Вопросы
-<QuizContext.Provider value={quiz1.checks}>
-  <Quiz
-    question={quiz1.question}
-    variants={quiz1.variants}
-    completed />
-</QuizContext.Provider>
 
-<QuizContext.Provider value={quiz2.checks}>
-  <Quiz
-    question={quiz2.question}
-    variants={quiz2.variants}
-    completed />
-</QuizContext.Provider>
+<Quiz name="for-test" />

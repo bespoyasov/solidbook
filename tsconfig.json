@@ -17,7 +17,7 @@
     "paths": {
       "~/*": ["./*"]
     },
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./types"],
     "lib": ["dom", "es2015", "es2016"]
   },
   "exclude": [

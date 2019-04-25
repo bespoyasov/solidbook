@@ -1,2 +1,1 @@
-export { default } from './Quiz'
-export * from './types'
+export { default } from './components/loader'

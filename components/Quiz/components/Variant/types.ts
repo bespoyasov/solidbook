@@ -1,6 +1,4 @@
 export type QuizVariantData = {
-  id: string
-  main: string
-  code?: string
+  text: string
   description?: string
 }
