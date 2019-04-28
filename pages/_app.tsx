@@ -28,7 +28,7 @@ export default class MyApp extends App {
       // Если нет сохранённого состояния, или если оно нарушает структуру модели,
       // будет использоваться default модель из constructor
       const appState = JSON.parse(localStorage.getItem('__app'))
-      this.appModel = AppModel.create(appState)
+      this.appModel = createAppModel(appState)
       this.forceUpdate()
     } catch {}
   }

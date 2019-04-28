@@ -1,5 +1,6 @@
 import { types, Instance } from 'mobx-state-tree'
 import Quiz, { createEmptyQuiz } from '~/models/quiz'
+import { SaveOnChangeMiddleware } from './saveOnChange'
 
 const AppModel = types
   .model('App', {
@@ -23,12 +24,16 @@ const AppModel = types
   }))
 
 function createAppModel(initState?): Instance<typeof AppModel> {
-  let appModel
+  let appModel: Instance<typeof AppModel>
+
   if (initState) {
     appModel = AppModel.create(initState)
   } else {
     appModel = AppModel.create({ quizes: {} })
   }
+
+  const middleware = new SaveOnChangeMiddleware(appModel, ['toggleComplete', 'toggleAnswer'])
+  middleware.enable()
 
   return appModel
 }

@@ -16,6 +16,7 @@ interface IInjectedProps {
 
 class QuizLoader extends Component<IProps> {
   module: IQuiz
+  isMounted: boolean = false
 
   state = {
     loaded: false,
@@ -27,15 +28,25 @@ class QuizLoader extends Component<IProps> {
   }
 
   componentDidMount() {
+    this.isMounted = true
+
     import(`../quizzes/${this.props.name}`)
       .then(c => {
         this.module = c.default
-        this.setState({ loaded: true })
+        if (this.isMounted) {
+          this.setState({ loaded: true })
+        }
       })
       .catch(error => {
         console.error(error)
-        this.setState({ loaded: true, error: error.message })
+        if (this.isMounted) {
+          this.setState({ loaded: true, error: error.message })
+        }
       })
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false
   }
 
   componentDidCatch(error) {

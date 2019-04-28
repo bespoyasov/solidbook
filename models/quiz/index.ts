@@ -7,7 +7,7 @@ const Quiz = types
   })
   .actions(self => ({
     toggleAnswer(answerIndex: number) {
-      if (self.answer && self.answer === answerIndex) {
+      if (self.answer != null && self.answer === answerIndex) {
         self.answer = null
       } else {
         self.answer = answerIndex
