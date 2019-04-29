@@ -1,29 +1,20 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
-import { Container, Big, Share, Emoji } from './style'
-import NoSSR from 'react-no-ssr'
+import Share from '~/components/Share'
+import { Container, Big, Counter, Label, ShareContainer } from './style'
 
 class PointsCounter extends PureComponent {
-  emojiList = ['🥑', '🏆', '🎉', '✨', '💥', '⭐', '🍭']
-  get randomEmoji(): string {
-    return this.emojiList[Math.floor(Math.random() * this.emojiList.length)]
-  }
-
   render() {
     return (
       <Container>
-        <Big>
-          810
-          <Emoji>
-            <NoSSR>{this.randomEmoji}</NoSSR>
-          </Emoji>
-        </Big>
+        <Counter>
+          <Label>Ваш текущий счёт:</Label>
+          <Big>800</Big> / 1000
+        </Counter>
 
-        <span>из 1000</span>
-
-        <Share>
-          <img src="/static/i-twitter.svg" alt="Твитнуть" />
-        </Share>
+        <ShareContainer>
+          <Share />
+        </ShareContainer>
       </Container>
     )
   }
