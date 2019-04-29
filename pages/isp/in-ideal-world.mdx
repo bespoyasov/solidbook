@@ -1,7 +1,8 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'В идеальном мире'
+  title: 'ISP | В идеальном мире',
+  description: 'Как принцип разделения интерфейса выглядит в мире с минимальным количеством ограничений, примеры и описание применения'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
@@ -27,7 +28,7 @@ class RegularProgrammer implements Progammer {
 }
 ```
 
-Через какое-то время компания начала нанимать фрилансеров, которые работают удалённо, и пиццу не едят. Если мы используем тот же интерфейс, то класс `Freelancer` должен будет реализовать метод `eatPizza`, хотя он ему и не нужен — это [«пустая» реализация интерфейса](/isp/antipatterns).
+Через какое-то время компания начала нанимать фрилансеров, которые работают удалённо и пиццу не едят. Если мы используем тот же интерфейс, то класс `Freelancer` должен будет реализовать метод `eatPizza`, хотя он ему и не нужен — это [«пустая» реализация интерфейса](/isp/antipatterns).
 
 ```ts
 class Freelancer implements Progammer {
