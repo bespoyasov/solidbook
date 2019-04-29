@@ -34,6 +34,7 @@ const MainContent = styled.main`
 type Props = {
   meta: {
     title: string
+    description?: string
   }
   children?: React.ReactNode
 }
@@ -41,12 +42,13 @@ type Props = {
 class MainLayout extends PureComponent<Props> {
   static defaultProps = {}
   render() {
-    const { meta = { title: 'Solid' }, children } = this.props
+    const { meta = { title: 'Solid', description: '' }, children } = this.props
 
     return (
       <div>
         <Head>
           <title>{meta.title}</title>
+          <meta name="description" content={meta.description} />
         </Head>
 
         <Header />
