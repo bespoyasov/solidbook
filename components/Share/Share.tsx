@@ -3,6 +3,13 @@ import { Component } from 'react'
 import likely from 'ilyabirman-likely'
 import { Container, Buttons, Label } from './style'
 
+const networks = [
+  { name: 'twitter', action: 'Твитнуть' },
+  { name: 'vkontakte', action: 'Поделиться' },
+  { name: 'facebook', action: 'Зафейсбучить' },
+  { name: 'telegram', action: 'Телеграмнуть' }
+]
+
 class Share extends Component {
   componentDidMount() {
     likely.initiate()
@@ -14,10 +21,11 @@ class Share extends Component {
         <Label>Похвастаться 🤘</Label>
         <Buttons>
           <div className="likely">
-            <div className="twitter">Твитнуть</div>
-            <div className="vkontakte">Поделиться</div>
-            <div className="facebook">Зафейсбучить</div>
-            <div className="telegram">Телеграмнуть</div>
+            {networks.map(({ name, action }) => (
+              <div key={name} className={name} data-title="Мой счёт 800 из 1000 очков на SOLID-BOOK">
+                {action}
+              </div>
+            ))}
           </div>
         </Buttons>
       </Container>
