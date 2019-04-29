@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Nav = styled.nav`
   padding: 0 40px 2rem 0;
   position: sticky;
-  top: -120px;
+  top: -190px;
 
   &::before {
     content: ' ';

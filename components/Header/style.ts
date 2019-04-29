@@ -7,6 +7,7 @@ export default styled.header`
   text-align: center;
 
   @media (max-width: ${props => props.theme.breakpoint}) {
-    padding: 0.2rem 0;
+    padding: 0.2rem 1rem;
+    text-align: left;
   }
 `
