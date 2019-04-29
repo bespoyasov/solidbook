@@ -45,5 +45,9 @@ export const Column = styled.div`
       text-align: left;
       padding-left: 1em;
     }
+
+    &:empty + &:last-child {
+      padding-left: 0;
+    }
   }
 `
