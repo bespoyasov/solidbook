@@ -1,3 +1,1 @@
-# Solid project
-
-- [ ] Выделить главные мысли компонентом Shout
+# SOLID BOOK
