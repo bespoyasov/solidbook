@@ -61,10 +61,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h3 {
-    font-size: .8em;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom:0;
+    margin:0;
+    font-size: 1rem;
+    font-weight: 700;
   }
 
   a {
