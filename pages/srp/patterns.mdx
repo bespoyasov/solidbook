@@ -1,4 +1,5 @@
 import MainLayout from '~/components/layouts/main'
+import Quiz from '~/components/Quiz'
 
 export const meta = {
   title: 'SRP | Шаблоны проектирования и приёмы рефакторинга',
@@ -75,46 +76,9 @@ class Person {
 Класс `Person` теперь работает только с данными пользователя, а задача преобразования номера делегируется экземпляру класса `PhoneNumber` через зависимость в конструкторе.
 
 ## Вопросы
-**Чем полезен приём «Выделение класса»?**
-
-_Позволяет определиться с назначением каждого создаваемого или выделяемого класса_
-
-Позволяет найти классы со слишком широким набором назначений (Нет, этот приём — это уже инструмент исправления подобной ошибки, определить неоправданно большое количество назначений следует до применения «Выделения класса»)
-
-_Позволяет сократить количество назначений каждого класса до одного_
-
-**Какой из методов в примере ниже стоит вынести в отдельный класс?**
-```ts
-class Player implements Player {
-  play(): void { /*...*/ }
-  pause(): void { /*...*/ }
-  downloadTrack(trackId: ID): void { /*...*/ }
-}
-```
-
-Метод play (Нет, он относится напрямую к проигрыванию трека — основному назначению плеера)
-
-Метод pause (Нет, он относится напрямую к остановке проигрывания трека — основному назначению плеера)
-
-_Метод downloadTrack (Да, лучше сделать отдельный класс, который будет работать с загрузками)_
-
-**Сколько новых классов можно выделить из класса Player в примере ниже?**
-```ts
-class Player implements Player {
-  play(): void { /*...*/ }
-  pause(): void { /*...*/ }
-  downloadTrack(trackId: ID): void { /*...*/ }
-  createPlaylist(tracks: Track[]): Playlist { /*...*/ }
-  updatePlaylist(playlist: Playlist): void { /*...*/ }
-  setEqualizerOptions(options: EqOption[]): Equalizer { /*...*/ }
-}
-```
-1 (Нет, дополнительно можно вынести классы Playlist, Downloader, Equalizer)
-
-2 (Нет, дополнительно можно вынести классы Playlist, Downloader, Equalizer)
-
-_3 (Да, дополнительно можно вынести классы Playlist, Downloader, Equalizer)_
-
+<Quiz name='srp-patterns-1' />
+<Quiz name='srp-patterns-2' />
+<Quiz name='srp-patterns-3' />
 
 ## Фасад
 [Фасад](https://refactoring.guru/ru/design-patterns/facade) — шаблон проектирования, при котором сложная логика скрывается за вызовом более простого API.
@@ -171,47 +135,9 @@ class ShapeFacade {
 ```
 
 ## Вопросы
-**За счёт чего фасад позволяет упростить взаимодействие между сущностями?**
-
-_Он скрывает за собой сложную инициализацию экземпляров класса или сложную последовательность вызова методов_
-
-Позволяет называть разные методы разных классов одинаковым именем, чтобы унифицировать вызов (Иногда фасад нужен для сокрытия методов только одного класса, например, при вызове длинной цепочки из нескольких методов)
-
-Замещает метод другого класса своим, давая вызывать его по другому имени (Зачастую скрывает за собой методы нескольких классов)
-
-**В чём потенциальная опасность фасада?**
-
-_Может превратиться в божественный объект_
-
-Скрывает настоящую логику вызова методов, что увеличивает сложность (Верно лишь отчасти. При адекватном названии методов фасада он упрощает понимание и сложность программы, так как называет сложные операции более простыми именами)
-
-_Вводит новую сущность, что повышает абстракцию программы_
-
-**Что можно вынести за фасад из примера ниже?**
-```ts
-enum PlayerTypes = { Audio, Video }
-
-class Player implements Player {
-  constructor(playerType: PlayerTypes) {
-    this.player = playerType === PlayerTypes.audio
-      ? new AudioPlayer()
-      : new VideoPlayer()
-  }
-
-  loadTrack(trackSource: Track) {
-    this.player.load(trackSource)
-    this.player.init()
-    this.player.play()
-  }
-}
-```
-
-_Инициализацию this.player_
-
-_Загрузку и настройку проигрывания трека внутри loadTrack_
-
-Код класса целиком, оставив лишь выбор между типами трека (Лучше наоборот — сохранить логику плеера в классе Player будет логичнее)
-
+<Quiz name='srp-patterns-4' />
+<Quiz name='srp-patterns-5' />
+<Quiz name='srp-patterns-6' />
 
 ## Прокси
 [Прокси](https://refactoring.guru/ru/design-patterns/proxy) — шаблон проектирования, при котором общение с каким-то объектом контролирует другой объект-заместитель (прокси). Он позволяет расширять функциональность существующих классов, не меняя их.
@@ -247,72 +173,8 @@ class LoggedRequest {
 ```
 
 ## Вопросы
-**В чём польза паттерна прокси?**
-
-_Позволяет расширить функциональность класса, не меняя самого класса_
-
-_Позволяет выделить логику, не относящуюся напрямую к функциональности класса в другую сущность_
-
-_Предоставляет расширенную функциональность, не меняя интерфейс взаимодействия для клиента_
-
-**Допустим, нам необходимо создать прокси, который бы кешировал ответы на запросы. Какая из вариантов реализации не содержит ошибок?**
-
-_Вариант 1_
-```ts
-class CachedRequest {
-  cached: RequestClient
-  cache: { [name: string]: any }
-
-  constructor(cached: RequestClient) {
-    this.cached = cached
-  }
-
-  async request(url: string): Promise<any> {
-    if (this.cache[url]) return Promise.resolve(this.cache[url])
-    const result = await this.loggee.request(url)
-    this.cache[url] = result
-    return result
-  }
-}
-```
-
-Вариант 2 (Нет, так как он всегда ссылается на значение из кэша, даже если его нет)
-```ts
-class CachedRequest {
-  cached: RequestClient
-  cache: { [name: string]: any }
-
-  constructor(cached: RequestClient) {
-    this.cached = cached
-  }
-
-  async request(url: string): Promise<any> {
-    Promise.resolve(this.cache[url])
-    const result = await this.loggee.request(url)
-    this.cache[url] = result
-    return result
-  }
-}
-```
-
-Вариант 3 (Нет, так как он вначале делает запрос, а потом проверяет, есть ли значение в кэше — суть кэша исчезает)
-```ts
-class CachedRequest {
-  cached: RequestClient
-  cache: { [name: string]: any }
-
-  constructor(cached: RequestClient) {
-    this.cached = cached
-  }
-
-  async request(url: string): Promise<any> {
-    const result = await this.loggee.request(url)
-    if (!result) return this.cache[url]
-    this.cache[url] = result
-    return result
-  }
-}
-```
+<Quiz name='srp-patterns-7' />
+<Quiz name='srp-patterns-8' />
 
 ## Материалы к разделу
 - [Выделение класса](https://ru.wikipedia.org/wiki/Выделение_частного_класса_данных)

@@ -1,0 +1,19 @@
+Что можно вынести за фасад из примера ниже?
+
+```ts
+enum PlayerTypes = { Audio, Video }
+
+class Player implements Player {
+  constructor(playerType: PlayerTypes) {
+    this.player = playerType === PlayerTypes.audio
+      ? new AudioPlayer()
+      : new VideoPlayer()
+  }
+
+  loadTrack(trackSource: Track) {
+    this.player.load(trackSource)
+    this.player.init()
+    this.player.play()
+  }
+}
+```
