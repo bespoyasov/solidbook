@@ -1,0 +1,16 @@
+Допустим, у нас есть класс `EventEmitter`, события которого мы хотим записывать в `Logger`. События из `EventEmitter` — это строки с пробелами. Пробелы вызовут ошибку в `Logger`:
+```ts
+class EventEmitter {
+  public emit(e: EventTypes): string {
+    return e.type
+  }
+}
+
+class Logger {
+  public logEvent(eventType: string): void {
+    if (eventType.search(/\s/) > -1) throw new Error('hey! no spaces!')
+    // ...
+  }
+}
+```
+Какой из вариантов ниже подойдёт в качестве адаптера для замены пробелов на дефисы для работы с `Logger`?
