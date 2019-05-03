@@ -9,7 +9,7 @@ export interface IQuiz {
 
 export interface IVariant {
   text: ReactNode
-  description: ReactNode
+  description?: ReactNode
 }
 
 export interface IMeta {
