@@ -14,4 +14,6 @@ export const Heading = styled.legend`
   padding: 0;
   margin: 0 0 0.75rem;
   font-weight: 700;
+  display: block;
+  width: 100%;
 `
