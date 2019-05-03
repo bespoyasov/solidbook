@@ -1,0 +1,13 @@
+1.
+```ts
+class MongoDbConnection {
+  constructor() {/*...*/}
+  connect(host: string, user: string, password: string): void {/*...*/}
+}
+
+class Auth {
+  connection: MongoDbConnection
+  constructor(connection: MongoDbConnection) {/*...*/}
+  authentificate(login: string, password: string) {/*...*/}
+}
+```
