@@ -53,6 +53,10 @@ export const Description = styled.div`
 
 export const Item = styled.div`
   margin: 0 0 1rem 0;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 `
 
 export const CodeWrapper = styled.div`
