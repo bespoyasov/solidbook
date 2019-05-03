@@ -6,7 +6,7 @@ export const Container = styled.fieldset`
   border: 0;
 
   button {
-    margin-top: -0.5rem;
+    margin-top: -0.2rem;
   }
 `
 
