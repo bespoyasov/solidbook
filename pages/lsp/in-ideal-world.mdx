@@ -1,7 +1,8 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'В идеальном мире'
+  title: 'LSP | В идеальном мире',
+  description: 'Как принцип подстановки Барбары Лисков выглядит в мире с минимальным количеством ограничений, примеры и описание применения'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
@@ -16,7 +17,9 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ## Абстрактный класс-родитель
 
-Первый способ — переделать иерархию так, чтобы `Square` наследовался не от `Rectangle`, а чтобы они оба наследовались от общего родителя. Создадим класс `RightAngleShape`, чтобы описать фигуры с прямым углом:
+Первый способ — переделать иерархию так, чтобы `Square` не наследовался от `Rectangle`. Мы можем ввести новый класс, чтобы и квадрат, и прямоугольник наследовались от него.
+
+Создадим абстрактный класс `RightAngleShape`, чтобы описать фигуры с прямым углом:
 
 ```ts
 abstract class RightAngleShape {
@@ -28,7 +31,7 @@ abstract class RightAngleShape {
 }
 ```
 
-Классы `Rectangle` и `Square` будут наследоваться от `RightAngleShape` и переопределять методы, поведение которых специфично для каждого из них:
+Классы `Rectangle` и `Square` будут переопределять методы, поведение которых специфично для каждого из них:
 
 ```ts
 class Square extends RightAngleShape {
@@ -84,7 +87,7 @@ class Rectangle extends RightAngleShape {
 }
 ```
 
-Теперь поведение наследников не конфликует с поведением базового класса. Это позволит использовать и `Rectangle`, и `Square` там, где объявлено использование `RightAngleShape`.
+Теперь поведение наследников не конфликтует с поведением базового класса. Это позволит использовать и `Rectangle`, и `Square` там, где объявлено использование `RightAngleShape`.
 
 ## Интерфейс
 
@@ -135,7 +138,7 @@ class Square implements SquareShape {
 }
 
 
-// для прямоугльника кроме площади и ширины необходимо указать и высоту,
+// для прямоугольника кроме площади и ширины необходимо указать и высоту,
 // поэтому добавляем интерфейс HeightfulShape...
 type RectShape = Shape & WidthfulShape & HeightfulShape
 type ShapeSide = 'width' | 'height'
@@ -168,7 +171,7 @@ class Rectangle implements RectShape {
 }
 ```
 
-Теперь с помощью интерфейсов мы можем композировать свойства, которые необходимо реализовать для сущностей. Мы автоматически соблюдаем [OCP], избегая прямого наследования и привязывась к абстракциям, а не к конкретным классам.
+Теперь с помощью интерфейсов мы можем композировать свойства, которые необходимо реализовать для сущностей. Мы автоматически соблюдаем [OCP](/ocp), избегая прямого наследования и привязываясь к абстракциям, а не к конкретным классам.
 
 Следуя же LSP, мы проектируем поведение сущностей так, чтобы оно не конфликтовало с базовой абстракцией. Это позволяет нам использовать любой из классов `Rectangle` или `Square` там, где заявлено использование как `Shape`, так и `WidthfulShape`.
 
@@ -181,7 +184,37 @@ class Rectangle implements RectShape {
 - [The Liskov substitution principle, Adaptive Code Via Agile, PDF](https://www.managementboek.nl/code/inkijkexemplaar/9780735683204/adaptive-code-via-c-agile-coding-with-design-patterns-and-solid-principles-engels-gary-mclean-hall.pdf)
 
 ## Вопросы
-WIP
+**Какую пользу несёт общий родительский интерфейс для классов `Square` и `Rectangle` с точки зрения LSP?**
+
+_Содержит и описывает в себе общую для обоих классов функциональность_
+
+_Предотвращает противоречие в поведении базовой сущности и её потомков_
+
+_Позволяет подменять `Square` и `Rectangle` друг другом во всех функциях, которые используют их общий интерфейс_
+
+_Позволяет композировать свойства без прямого наследования_
+
+**Допустим, требуется добавить круг и эллипс. Какой из вариантов добавления не будет противоречить LSP?**
+
+Вариант 1 (Прямое наследование здесь не подойдёт, потому что поведение эллипса отличается от поведения круга. Аналогично квадрату и прямоугольнику необходимо ввести общий базовый тип для обеих фигур.)
+```ts
+class Ellips {/*...*/}
+class Circle extends Ellips {/*...*/}
+```
+
+_Вариант 2_
+```ts
+abstract class EllipticShape {/*...*/}
+class Ellips extends EllipticShape {/*...*/}
+class Circle extends EllipticShape {/*...*/}
+```
+
+_Вариант 3_
+```ts
+interface EllipticShape {/*...*/}
+class Ellips implements Shape, EllipticShape {/*...*/}
+class Circle implements Shape, EllipticShape {/*...*/}
+```
 
 *[OCP]:Open-closed principle
 *[LSP]:Liskov Substitution Principle

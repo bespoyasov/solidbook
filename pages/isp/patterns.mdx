@@ -1,9 +1,165 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Паттерны и приёмы рефакторинга'
+  title: 'ISP | Шаблоны проектирования и приёмы рефакторинга',
+  description: 'Шаблоны проектирования и приёмы рефакторинга, которые помогают следовать принципу разделения интерфейса'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Шаблоны проектирования и приёмы рефакторинга
+
+Следовать принципу разделения интерфейса помогают такие шаблоны проектирования как адаптер, а также приёмы выделения интерфейса и множественного наследования.
+
+## Адаптер
+
+[Адаптер](https://refactoring.guru/design-patterns/adapter) — шаблон проектирования, который позволяет объектам с несовместимыми интерфейсами работать вместе.
+
+С точки зрения ISP этот шаблон помогает держать интерфейсы чистыми и понятными, а при необходимости совместить несовместимые модули через специальную прослойку (адаптер).
+
+Приложение [Курсовик](https://bespoyasov.ru/blog/kursovik/) показывает курс доллара к рублю. Оно берёт данные курсов с сайта Центрального банка России. ЦБ отдаёт их в формате XML, а Курсовик работает с JSON.
+
+Адаптер помогает «подружить» модули, которые работают с XML, и модули, которые работают с JSON.
+
+```ts
+const ApiClient = {
+  async getXml(url: string): Promise<XmlString> {
+    const resonse = await fetch(url)
+    const data = await resonse.text()
+    return data
+  }
+}
+
+const xmlJsonAdapter = (xml: XmlString): JsonString => {
+  // ...конвертируем xml в json
+  return json
+}
+
+const parseCoure = (data: JsonString): CourseDict => {
+  // ...
+  return course
+}
+
+(async () => {
+  const data = await ApiClient.getXml('api_endpoint')
+  const course = parseCoure(xmlJsonAdapter(data))
+})()
+```
+
+Также адаптер [помогает справляться](https://bespoyasov.ru/blog/adapter-pattern/) со «сломанным» API от бекенда и преобразованием одних структур данных в другие.
+
+Из минусов можно назвать:
+- добавление ещё одной абстракции в кодовую базу проекта;
+- при создании нового адаптера нужно найти все места, где требуется его использовать.
+
+## Выделение интерфейса
+[Выделение интерфейса](https://refactoring.guru/ru/extract-interface) — это приём при котором одинаковые методы и поля выносят в отдельный интерфейс.
+
+В качестве примера можно вернуться к [Койну из прошлого раздела](/isp/in-real-life). Интерфейс `Record` — это выделенный общий интерфейс, который включает в себя общие для траты и дохода поля.
+
+Выделение интерфейса тесно связано не только с ISP, но и с LSP. Например, оно используется при поиске [корня композиции](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective) и как вспомогательный инструмент для [выделения суперкласса](/lsp/patterns).
+
+## Множественное наследование
+[Множественное наследование](https://ru.wikipedia.org/wiki/Множественное_наследование) используется, например, чтобы реализовать функциональность нескольких интерфейсов:
+
+```ts
+class Horse implements Animal, Transport {/*...*/}
+```
+
+В Typescript такое наследование реализуется через [миксины](https://www.typescriptlang.org/docs/handbook/mixins.html).
+
+До этих пор в книге для простоты повествования мы пропускали специальную функцию `applyMixins`, которая копирует функциональность из родительских классов:
+
+```ts
+function applyMixins(derivedCtor: any, baseCtors: any[]) {
+  baseCtors.forEach(baseCtor => {
+    Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
+      Object.defineProperty(derivedCtor.prototype, name, Object.getOwnPropertyDescriptor(baseCtor.prototype, name));
+    });
+  });
+}
+```
+
+Чтобы пример с классом `Horse` выше сработал, нам необходимо использовать `applyMixins` следующим образом:
+
+```ts
+applyMixins(Horse, [Animal, Transport]);
+```
+
+Тогда множественное наследование будет работать, как мы ожидаем.
+
+## Материалы к разделу
+- [Адаптер](https://refactoring.guru/design-patterns/adapter)
+- [Лекарство от сломанной обратной совместимости](https://bespoyasov.ru/blog/adapter-pattern/)
+- [Выделение интерфейса](https://refactoring.guru/ru/extract-interface)
+- [Liskov Substitution Principle and the Composition Root](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective)
+- [Множественное наследование](https://ru.wikipedia.org/wiki/Множественное_наследование)
+- [Mixins in Typescript](https://www.typescriptlang.org/docs/handbook/mixins.html)
+
+## Вопросы
+**В чём польза адаптера с точки зрения ISP?**
+
+_Позволяет избежать наследования не связанных друг с другом сущностей_
+
+Повзоляет композировать свойства нескольких сущностей в одной новой (Это позволяет делать множественное наследование.)
+
+_Позволяет не засорять интерфейс одной сущности лишь ради того, чтобы её потомок мог реализовать какой-то метод_
+
+Вводит прослойку, через которую сущности могут общаться, что упрощает архитектуру системы (Адаптер действительно вводит прослойку, через которую сущности могут общаться друг с другом, но это наоборот может усложнить систему.)
+
+**Допустим, у нас есть класс `EventEmitter`, события которого мы хотим записывать в `Logger`. События из `EventEmitter` — это строки с пробелами. Пробелы вызовут ошибку в `Logger`:**
+```ts
+class EventEmitter {
+  public emit(e: EventTypes): string {
+    return e.type
+  }
+}
+
+class Logger {
+  public logEvent(eventType: string): void {
+    if (eventType.search(/\s/) > -1) throw new Error('hey! no spaces!')
+    // ...
+  }
+}
+```
+**Какой из вариантов ниже подойдёт в качестве адаптера для замены пробелов на дефисы для работы с `Logger`?**
+
+_Вариант 1_
+```ts
+class EventEmitterAdapter extends EventEmitter {
+  private adaptee: Adaptee;
+
+  constructor(adaptee: Adaptee) {
+    super();
+    this.adaptee = adaptee;
+  }
+
+  public emit(e: EventTypes): string {
+    return e.type.replace(/\s/g, '-')
+  }
+}
+```
+
+_Вариант 2_
+```ts
+class LoggerAdapter extends Logger {
+  private adaptee: Adaptee;
+
+  constructor(adaptee: Adaptee) {
+    super();
+    this.adaptee = adaptee;
+  }
+
+  public logEvent(eventType: string): void {
+    eventType = eventType.replace(/\s/g, '-')
+    return this.adaptee.logEvent(eventType)
+  }
+}
+```
+
+*[ISP]:Interface Segregation Principle
+*[LSP]:Liskov Substitution Principle
+*[XML]:eXtensible Markup Language
+*[JSON]:Javascript Object Notation
+*[ЦБ]:Центральный банк
+*[API]:Application Programming Interface

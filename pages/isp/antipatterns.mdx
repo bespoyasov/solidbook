@@ -1,9 +1,164 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Антипаттерны'
+  title: 'ISP | Антипаттерны и запахи',
+  description: 'Антипаттерны и запахи кода, которые мешают следовать принципу разделения интерфейса'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Антипаттерны и запахи
+
+Принцип разделения интерфейса концептуально похож на [принцип единой ответственности](/srp) и решает схожие проблемы, только относящиеся к более высокому уровню абстракции.
+
+Два самых распространённых «запаха», намекающих, что нарушен ISP, — это грязный интерфейс и «пустая» реализация.
+
+## Грязный интерфейс
+
+[Проблема грязного интерфейса](https://medium.com/@severinperez/avoiding-interface-pollution-with-the-interface-segregation-principle-5d3859c21013) возникает, когда интерфейс содержит в себе слишком много методов и полей. Как и большие модули в SRP, грязный интерфейс в ISP приводит к плохой читаемости и дорогой поддержке.
+
+Рассмотрим проблему на примере. Допустим, у нас есть калькулятор, который умеет складывать, вычитать, умножать, делить и брать квадратные корни.
+
+```ts
+interface Calculator {
+  add(a: number, b: number): number
+  subtract(a: number, b: number): number
+  multiply(a: number, b: number): number
+  divide(a: number, b: number): number
+  sqrt(a: number): number
+}
+
+class BasicCalculator implements Calculator {
+  // ...
+}
+```
+
+При расширении функциональности интерфейс может стать слишком большим:
+
+```ts
+interface Calculator {
+  add(a: number, b: number): number
+  subtract(a: number, b: number): number
+  multiply(a: number, b: number): number
+  divide(a: number, b: number): number
+  sqrt(a: number): number
+  power(base: number, power: number): number
+  sin(x: number): number
+  cos(x: number): number
+  tan(x: number): number
+  log(x: number): number
+  log10(x: number): number
+  // ...
+}
+```
+
+Класс, реализующий такой интерфейс будет неоправданно большим, из-за чего сложность понимания кода резко вырастет.
+
+Кроме высокой сложности грязные интерфейсы приводят и ещё к одной проблеме, которую мы упоминали в [разделе](/isp/in-ideal-world) с примерами из идеального мира — пустой реализации.
+
+## «Пустая» реализация
+
+[«Пустая» реализация интерфейса](https://stackoverflow.com/questions/20861107/can-anyone-provide-an-example-of-the-liskov-substitution-principle-lsp-using-v) возникает, когда появляется модуль, которому не нужны _все_ методы из реализуемого интерфейса.
+
+Попробуем создать арифметический калькулятор. Ему не нужны тригонометрические функции и логарифмы, но из-за того, что они описаны в интерфейсе, нам придётся поставить заглушки на эти методы:
+
+```ts
+class ArithmeticCalculator implements Calculator {
+  // функциональность методов, которые нужны, описываем полностью
+  add(a: number, b: number): number {
+    return a + b
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b
+  }
+
+  multiply(a: number, b: number): number {
+    return a * b
+  }
+
+  divide(a: number, b: number): number {
+    if (b === 0) {/*...*/}
+    return a / b
+  }
+
+  // остальные методы не нужны;
+  // но интерфейс Calculator требует их реализации,
+  // приходится писать заглушки
+  sqrt(a: number): number
+  power(base: number, power: number): number
+  sin(x: number): number { return 0 }
+  cos(x: number): number { return 0 }
+  tan(x: number): number { return 0 }
+  log(x: number): number { return 0 }
+  log10(x: number): number { return 0 }
+  // ...
+}
+```
+
+## ISP решает
+
+ISP помогат проектировать интерфейсы, избегая проблем выше. На примере калькулятора мы бы могли выделить несколько интерфейсов с соответствующими ролями:
+
+```ts
+interface ArithmeticCalculator {
+  add(a: number, b: number): number
+  subtract(a: number, b: number): number
+  multiply(a: number, b: number): number
+  divide(a: number, b: number): number
+}
+
+interface ExponentCalculator {
+  sqrt(a: number): number
+  power(base: number, power: number): number
+}
+
+interface TrigonometricCalculator {
+  sin(x: number): number
+  cos(x: number): number
+  tan(x: number): number
+}
+
+interface LogarithmicCalculator {
+  log(x: number): number
+  log10(x: number): number
+}
+```
+
+Тогда арифметическому калькулятору достаточно было бы реализовать интерфейс `ArithmeticCalculator`. Более навороченный инженерный калькулятор смог бы реализовать несколько интерфейсов одновременно с помощью [множественного наследования](/isp/patterns).
+
+## Материалы к разделу
+- [Avoiding Interface Pollution with the ISP](https://medium.com/@severinperez/avoiding-interface-pollution-with-the-interface-segregation-principle-5d3859c21013)
+- [RoleInterface, Martin Fowler](https://martinfowler.com/bliki/RoleInterface.html)
+- [Принцип разделения интерфейса](https://makedev.org/principles/solid/isp.html)
+- [Can anyone provide an example of the LSP?](https://stackoverflow.com/questions/20861107/can-anyone-provide-an-example-of-the-liskov-substitution-principle-lsp-using-v)
+- [Шаблон Null-object](https://ru.wikipedia.org/wiki/Null_object_(шаблон_проектирования))
+- [Does Null-object Pattern Break ISP?](https://stackoverflow.com/questions/37355421/does-null-object-pattern-break-interface-segregation-principle)
+
+## Вопросы
+**В чём суть проблемы грязного интерфейса?**
+
+_Он содержит в себе слишком много методов и полей, не все из которых могут быть нужны сущностям, реализующим его_
+
+_Он содержит в себе слишком много методов и полей, что может привести к плохой читаемости и дорогой поддержки_
+
+Он не может быть разбит на несколько более мелких, из-за чего его трудно и дорого поддерживать (Один из способо борьбы с грязным интерфейсом — разбиение его на более мелкие.)
+
+**Какие приёмы помогают избегать грязных интерфейсов или рефакторить их?**
+
+Расширение интерфейсов от более широкого родительского (Наоборот, если родительский интерфейс имеет больше методов и полей, то выше вероятность, что один из них будет не нужен в сущности, реализующей этот интерфейс)
+
+_Разбиение на интерфейсы, содержащие меньшее количество методов_
+
+_Выделение интерфейса, извлечение класса, суперкласса_
+
+**В чём заключается опасность «пустой» реализации интерфейса?**
+
+_«Пустая» реализация исполняет требования интерфейса лишь формально, что создаёт ложные ожидания от описанного метода_
+
+«Пустая» реализация — это необходимая издержка, с помощью которой можно построить структуру, удовлетворяющую ISP (ISP напротив требует проектировать интерфейсы так, чтобы необходимости в «пустых» реализациях не было.)
+
+_«Пустая» реализация создаёт не даёт гарантий, что метод будет удовлетворять контракту или ожиданиям от него_
+
+*[ISP]:Interface Segregation Principle
+*[SRP]:Single responsibility principle

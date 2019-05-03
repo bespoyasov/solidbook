@@ -1,9 +1,221 @@
 import MainLayout from '~/components/layouts/main'
+import Figure from '~/components/Figure'
 
 export const meta = {
-  title: 'Антипаттерны'
+  title: 'LSP | Антипаттерны и запахи',
+  description: 'Антипаттерны и запахи кода, которые мешают следовать принципу подстановки Барбары Лисков'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Антипаттерны и запахи
+
+Неправильная или неполная реализация некоторых шаблонов проектирования или приёмов, а также неправильная иерархия сущностей могут нарушить LSP.
+
+## Непредсказуемое изменение поведения
+
+Допустим, мы делаем клон Медиума, где авторы будут публиковать статьи. Статья может находиться в разных состояниях, от которых зависит, что с ней можно делать. Например, удалённую статью  нельзя удалить, а опубликованную — снова опубликовать.
+
+<Figure>
+  <img src='/static/lsp-violation.svg' />
+  <figcaption>Схема доступных действий со статьёй в зависимости от её состояния</figcaption>
+</Figure>
+
+Для подобной задачи подходит шаблон [состояние](https://refactoring.guru/ru/design-patterns/state) — он позволяет менять поведение объектов в зависимости от их внутреннего состояния. Если он реализован правильно и полно, то LSP он не нарушит. Однако, реализация в примере ниже нарушает.
+
+Допустим, статья описывается базовым классом `Article`:
+
+```ts
+enum ArticleStatus {
+  Draft
+  Published
+  Deleted
+}
+
+class Article {
+  status: ArticleStatus
+
+  constructor() {/*...*/}
+  edit() {/*...*/}
+  delete() {/*...*/}
+  restore() {/*...*/}
+  unpublish() {/*...*/}
+
+  publish(): void {
+    this.status = ArticleStatus.Published
+  }
+}
+```
+
+Если опубликованная статья при попытке публикации выбрасывает исключение, _которое не было описано в базовом классе_, то [мы нарушаем LSP](https://softwareengineering.stackexchange.com/questions/170138/is-this-a-violation-of-the-liskov-substitution-principle):
+
+```ts
+class Published extends Article {
+  constructor() {
+    super({ status: ArticleStatus.Published })
+  }
+
+  // упс!
+  publish(): void {
+    throw new Error('article is already published')
+  }
+}
+```
+
+Чтобы реализация шаблона не нарушала LSP, нам необходимо описать в базовом классе возможность выбросить исключение. Для этого мы введём метод, который будет определять, можно ли статью публиковать:
+
+```ts
+class ArticleException extends Error {/*...*/}
+
+class Article {
+  // ...
+
+  protected canPublish(): boolean {
+    return this.status === ArticleStatus.Draft
+  }
+
+  publish(): void {
+    if (!this.canPublish()) throw new ArticleException()
+    // ...
+  }
+}
+```
+
+Сейчас переопределение метода `publish` для опубликованной статьи не будет усиливать предусловия, поэтому это не нарушит LSP:
+
+```ts
+class ArticlePublishedException extends ArticleException {/*...*/}
+
+class Published extends Article {
+  // ...
+
+  publish(): void {
+    // ArticlePublishedException наследуется от ArticleException,
+    // указанного в классе Article, поэтому здесь нарушения нет
+    throw new ArticlePublishedException()
+  }
+}
+```
+
+## Вопросы
+**В чём заключается суть шаблона «Состояние»?**
+
+Создаёт новую сущность, которая хранит состояние всего приложения внутри себя (Состояние может описывать и часть системы тоже, например, при использовании конечных автоматов)
+
+_Позволяет описывать разное поведение для компонентов в зависимости от их состояния_
+
+_Помогает очистить код от множественных проверок при выполнении каких-то действий_
+
+Прячет управление переходами от одного состояния в другому внутри какой-то сущности без возможности достучаться до этого метода (Это описание больше подходит шаблону «Стратегия»)
+
+**В каком случае финальная реализация примера выше противоречила бы LSP?**
+
+_Если бы класс `ArticlePublishedException` не был потомком `ArticleException`, который указан как класс-исключение для в `Article`_
+
+Если бы класс `Article` был абстрактным, а статьи описывались бы его потомками (Наличие базового абстрактного класса не противоречит LSP)
+
+_Если бы класс `Draft` при попытке его удалить дополнительно проверял дату создания и не давал удалить статьи, написанные больше меньше минуты назад_
+
+Если бы метод `canPublish` перестал быть `protected` и стал бы `public` (Доступность этого метода снаружи класса не противоречит базовому интерфейсу, поэтому конкретно в этом случае это бы не противоречило LSP)
+
+## Интерфейс, которому нельзя доверять
+
+Более тонкое нарушение LSP — это [«пустая» реализация интерфейса](https://stackoverflow.com/questions/20861107/can-anyone-provide-an-example-of-the-liskov-substitution-principle-lsp-using-v).
+
+Если опереться на пример выше, то пустой реализацией было бы описание метода `Publish` для опубликованной статьи таким образом:
+
+```ts
+class Published extends Article {
+  // ...
+
+  publish(): void {
+    return
+  }
+}
+```
+
+Вроде, всё хорошо: метод описывает правильное поведение, усиления предусловия нет. Но если посмотреть на ситуацию в терминах [контрактного программирования](/lsp/patterns), то метод `publish` должен менять состояние статьи с `Draft` на `Published`, чего не будет происходить:
+
+```ts
+class Article {
+  // ...
+
+  publish(): void {
+    // проверяем, что состояние позволяет публиковать статью
+    // именно эта проверка в Published вызовет ошибку
+    this.contract.require(this.canPublish() === true)
+
+    // ...
+
+    // проверяем, что состояние поменялось на Published
+    this.contract.ensure(this.status === ArticleStatus.Published)
+  }
+}
+```
+
+«Пустая» реализация интерфейса также нарушает [принцип сегрегации интерфейса](/isp).
+
+## Вопросы
+**В чём заключается суть и опасность «пустой» реализации интерфейса?**
+
+_«Пустая» реализация исполняет требования интерфейса лишь формально и только для того, чтобы описываемая сущность не противоречила этому интерфейсу_
+
+«Пустая» реализация позволяет встраивать сущности в структуру наследования без большого количества изменений, что делает структуру более гибкой (Как правило, подобные структуры со временем наоборот становятся хрупкими и неустойчивыми.)
+
+_«Пустая» реализация создаёт иллюзию и ложные ожидания от описываемого метода, не даёт гарантий, что метод будет удовлетворять контракту или ожиданиям от него_
+
+«Пустая» реализация — это необходимая издержка, с помощью которой можно построить структуру, удовлетворяющую LSP (Это может быть издержкой для построения структуры, соответствующей LSP, но она не необходима.)
+
+**Допустим, мы решили использовать выделение интерфейса и суперкласса для решения проблемы «пустых» реализаций. У нас есть следующий интерфейсы:**
+```ts
+interface Article {
+  published: boolean
+}
+
+interface Publishable {
+  publish(): void
+}
+
+interface Deletable {
+  delete(): void
+}
+
+interface Removable {
+  unpublish(): void
+}
+
+interface Restorable {
+  restore(): void
+}
+```
+
+**Какой из способов ниже может помочь справиться с «пустыми» реализациями?**
+
+Вариант 1 (Этот способ концептуально не отличается от начального, мы так же имеем методы, которые должны быть реализованы, но не должны выолпнять каких-то действий: `delete`, `publish` и т.д.)
+```ts
+class Article implements Article, Publishable, Removable, Deletable, Restorable {/*...*/}
+class Published extends Article {/*...*/}
+```
+
+Вариант 2 (Удалённые статьи не будут реализовывать интерфейс `Deletable`, из-за чего появится пустая реализация на метод `delete`.)
+```ts
+class Article implements Article, Deletable, Publishable {/*...*/}
+class Published extends Article implements Removable {/*...*/}
+class Draft extends Article implements Publishable {/*...*/}
+```
+
+_Вариант 3_
+```ts
+class Article implements Article {/*...*/}
+class Published extends Article implements Removable, Deletable {/*...*/}
+class Draft extends Article implements Publishable, Deletable {/*...*/}
+```
+
+## Материалы к разделу
+- [Состояние](https://refactoring.guru/ru/design-patterns/state)
+- [Does the state pattern violate LSP?](https://softwareengineering.stackexchange.com/questions/181922/does-the-state-pattern-violate-liskov-substitution-principle)
+- [Violating LSP](https://www.codeproject.com/Articles/648987/Violating-Liskov-Substitution-Principle-LSP)
+- [Examples of LSP violation](https://stackoverflow.com/questions/20861107/can-anyone-provide-an-example-of-the-liskov-substitution-principle-lsp-using-v)
+- [Common pitfalls and bad practices](https://medium.com/@ipapikas/solid-series-3-5-liskov-substitution-principle-c71500ce9d29)
+
+*[LSP]:Liskov Substitution Principle

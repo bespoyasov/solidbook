@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Nav = styled.nav`
   padding: 0 40px 2rem 0;
-  position: relative;
+  position: sticky;
+  top: -190px;
 
   &::before {
     content: ' ';
@@ -17,6 +18,8 @@ export const Nav = styled.nav`
   }
 
   @media (max-width: ${props => props.theme.breakpoint}) {
+    position: relative;
+    top: auto;
     padding: 0;
     margin-bottom: 2rem;
 

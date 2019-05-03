@@ -1,0 +1,37 @@
+import MainLayout from '~/components/layouts/main'
+
+export const meta = {
+  title: 'DIP | Ограничения и подводные камни',
+  description: 'Ограничения принципа инверсии зависимостей, с которыми разработчики сталкиваются чаще всего'
+}
+
+export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
+
+# Ограничения и подводные камни
+
+Принцип инверсии зависимостей может приводить к ситуациям, когда поток управления программы задан неявно, а [явное — лучше неявного](https://ru.wikipedia.org/wiki/Дзен_Питона).
+
+## Неграмотное использование
+
+При неграмотном и бесконтрольном использовании принципа и IoC-контейнеров в частности логика взаимодействия компонентов [может оказаться размазанной](https://blog.byndyu.ru/2009/12/blog-post.html) по разным частям приложения. Это мешает восприятию программы, снижает тестируемость и увеличивает дороговизну внесения изменений.
+
+Кроме того, не все зависимости [стоят того, чтобы их инвертировать](https://habr.com/ru/post/313796/). Отличить такие от остальных бывает трудно из-за, например, специфики предметной области.
+
+## Проблемы с DI
+
+С инъекцией зависимостей тоже [могут возникать проблемы](https://medium.com/@sawomirkowalski/design-patterns-dependency-injection-and-its-variations-16007d0fa367).
+
+При инъекции через конструктор большое количество зависимостей сильно увеличивает конструктор. А при неграмотном использовании DI могут появиться [циклические зависимости](https://ru.wikipedia.org/wiki/Dependency_hell).
+
+В обоих случаях стоит посмотреть в сторону [SRP](/srp). Скорее всего, класс делает слишком много, и его надо разбивать на более мелкие.
+
+## Материалы к разделу
+- [Дзен питона](https://ru.wikipedia.org/wiki/Дзен_Питона)
+- [Принцип инверсии зависимостей](https://blog.byndyu.ru/2009/12/blog-post.html)
+- [Разбираемся с SOLID: Инверсия зависимостей](https://habr.com/ru/post/313796/)
+- [DI and its variations](https://medium.com/@sawomirkowalski/design-patterns-dependency-injection-and-its-variations-16007d0fa367)
+- [Depenveny Hell](https://ru.wikipedia.org/wiki/Dependency_hell)
+
+*[SOLID]:Principles of object oriented design
+*[DI]:Dependency Injection
+*[SRP]:Single Responsibility Principle

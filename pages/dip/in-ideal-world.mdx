@@ -1,0 +1,146 @@
+import MainLayout from '~/components/layouts/main'
+
+export const meta = {
+  title: 'DIP | В идеальном мире',
+  description: 'Как принцип инверсии зависимостей выглядит в мире с минимальным количеством ограничений, примеры и описание применения'
+}
+
+export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
+
+# В идеальном мире
+
+В идеально-спроектированной системе модули зависят только от абстракций, сцепление — минимально, а связность — максимальна.
+
+## Аутентификация пользователей
+
+Рассмотрим в качестве примера модуль аутентификации пользователей.
+
+```ts
+class MySqlConnection {/*...*/}
+
+class Auth {
+  connection: MySqlConnection
+
+  constructor(connection: MySqlConnection) {
+    this.connection = connection
+  }
+
+  async authentificate(login: string, password: string): Promise<AuthResult> {/*...*/}
+}
+```
+
+В примере выше модуль `Auth` — высокоуровневый, а `MySqlConnection` — низкоуровневый. Пример нарушает DIP, потому что `Auth` зависит напрямую от `MySqlConnection`.
+
+Если мы сменим базу данных, то нам придётся менять и код модуля `Auth`. По-хорошему `Auth` не должен ничего знать о базе данных, которую мы используем. Ему достаточно знать, что есть какая-то база, к которой можно достучаться через определённые методы — это работа интерфейса.
+
+```ts
+interface DataBaseConnection {
+  connect(host: string, user: string, password: string): void
+}
+
+class MySqlConnection implements DataBaseConnection {
+  constructor() {/*...*/}
+  connect(host: string, user: string, password: string): void {/*...*/}
+}
+```
+
+Теперь мы можем отвязать `Auth` от конкретной базы данных, указав в зависимости интерфейс.
+
+```ts
+class Auth {
+  // тип зависимости поменялся:
+  connection: DataBaseConnection
+
+  constructor(connection: DataBaseConnection) {
+    this.connection = connection
+  }
+
+  authentificate(login: string, password: string) {/*...*/}
+}
+```
+
+## OCP и LSP автоматом
+
+Исправленный вариант автоматически удовлетворяет двум другим принципам: [OCP](/ocp) и [LSP](/lsp).
+
+Мы можем заменить одну БД на другую, если она реализует интерфейс `DataBaseConnection`, и приложение не сломается, как этого требует LSP. При изменении базы нам не придётся изменять код модуля `Auth` — так мы удовлетворяем OCP.
+
+## Материалы к разделу
+- [Принцип инверсии зависимостей, MakeDev](https://makedev.org/principles/solid/dip.html)
+- [Dependency Inversion Principle, oodesign](https://www.oodesign.com/dependency-inversion-principle.html)
+- [OCP vs DIP](https://softwareengineering.stackexchange.com/questions/220765/open-close-principle-ocp-vs-dependency-inversion-principle-dip)
+
+## Вопросы
+**Какую пользу несёт замена зависимости в классе `Auth` с `MySqlConnection` на `DataBaseConnection`?**
+
+_Уничтожает зависимость высокоуровневого модуля от низкоуровневого, заменяя последний на абстракцию_
+
+_Позволяет менять тип баз данных без изменений исходников модуля `Auth`_
+
+_Снижает сцепление модулей друг с другом_
+
+**Как DIP помогает следовать другим принципам?**
+
+_Позволяет следовать LSP, вводя базовый тип `DataBaseConnection`, тем самым давая возможность подменять сущности, которые реализуют этот интерфейс, одна на другую_
+
+_Позволяет следовать OCP, давая возможность изменять тип БД, без изменения модуля `Auth`_
+
+Позволяет следовать ISP, выделяя атомарный интерфейс для класса `MySqlConnection` (Цель ISP — не в создании атомарных интерфейсов, а в выделении таких интерфейсов, чтобы реализующие их модули не зависели от не нужных им методов.)
+
+**Допустим, требуется добавить новый тип БД для работы с `Auth`. Какой вариант ниже не нарушает DIP?**
+
+Вариант 1 (Прямая зависимость от конкретного класса `MongoDbConnection` нарушает DIP.)
+```ts
+class MongoDbConnection {
+  constructor() {/*...*/}
+  connect(host: string, user: string, password: string): void {/*...*/}
+}
+
+class Auth {
+  connection: MongoDbConnection
+  constructor(connection: MongoDbConnection) {/*...*/}
+  authentificate(login: string, password: string) {/*...*/}
+}
+```
+
+Вариант 2 (Прямая зависимость от конкретного класса `MongoDbConnection` нарушает DIP.)
+```ts
+interface DataBaseConnection {
+  connect(host: string, user: string, password: string): void
+}
+
+class MongoDbConnection implements DataBaseConnection {
+  constructor() {/*...*/}
+  connect(host: string, user: string, password: string): void {/*...*/}
+}
+
+class Auth {
+  connection: MongoDbConnection
+  constructor(connection: MongoDbConnection) {/*...*/}
+  authentificate(login: string, password: string) {/*...*/}
+}
+```
+
+_Вариант 3_
+```ts
+interface DataBaseConnection {
+  connect(host: string, user: string, password: string): void
+}
+
+class MongoDbConnection implements DataBaseConnection {
+  constructor() {/*...*/}
+  connect(host: string, user: string, password: string): void {/*...*/}
+}
+
+class Auth {
+  connection: DataBaseConnection
+  constructor(connection: DataBaseConnection) {/*...*/}
+  authentificate(login: string, password: string) {/*...*/}
+}
+```
+
+*[DIP]:Dependency Inversion Principle
+*[OCP]:Open-Closed Principle
+*[LSP]:Liskov Substitution Principle
+*[ISP]:Interface Segragation Principle
+*[БД]:База данных

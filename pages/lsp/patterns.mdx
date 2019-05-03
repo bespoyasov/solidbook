@@ -1,14 +1,15 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Шаблоны проектирования и приёмы рефакторинга'
+  title: 'LSP | Шаблоны проектирования и приёмы рефакторинга',
+  description: 'Шаблоны проектирования и приёмы рефакторинга, которые помогают следовать принципу подстановки Барбары Лисков'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 # Шаблоны проектирования и приёмы рефакторинга
 
-Главная цель принципа — «исключить сюрпризы» в поведении объектов. Достигать этой цели помогают некоторые методы и шаблоны проектирования и приёмы рефакторинга.
+Главная цель принципа подстановки Лисков — «исключить сюрпризы» в поведении объектов. Достигать этой цели помогают некоторые методы и шаблоны проектирования и приёмы рефакторинга.
 
 ## Контрактное программирование
 
@@ -86,13 +87,75 @@ class EvenNumbersSummator {
 Теперь метод не начнёт свою работу, если какое-то из предусловий будет нарушено, как и не вернёт результат, если будет нарушено постусловие.
 
 ## Вопросы
-WIP
+**Какую проблему с точки зрения LSP решает класс `Contract`?**
+
+_Позволяет строго описать и ограничить условия функционирования сущностей_
+
+_Позволяет описать ожидания от результата работы конкретного метода_
+
+_Избавляет от поведения, которого противоречит поведению базовой сущности_
+
+_Помогает спроектировать сущность таким образом, чтобы её потомков можно было подменять друг другом_
+
+**Какой из классов-наследников `EvenNumbersSummator` не противоречит LSP?**
+
+Вариант 1 (Этот класс усиливает предусловие в методе `add`, что противоречит принципу.)
+```ts
+class EvenPositiveNumbersSummator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    super(contract)
+  }
+
+  add(a: number, b: number): number {
+    this.contract.require(a % 2 === 0, 'first arg is not even')
+    this.contract.require(b % 2 === 0, 'second arg is not even')
+
+    this.contract.require(a > 0, 'first arg is less than 0 or equal')
+    this.contract.require(b > 0, 'second arg is less than 0 or equal')
+
+    return a + b
+  }
+}
+```
+
+_Вариант 2_
+```ts
+class EvenNumbersCalculator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    super(contract)
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b
+  }
+}
+```
+
+Вариант 3 (Этот класс усиливает предусловие в конструкторе, превращая `contract` в обязательный аргумент, в то время как в бразовой сущности этот аргумент опционален.)
+```ts
+class EvenNumbersCalculator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    if (!contract) throw new Error('no contract was provided!')
+    super(contract)
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b
+  }
+}
+```
 
 ## Извлечение интерфейса, извлечение суперкласса
 
-В прошлых разделах, когда мы выделяли общий интерфейс для классов, которые не вписывались в существующую иерархию.
+В прошлых разделах мы выделяли общий интерфейс для классов, которые не вписывались в существующую иерархию.
 
-Для подобной работы подходят приёмы [извлечения интерфейса](https://refactoring.guru/ru/extract-interface) и [ивзлечения суперкласса](https://refactoring.guru/ru/extract-superclass). В [примере с иерархией пользователей](/lsp/in-real-life) мы использовали выделение суперкласса.
+Для подобной работы подходят приёмы [извлечения интерфейса](https://refactoring.guru/ru/extract-interface) и [извлечения суперкласса](https://refactoring.guru/ru/extract-superclass). В [примере с иерархией пользователей](/lsp/in-real-life) мы использовали выделение суперкласса.
 
 Если разобрать изменения по шагам, то на первом шаге, чтобы не нарушать LSP, нам бы пришлось сделать `Guest` отдельным классом. Так мы бы избавились от усиления предусловий в методе `updateProfile`, но класс `Guest` начал бы дублировать функциональность, описанную в `User`:
 
@@ -119,16 +182,82 @@ class Guest {
 На втором шаге, чтобы избавиться от дублирования, мы бы применили выделение суперкласса. Класс `BaseUser` — и есть выделенный суперкласс.
 
 ## Вопросы
-WIP
+**В чём польза приёма с извлечением суперкласса в примере выше?**
+
+_Предотвращает дублирование, содержа повторяющуюся функциональность в себе_
+
+Помогает спроектировать более точную иерархию сущностей, основываясь на предметной области (При проектировании системы иерархия — не самоцель, лишь побочный инструмент. Хорошая модель описывает поведение сущностей и их отношения друг с другом.)
+
+_Избавляет от усиления предусловий и «пустых» методов в классе `Guest`_
+
+**Допустим, требуется добавить группу пользователей с историей посещений сервиса. Какой из вариантов ниже реализует эту функциональность, не нарушая LSP?**
+
+_Вариант 1_
+```ts
+interface UserWithHistory {
+  createHistory(): void
+  appendLogin(e: LoginEvent): void
+  showHistory(): LoginHistory
+}
+
+class SpiedUser extends BaseUser implements UserWithHistory {
+  constructor() {
+    super()
+  }
+
+  createHistory(): void {/*...*/}
+  appendLogin(e: LoginEvent): void {/*...*/}
+  showHistory(): LoginHistory {/*...*/}
+}
+```
+
+Вариант 2 (Если мы расширим базовый интерфейс `User`, то уже созданные классы, которые реализуют этот интерфейс, окажутся нерабочими. Это нарушает не только LSP, но и OCP)
+```ts
+interface User {
+  getSessionID(): ID
+  createHistory(): void
+  appendLogin(e: LoginEvent): void
+  showHistory(): LoginHistory
+}
+
+class SpiedUser extends BaseUser {
+  constructor() {
+    super()
+  }
+
+  createHistory(): void {/*...*/}
+  appendLogin(e: LoginEvent): void {/*...*/}
+  showHistory(): LoginHistory {/*...*/}
+}
+```
+
+Вариант 3 (Если мы расширим базовый класс `BaseUser`, то уже созданные классы-наследники окажутся нерабочими. Это нарушает не только LSP, но и OCP)
+```ts
+interface User {
+  getSessionID(): ID
+}
+
+class BaseUser implements User {
+  constructor() {/*...*/}
+  getSessionID(): ID {/*...*/}
+
+  createHistory(): void {/*...*/}
+  appendLogin(e: LoginEvent): void {/*...*/}
+  showHistory(): LoginHistory {/*...*/}
+}
+
+class SpiedUser extends BaseUser {
+  constructor() {
+    super()
+  }
+}
+```
 
 ## Композиция, изменение модели наследования
 
-Среди создающих и сруктурных шаблонов можно условно выделить группу тех, которые помогают использовать композицию свойств и методов. Примерами могут послужить стратегия и декоратор, которые мы рассмотрели в [разделе OCP](/ocp/patterns).
+Среди создающих и структурных шаблонов можно условно выделить группу таких, которые используют композицию свойств и методов. Это, например, стратегия и декоратор, которые мы рассмотрели в [разделе OCP](/ocp/patterns).
 
 Кроме них «исключить сюрпризы» помогает изменение модели наследования. Не всегда иерархия объектов в программной системе должна копировать иерархию их в реальном мире. ООП — про отношение между сущностями и их поведение, поэтому модель наследования должна зависеть именно от поведения объектов.
-
-## Вопросы
-WIP
 
 ## Материалы к разделу
 
@@ -137,7 +266,7 @@ WIP
 - [The Contract Pattern, Michel de Champlain, PDF](https://hillside.net/plop/plop97/Proceedings/dechamplain.pdf)
 - [Design by Contract, JS lib](https://gitlab.com/ex.xsoft.dev/orbios.dbc)
 - [Извлечение интерфейса](https://refactoring.guru/ru/extract-interface)
-- [Ивзлечение суперкласса](https://refactoring.guru/ru/extract-superclass)
+- [Извлечение суперкласса](https://refactoring.guru/ru/extract-superclass)
 - [How to Correctly Model Inheritance](https://dzone.com/articles/solid-liskov-substitution-principle#28)
 - [Liskov substitution and abstract classes / strategy pattern](https://softwareengineering.stackexchange.com/questions/178886/liskov-substitution-and-abstract-classes-strategy-pattern/178888)
 - [Composition Root](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)

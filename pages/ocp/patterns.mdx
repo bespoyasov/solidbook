@@ -1,7 +1,8 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Шаблоны проектирования и приёмы рефакторинга'
+  title: 'OCP | Шаблоны проектирования и приёмы рефакторинга',
+  description: 'Шаблоны проектирования и приёмы рефакторинга, которые помогают следовать принципу открытости-закрытости'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
@@ -12,7 +13,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ## Абстрактная фабрика
 
-[Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory) — это сущность которая создаёт другие сущности по заданным правилам, например, инстанциирует экземпляры классов или создаёт объекты.
+[Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory) — это сущность которая создаёт другие сущности по заданным правилам, например, создаёт экземпляры классов или объекты.
 
 [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory) — это фабрика, которая создаёт фабрики.
 
@@ -168,7 +169,7 @@ class FormatterFactorySelector implements FormatSelector {
 
 ## Декоратор
 
-[Декоратор](https://refactoring.guru/ru/design-patterns/decorator) — это шаблон, который заключается в создании обёрток с дополнительной функциональнстью для объектов. Такие обёртки позволяют не изменять сам объект, но при этом расширять его функциональность.
+[Декоратор](https://refactoring.guru/ru/design-patterns/decorator) — это шаблон, который заключается в создании обёрток с дополнительной функциональностью для объектов. Такие обёртки позволяют не изменять сам объект, но при этом расширять его функциональность.
 
 Отличие декоратора от наследования в возможности расширять функциональность динамически, без необходимости описывать каждый класс-наследник отдельно.
 

@@ -1,9 +1,38 @@
 import MainLayout from '~/components/layouts/main'
 
 export const meta = {
-  title: 'Ограничения и подводные камни'
+  title: 'ISP | Ограничения и подводные камни',
+  description: 'Ограничения принципа разделения интерфейса, с которыми разработчики сталкиваются чаще всего'
 }
 
 export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
-# WIP
+# Ограничения и подводные камни
+
+Как и в случае с SRP, проблемы с разделением интерфейсов возникают из трудностей проектирования и прогнозирования.
+
+## Слепое следование опасно
+
+Слепое следование ISP грозит дроблению _вообще всех_ интерфейсов на атомарные с одним методом или полем. Это похоже на [атомарный CSS](https://habr.com/en/post/432586/), когда каждое свойство описывается отдельным классом.
+
+Но суть принципа не в том, чтобы раздробить интерфейсы, а в том, чтобы выделить _минимально необходимое количество методов_, чтобы реализующие его модули не зависели от ненужной функциональности.
+
+## Как понять, что интерфейс стал грязным
+
+Во многих предметных областях сущности могут обладать очень большим количеством свойств и методов, из-за чего разделять интерфейсы может быть трудно. Разработчики могут столкнуться с ситуацией, когда не будет очевидно, в какой момент интерфейс всё ещё подчиняется ISP, а в какой — уже нет.
+
+## Конфликты ролей и иерархий
+
+Интерфейсы можно условно поделить на [роли](https://www.javaworld.com/article/3044050/discover-the-six-roles-that-interfaces-play-in-the-java-language.html): тип, поведение, ожидание (например в [контракте](https://ru.wikipedia.org/wiki/Контрактное_программирование)) и др.
+
+Иерархия ролей может [конфликтовать](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53) с иерархией сущностей и модулей, которые реализуют интерфейсы. Это делает структуру системы сложной для понимания и может вводить в заблуждение при чтении кода.
+
+## Материалы к разделу
+- [Атомарный CSS](https://habr.com/en/post/432586/)
+- [The 6 roles of the interface](https://www.javaworld.com/article/3044050/discover-the-six-roles-that-interfaces-play-in-the-java-language.html)
+- [Контрактное программирование](https://ru.wikipedia.org/wiki/Контрактное_программирование)
+- [Goodbye, Object Oriented Programming](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53)
+
+*[ISP]:Interface Segregation Principle
+*[SRP]:Single responsibility principle
+*[CSS]:Cascading Style Sheets

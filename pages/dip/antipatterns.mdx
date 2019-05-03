@@ -1,0 +1,51 @@
+import MainLayout from '~/components/layouts/main'
+
+export const meta = {
+  title: 'DIP | Антипаттерны и запахи',
+  description: 'Антипаттерны и запахи кода, которые мешают следовать принципу инверсии зависимостей'
+}
+
+export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
+
+# Антипаттерны и запахи
+
+Основная проблема антипаттернов и запахов ниже — в сокрытии зависимостей и увеличении сцепления модулей друг с другом.
+
+## Контрол-фрик
+
+[Контрол-фрик](https://habr.com/ru/post/166287/) — это запах, при котором зависимости явно создаются в конструкторе с помощью `new`.
+
+```ts
+class Auth {
+  // обратите внимание на отсутствие аргументов у конструктора
+  // и ключевое слово new внутри
+  constructor() {
+    this.connection = new MySQlConnection()
+  }
+}
+```
+
+Класс `Auth` становится жёстко сцепленным с `MySQlConnection`, то есть _не может работать без него_. Это нарушает [OCP](/ocp), [LSP](/lsp) и [ISP](/isp).
+
+Также чтобы протестировать такой класс, придётся сделать _глобальный_ мок для `MySQlConnection`. Это ресурсозатратно и засоряет глобальную область видимости.
+
+## Локатор служб
+
+[Локатор служб](https://ru.wikipedia.org/wiki/Локатор_служб) — шаблон, который позволяет подключать зависимости в момент, когда они становятся нужны.
+
+Мы называем его антипаттерном с оговоркой, что [есть ситуации, когда он нужен](https://stackoverflow.com/questions/22795459/is-servicelocator-an-anti-pattern) — например, при работе с легаси. Но при создании новой системы лучше использовать DI.
+
+Самый главный минус этого шаблона в том, что он нарушает [инкапсуляцию](https://ru.wikipedia.org/wiki/Инкапсуляция_(программирование)), [скрывая зависимости](https://stackoverflow.com/questions/22795459/is-servicelocator-an-anti-pattern).
+
+Понять код и предугадать его поведение становится трудно — ведь, чтобы узнать все зависимости необходимо изучить исходники. IDE уже не сможет подсказать, какие зависимости необходимы для создания класса.
+
+При использовании DI такой проблемы нет — у нас просто не получится создать экземпляр класса,не передав все необходимые зависимости.
+
+## Материалы к разделу
+- [DI: антипаттерны](https://habr.com/ru/post/166287/)
+- [Локатор служб](https://ru.wikipedia.org/wiki/Локатор_служб)
+- [Is Service Locator an Antipattern?](https://stackoverflow.com/questions/22795459/is-servicelocator-an-anti-pattern)
+- [Service Locator is an Antipattern, Mark Seemann](https://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/)
+
+*[DI]:Dependency Injection
+*[IDE]:Integrated Development Environment
