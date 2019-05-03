@@ -1,0 +1,14 @@
+2.
+```ts
+class FormatterFactorySelector implements FormatSelector {
+  formatters = {
+    [ReportTypes.Html]: HtmlFormatterFactory,
+    [ReportTypes.Txt]: TxtFormatterFactory,
+    default: TxtFormatterFactory
+  }
+
+  select(reportType: ReportTypes) {
+    return this.formatters[reportType] || this.formatters.default
+  }
+}
+```

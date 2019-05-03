@@ -1,0 +1,9 @@
+4.
+```ts
+interface Observable {
+  listeners: { [key: string]: Observer[] } = {}
+  subscribe(event: string, observer: Observable): void
+  unsubscribe(event: string, observer: Observable): void
+  notify(event: string, data: any): void
+}
+```
