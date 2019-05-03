@@ -8,6 +8,7 @@ export default styled.button`
   padding: 0.6em 1.5em;
   cursor: pointer;
   font-size: ${props => props.theme.fontSizeRegular};
+  margin: 0;
 
   &:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
