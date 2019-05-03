@@ -12,6 +12,6 @@ export const Container = styled.fieldset`
 
 export const Heading = styled.legend`
   padding: 0;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
   font-weight: 700;
 `
