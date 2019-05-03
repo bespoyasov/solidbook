@@ -1,0 +1,18 @@
+1.
+```ts
+interface UserWithHistory {
+  createHistory(): void
+  appendLogin(e: LoginEvent): void
+  showHistory(): LoginHistory
+}
+
+class SpiedUser extends BaseUser implements UserWithHistory {
+  constructor() {
+    super()
+  }
+
+  createHistory(): void {/*...*/}
+  appendLogin(e: LoginEvent): void {/*...*/}
+  showHistory(): LoginHistory {/*...*/}
+}
+```

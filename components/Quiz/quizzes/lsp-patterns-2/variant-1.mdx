@@ -1,0 +1,20 @@
+1.
+```ts
+class EvenPositiveNumbersSummator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    super(contract)
+  }
+
+  add(a: number, b: number): number {
+    this.contract.require(a % 2 === 0, 'first arg is not even')
+    this.contract.require(b % 2 === 0, 'second arg is not even')
+
+    this.contract.require(a > 0, 'first arg is less than 0 or equal')
+    this.contract.require(b > 0, 'second arg is less than 0 or equal')
+
+    return a + b
+  }
+}
+```

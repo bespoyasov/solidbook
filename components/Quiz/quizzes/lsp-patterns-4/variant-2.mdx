@@ -1,0 +1,19 @@
+2.
+```ts
+interface User {
+  getSessionID(): ID
+  createHistory(): void
+  appendLogin(e: LoginEvent): void
+  showHistory(): LoginHistory
+}
+
+class SpiedUser extends BaseUser {
+  constructor() {
+    super()
+  }
+
+  createHistory(): void {/*...*/}
+  appendLogin(e: LoginEvent): void {/*...*/}
+  showHistory(): LoginHistory {/*...*/}
+}
+```
