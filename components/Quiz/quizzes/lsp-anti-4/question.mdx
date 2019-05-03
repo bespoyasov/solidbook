@@ -1,0 +1,24 @@
+Допустим, мы решили использовать выделение интерфейса и суперкласса для решения проблемы «пустых» реализаций. У нас есть интерфейсы:
+```ts
+interface Article {
+  published: boolean
+}
+
+interface Publishable {
+  publish(): void
+}
+
+interface Deletable {
+  delete(): void
+}
+
+interface Removable {
+  unpublish(): void
+}
+
+interface Restorable {
+  restore(): void
+}
+```
+
+Какой из способов ниже может помочь справиться с «пустыми» реализациями?
