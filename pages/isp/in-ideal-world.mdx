@@ -1,4 +1,5 @@
 import MainLayout from '~/components/layouts/main'
+import Quiz from '~/components/Quiz'
 
 export const meta = {
   title: 'ISP | В идеальном мире',
@@ -84,81 +85,8 @@ ISP можно представлять как [SRP](/srp) для интерфе
 - [The Single Responsibility Principle and the Interface Segregation Principle](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective)
 
 ## Вопросы
-**Что общего между ISP и SRP?**
-
-ISP заставляет писать маленькие, атомарные интерфейсы, как SRP заставляет писать маленькие классы (В обоих случаях дело заключается не в размере модуля или интерфейса, а в его целостности и сфокусированности на конкретной задаче, к которой он относится.)
-
-_ISP заставляет делить ответственность между интерфейсами таким же образом, как SRP делит ответственность между модулями_
-
-ISP гарантирует большое количество интерфейсов с маленьким количеством классов, как SRP гарантирует большое количество классов с меньшим количеством методов (Это возможный вариант результата, но ни ISP, ни SRP его не гарантируют.)
-
-**Допустим, нам необходимо добавить метод `drinkSoda` в класс `RegularProgrammer`. Мы знаем, что в офисе есть программисты, которые не пьют газировку. Какой из вариантов ниже не будет нарушать ISP?**
-
-Вариант 1 (Класс `RegularProgrammer` реализует интерфейс `SodaConsumer`, который содержит метод `drinkSoda`. Программисты класса `OnDietProgrammer` не пьют газировку, поэтому этот метод им не нужен, но они должны его реализовать из-за интерфейса родительского класса.)
-```ts
-interface SodaConsumer {
-  drinkSoda(liters: number): void
-}
-
-class RegularProgrammer implements CodeProducer, PizzaConsumer, SodaConsumer {
-  constructor() {/*...*/}
-  writeCode(): void {/*...*/}
-  eatPizza(slicesCount: number): void {/*...*/}
-  drinkSoda(liters: number): void {/*...*/}
-}
-
-class OnDietProgrammer extends RegularProgrammer {
-  constructor() {/*...*/}
-  writeCode(): void {/*...*/}
-  eatPizza(slicesCount: number): void {/*...*/}
-}
-```
-
-Вариант 2 (Абстрактный класс `Programmer` реализует интерфейс `SodaConsumer`, который содержит метод `drinkSoda`. Программисты класса `OnDietProgrammer` не пьют газировку, поэтому этот метод им не нужен, но они должны его реализовать из-за интерфейса родительского класса.)
-```ts
-interface SodaConsumer {
-  drinkSoda(liters: number): void
-}
-
-abstract class Programmer implements CodeProducer, PizzaConsumer, SodaConsumer {
-  constructor() {/*...*/}
-  writeCode(): void {/*...*/}
-  eatPizza(slicesCount: number): void {/*...*/}
-  drinkSoda(liters: number): void {/*...*/}
-}
-
-class OnDietProgrammer extends Programmer {
-  constructor() {
-    super()
-  }
-}
-```
-
-_Вариант 3_
-```ts
-interface SodaConsumer {
-  drinkSoda(liters: number): void
-}
-
-abstract class Programmer implements CodeProducer {
-  constructor() {/*...*/}
-  writeCode(): void {/*...*/}
-}
-
-abstract class EatingProgrammer extends Progammer implements PizzaConsumer {
-  constructor() {
-    super()
-  }
-
-  eatPizza(slicesCount: number): void {/*...*/}
-}
-
-class OnDietProgrammer extends EatingProgrammer {
-  constructor() {
-    super()
-  }
-}
-```
+<Quiz name='isp-ideal-1' />
+<Quiz name='isp-ideal-2' />
 
 *[ISP]:Interface Segregation Principle
 *[PDF]:Portable document format

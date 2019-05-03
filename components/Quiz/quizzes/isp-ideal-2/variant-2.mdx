@@ -1,0 +1,26 @@
+2.
+```ts
+interface SodaConsumer {
+  drinkSoda(liters: number): void
+}
+
+abstract class Programmer implements CodeProducer {
+  constructor() {/*...*/}
+  writeCode(): void {/*...*/}
+}
+
+abstract class EatingProgrammer
+  extends Progammer implements PizzaConsumer {
+  constructor() {
+    super()
+  }
+
+  eatPizza(slicesCount: number): void {/*...*/}
+}
+
+class OnDietProgrammer extends EatingProgrammer {
+  constructor() {
+    super()
+  }
+}
+```
