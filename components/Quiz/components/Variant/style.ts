@@ -25,17 +25,17 @@ export const Label = styled.label`
 
   &.selected {
     border-color: black;
-
-    &.completed::after {
-      content: '🚫';
-    }
-    &.completed.correct::after {
-      content: '✅';
-    }
   }
 
   &.completed {
     cursor: default;
+
+    &::after {
+      content: '🚫';
+    }
+    &.correct::after {
+      content: '✅';
+    }
 
     &:hover,
     &:focus-within {
