@@ -5,6 +5,8 @@ import { Instance } from 'mobx-state-tree'
 import { AppModel } from '~/models/app'
 import QuizContainer from '~/components/Quiz/components/QuizContainer'
 import { IQuiz } from '~/components/Quiz/quizzes/IQuiz'
+import camelcase from 'camelcase'
+import * as quizzes from '../quiz-list'
 
 interface IProps {
   name: string
@@ -14,39 +16,29 @@ interface IInjectedProps {
   app: Instance<typeof AppModel>
 }
 
-class QuizLoader extends Component<IProps> {
+interface IState {
+  error: string | null
+}
+
+class QuizLoader extends Component<IProps, IState> {
   module: IQuiz
+  moduleName: string
   isMounted: boolean = false
 
-  state = {
-    loaded: false,
-    error: null
+  constructor(props) {
+    super(props)
+
+    this.state = { error: null }
+
+    this.moduleName = camelcase(this.props.name)
+    this.module = quizzes[this.moduleName]
+
+    if (!this.moduleName)
+      this.state = { error: `Module ${this.moduleName} couldn't found. Check components/Quiz/quiz-list` }
   }
 
   get injected() {
     return this.props as IInjectedProps & IProps
-  }
-
-  componentDidMount() {
-    this.isMounted = true
-
-    import(`../quizzes/${this.props.name}`)
-      .then(c => {
-        this.module = c.default
-        if (this.isMounted) {
-          this.setState({ loaded: true })
-        }
-      })
-      .catch(error => {
-        console.error(error)
-        if (this.isMounted) {
-          this.setState({ loaded: true, error: error.message })
-        }
-      })
-  }
-
-  componentWillUnmount() {
-    this.isMounted = false
   }
 
   componentDidCatch(error) {
@@ -59,30 +51,38 @@ class QuizLoader extends Component<IProps> {
   }
 
   render() {
-    const { name, app } = this.injected
-    const { loaded, error } = this.state
-    const quizModel = app.getOrCreateQuizModel(name)
+    const { error } = this.state
 
     if (error) {
-      return (
-        <>
-          <p>Ошибка загрузки модуля:</p>
-          <pre>{error}</pre>
-        </>
-      )
-    } else if (loaded) {
-      return (
-        <QuizContainer
-          name={name}
-          quizModel={quizModel}
-          question={this.module.question}
-          variants={this.module.variants}
-          checkVariant={this.checkVariant}
-        />
-      )
+      return this.renderError()
     } else {
-      return <p>Вопросы загружаются...</p>
+      return this.renderQuiz()
     }
+  }
+
+  renderError() {
+    const { error } = this.state
+    return (
+      <>
+        <p>Ошибка загрузки модуля:</p>
+        <pre>{error}</pre>
+      </>
+    )
+  }
+
+  renderQuiz() {
+    const { app } = this.injected
+    const quizModel = app.getOrCreateQuizModel(this.moduleName)
+
+    return (
+      <QuizContainer
+        name={this.moduleName}
+        quizModel={quizModel}
+        question={this.module.question}
+        variants={this.module.variants}
+        checkVariant={this.checkVariant}
+      />
+    )
   }
 }
 
