@@ -38,9 +38,9 @@ class QuizContainer extends Component<IProps> {
         {variants.map((variant, index) => (
           <Variant
             name={name}
-            selected={quizModel.answer === index}
+            selected={quizModel.answers.includes(index)}
             completed={quizModel.isComplete}
-            correct={checkVariant(index)}
+            correct={quizModel.isComplete && checkVariant(index)}
             index={index}
             variant={variant}
             key={index}
