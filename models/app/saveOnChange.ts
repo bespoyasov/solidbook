@@ -1,4 +1,5 @@
 import { addMiddleware, IAnyStateTreeNode } from 'mobx-state-tree'
+import AppStateRepository from '~/repository/AppStateRepository'
 
 class SaveOnChangeMiddleware {
   actions: string[]
@@ -17,7 +18,7 @@ class SaveOnChangeMiddleware {
     next(call)
 
     if (this.actions.includes(call.name)) {
-      localStorage.setItem('__app', JSON.stringify(this.store.toJSON()))
+      AppStateRepository.instance.save(this.store.toJSON())
     }
   }
 }
