@@ -48,7 +48,7 @@ class QuizContainer extends Component<IProps> {
           />
         ))}
 
-        <Button onClick={() => quizModel.toggleComplete()} type="button">
+        <Button disabled={quizModel.answers.length === 0} onClick={() => quizModel.toggleComplete()} type="button">
           {quizModel.isComplete ? 'Пройти заново' : 'Проверить ответ'}
         </Button>
       </Container>

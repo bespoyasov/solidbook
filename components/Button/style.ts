@@ -19,4 +19,12 @@ export default styled.button`
     box-shadow: none;
     transform: translateY(1px);
   }
+
+  &:disabled {
+    cursor: auto;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  &:disabled:hover {
+    box-shadow: none;
+  }
 `
