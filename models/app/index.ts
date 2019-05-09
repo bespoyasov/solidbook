@@ -17,9 +17,7 @@ const AppModel = types
   .actions(self => ({
     getOrCreateQuizModel(name: string) {
       let quiz = self.quizes.get(name)
-      if (!quiz) {
-        quiz = self.createQuiz(name)
-      }
+      if (!quiz) quiz = self.createQuiz(name)
       return quiz
     },
     hydrate(state: any) {

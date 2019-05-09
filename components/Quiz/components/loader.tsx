@@ -34,7 +34,7 @@ class QuizLoader extends Component<IProps, IState> {
     this.module = quizzes[this.moduleName]
 
     if (!this.moduleName)
-      this.state = { error: `Module ${this.moduleName} couldn't found. Check components/Quiz/quiz-list` }
+      this.state = { error: `Module ${this.moduleName} not found. Check components/Quiz/quiz-list` }
   }
 
   get injected() {
