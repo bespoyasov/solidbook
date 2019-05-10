@@ -48,7 +48,7 @@ class QuizLoader extends Component<IProps, IState> {
   render() {
     const { error } = this.state
     const { app } = this.injected
-    const quizModel = app.getbyName(this.moduleName)
+    const quizModel = app.getByName(this.moduleName)
 
     if (error) {
       return this.renderError()
@@ -71,7 +71,7 @@ class QuizLoader extends Component<IProps, IState> {
 
   renderQuiz() {
     const { app } = this.injected
-    const quizModel = app.getbyName(this.moduleName)
+    const quizModel = app.getByName(this.moduleName)
 
     return (
       <QuizContainer

@@ -30,14 +30,29 @@ const AppModel = types
     }
   }))
   .views(self => ({
-    getbyName(name: string) {
+    getByName(name: string) {
       return self.quizes.get(name)
     },
     get asnwersNames() {
       return Object.keys(self.quizes)
     },
+    get userScore() {
+      let score = 0
+      self.quizes.forEach(quiz => {
+        if (quiz.isComplete) {
+          if (quiz.correct.length === quiz.answers.length) {
+            const isAllAnswersCorrect = quiz.answers.every(index => quiz.correct.includes(index))
+
+            if (isAllAnswersCorrect) {
+              score += 10
+            }
+          }
+        }
+      })
+      return score
+    },
     get totalScore() {
-      return Object.keys(self.quizes).length * 10
+      return self.quizes.size * 10
     }
   }))
 
