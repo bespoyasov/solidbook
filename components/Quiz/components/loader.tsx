@@ -23,7 +23,6 @@ interface IState {
 class QuizLoader extends Component<IProps, IState> {
   module: IQuiz
   moduleName: string
-  isMounted: boolean = false
 
   constructor(props) {
     super(props)
@@ -52,11 +51,15 @@ class QuizLoader extends Component<IProps, IState> {
 
   render() {
     const { error } = this.state
+    const { app } = this.injected
+    const quizModel = app.getbyName(this.moduleName)
 
     if (error) {
       return this.renderError()
-    } else {
+    } else if (quizModel) {
       return this.renderQuiz()
+    } else {
+      return null
     }
   }
 
@@ -72,7 +75,7 @@ class QuizLoader extends Component<IProps, IState> {
 
   renderQuiz() {
     const { app } = this.injected
-    const quizModel = app.getOrCreateQuizModel(this.moduleName)
+    const quizModel = app.getbyName(this.moduleName)
 
     return (
       <QuizContainer

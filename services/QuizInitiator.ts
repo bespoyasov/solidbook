@@ -4,22 +4,22 @@ import AppStateRepository from '~/repository/AppStateRepository'
 
 class QuizCreator implements Service {
   init(app) {
-    let state = AppStateRepository.instance.load()
+    let state: { quizes: object } = AppStateRepository.instance.load()
 
     const quizNames = Object.keys(quizList)
 
     if (state != null) {
-      Object.keys(state).forEach(key => {
+      Object.keys(state.quizes).forEach(key => {
         if (!quizNames.includes(key)) {
-          delete state[key]
+          delete state.quizes[key]
         }
       })
-
       app.hydrate(state)
     }
 
     quizNames.forEach(quizName => {
-      app.getOrCreateQuizModel(quizName)
+      const model = app.getOrCreateQuizModel(quizName)
+      model.setCorrectAnswers(quizList[quizName].meta.correctAnswers)
     })
   }
 

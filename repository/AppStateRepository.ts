@@ -10,7 +10,7 @@ class AppStateRepository {
     this.localstorageKey = 'solid-book'
   }
 
-  load(): object | null {
+  load(): { quizes: object } | null {
     try {
       const base64String = localStorage.getItem(this.localstorageKey)
       const jsonState = atob(base64String)

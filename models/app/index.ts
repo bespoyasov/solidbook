@@ -1,4 +1,4 @@
-import { types, Instance, applySnapshot } from 'mobx-state-tree'
+import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
 import Quiz, { createEmptyQuiz } from '~/models/quiz'
 import { SaveOnChangeMiddleware } from './saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
@@ -21,12 +21,23 @@ const AppModel = types
       return quiz
     },
     hydrate(state: any) {
-      applySnapshot(self, state)
+      try {
+        typecheck(AppModel, state)
+        applySnapshot(self, state)
+      } catch (error) {
+        console.error(error)
+      }
     }
   }))
   .views(self => ({
+    getbyName(name: string) {
+      return self.quizes.get(name)
+    },
     get asnwersNames() {
       return Object.keys(self.quizes)
+    },
+    get totalScore() {
+      return Object.keys(self.quizes).length * 10
     }
   }))
 
