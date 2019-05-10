@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, cast } from 'mobx-state-tree'
 
 const Quiz = types
   .model('Quiz', {
@@ -8,7 +8,7 @@ const Quiz = types
   })
   .actions(self => ({
     setCorrectAnswers(answers: number[]) {
-      this.correct = answers
+      self.correct = cast(answers)
     },
     toggleAnswer(answerIndex: number) {
       if (self.answers.includes(answerIndex)) {
@@ -24,6 +24,11 @@ const Quiz = types
       }
 
       self.isComplete = !self.isComplete
+    }
+  }))
+  .views(self => ({
+    isCorrect(answerIndex: number) {
+      return self.correct.includes(answerIndex)
     }
   }))
 

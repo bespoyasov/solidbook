@@ -32,7 +32,7 @@ class QuizLoader extends Component<IProps, IState> {
     this.moduleName = camelcase(this.props.name)
     this.module = quizzes[this.moduleName]
 
-    if (!this.moduleName)
+    if (this.module == null)
       this.state = { error: `Module ${this.moduleName} not found. Check components/Quiz/quiz-list` }
   }
 
@@ -43,10 +43,6 @@ class QuizLoader extends Component<IProps, IState> {
   componentDidCatch(error) {
     console.error(error)
     this.setState({ error: error.message })
-  }
-
-  checkVariant = (index: number) => {
-    return this.module.meta.correctAnswers.includes(index)
   }
 
   render() {
@@ -83,7 +79,6 @@ class QuizLoader extends Component<IProps, IState> {
         quizModel={quizModel}
         question={this.module.question}
         variants={this.module.variants}
-        checkVariant={this.checkVariant}
       />
     )
   }

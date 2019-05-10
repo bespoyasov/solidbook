@@ -14,7 +14,6 @@ interface IProps {
   completed?: boolean
   question: React.ReactNode
   variants: IVariant[]
-  checkVariant: (variants: number) => boolean
 }
 
 class QuizContainer extends Component<IProps> {
@@ -29,7 +28,7 @@ class QuizContainer extends Component<IProps> {
   }
 
   render() {
-    const { quizModel, question, variants, name, checkVariant } = this.props
+    const { quizModel, question, variants, name } = this.props
 
     return (
       <Container>
@@ -40,7 +39,7 @@ class QuizContainer extends Component<IProps> {
             name={name}
             selected={quizModel.answers.includes(index)}
             completed={quizModel.isComplete}
-            correct={quizModel.isComplete && checkVariant(index)}
+            correct={quizModel.isComplete && quizModel.isCorrect(index)}
             index={index}
             variant={variant}
             key={index}
