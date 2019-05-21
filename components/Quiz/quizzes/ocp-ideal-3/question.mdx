@@ -1,0 +1,14 @@
+Допустим, нам требуется добавить в `AreaCalculator` подсчёт площади треугольника из примера ниже
+```ts
+class Triangle {
+  base: number
+  height: number
+
+  constructor(base: number, height: number) {
+    this.base = base
+    this.height = height
+  }
+}
+```
+Класс `Triangle` не имплементирует интерфейс `Shape`, который в проекте существует давно. Что необходимо сделать, чтобы код не нарушал OCP?
+*[OCP]:Open-Closed Principle

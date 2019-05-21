@@ -1,4 +1,5 @@
 import MainLayout from '~/components/layouts/main'
+import Quiz from '~/components/Quiz'
 
 export const meta = {
   title: 'ISP | Шаблоны проектирования и приёмы рефакторинга',
@@ -98,65 +99,8 @@ applyMixins(Horse, [Animal, Transport]);
 - [Mixins in Typescript](https://www.typescriptlang.org/docs/handbook/mixins.html)
 
 ## Вопросы
-**В чём польза адаптера с точки зрения ISP?**
-
-_Позволяет избежать наследования не связанных друг с другом сущностей_
-
-Повзоляет композировать свойства нескольких сущностей в одной новой (Это позволяет делать множественное наследование.)
-
-_Позволяет не засорять интерфейс одной сущности лишь ради того, чтобы её потомок мог реализовать какой-то метод_
-
-Вводит прослойку, через которую сущности могут общаться, что упрощает архитектуру системы (Адаптер действительно вводит прослойку, через которую сущности могут общаться друг с другом, но это наоборот может усложнить систему.)
-
-**Допустим, у нас есть класс `EventEmitter`, события которого мы хотим записывать в `Logger`. События из `EventEmitter` — это строки с пробелами. Пробелы вызовут ошибку в `Logger`:**
-```ts
-class EventEmitter {
-  public emit(e: EventTypes): string {
-    return e.type
-  }
-}
-
-class Logger {
-  public logEvent(eventType: string): void {
-    if (eventType.search(/\s/) > -1) throw new Error('hey! no spaces!')
-    // ...
-  }
-}
-```
-**Какой из вариантов ниже подойдёт в качестве адаптера для замены пробелов на дефисы для работы с `Logger`?**
-
-_Вариант 1_
-```ts
-class EventEmitterAdapter extends EventEmitter {
-  private adaptee: Adaptee;
-
-  constructor(adaptee: Adaptee) {
-    super();
-    this.adaptee = adaptee;
-  }
-
-  public emit(e: EventTypes): string {
-    return e.type.replace(/\s/g, '-')
-  }
-}
-```
-
-_Вариант 2_
-```ts
-class LoggerAdapter extends Logger {
-  private adaptee: Adaptee;
-
-  constructor(adaptee: Adaptee) {
-    super();
-    this.adaptee = adaptee;
-  }
-
-  public logEvent(eventType: string): void {
-    eventType = eventType.replace(/\s/g, '-')
-    return this.adaptee.logEvent(eventType)
-  }
-}
-```
+<Quiz name='isp-patterns-1' />
+<Quiz name='isp-patterns-2' />
 
 *[ISP]:Interface Segregation Principle
 *[LSP]:Liskov Substitution Principle

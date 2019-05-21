@@ -1,0 +1,14 @@
+3.
+```ts
+class FormatterFactorySelector implements FormatSelector {
+  formatters: ReportFormats
+
+  constructor(formatters: ReportFormats) {
+    this.formatters = formatters
+  }
+
+  select(reportType: ReportTypes) {
+    return this.formatters[reportType] || this.formatters.default
+  }
+}
+```

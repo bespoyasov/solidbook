@@ -1,0 +1,18 @@
+1.
+```ts
+class CachedRequest {
+  cached: RequestClient
+  cache: { [name: string]: any }
+
+  constructor(cached: RequestClient) {
+    this.cached = cached
+  }
+
+  async request(url: string): Promise<any> {
+    if (this.cache[url]) return Promise.resolve(this.cache[url])
+    const result = await this.cached.request(url)
+    this.cache[url] = result
+    return result
+  }
+}
+```

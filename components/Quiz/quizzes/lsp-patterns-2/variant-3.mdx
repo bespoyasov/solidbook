@@ -1,0 +1,15 @@
+3.
+```ts
+class EvenNumbersCalculator extends EvenNumbersSummator {
+  contract: Contract
+
+  constructor(contract: Contract) {
+    if (!contract) throw new Error('no contract was provided!')
+    super(contract)
+  }
+
+  subtract(a: number, b: number): number {
+    return a - b
+  }
+}
+```

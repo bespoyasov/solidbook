@@ -14,27 +14,34 @@ class Code extends PureComponent<Props> {
     lang: 'ts'
   }
 
+  highlight = (source: React.ReactElement) => {
+    return rehype()
+      .stringify({
+        type: 'root',
+        children: refractor.highlight(source, this.props.lang)
+      })
+      .toString()
+  }
+
+  createCodeElement = (innerHtml: string) => {
+    return React.createElement('code', {
+      dangerouslySetInnerHTML: {
+        __html: innerHtml
+      }
+    })
+  }
+
   render() {
-    const { children, lang } = this.props
+    const { children } = this.props
 
     return (
       <pre>
         {React.Children.map(
           children,
           (child: React.ReactElement): React.ReactElement => {
-            if (child.props.name !== 'code') return child
-
-            return React.createElement('code', {
-              ...child.props.props,
-              dangerouslySetInnerHTML: {
-                __html: rehype()
-                  .stringify({
-                    type: 'root',
-                    children: refractor.highlight(child.props.children, lang)
-                  })
-                  .toString()
-              }
-            })
+            if (child.props && child.props.name !== 'code') return child
+            if (typeof child === 'string') return this.createCodeElement(this.highlight(child))
+            return this.createCodeElement(this.highlight(child.props.children))
           }
         )}
       </pre>

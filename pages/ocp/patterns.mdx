@@ -1,4 +1,5 @@
 import MainLayout from '~/components/layouts/main'
+import Quiz from '~/components/Quiz'
 
 export const meta = {
   title: 'OCP | Шаблоны проектирования и приёмы рефакторинга',
@@ -66,21 +67,8 @@ class AppConfigurator {
 ```
 
 ## Вопросы
-**Чем полезен шаблон «Абстрактная фабрика» с точки зрения OCP?**
-
-Позволяет создавать сущности динамически, инстанциируя классы или создавая объекты внутри себя (Эту задачу решает фабрика, абстрактная фабрика занимается созданием фабрик)
-
-Выносит определение нужной фабрики в одно место — конфигуратор приложения (Главная польза OCP — сделать так, чтобы изменение требований не затрагивало код уже созданных модулей, вынесение выбора фабрики в одно место — задача для SRP)
-
-_Позволяет структурировать код так, чтобы при изменении требований нам потребовалось добавить сущность и изменить как можно меньше уже существующих модулей_
-
-**Где и в чём проблема класса `AppConfigurator` с точки зрения OCP?**
-
-Проблема в методе `configure`. Не описан дефолтный случай для выбора фабрики (С точки зрения OCP главная проблема в том, что придётся менять код этого метода при добавлении ещё одной фабрики)
-
-_Проблема в методе `configure`. Нынешняя реализаци вынуждает изменять код метода при изменении добавлении новой фабрики_
-
-Проблема в методе `configure`. Тип его возвращаемого значения — интерфейс вместо класса (С точки зрения OCP правильнее наоборот привязываться к абстракциям, а не конкретным классам)
+<Quiz name='ocp-patterns-1' />
+<Quiz name='ocp-patterns-2' />
 
 ## Стратегия
 
@@ -105,67 +93,8 @@ function formatterStrategy(reportType: ReportTypes): FormatterFactory {
 Теперь выбор фабрик стал динамическим, и при изменении требований нам потребуется только добавить новую сущность и обновить список фабрик.
 
 ## Вопросы
-**В чём смысл шаблона «Стратегия»?**
-
-Этот шаблон вызывает сложные цепочки методов и заменяет их одним названием (Это описание шаблона «Фасад»)
-
-_Этот шаблон позволяет менять настройки, конфигурацию или алгоритм в зависимости от ситуации и требований_
-
-Этот шаблон контролирует процесс вызова методов другого модуля, изменяя их действие (Это описание шаблона «Прокси»)
-
-**Какой из классов ниже реализует шаблон «Стратегия», не нарушая OCP и SRP?**
-
-Вариант 1 (Этот класс нарушает SRP, так как занимается и настройкой приложения и выбором фабрики для форматирования)
-```ts
-class AppConfigurator {
-  reportType: ReportTypes
-  formatters = {
-    [ReportTypes.Html]: HtmlFormatterFactory,
-    [ReportTypes.Txt]: TxtFormatterFactory,
-    default: TxtFormatterFactory
-  }
-
-  constructor(reportType: ReportTypes) {
-    this.reportType = reportType
-  }
-
-  configure(reportData: ReportData): FormatterFactory {
-    const factory = this.formatters[this.reportType] || this.formatters.default
-    return new factory(reportData)
-  }
-}
-```
-
-Вариант 2 (Этот вариант нарушает OCP, так как при изменении списка форматов, придётся менять и код этого модуля)
-```ts
-class FormatterFactorySelector implements FormatSelector {
-  formatters = {
-    [ReportTypes.Html]: HtmlFormatterFactory,
-    [ReportTypes.Txt]: TxtFormatterFactory,
-    default: TxtFormatterFactory
-  }
-
-  select(reportType: ReportTypes) {
-    return this.formatters[reportType] || this.formatters.default
-  }
-}
-```
-
-_Вариант 3_
-```ts
-class FormatterFactorySelector implements FormatSelector {
-  formatters: ReportFormats
-
-  constructor(formatters: ReportFormats) {
-    this.formatters = formatters
-  }
-
-  select(reportType: ReportTypes) {
-    return this.formatters[reportType] || this.formatters.default
-  }
-}
-```
-
+<Quiz name='ocp-patterns-3' />
+<Quiz name='ocp-patterns-4' />
 
 ## Декоратор
 
@@ -222,61 +151,8 @@ class GreetingWithUppercase implements GreetingDecorator {
 Разница между декоратором и [прокси](https://refactoring.guru/ru/design-patterns/proxy) в том, что прокси всегда предоставляет тот же интерфейс, в то время как декоратор может предоставлять расширенный интерфейс.
 
 ## Вопросы
-**В чём польза шаблона «Декоратор»?**
-
-_В расширении функциональности модулей через обёртки без изменения кода этих модулей_
-
-_В возможности расширять функциональность классов и методов динамически, без необходимости использовать наследование_
-
-_В возможности выделить логику, не относящуюся напрямую к функциональности модуля в другую сущность_
-
-**Какой из классов ниже правильно использует декоратор для удаления всех пробелов из приветствия?**
-
-Вариант 1 (Не совпадает тип поля `wrappee` и не указан интерфейс, который имплементирует этот класс)
-```ts
-class GreetingWithoutSpaces {
-  wrappee: object
-
-  constructor(wrappee) {
-    this.wrappee = wrappee
-  }
-
-  greet = (): string => {
-    return this.wrappee.greet().repalce(/\s/g, '')
-  }
-}
-```
-
-Вариант 2 (Класс имплементирует неправильный интерфейс)
-```ts
-class GreetingWithoutSpaces implements Greeting {
-  wrappee: Greeting
-
-  constructor(wrappee: Greeting) {
-    this.wrappee = wrappee
-  }
-
-  greet = (): string => {
-    return this.wrappee.greet().repalce(/\s/g, '')
-  }
-}
-```
-
-_Вариант 3_
-```ts
-class GreetingWithoutSpaces implements GreetingDecorator {
-  wrappee: Greeting
-
-  constructor(wrappee: Greeting) {
-    this.wrappee = wrappee
-  }
-
-  greet = (): string => {
-    return this.wrappee.greet().repalce(/\s/g, '')
-  }
-}
-```
-
+<Quiz name='ocp-patterns-5' />
+<Quiz name='ocp-patterns-6' />
 
 ## Наблюдатель
 
@@ -354,90 +230,19 @@ class HrAgency implements NewPositionObservable {
 Этот шаблон позволяет добавлять новых наблюдателей без необходимости менять код наблюдаемого объекта.
 
 ## Вопросы
-**Чем полезен механизм подписки шаблона «Наблюдатель»?**
-
-_Позволяет создать объект, который уведомляет другие о неком событии без необходимости связывать их напрямую_
-
-_Позволяет создавать объекты, которые могут реагировать на события в наблюдаемом объекте без необходимости менять код наблюдаемого объекта_
-
-_Позволяет динамически подписывать наблюдателей на события и отписывать их от событий_
-
-**Допустим, дан класс более общего наблюдаемого объекта:**
-```ts
-class ConcreteObservable implements Observable {
-  listeners: { [key: string]: Observer[] } = {}
-
-  subscribe = (event: string, observer: Observer): void => {
-    // добавить объект в this.listeners[event]
-  }
-
-  unsubscribe = (event: string, observer: Observer): void => {
-    // удалить объект из this.listeners[event]
-  }
-
-  notify = (event: string, data: any): void => {
-    // уведомить всех из this.listeners[event]
-  }
-}
-```
-**Какой из интерфейсов он реализует?**
-
-Вариант 1 (Не совпадают сигнатуры всех методов и типы полей)
-```ts
-interface Observable {
-  listeners: Observer[]
-  subscribe(observer: Observer): void
-  unsubscribe(observer: Observer): void
-  notify(data: any): void
-}
-```
-
-Вариант 2 (Не совпадает тип поля `listeners`)
-```ts
-interface Observable {
-  listeners: Observer[]
-  subscribe(event: string, observer: Observer): void
-  unsubscribe(event: string, observer: Observer): void
-  notify(event: string, data: any): void
-}
-```
-
-_Вариант 3_
-```ts
-interface Observable {
-  listeners: { [key: string]: Observer[] } = {}
-  subscribe(event: string, observer: Observer): void
-  unsubscribe(event: string, observer: Observer): void
-  notify(event: string, data: any): void
-}
-```
-
-Вариант 4 (Не совпадает интерфейс передаваемого внутрь методов наблюдателя, должен быть `Observer`)
-```ts
-interface Observable {
-  listeners: { [key: string]: Observer[] } = {}
-  subscribe(event: string, observer: Observable): void
-  unsubscribe(event: string, observer: Observable): void
-  notify(event: string, data: any): void
-}
-```
+<Quiz name='ocp-patterns-7' />
+<Quiz name='ocp-patterns-8' />
 
 ## Замена прямого наследования на полиморфизм и композицию
 
 Модули, зависящие от конкретных классов, связаны с ними слишком сильно, из-за чего изменение в одном модуле затронет изменение в другом.
 
-[Замена](https://blog.goyello.com/2014/02/11/example-of-just-in-time-design-refactor-to-open-closed/) прямого наследования на полиморфизм или композицию — это приём рефакторинга, который ослабляет связанность модулей через введение абстракций: интерфейсов, обёрток и т.д.
+[Замена](https://blog.goyello.com/2014/02/11/example-of-just-in-time-design-refactor-to-open-closed/) прямого наследования на полиморфизм или композицию — это приём рефакторинга, который ослабляет сцепление модулей через введение абстракций: интерфейсов, обёрток и т.д.
 
 Примером может послужить [пример](/ocp/in-ideal-world) из раздела «В идеальном мире», где мы вводили прослойку из интерфейса `Shape`. Когда класс `AreaCalculator` начинает зависеть от интерфейса, а не от конкретных классов, изменение в требованиях не затрагивает код класса `AreaCalculator`.
 
 ## Вопросы
-**В чём польза замены прямого наследования на полиморфизм?**
-
-Исключает зависимость одних модулей от других (Приём не исключает зависимость, а лишь ослабляет связанность модулей)
-
-_Ослабляет связанность модулей через введение абстракций_
-
-Гарантирует, что изменение в одном модуле перестанут вызывать изменения в другом (Приём стремится к такой ситуации, но не гарантирует её)
+<Quiz name='ocp-patterns-9' />
 
 ## Материалы к разделу
 - [Composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)

@@ -1,0 +1,20 @@
+1.
+```ts
+class AppConfigurator {
+  reportType: ReportTypes
+  formatters = {
+    [ReportTypes.Html]: HtmlFormatterFactory,
+    [ReportTypes.Txt]: TxtFormatterFactory,
+    default: TxtFormatterFactory
+  }
+
+  constructor(reportType: ReportTypes) {
+    this.reportType = reportType
+  }
+
+  configure(reportData: ReportData): FormatterFactory {
+    const factory = this.formatters[this.reportType] || this.formatters.default
+    return new factory(reportData)
+  }
+}
+```

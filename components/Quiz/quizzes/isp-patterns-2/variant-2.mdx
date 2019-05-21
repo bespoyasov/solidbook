@@ -1,0 +1,16 @@
+2.
+```ts
+class LoggerAdapter extends Logger {
+  private adaptee: Adaptee;
+
+  constructor(adaptee: Adaptee) {
+    super();
+    this.adaptee = adaptee;
+  }
+
+  public logEvent(eventType: string): void {
+    eventType = eventType.replace(/\s/g, '-')
+    return this.adaptee.logEvent(eventType)
+  }
+}
+```

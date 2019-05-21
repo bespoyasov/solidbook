@@ -1,0 +1,9 @@
+1.
+```ts
+interface Observable {
+  listeners: Observer[]
+  subscribe(observer: Observer): void
+  unsubscribe(observer: Observer): void
+  notify(data: any): void
+}
+```

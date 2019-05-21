@@ -1,0 +1,14 @@
+2.
+```ts
+class GreetingWithoutSpaces implements Greeting {
+  wrappee: Greeting
+
+  constructor(wrappee: Greeting) {
+    this.wrappee = wrappee
+  }
+
+  greet = (): string => {
+    return this.wrappee.greet().repalce(/\s/g, '')
+  }
+}
+```

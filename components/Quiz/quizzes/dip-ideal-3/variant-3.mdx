@@ -1,0 +1,17 @@
+3.
+```ts
+interface DataBaseConnection {
+  connect(host: string, user: string, password: string): void
+}
+
+class MongoDbConnection implements DataBaseConnection {
+  constructor() {/*...*/}
+  connect(host: string, user: string, password: string): void {/*...*/}
+}
+
+class Auth {
+  connection: DataBaseConnection
+  constructor(connection: DataBaseConnection) {/*...*/}
+  authentificate(login: string, password: string) {/*...*/}
+}
+```

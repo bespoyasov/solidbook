@@ -1,4 +1,5 @@
 import MainLayout from '~/components/layouts/main'
+import Quiz from '~/components/Quiz'
 
 export const meta = {
   title: 'LSP | Шаблоны проектирования и приёмы рефакторинга',
@@ -87,69 +88,8 @@ class EvenNumbersSummator {
 Теперь метод не начнёт свою работу, если какое-то из предусловий будет нарушено, как и не вернёт результат, если будет нарушено постусловие.
 
 ## Вопросы
-**Какую проблему с точки зрения LSP решает класс `Contract`?**
-
-_Позволяет строго описать и ограничить условия функционирования сущностей_
-
-_Позволяет описать ожидания от результата работы конкретного метода_
-
-_Избавляет от поведения, которого противоречит поведению базовой сущности_
-
-_Помогает спроектировать сущность таким образом, чтобы её потомков можно было подменять друг другом_
-
-**Какой из классов-наследников `EvenNumbersSummator` не противоречит LSP?**
-
-Вариант 1 (Этот класс усиливает предусловие в методе `add`, что противоречит принципу.)
-```ts
-class EvenPositiveNumbersSummator extends EvenNumbersSummator {
-  contract: Contract
-
-  constructor(contract: Contract) {
-    super(contract)
-  }
-
-  add(a: number, b: number): number {
-    this.contract.require(a % 2 === 0, 'first arg is not even')
-    this.contract.require(b % 2 === 0, 'second arg is not even')
-
-    this.contract.require(a > 0, 'first arg is less than 0 or equal')
-    this.contract.require(b > 0, 'second arg is less than 0 or equal')
-
-    return a + b
-  }
-}
-```
-
-_Вариант 2_
-```ts
-class EvenNumbersCalculator extends EvenNumbersSummator {
-  contract: Contract
-
-  constructor(contract: Contract) {
-    super(contract)
-  }
-
-  subtract(a: number, b: number): number {
-    return a - b
-  }
-}
-```
-
-Вариант 3 (Этот класс усиливает предусловие в конструкторе, превращая `contract` в обязательный аргумент, в то время как в бразовой сущности этот аргумент опционален.)
-```ts
-class EvenNumbersCalculator extends EvenNumbersSummator {
-  contract: Contract
-
-  constructor(contract: Contract) {
-    if (!contract) throw new Error('no contract was provided!')
-    super(contract)
-  }
-
-  subtract(a: number, b: number): number {
-    return a - b
-  }
-}
-```
+<Quiz name='lsp-patterns-1' />
+<Quiz name='lsp-patterns-2' />
 
 ## Извлечение интерфейса, извлечение суперкласса
 
@@ -182,76 +122,8 @@ class Guest {
 На втором шаге, чтобы избавиться от дублирования, мы бы применили выделение суперкласса. Класс `BaseUser` — и есть выделенный суперкласс.
 
 ## Вопросы
-**В чём польза приёма с извлечением суперкласса в примере выше?**
-
-_Предотвращает дублирование, содержа повторяющуюся функциональность в себе_
-
-Помогает спроектировать более точную иерархию сущностей, основываясь на предметной области (При проектировании системы иерархия — не самоцель, лишь побочный инструмент. Хорошая модель описывает поведение сущностей и их отношения друг с другом.)
-
-_Избавляет от усиления предусловий и «пустых» методов в классе `Guest`_
-
-**Допустим, требуется добавить группу пользователей с историей посещений сервиса. Какой из вариантов ниже реализует эту функциональность, не нарушая LSP?**
-
-_Вариант 1_
-```ts
-interface UserWithHistory {
-  createHistory(): void
-  appendLogin(e: LoginEvent): void
-  showHistory(): LoginHistory
-}
-
-class SpiedUser extends BaseUser implements UserWithHistory {
-  constructor() {
-    super()
-  }
-
-  createHistory(): void {/*...*/}
-  appendLogin(e: LoginEvent): void {/*...*/}
-  showHistory(): LoginHistory {/*...*/}
-}
-```
-
-Вариант 2 (Если мы расширим базовый интерфейс `User`, то уже созданные классы, которые реализуют этот интерфейс, окажутся нерабочими. Это нарушает не только LSP, но и OCP)
-```ts
-interface User {
-  getSessionID(): ID
-  createHistory(): void
-  appendLogin(e: LoginEvent): void
-  showHistory(): LoginHistory
-}
-
-class SpiedUser extends BaseUser {
-  constructor() {
-    super()
-  }
-
-  createHistory(): void {/*...*/}
-  appendLogin(e: LoginEvent): void {/*...*/}
-  showHistory(): LoginHistory {/*...*/}
-}
-```
-
-Вариант 3 (Если мы расширим базовый класс `BaseUser`, то уже созданные классы-наследники окажутся нерабочими. Это нарушает не только LSP, но и OCP)
-```ts
-interface User {
-  getSessionID(): ID
-}
-
-class BaseUser implements User {
-  constructor() {/*...*/}
-  getSessionID(): ID {/*...*/}
-
-  createHistory(): void {/*...*/}
-  appendLogin(e: LoginEvent): void {/*...*/}
-  showHistory(): LoginHistory {/*...*/}
-}
-
-class SpiedUser extends BaseUser {
-  constructor() {
-    super()
-  }
-}
-```
+<Quiz name='lsp-patterns-3' />
+<Quiz name='lsp-patterns-4' />
 
 ## Композиция, изменение модели наследования
 
