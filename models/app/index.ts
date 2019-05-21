@@ -3,6 +3,8 @@ import Quiz, { createEmptyQuiz } from '~/models/quiz'
 import { SaveOnChangeMiddleware } from './saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
 
+const START_SCORE = 10
+
 const AppModel = types
   .model('App', {
     quizes: types.map(Quiz)
@@ -40,7 +42,7 @@ const AppModel = types
       return Object.keys(self.quizes)
     },
     get userScore() {
-      let score = 0
+      let score = START_SCORE
       self.quizes.forEach(quiz => {
         if (quiz.isComplete) {
           if (quiz.correct.length === quiz.answers.length) {
@@ -55,7 +57,7 @@ const AppModel = types
       return score
     },
     get totalScore() {
-      return self.quizes.size * 10
+      return self.quizes.size * 10 + START_SCORE
     }
   }))
 
