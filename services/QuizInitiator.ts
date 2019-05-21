@@ -18,7 +18,9 @@ class QuizCreator implements Service {
     }
 
     quizNames.forEach(quizName => {
-      const model = app.getByName(quizName)
+      let model
+      if (!app.has(quizName)) model = app.createQuiz(quizName);
+      else model = app.getByName(quizName);
       model.setCorrectAnswers(quizList[quizName].meta.correctAnswers)
     })
   }

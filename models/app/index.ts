@@ -33,6 +33,9 @@ const AppModel = types
     getByName(name: string) {
       return self.quizes.get(name)
     },
+    has(name: string) {
+      return self.quizes.has(name);
+    },
     get asnwersNames() {
       return Object.keys(self.quizes)
     },
