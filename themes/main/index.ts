@@ -78,7 +78,8 @@ export const GlobalStyle = createGlobalStyle`
     color: ${theme.red};
   }
 
-  code {
+  code,
+  code[class*="language-"] {
     font-size: 0.8em;
     font-style: normal;
     font-weight: 400;
