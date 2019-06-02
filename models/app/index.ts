@@ -4,6 +4,7 @@ import { SaveOnChangeMiddleware } from './saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
 
 const START_SCORE = 10
+const MAX_SCORE = 1000
 
 const AppModel = types
   .model('App', {
@@ -36,28 +37,31 @@ const AppModel = types
       return self.quizes.get(name)
     },
     has(name: string) {
-      return self.quizes.has(name);
+      return self.quizes.has(name)
     },
     get asnwersNames() {
       return Object.keys(self.quizes)
     },
     get userScore() {
-      let score = START_SCORE
+      let correctAnswers = 0
+      const questionsCount = self.quizes.size
+
       self.quizes.forEach(quiz => {
         if (quiz.isComplete) {
           if (quiz.correct.length === quiz.answers.length) {
             const isAllAnswersCorrect = quiz.answers.every(index => quiz.correct.includes(index))
 
             if (isAllAnswersCorrect) {
-              score += 10
+              correctAnswers += 1
             }
           }
         }
       })
-      return score
+
+      return Math.ceil((MAX_SCORE - START_SCORE) * (correctAnswers / questionsCount)) + START_SCORE
     },
     get totalScore() {
-      return self.quizes.size * 10 + START_SCORE
+      return MAX_SCORE
     }
   }))
 
