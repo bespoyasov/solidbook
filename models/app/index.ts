@@ -4,7 +4,7 @@ import { SaveOnChangeMiddleware } from './saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
 
 const START_SCORE = 10
-const MAX_SCORE = 1000
+const MAX_SCORE = 100
 
 const AppModel = types
   .model('App', {
@@ -58,7 +58,9 @@ const AppModel = types
         }
       })
 
-      return Math.ceil((MAX_SCORE - START_SCORE) * (correctAnswers / questionsCount)) + START_SCORE
+      const score = Math.ceil((MAX_SCORE - START_SCORE) * (correctAnswers / questionsCount)) + START_SCORE
+
+      return isNaN(score) ? START_SCORE : score
     },
     get totalScore() {
       return MAX_SCORE
