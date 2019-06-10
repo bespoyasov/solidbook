@@ -1,4 +1,17 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const keyframesMap = {
+  '0%': '0px',
+  '20%': '2px',
+  '40%': '-2px',
+  '60%': '2px',
+  '80%': '-2px',
+  '100%': '0px'
+}
+
+const bounce = keyframes`
+  ${Object.entries(keyframesMap).map(([key, value]: string[]) => `${key} { transform: translateX(${value}) }`)}
+`
 
 export const Container = styled.article`
   position: relative;
@@ -11,6 +24,11 @@ export const Container = styled.article`
   line-height: 1.6;
   text-align: left;
   display: flex;
+  will-change: transform;
+
+  &.is-bouncing {
+    animation: ${bounce} 0.4s;
+  }
 
   @media (max-width: ${props => props.theme.breakpoint}) {
     box-shadow: none;
