@@ -8,6 +8,11 @@ export const Container = styled.div`
   .likely__counter {
     display: none !important;
   }
+
+  .likely .likely__widget {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
 `
 
 export const Label = styled.div`
