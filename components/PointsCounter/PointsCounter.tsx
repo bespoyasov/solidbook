@@ -20,7 +20,7 @@ class PointsCounter extends Component {
     return (
       <Container>
         <Counter>
-          <Label>Ваш текущий счёт:</Label>
+          <Label>Ваш счёт:</Label>
           <Big>{app.userScore}</Big> / {app.totalScore}
         </Counter>
 
