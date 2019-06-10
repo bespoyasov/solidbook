@@ -16,4 +16,5 @@ export const Heading = styled.legend`
   font-weight: 700;
   display: block;
   width: 100%;
+  max-width: calc(100vw - 2rem);
 `

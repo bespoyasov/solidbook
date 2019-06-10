@@ -9,6 +9,7 @@ export const Label = styled.label`
   border: 1px solid ${props => props.theme.lightGrey};
   border-radius: ${props => props.theme.radius};
   line-height: 1.4;
+  max-width: calc(100vw - 2rem);
 
   &:hover,
   &:focus-within {
