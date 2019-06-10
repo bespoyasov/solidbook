@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const Nav = styled.nav`
-  padding: 0 40px 2rem 0;
+  padding: 0 30px 2rem 0;
   position: sticky;
-  top: -190px;
+  top: 20px;
 
   &::before {
     content: ' ';
@@ -31,7 +31,7 @@ export const Nav = styled.nav`
 `
 
 export const Section = styled.div`
-  margin: 2.5rem 0 0 0;
+  margin: 1.5rem 0 0 0;
   padding: 0 0 0 25px;
   font-size: ${props => props.theme.fontSizeSmall};
 

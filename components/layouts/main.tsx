@@ -17,7 +17,7 @@ const Grid = styled.div`
   padding: 2.5rem 0 0;
   display: grid;
   align-items: start;
-  grid-template-columns: 33% 67%;
+  grid-template-columns: 34% 66%;
 
   @media (max-width: ${props => props.theme.breakpoint}) {
     grid-template-columns: 100%;
