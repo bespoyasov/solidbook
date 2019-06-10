@@ -3,7 +3,7 @@ import Quiz, { createEmptyQuiz } from '~/models/quiz'
 import { SaveOnChangeMiddleware } from './saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
 
-const START_SCORE = 10
+const START_SCORE = 0
 const MAX_SCORE = 100
 
 const AppModel = types
