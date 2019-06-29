@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Nav = styled.nav`
   padding: 0 30px 2rem 0;
+  max-width: 320px;
   position: sticky;
   top: 20px;
 
@@ -22,6 +23,7 @@ export const Nav = styled.nav`
     top: auto;
     padding: 0;
     margin-bottom: 2rem;
+    max-width: 100%;
 
     &::before {
       left: 0;
