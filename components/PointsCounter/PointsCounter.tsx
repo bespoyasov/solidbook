@@ -41,9 +41,11 @@ class PointsCounter extends Component {
           <Big>{app.userScore}</Big> / {app.totalScore}
         </Counter>
 
-        <ShareContainer>
-          <Share />
-        </ShareContainer>
+        {app.userScore > 0 && (
+          <ShareContainer>
+            <Share />
+          </ShareContainer>
+        )}
       </Container>
     )
   }
