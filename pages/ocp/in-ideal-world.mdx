@@ -93,22 +93,22 @@ class AreaCalculator {
 
 ## Применение OCP и абстракции
 
-Чтобы исправить ситуацию, свяжем модули через абстракцию. Создадим интерфейс `Shape`, который будет описывать поведение любой фигуры, которую наша система может содержать.
+Чтобы исправить ситуацию, свяжем модули через абстракцию. Создадим интерфейс `AreaCalculatable`, который будет описывать поведение любой фигуры в системе, площадь которой можно посчитать.
 
 ```ts
-interface Shape {
+interface AreaCalculatable {
   areaOf(): number
 }
 ```
 
 Это по сути ограничение на поведение сущностей внутри системы — гипотеза того, как они друг с другом взаимодействуют. В целом люди плохо умеют прогнозировать и предсказывать. И хотя опытный проектировщик, имея достаточно знаний о проектируемой системе, может сделать хорошее предположение, OCP всё же предлагает методику [Just-in-time design](https://agiledesign.org/2015/01/18/jit-just-in-time-and-software-development/). Она предполагает внесение изменений и добавление сущностей по мере необходимости, но не раньше.
 
-Вернёмся к примеру. Сейчас классы фигур подчиняются новому ограничению и имплементируют интерфейс `Shape`:
+Вернёмся к примеру. Сейчас классы фигур подчиняются новому ограничению и имплементируют интерфейс `AreaCalculatable`:
 
 ```ts
 // 1. указываем, что класс имплементирует интерфейс,
 //    это задаст ограничение на методы класса
-class Rectangle implements Shape {
+class Rectangle implements AreaCalculatable {
   width: number
   height: number
 
@@ -117,7 +117,7 @@ class Rectangle implements Shape {
     this.height = height
   }
 
-  // 2. без этого метода класс считается не готовым
+  // 2. без этого метода класс считается не готовым,
   //    он же позволит абстрагироваться от реализации конкретной фигуры
   areaOf = (): number => {
     return this.width * this.height
@@ -125,7 +125,7 @@ class Rectangle implements Shape {
 }
 
 // те же изменения проводим для круга
-class Circle implements Shape {
+class Circle implements AreaCalculatable {
   radius: number
 
   constructor(radius: number) {
@@ -144,15 +144,15 @@ class Circle implements Shape {
 class AreaCalculator {
   // 1. теперь тип абстрактный,
   //    мы можем указывать какие угодно фигуры
-  //    при условии, что они имплементирут Shape
-  shapes: Shape[]
+  //    при условии, что они имплементирут AreaCalculatable
+  shapes: AreaCalculatable[]
 
-  constructor(shapes: Shape[]) {
+  constructor(shapes: AreaCalculatable[]) {
     this.shapes = shapes
   }
 
   totalAreaOf = (): number => {
-    return this.shapes.reduce((tally: number, shape: Shape) => {
+    return this.shapes.reduce((tally: number, shape: AreaCalculatable) => {
       // 2. никаких проверок на классы, только вызов areaOf
       //    если даже мы добавим треугольник,
       //    нам не придётся менять код калькулятора,
