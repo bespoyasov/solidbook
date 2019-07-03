@@ -5,7 +5,7 @@ export const Container = styled.div`
   padding: 1rem 0 1.2rem;
   margin: 3rem 0 0;
   line-height: 1.2em;
-  border-top: 1px solid ${props => props.theme.lightestGrey};
+  border-top: 1px solid ${props => props.theme.decorationColorSecondary};
 
   @media (max-width: ${props => props.theme.breakpoint}) {
     padding: 0.8rem 0 1rem;

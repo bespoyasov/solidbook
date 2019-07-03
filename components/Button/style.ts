@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export default styled.button`
   border: 0;
-  background: black;
-  color: white;
+  background: ${props => props.theme.buttonBackground};
+  color: ${props => props.theme.buttonColor};
   border-radius: ${props => props.theme.radius};
   padding: 0.6em 1.5em;
   cursor: pointer;
@@ -11,7 +11,7 @@ export default styled.button`
   margin: 0;
 
   &:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 10px ${props => props.theme.decorationColorTetriary};
   }
 
   &:active,
@@ -22,7 +22,7 @@ export default styled.button`
 
   &:disabled {
     cursor: auto;
-    color: rgba(255, 255, 255, 0.8);
+    color: ${props => props.theme.disabledButtonColor};
   }
   &:disabled:hover {
     box-shadow: none;

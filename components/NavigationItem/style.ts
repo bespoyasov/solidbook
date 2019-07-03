@@ -12,7 +12,7 @@ export default styled.div`
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: ${props => props.theme.lightGreyOpaque};
+    background: ${props => props.theme.navBorderColor};
   }
 
   &.active {
@@ -25,11 +25,11 @@ export default styled.div`
 
   &.active::before,
   &.contains-active::before {
-    background: black;
+    background: ${props => props.theme.navActiveItemBackground};
   }
 
   &.completed::before {
-    background: ${props => props.theme.green};
+    background: ${props => props.theme.navCompletedDecorationBackground};
   }
 
   &.deep::before {
@@ -49,7 +49,7 @@ export default styled.div`
       font-size: 0.8rem;
       line-height: 1.2;
       content: '✓';
-      color: white;
+      color: ${props => props.theme.navCompletedDecorationColor};
     }
   }
 `

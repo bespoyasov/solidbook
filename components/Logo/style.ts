@@ -8,12 +8,12 @@ export default styled.div`
 
   a,
   a:visited {
-    color: black;
+    color: ${props => props.theme.textColorPrimary};
     text-decoration: none;
   }
 
   a:hover {
-    color: #fb3347;
+    color: ${props => props.theme.linkHoverColor};
   }
 
   @media (max-width: ${props => props.theme.breakpoint}) {

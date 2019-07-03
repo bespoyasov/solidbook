@@ -14,7 +14,7 @@ export const Nav = styled.nav`
     top: 0;
     bottom: 0;
     left: 7px;
-    background: ${props => props.theme.lightestGrey};
+    background: ${props => props.theme.decorationColorSecondary};
     z-index: -1;
   }
 
@@ -27,7 +27,7 @@ export const Nav = styled.nav`
 
     &::before {
       left: 0;
-      top: 35px;
+      top: 85px;
     }
   }
 `
@@ -39,12 +39,12 @@ export const Section = styled.div`
 
   a,
   a:visited {
-    color: black;
+    color: ${props => props.theme.textColorPrimary};
     text-decoration: none;
   }
 
   a:hover {
-    color: ${props => props.theme.red};
+    color: ${props => props.theme.linkHoverColor};
   }
 
   ul {

@@ -6,14 +6,14 @@ export const Label = styled.label`
   cursor: pointer;
   padding: 0.5em 2.2em 0.5em 0.8em;
   position: relative;
-  border: 1px solid ${props => props.theme.lightGrey};
+  border: 1px solid ${props => props.theme.decorationColorPrimary};
   border-radius: ${props => props.theme.radius};
   line-height: 1.4;
   max-width: calc(100vw - 2rem);
 
   &:hover,
   &:focus-within {
-    background: ${props => props.theme.lightBlueOpaque};
+    background: ${props => props.theme.variantHoverBackground};
   }
 
   &::after {
@@ -25,7 +25,7 @@ export const Label = styled.label`
   }
 
   &.selected {
-    border-color: black;
+    border-color: ${props => props.theme.variantSelectedBorderColor};
   }
 
   &.completed {
@@ -47,7 +47,7 @@ export const Label = styled.label`
 
 export const Description = styled.div`
   font-style: italic;
-  color: ${props => props.theme.grey};
+  color: ${props => props.theme.textColorSecondary};
   line-height: 1.4;
   padding-top: 0.5em;
 `
@@ -65,6 +65,6 @@ export const CodeWrapper = styled.div`
 
   pre {
     margin: 0 -1.4rem 0.25em 0;
-    box-shadow: inset 0 0 1px ${props => props.theme.lightGrey};
+    box-shadow: inset 0 0 1px ${props => props.theme.decorationColorPrimary};
   }
 `
