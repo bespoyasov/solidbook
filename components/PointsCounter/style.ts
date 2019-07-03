@@ -14,12 +14,16 @@ const bounce = keyframes`
 `
 
 export const Container = styled.article`
+  ${props =>
+    props.theme.using === 'light'
+      ? `box-shadow: 0 2px 10px ${props.theme.decorationColorPrimary};`
+      : `border: 1px solid ${props.theme.decorationColorSecondary};`}
+
   position: relative;
   padding: 0.8rem 10px 1.2rem 24px;
   border-radius: 7px;
-  box-shadow: 0 2px 10px ${props => props.theme.lightGrey};
-  color: ${props => props.theme.grey};
-  background: white;
+  color: ${props => props.theme.textColorSecondary};
+  background: ${props => props.theme.pageBackground};
   font-size: ${props => props.theme.fontSizeSmall};
   line-height: 1.6;
   text-align: left;
@@ -31,10 +35,11 @@ export const Container = styled.article`
   }
 
   @media (max-width: ${props => props.theme.breakpoint}) {
+    ${props => props.theme.using === 'dark' && `border: 0;`}
+    border-bottom: 1px solid ${props => props.theme.decorationColorSecondary};
     box-shadow: none;
     padding: 0 1rem 10px;
     margin: -0.6rem -1rem 1rem;
-    border-bottom: 1px solid ${props => props.theme.lightestGrey};
     border-radius: 0;
     display: block;
   }
@@ -59,7 +64,7 @@ export const Big = styled.big`
   line-height: 0.8;
   vertical-align: text-top;
   font-weight: 700;
-  color: black;
+  color: ${props => props.theme.textColorPrimary};
 
   @media (max-width: ${props => props.theme.breakpoint}) {
     font-size: 1em;

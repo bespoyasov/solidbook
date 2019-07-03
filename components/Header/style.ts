@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 
 export default styled.header`
-  box-shadow: 0px 6px 20px ${props => props.theme.lightestGrey};
+  ${props =>
+    props.theme.using === 'light'
+      ? `box-shadow: 0px 6px 20px ${props.theme.decorationColorSecondary};`
+      : `border-bottom: 1px solid ${props.theme.decorationColorPrimary};`}
+
   padding: 0.6rem 0;
   font-size: 1rem;
   text-align: center;
