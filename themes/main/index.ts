@@ -1,33 +1,28 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProps } from 'styled-components'
+import { theme as light } from '../light'
+import { theme as dark } from '../dark'
+import { common } from '../common'
 
-export const theme = {
-  blue: '#0000fe',
-  purple: '#542189',
-  red: '#fb3347',
-  green: '#36bc54',
-
-  lightestGrey: 'rgba(0, 0, 0, 0.06)',
-  lightGrey: 'rgba(0, 0, 0, 0.12)',
-  grey: 'rgba(0, 0, 0, 0.3)',
-
-  lightGreyOpaque: '#f0f0f0',
-  lightBlueOpaque: '#f5f7ff',
-
-  radius: '0.3em',
-
-  font: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`,
-  fontMonospace: `Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace`,
-
-  fontSizeRegular: `1rem`,
-  fontSizeSmall: `0.9rem`,
-  fontSizeTiny: `0.8rem`,
-  breakpoint: '960px'
+export const defaultTheme = {
+  ...common,
+  ...light,
+  using: 'light'
 }
 
-export const GlobalStyle = createGlobalStyle`
+export const darkTheme = {
+  ...common,
+  ...dark,
+  using: 'dark'
+}
+
+export type MainTheme = typeof defaultTheme
+export type MainThemeProps = ThemeProps<typeof defaultTheme>
+
+export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   body {
-    background: white;
-    font-family: ${theme.font};
+    color: ${({ theme }) => theme.textColorPrimary};
+    background: ${({ theme }) => theme.pageBackground};
+    font-family: ${({ theme }) => theme.font};
     font-size: 1rem;
     line-height: 1.5;
     font-feature-settings: 'kern';
@@ -67,15 +62,15 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: ${theme.blue};
+    color: ${({ theme }) => theme.linkColor};
   }
 
   a:visited {
-    color: ${theme.purple};
+    color: ${({ theme }) => theme.linkVisitedColor};
   }
 
   a:hover {
-    color: ${theme.red};
+    color: ${({ theme }) => theme.linkHoverColor};
   }
 
   code,
@@ -83,23 +78,23 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 0.8em;
     font-style: normal;
     font-weight: 400;
-    font-family: ${theme.fontMonospace};
+    font-family: ${({ theme }) => theme.fontMonospace};
   }
 
   p code {
     display: inline-block;
-    background: ${theme.lightBlueOpaque};
+    background: ${({ theme }) => theme.codeBackground};
     padding: 0.01em 0.4em;
-    border-radius: ${theme.radius};
+    border-radius: ${({ theme }) => theme.radius};
   }
 
   pre {
     display: block;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    background: ${theme.lightBlueOpaque};
-    border-radius: ${theme.radius};
+    background: ${({ theme }) => theme.codeBackground};
+    border-radius: ${({ theme }) => theme.radius};
     padding: 0.8em;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,.1)
+    box-shadow: inset 0 1px 3px ${({ theme }) => theme.decorationColorPrimary};
   }
 `
