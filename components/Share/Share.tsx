@@ -1,10 +1,13 @@
 import * as React from 'react'
 import { Component } from 'react'
 import likely from 'ilyabirman-likely'
+import { withTheme } from 'styled-components'
 import { inject, observer } from 'mobx-react'
 import { Container, Buttons, Label } from './style'
 import { AppModel } from '~/models/app'
+import { MainThemeProps } from '~/themes/main'
 import { Instance } from 'mobx-state-tree'
+import clsx from 'clsx'
 
 const networks = [
   { name: 'twitter', action: 'Твитнуть' },
@@ -19,7 +22,7 @@ interface IInjectedProps {
 
 class Share extends Component {
   get injected() {
-    return this.props as IInjectedProps
+    return this.props as IInjectedProps & MainThemeProps
   }
 
   componentDidMount() {
@@ -27,12 +30,14 @@ class Share extends Component {
   }
 
   render() {
-    const { app } = this.injected
+    const { app, theme } = this.injected
+    const className = clsx('likely', { 'likely-light': theme.using === 'dark' })
+
     return (
       <Container>
         <Label>Похвастаться 🤘</Label>
         <Buttons>
-          <div className="likely">
+          <div className={className}>
             {networks.map(({ name, action }) => (
               <div
                 key={name}
@@ -49,4 +54,4 @@ class Share extends Component {
   }
 }
 
-export default inject('app')(observer(Share))
+export default inject('app')(observer(withTheme(Share)))
