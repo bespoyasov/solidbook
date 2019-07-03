@@ -3,6 +3,7 @@ import { PureComponent } from 'react'
 import refractor from 'refractor'
 import rehype from 'rehype'
 import 'prismjs/themes/prism.css'
+import './override.css'
 
 type Props = {
   children?: React.ReactNode
