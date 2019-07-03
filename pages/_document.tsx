@@ -29,6 +29,20 @@ export default class MyDocument extends Document<IProps> {
           <link rel="mask-icon" href="/static/favicon/safari-pinned-tab.svg" color="#f8364c" />
           <meta name="msapplication-TileColor" content="#f8364c" />
           <meta name="theme-color" content="#ffffff" />
+
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content="SOLID BOOK" />
+          <meta property="og:site_name" content="Open Tech Authors, SOLID" />
+          <meta property="og:url" content="https://ota-solid.now.sh" />
+          <meta property="og:image" content="https://ota-solid.now.sh/static/socials.png" />
+          <meta property="article:author" content="https://bespoyasov.ru" />
+          <meta property="article:author" content="https://github.com/dex157" />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="https://ota-solid.now.sh" />
+          <meta name="twitter:title" content="SOLID BOOK" />
+          <meta name="twitter:description" content="Книга о принципах объектно-ориентированного дизайна" />
+          <meta name="twitter:image" content="https://ota-solid.now.sh/static/socials.png" />
           <style>{`
             *,
             *::after,
