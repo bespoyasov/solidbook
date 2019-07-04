@@ -11,6 +11,11 @@ export default styled.header`
   text-align: center;
 
   @media (max-width: ${props => props.theme.breakpoint}) {
+    border-bottom: 1px solid
+      ${props =>
+        props.theme.using === 'light' ? props.theme.decorationColorSecondary : props.theme.decorationColorPrimary};
+
+    box-shadow: none;
     padding: 0.2rem 1rem;
     text-align: left;
   }

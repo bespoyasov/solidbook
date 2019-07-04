@@ -5,10 +5,7 @@ export const Container = styled.div``
 export const Toggle = styled.label`
   display: flex;
   align-items: center;
-  margin: -25px 0 0 22px;
-  position: relative;
   cursor: pointer;
-  z-index: 1;
 
   &::before,
   &::after {
@@ -35,7 +32,7 @@ export const Toggle = styled.label`
 export const Shaft = styled.span`
   width: 40px;
   height: 20px;
-  border: 2px solid ${props => props.theme.decorationColorTetriary};
+  border: 2px solid ${props => props.theme.themeToggleColor};
   border-radius: 2em;
   position: relative;
 `
@@ -43,7 +40,7 @@ export const Shaft = styled.span`
 export const Trolley = styled.span`
   width: 16px;
   height: 12px;
-  background: ${props => props.theme.decorationColorTetriary};
+  background: ${props => props.theme.themeToggleColor};
   border-radius: 2em;
   position: absolute;
   left: 2px;

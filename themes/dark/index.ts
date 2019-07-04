@@ -24,5 +24,6 @@ export const theme = {
   navBorderColor: palette.lightHoarOpqaue,
   navActiveItemBackground: 'white',
   navCompletedDecorationColor: 'white',
-  navCompletedDecorationBackground: palette.violet
+  navCompletedDecorationBackground: palette.violet,
+  themeToggleColor: palette.hoar
 }

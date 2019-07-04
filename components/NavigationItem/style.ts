@@ -29,7 +29,16 @@ export default styled.div`
   }
 
   &.completed::before {
+    top: 2px;
+    width: 15px;
+    height: 15px;
+    left: -21px;
     background: ${props => props.theme.navCompletedDecorationBackground};
+    color: ${props => props.theme.navCompletedDecorationColor};
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.1;
+    content: '✓';
   }
 
   &.deep::before {
@@ -41,15 +50,7 @@ export default styled.div`
       left: -21px;
     }
     &.completed::before {
-      width: 15px;
-      height: 15px;
       left: -25px;
-      top: 2px;
-      text-align: center;
-      font-size: 0.8rem;
-      line-height: 1.1;
-      content: '✓';
-      color: ${props => props.theme.navCompletedDecorationColor};
     }
   }
 `

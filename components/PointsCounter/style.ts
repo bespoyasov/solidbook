@@ -79,6 +79,6 @@ export const ShareContainer = styled.div`
   @media (max-width: ${props => props.theme.breakpoint}) {
     position: absolute;
     right: 1rem;
-    top: -3.6rem;
+    top: -3.3rem;
   }
 `

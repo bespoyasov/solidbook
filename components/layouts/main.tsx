@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Center from './Center'
+import ThemeToggle from '~/components/ThemeToggle'
 import Paragraph from '~/components/Paragraph'
 import PrevNext from '~/components/PrevNext'
 import Abbr from '~/components/Formatters/Abbr'
@@ -21,13 +22,30 @@ const Grid = styled.div`
 
   @media (max-width: ${props => props.theme.breakpoint}) {
     grid-template-columns: 100%;
-    padding-top: 1.5rem;
+    padding-top: 1.2rem;
   }
 `
 
 const MainContent = styled.main`
   section > section {
     margin-top: 1.6rem;
+  }
+`
+
+const Aside = styled.div`
+  position: relative;
+`
+
+const ToggleContainer = styled.div`
+  margin: -25px 0 0 22px;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    margin: 0;
   }
 `
 
@@ -55,7 +73,12 @@ class MainLayout extends PureComponent<Props> {
 
         <Center>
           <Grid>
-            <Navigation />
+            <Aside>
+              <Navigation />
+              <ToggleContainer>
+                <ThemeToggle />
+              </ToggleContainer>
+            </Aside>
             <div>
               <MDXProvider components={{ abbr: Abbr, pre: Code, p: Paragraph }}>
                 <MainContent>{children}</MainContent>

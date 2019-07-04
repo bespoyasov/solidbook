@@ -23,5 +23,6 @@ export const theme = {
   navBorderColor: palette.lightGreyOpaque,
   navActiveItemBackground: 'black',
   navCompletedDecorationBackground: 'white',
-  navCompletedDecorationColor: 'black'
+  navCompletedDecorationColor: 'black',
+  themeToggleColor: palette.lightGrey
 }
