@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const Container = styled.div``
+export const Container = styled.div`
+  display: inline-flex;
+`
 
 export const Toggle = styled.label`
   display: flex;
