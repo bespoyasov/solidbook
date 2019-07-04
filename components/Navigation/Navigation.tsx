@@ -18,6 +18,19 @@ class Navigation extends PureComponent<Props> {
 
   isSectionRoot = (link: string): boolean => countOccurencies(/\//g, link) === 1
 
+  isLastPage = (link: string): boolean => link === routes[routes.length - 1].link
+
+  isCompleted = (navLink: string): boolean => {
+    const activeLink = this.props.router.pathname
+    const activeSection = this.isSectionRoot(activeLink)
+      ? activeLink
+      : activeLink.substr(0, activeLink.lastIndexOf('/'))
+
+    const activeRouteIndex = routes.findIndex(({ link }) => link === activeSection)
+    const navRouteIndex = routes.findIndex(({ link }) => link === navLink)
+    return navRouteIndex < activeRouteIndex || this.isLastPage(activeLink)
+  }
+
   containsActive = (link: string): boolean => {
     return this.props.router.pathname.includes(link) && this.isSection(link) && this.isSectionRoot(link)
   }
@@ -35,7 +48,12 @@ class Navigation extends PureComponent<Props> {
 
               return (
                 <li key={link}>
-                  <NavigationItem href={link} containsActive={containsActive} active={this.isActive(link)}>
+                  <NavigationItem
+                    href={link}
+                    containsActive={containsActive}
+                    active={this.isActive(link)}
+                    completed={this.isCompleted(link)}
+                  >
                     {name}
                   </NavigationItem>
 
