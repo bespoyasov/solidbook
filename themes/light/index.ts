@@ -22,6 +22,6 @@ export const theme = {
   variantSelectedBorderColor: 'black',
   navBorderColor: palette.lightGreyOpaque,
   navActiveItemBackground: 'black',
-  navCompletedDecorationBackground: palette.green,
-  navCompletedDecorationColor: 'white'
+  navCompletedDecorationBackground: 'white',
+  navCompletedDecorationColor: 'black'
 }

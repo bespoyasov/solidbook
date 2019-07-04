@@ -44,10 +44,10 @@ export default styled.div`
       width: 15px;
       height: 15px;
       left: -25px;
-      top: 1px;
+      top: 2px;
       text-align: center;
       font-size: 0.8rem;
-      line-height: 1.2;
+      line-height: 1.1;
       content: '✓';
       color: ${props => props.theme.navCompletedDecorationColor};
     }
