@@ -1,12 +1,13 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
+import cookies from 'next-cookies'
+import { Instance } from 'mobx-state-tree'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle, themes } from '../themes/main'
 import { Provider as MobxProvider, observer, inject } from 'mobx-react'
 import createAppModel, { AppModel } from '~/models/app'
 import createThemeModel, { ThemeModel } from '~/models/theme'
-import { Instance } from 'mobx-state-tree'
 import ServicesManager from '~/services/ServicesManager'
 
 export default class MyApp extends App {
@@ -14,11 +15,14 @@ export default class MyApp extends App {
   themeModel: Instance<typeof ThemeModel>
 
   static async getInitialProps({ Component, ctx }) {
-    let pageProps = {}
+    let pageProps = {
+      savedTheme: cookies(ctx).theme
+    }
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
+
     return { pageProps }
   }
 
@@ -32,7 +36,7 @@ export default class MyApp extends App {
   constructor(props) {
     super(props)
     this.appModel = createAppModel()
-    this.themeModel = createThemeModel()
+    this.themeModel = createThemeModel(props.pageProps.savedTheme || 'light')
   }
 
   render() {
