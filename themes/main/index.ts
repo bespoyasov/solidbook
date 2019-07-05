@@ -15,6 +15,11 @@ export const darkTheme = {
   using: 'dark'
 }
 
+export const themes = {
+  dark: darkTheme,
+  light: defaultTheme
+}
+
 export type MainTheme = typeof defaultTheme
 export type MainThemeProps = ThemeProps<typeof defaultTheme>
 
