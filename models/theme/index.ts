@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 
 const ThemeModel = types
   .model({
-    using: types.optional(types.enumeration(['light', 'dark']), 'light')
+    using: types.enumeration(['light', 'dark'])
   })
   .actions(self => ({
     toggleTheme() {
@@ -10,8 +10,8 @@ const ThemeModel = types
     }
   }))
 
-function createThemeModel() {
-  return ThemeModel.create()
+function createThemeModel(using) {
+  return ThemeModel.create({ using })
 }
 
 export default createThemeModel
