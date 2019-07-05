@@ -17,7 +17,7 @@ export const Container = styled.article`
   ${props =>
     props.theme.using === 'light'
       ? `box-shadow: 0 2px 10px ${props.theme.decorationColorPrimary};`
-      : `border: 1px solid ${props.theme.decorationColorSecondary};`}
+      : `box-shadow: 0 0 1px 1px ${props.theme.decorationColorSecondary};`}
 
   position: relative;
   padding: 0.8rem 10px 1.2rem 24px;
