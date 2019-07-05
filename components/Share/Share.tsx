@@ -31,7 +31,7 @@ class Share extends Component {
 
   render() {
     const { app, theme } = this.injected
-    const className = clsx('likely', { 'likely-light': theme.using === 'dark' })
+    const className = clsx('likely likely_visible', { 'likely-light': theme.using === 'dark' })
 
     return (
       <Container>
