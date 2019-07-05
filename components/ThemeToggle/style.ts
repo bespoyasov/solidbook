@@ -29,6 +29,13 @@ export const Toggle = styled.label`
     margin-left: 5px;
     content: '🌙';
   }
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+  }
 `
 
 export const Shaft = styled.span`
