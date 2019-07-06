@@ -1,13 +1,19 @@
 import { addMiddleware, IAnyStateTreeNode } from 'mobx-state-tree'
-import AppStateRepository from '~/repository/AppStateRepository'
+
+interface IStateRepository {
+  load(): object | null
+  save(state: object): void
+}
 
 class SaveOnChangeMiddleware {
   actions: string[]
   store: IAnyStateTreeNode
+  repository: IStateRepository
 
-  constructor(store: IAnyStateTreeNode, actions: string[]) {
+  constructor(store: IAnyStateTreeNode, repository: IStateRepository, actions: string[]) {
     this.store = store
     this.actions = actions
+    this.repository = repository
   }
 
   enable() {
@@ -18,7 +24,7 @@ class SaveOnChangeMiddleware {
     next(call)
 
     if (this.actions.includes(call.name)) {
-      AppStateRepository.instance.save(this.store.toJSON())
+      this.repository.save(this.store.toJSON())
     }
   }
 }
