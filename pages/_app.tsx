@@ -12,6 +12,7 @@ import ThemeUpdateObserver from '~/components/ThemeUpdateObserver'
 export default class MyApp extends App {
   appModel: Instance<typeof AppModel>
   themeModel: Instance<typeof ThemeModel>
+  defaultTheme: string = 'light'
 
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {
@@ -35,7 +36,7 @@ export default class MyApp extends App {
   constructor(props) {
     super(props)
     this.appModel = createAppModel()
-    this.themeModel = createThemeModel(props.pageProps.savedTheme || 'light')
+    this.themeModel = createThemeModel(props.pageProps.savedTheme || this.defaultTheme)
   }
 
   render() {
