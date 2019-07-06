@@ -1,7 +1,7 @@
 import { addMiddleware, IAnyStateTreeNode } from 'mobx-state-tree'
 
 interface IStateRepository {
-  load(): object | null
+  load(ctx?: object): object | null
   save(state: object): void
 }
 
