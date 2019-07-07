@@ -8,9 +8,6 @@ class Header extends PureComponent {
     return (
       <HeaderWrapper>
         <Logo />
-        Это назавершённая бета-версия, не для публичного использования. Пока что :–)
-        <br />
-        Релиз — совсем скоро, не переключайтесь
       </HeaderWrapper>
     )
   }

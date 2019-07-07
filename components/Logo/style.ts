@@ -6,17 +6,23 @@ export default styled.div`
   text-transform: uppercase;
   letter-spacing: 0.1em;
 
-  a,
-  a:visited {
-    color: ${props => props.theme.textColorPrimary};
-    text-decoration: none;
+  svg {
+    width: 110px;
   }
 
-  a:hover {
-    color: ${props => props.theme.linkHoverColor};
+  a path {
+    stroke: ${props => props.theme.textColorPrimary};
+  }
+
+  a:hover path {
+    stroke: ${props => props.theme.linkHoverColor};
   }
 
   @media (max-width: ${props => props.theme.breakpoint}) {
     font-size: 2rem;
+
+    svg {
+      width: 90px;
+    }
   }
 `
