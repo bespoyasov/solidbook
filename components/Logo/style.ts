@@ -7,7 +7,7 @@ export default styled.div`
   letter-spacing: 0.1em;
 
   svg {
-    width: 110px;
+    width: 100px;
   }
 
   a path {
@@ -22,7 +22,7 @@ export default styled.div`
     font-size: 2rem;
 
     svg {
-      width: 90px;
+      width: 70px;
     }
   }
 `

@@ -6,7 +6,7 @@ export default styled.header`
       ? `box-shadow: 0px 6px 20px ${props.theme.decorationColorSecondary};`
       : `box-shadow: 0 0 1px 1px ${props.theme.decorationColorPrimary};`}
 
-  padding: 0.4rem 0 0;
+  padding: 0.5rem 0 0;
   font-size: 1rem;
   text-align: center;
 
@@ -16,7 +16,7 @@ export default styled.header`
         props.theme.using === 'light' ? props.theme.decorationColorSecondary : props.theme.decorationColorPrimary};
 
     box-shadow: none;
-    padding: 0.4rem 1rem 0;
+    padding: 0.5rem 1rem 0;
     text-align: left;
   }
 `
