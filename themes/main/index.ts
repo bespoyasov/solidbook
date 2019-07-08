@@ -3,13 +3,13 @@ import { theme as light } from '../light'
 import { theme as dark } from '../dark'
 import { common } from '../common'
 
-export const defaultTheme = {
+const defaultTheme = {
   ...common,
   ...light,
   using: 'light'
 }
 
-export const darkTheme = {
+const darkTheme = {
   ...common,
   ...dark,
   using: 'dark'

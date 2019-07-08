@@ -4,7 +4,7 @@ export default styled.header`
   ${props =>
     props.theme.using === 'light'
       ? `box-shadow: 0px 6px 20px ${props.theme.decorationColorSecondary};`
-      : `border-bottom: 1px solid ${props.theme.decorationColorPrimary};`}
+      : `box-shadow: 0 0 1px 1px ${props.theme.decorationColorPrimary};`}
 
   padding: 0.4rem 0 0;
   font-size: 1rem;

@@ -1,24 +1,27 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import { ThemeProvider } from 'styled-components'
-import { GlobalStyle, themes } from '../themes/main'
-import { Provider as MobxProvider, observer, inject } from 'mobx-react'
+import { Instance } from 'mobx-state-tree'
+import { Provider as MobxProvider } from 'mobx-react'
 import createAppModel, { AppModel } from '~/models/app'
 import createThemeModel, { ThemeModel } from '~/models/theme'
-import { Instance } from 'mobx-state-tree'
 import ServicesManager from '~/services/ServicesManager'
+import ThemeStateRepository from '~/repository/ThemeStateRepository'
+import ThemeUpdateObserver from '~/components/ThemeUpdateObserver'
 
 export default class MyApp extends App {
   appModel: Instance<typeof AppModel>
   themeModel: Instance<typeof ThemeModel>
 
   static async getInitialProps({ Component, ctx }) {
-    let pageProps = {}
+    let pageProps = {
+      savedTheme: ThemeStateRepository.instance.load(ctx)
+    }
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
+
     return { pageProps }
   }
 
@@ -32,7 +35,7 @@ export default class MyApp extends App {
   constructor(props) {
     super(props)
     this.appModel = createAppModel()
-    this.themeModel = createThemeModel()
+    this.themeModel = createThemeModel(props.pageProps.savedTheme)
   }
 
   render() {
@@ -44,36 +47,12 @@ export default class MyApp extends App {
         <MobxProvider {...this.models}>
           <>
             <ServicesManager />
-            <ThemeObserver>
+            <ThemeUpdateObserver>
               <Component {...pageProps} />
-            </ThemeObserver>
+            </ThemeUpdateObserver>
           </>
         </MobxProvider>
       </Container>
     )
   }
 }
-
-interface ThemeObserverProps {
-  theme: Instance<typeof ThemeModel>
-  children: React.ReactElement
-}
-
-class Theme extends React.Component {
-  get injected() {
-    return this.props as ThemeObserverProps
-  }
-
-  render() {
-    const { children, theme } = this.injected
-    const { using } = theme
-
-    return (
-      <>
-        <GlobalStyle theme={themes[using]} />
-        <ThemeProvider theme={themes[using]}>{children}</ThemeProvider>
-      </>
-    )
-  }
-}
-const ThemeObserver = inject('theme')(observer(Theme))

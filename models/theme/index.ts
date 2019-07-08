@@ -1,8 +1,11 @@
 import { types } from 'mobx-state-tree'
+import makeInspectable from 'mobx-devtools-mst'
+import { SaveOnChangeMiddleware } from '../saveOnChange'
+import ThemeStateRepository from '~/repository/ThemeStateRepository'
 
 const ThemeModel = types
   .model({
-    using: types.optional(types.enumeration(['light', 'dark']), 'light')
+    using: types.enumeration(['light', 'dark'])
   })
   .actions(self => ({
     toggleTheme() {
@@ -10,8 +13,15 @@ const ThemeModel = types
     }
   }))
 
-function createThemeModel() {
-  return ThemeModel.create()
+function createThemeModel(savedState) {
+  const stateRepository = ThemeStateRepository.instance
+  const themeModel = savedState ? ThemeModel.create(savedState) : ThemeModel.create({ using: 'light' })
+
+  const middleware = new SaveOnChangeMiddleware(themeModel, stateRepository, ['toggleTheme'])
+  middleware.enable()
+
+  makeInspectable(themeModel)
+  return themeModel
 }
 
 export default createThemeModel

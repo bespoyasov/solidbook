@@ -1,7 +1,8 @@
 import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
 import Quiz, { createEmptyQuiz } from '~/models/quiz'
-import { SaveOnChangeMiddleware } from './saveOnChange'
+import { SaveOnChangeMiddleware } from '../saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
+import AppStateRepository from '~/repository/AppStateRepository'
 
 const START_SCORE = 0
 const MAX_SCORE = 100
@@ -76,7 +77,8 @@ function createAppModel(initState?): Instance<typeof AppModel> {
     appModel = AppModel.create({ quizes: {} })
   }
 
-  const middleware = new SaveOnChangeMiddleware(appModel, ['toggleComplete', 'toggleAnswer'])
+  const appStateRepository = AppStateRepository.instance
+  const middleware = new SaveOnChangeMiddleware(appModel, appStateRepository, ['toggleComplete', 'toggleAnswer'])
   middleware.enable()
 
   makeInspectable(appModel)

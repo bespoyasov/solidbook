@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: inline-flex;
+  user-select: none;
 `
 
 export const Toggle = styled.label`

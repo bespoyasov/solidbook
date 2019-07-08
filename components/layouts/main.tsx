@@ -33,7 +33,13 @@ const MainContent = styled.main`
 `
 
 const Aside = styled.div`
-  position: relative;
+  position: sticky;
+  top: 20px;
+
+  @media (max-width: ${props => props.theme.breakpoint}) {
+    position: relative;
+    top: auto;
+  }
 `
 
 const ToggleContainer = styled.div`
