@@ -22,3 +22,29 @@ export const Container = styled.div`
     }
   }
 `
+
+const DecoratedLink = styled.a`
+  position: relative;
+  padding-left: 1.6em;
+  display: inline-block;
+
+  &:before {
+    position: absolute;
+    top: 0.1em;
+    left: 0;
+  }
+`
+
+export const GithubLink = styled(DecoratedLink)`
+  &::before {
+    content: '😻';
+  }
+`
+
+export const PatreonLink = styled(DecoratedLink)`
+  margin-left: 1em;
+
+  &::before {
+    content: '💖';
+  }
+`
