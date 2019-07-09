@@ -15,7 +15,8 @@ class Footer extends PureComponent {
             </span>
 
             <span>
-              <a href="https://github.com/open-tech-authors">Open tech authors</a>, 2019
+              @ <a href="https://github.com/open-tech-authors">github</a>,{' '}
+              <a href="https://www.patreon.com/open_tech_authors">patreon</a>
             </span>
           </Container>
         </Center>
