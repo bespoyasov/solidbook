@@ -55,19 +55,12 @@ class ReportExporter {
 
 ```ts
 interface Formatter {
-  data: ReportData;
-  format(): string;
+  format(data: ReportData): string;
 }
 
 // класс для форматирования в HTML
 class HtmlFormatter implements Formatter {
-  data: ReportData
-
-  constructor(data: ReportData) {
-    this.data = data
-  }
-
-  format(): string {
+  format(data: ReportData): string {
     // форматируем данные в HTML и возвращаем:
     return 'html string'
   }
@@ -75,13 +68,7 @@ class HtmlFormatter implements Formatter {
 
 // класс для форматирования в TXT
 class TxtFormatter implements Formatter {
-  data: ReportData
-
-  constructor(data: ReportData) {
-    this.data = data
-  }
-
-  format(): string {
+  format(data: ReportData): string {
     // форматируем данные в TXT и возвращаем:
     return 'txt string'
   }
@@ -101,11 +88,14 @@ class FormatSelector {
     [ReportTypes.Txt]: TxtFormatter,
   }
 
-  constructor(reportType: ReportTypes, data: ReportData) {
+  constructor(reportType: ReportTypes) {
     const FormatterFactory = this.formatters[reportType]
-    return new FormatterFactory(data)
+    return new FormatterFactory()
   }
 }
+
+const dynamicFormatter = new FormatSelector(ReportTypes.Html)
+dynamicFormatter.format(/*...*/)
 ```
 
 Таким образом SRP помогает разделить ответственность за различные задачи между сущностями и сделать это так, чтобы каждая сущность занималась одной задачей.

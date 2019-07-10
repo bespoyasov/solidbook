@@ -1,7 +1,13 @@
 2.
 ```ts
 class CsvFormatter implements Formatter {
-  format(data: ReportData): string {
+  data: ReportData
+
+  constructor(data: ReportData) {
+    this.data = data
+  }
+
+  format(): string {
     return 'csv string'
   }
 }
