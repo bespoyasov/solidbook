@@ -3,5 +3,5 @@
   "version": 2,
   "alias": ["ota-solid"],
   "public": true,
-  "builds": [{ "src": "package.json", "use": "@now/static-build" }]
+  "builds": [{ "src": "package.json", "use": "@now/next" }]
 }
