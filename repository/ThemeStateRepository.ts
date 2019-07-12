@@ -17,7 +17,6 @@ class ThemeStateRepository {
   }
 
   public setContext(ctx: NextContext) {
-    console.log(ctx)
     this.ctx = ctx
   }
 
