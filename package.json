@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next",
     "test": "jest --watchAll",
-    "now-build": "next build && next export -o dist",
+    "now-build": "next build",
     "start": "next start"
   },
   "dependencies": {
