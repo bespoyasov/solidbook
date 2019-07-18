@@ -14,8 +14,11 @@ export default class MyApp extends App {
   themeModel: Instance<typeof ThemeModel>
 
   static async getInitialProps({ Component, ctx }) {
+    const themeRepository = ThemeStateRepository.instance
+    themeRepository.setContext(ctx)
+
     let pageProps = {
-      savedTheme: ThemeStateRepository.instance.load(ctx)
+      savedTheme: themeRepository.load()
     }
 
     if (Component.getInitialProps) {
