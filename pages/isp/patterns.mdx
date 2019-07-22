@@ -25,8 +25,8 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 ```ts
 const ApiClient = {
   async getXml(url: string): Promise<XmlString> {
-    const resonse = await fetch(url)
-    const data = await resonse.text()
+    const response = await fetch(url)
+    const data = await response.text()
     return data
   }
 }
@@ -36,14 +36,14 @@ const xmlJsonAdapter = (xml: XmlString): JsonString => {
   return json
 }
 
-const parseCoure = (data: JsonString): CourseDict => {
+const parseCourse = (data: JsonString): CourseDict => {
   // ...
   return course
 }
 
 (async () => {
   const data = await ApiClient.getXml('api_endpoint')
-  const course = parseCoure(xmlJsonAdapter(data))
+  const course = parseCourse(xmlJsonAdapter(data))
 })()
 ```
 
