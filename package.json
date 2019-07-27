@@ -21,6 +21,7 @@
     "mobx-react": "^5.4.3",
     "mobx-state-tree": "^3.13.0",
     "next": "^8.1.0",
+    "next-offline": "^4.0.2",
     "nookies": "^2.0.6",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
