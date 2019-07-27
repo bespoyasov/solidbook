@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
 import Center from '../layouts/Center'
-import { Wrapper, Container, GithubLink, PatreonLink } from './style'
+import { Wrapper, Container, BasicExternalLink, GithubLink, PatreonLink } from './style'
 
 class Footer extends PureComponent {
   render() {
@@ -10,8 +10,8 @@ class Footer extends PureComponent {
         <Center>
           <Container>
             <span>
-              <a href="https://bespoyasov.ru">Саша Беспоясов</a> и{' '}
-              <a href="https://github.com/dex157">Артём Самофалов</a>
+              <BasicExternalLink href="https://bespoyasov.ru">Саша Беспоясов</BasicExternalLink> и{' '}
+              <BasicExternalLink href="https://github.com/dex157">Артём Самофалов</BasicExternalLink>
             </span>
 
             <span>

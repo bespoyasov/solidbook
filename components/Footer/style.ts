@@ -23,7 +23,16 @@ export const Container = styled.div`
   }
 `
 
-const DecoratedLink = styled.a`
+const externalLinkAttrs = {
+  target: '_blank',
+  rel: 'noopener',
+}
+
+export const BasicLink = styled.a``
+
+export const BasicExternalLink = styled(BasicLink).attrs(externalLinkAttrs)``
+
+const DecoratedLink = styled(BasicLink)`
   position: relative;
   padding-left: 1.6em;
   display: inline-block;
@@ -35,13 +44,15 @@ const DecoratedLink = styled.a`
   }
 `
 
-export const GithubLink = styled(DecoratedLink)`
+const DecoratedExternalLink = styled(DecoratedLink).attrs(externalLinkAttrs)``
+
+export const GithubLink = styled(DecoratedExternalLink)`
   &::before {
     content: '😻';
   }
 `
 
-export const PatreonLink = styled(DecoratedLink)`
+export const PatreonLink = styled(DecoratedExternalLink)`
   margin-left: 1em;
 
   &::before {
