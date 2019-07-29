@@ -1,11 +1,13 @@
 Что можно вынести за фасад из примера ниже?
 
 ```ts
-enum PlayerTypes = { Audio, Video }
+enum PlayerTypes { Audio, Video }
 
-class Player implements Player {
+class Player implements IPlayer {
+  player: AnyPlayer
+
   constructor(playerType: PlayerTypes) {
-    this.player = playerType === PlayerTypes.audio
+    this.player = playerType === PlayerTypes.Audio
       ? new AudioPlayer()
       : new VideoPlayer()
   }

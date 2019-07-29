@@ -44,9 +44,9 @@ interface PhoneNumber {
   valueOf(): string
 }
 
-class PhoneNumber implements PhoneNumber {
-  phone: string;
-  officeCode: string;
+class PhoneNumber implements IPhoneNumber {
+  phone: string
+  officeCode: string
 
   constructor(phone: string, officeCode: string) {
     this.phone = phone;
@@ -60,9 +60,9 @@ class PhoneNumber implements PhoneNumber {
 
 class Person {
   name: string;
-  phoneNumber: PhoneNumber;
+  phoneNumber: IPhoneNumber;
 
-  constructor(name: string, phoneNumber: PhoneNumber) {
+  constructor(name: string, phoneNumber: IPhoneNumber) {
     this.name = name;
     this.phoneNumber = phoneNumber
   }
