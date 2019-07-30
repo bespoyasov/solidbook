@@ -22,14 +22,14 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 ```ts
 // до рефакторинга
 class Person {
-  name: string;
-  phone: string;
-  officeCode: string;
+  name: string
+  phone: string
+  officeCode: string
 
   constructor(name: string, phone: string, officeCode: string) {
-    this.name = name;
-    this.phone = phone;
-    this.officeCode = officeCode;
+    this.name = name
+    this.phone = phone
+    this.officeCode = officeCode
   }
 
   phoneNumberOf(): string {
@@ -38,9 +38,9 @@ class Person {
 }
 
 // после
-interface PhoneNumber {
-  phone: string;
-  officeCode: string;
+interface IPhoneNumber {
+  phone: string
+  officeCode: string
   valueOf(): string
 }
 
@@ -49,8 +49,8 @@ class PhoneNumber implements IPhoneNumber {
   officeCode: string
 
   constructor(phone: string, officeCode: string) {
-    this.phone = phone;
-    this.officeCode = officeCode;
+    this.phone = phone
+    this.officeCode = officeCode
   }
 
   valueOf(): string {
@@ -59,11 +59,11 @@ class PhoneNumber implements IPhoneNumber {
 }
 
 class Person {
-  name: string;
-  phoneNumber: IPhoneNumber;
+  name: string
+  phoneNumber: IPhoneNumber
 
   constructor(name: string, phoneNumber: IPhoneNumber) {
-    this.name = name;
+    this.name = name
     this.phoneNumber = phoneNumber
   }
 
