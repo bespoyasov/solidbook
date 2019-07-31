@@ -119,7 +119,7 @@ class BaseGreeting implements Greeting {
     this.username = username
   }
 
-  greet = (): string => {
+  greet(): string {
     return `Hello, ${this.username}!`
   }
 }
@@ -137,7 +137,7 @@ class GreetingWithUppercase implements GreetingDecorator {
     this.wrappee = wrappee
   }
 
-  greet = (): string => {
+  greet(): string {
     // 1. используем базовое поведение
     const baseGreeting = this.wrappee.greet()
     // 2. расширяем его
@@ -209,17 +209,17 @@ interface NewPositionObservable extends Observable {
 class HrAgency implements NewPositionObservable {
   listeners: NewPositionObserver[] = []
 
-  subscribe = (applicant: NewPositionObserver): void => {
+  subscribe(applicant: NewPositionObserver): void {
     this.listeners.push(applicant)
   }
 
-  unsubscribe = (applicant: NewPositionObserver): void => {
+  unsubscribe(applicant: NewPositionObserver): void {
     this.listeners = this.listeners.filter(listener =>
       listener.name !== applicant.name)
   }
 
   // уведомляем всех наблюдателей, когда появляется новая вакансия
-  notify = (position: string): void => {
+  notify(position: string): void {
     this.listeners.forEach(listener => {
       listener.update(position)
     })

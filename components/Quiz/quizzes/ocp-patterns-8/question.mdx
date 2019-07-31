@@ -3,15 +3,15 @@
 class ConcreteObservable implements Observable {
   listeners: { [key: string]: Observer[] } = {}
 
-  subscribe = (event: string, observer: Observer): void => {
+  subscribe(event: string, observer: Observer): void {
     // добавить объект в this.listeners[event]
   }
 
-  unsubscribe = (event: string, observer: Observer): void => {
+  unsubscribe(event: string, observer: Observer): void {
     // удалить объект из this.listeners[event]
   }
 
-  notify = (event: string, data: any): void => {
+  notify(event: string, data: any): void {
     // уведомить всех из this.listeners[event]
   }
 }
