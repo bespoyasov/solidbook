@@ -40,7 +40,7 @@ class AreaCalculator {
     this.shapes = shapes
   }
 
-  totalAreaOf = (): number => {
+  totalAreaOf(): number {
     return this.shapes.reduce((tally: number, shape: Rectangle) => {
       return tally += (shape.width * shape.height)
     }, 0)
@@ -58,7 +58,7 @@ class Circle {
     this.radius = radius
   }
 
-  areaOf = (): number => {
+  areaOf(): number {
     return Math.PI * (this.radius ** 2)
   }
 }
@@ -71,7 +71,7 @@ class AreaCalculator {
     this.shapes = shapes
   }
 
-  totalAreaOf = (): number => {
+  totalAreaOf(): number {
     return this.shapes.reduce((tally: number, shape: Rectangle | Circle) => {
       // 2. приходится проверять, какой тип,
       //    чтобы применить правильный расчёт
@@ -119,7 +119,7 @@ class Rectangle implements AreaCalculatable {
 
   // 2. без этого метода класс считается не готовым,
   //    он же позволит абстрагироваться от реализации конкретной фигуры
-  areaOf = (): number => {
+  areaOf(): number {
     return this.width * this.height
   }
 }
@@ -132,7 +132,7 @@ class Circle implements AreaCalculatable {
     this.radius = radius
   }
 
-  areaOf = (): number => {
+  areaOf(): number {
     return Math.PI * (this.radius ** 2)
   }
 }
@@ -151,7 +151,7 @@ class AreaCalculator {
     this.shapes = shapes
   }
 
-  totalAreaOf = (): number => {
+  totalAreaOf(): number {
     return this.shapes.reduce((tally: number, shape: AreaCalculatable) => {
       // 2. никаких проверок на классы, только вызов areaOf
       //    если даже мы добавим треугольник,

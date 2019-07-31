@@ -7,7 +7,7 @@ class GreetingWithoutSpaces {
     this.wrappee = wrappee
   }
 
-  greet = (): string => {
+  greet(): string {
     return this.wrappee.greet().repalce(/\s/g, '')
   }
 }
