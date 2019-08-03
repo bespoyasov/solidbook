@@ -27,9 +27,9 @@ ISP можно рассматривать, как [SRP](/srp) для интер�
 
 ```ts
 interface Spend {
-  amount: number;
-  date: Timestamp;
-  type: 'helpful' | 'harmful' | null;
+  amount: number
+  date: Timestamp
+  type: 'helpful' | 'harmful' | null
 }
 
 type History = Spend[]
@@ -45,16 +45,16 @@ type SpendTypes = 'helpful' | 'harmful' | null
 // ISP помогает выявить скрытые связи между сущностями
 // и зависимости в их поведении
 interface Record {
-  amount: number;
-  date: Timestamp;
-  is: RecordTypes;
+  amount: number
+  date: Timestamp
+  is: RecordTypes
   // поля type здесь уже нет,
   // для доходов оно не нужно
 }
 
 // интерфейс траты расширяет интерфейс записи
 interface Spend extends Record {
-  type: SpendTypes;
+  type: SpendTypes
 }
 ```
 
@@ -67,8 +67,8 @@ class RecordItem implements Record {
   is: RecordTypes
 
   constructor(amount: number) {
-    this.amount = amount;
-    this.date = Date.now();
+    this.amount = amount
+    this.date = Date.now()
   }
 }
 
@@ -76,16 +76,16 @@ class SpendItem extends RecordItem implements Spend {
   type: SpendTypes
 
   constructor(amount: number, type: SpendTypes = null) {
-    super(amount);
-    this.is = 'spend';
-    this.type = type;
+    super(amount)
+    this.is = 'spend'
+    this.type = type
   }
 }
 
 class IncomeItem extends RecordItem {
   constructor(amount: number) {
-    super(amount);
-    this.is = 'income';
+    super(amount)
+    this.is = 'income'
   }
 }
 ```

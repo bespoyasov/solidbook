@@ -43,8 +43,8 @@ class ReportExporter {
   }
 
   export(reportType: ReportTypes): string {
-    const formatter: Formatter = new FormatSelector(reportType, this.data)
-    return formatter.format()
+    const formatter: Formatter = new FormatSelector(reportType)
+    return formatter.format(this.data)
   }
 }
 ```
@@ -55,7 +55,7 @@ class ReportExporter {
 
 ```ts
 interface Formatter {
-  format(data: ReportData): string;
+  format(data: ReportData): string
 }
 
 // класс для форматирования в HTML
