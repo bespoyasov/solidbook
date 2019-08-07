@@ -161,9 +161,7 @@ interface ComponentProps {
 }
 
 // пример React-компонента
-const ExampleReactComponent: FunctionComponent<ComponentProps> = ({
-  title
-}: ComponentProps): ReactElement => (
+const ExampleReactComponent: FunctionComponent<ComponentProps> = ({ title }): ReactElement => (
   <div>
     <h1>{title}</h1>
     <OtherComponent />
