@@ -2,6 +2,16 @@
   "ignoreCapitalization": true,
   "ignoreUrls": true,
   "dictionary": [
-    
+    "SRP",
+    "OCP",
+    "LSP",
+    "ISP",
+    "DIP",
+    "DI",
+    "антипаттерны",
+    "антипаттернов",
+    "антипаттерном",
+    "Контрол",
+    "фрик"
   ]
 }
