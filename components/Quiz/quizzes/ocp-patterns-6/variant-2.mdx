@@ -8,7 +8,7 @@ class GreetingWithoutSpaces implements Greeting {
   }
 
   greet(): string {
-    return this.wrappee.greet().repalce(/\s/g, '')
+    return this.wrappee.greet().replace(/\s/g, '')
   }
 }
 ```
