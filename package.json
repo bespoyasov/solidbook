@@ -42,7 +42,8 @@
     "remark-sectionize": "^1.0.1",
     "tslint": "^5.13.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^3.6.0"
+    "tslint-react": "^3.6.0",
+    "yaspeller": "^6.0.0"
   },
   "peerDependencies": {
     "fsevents": ">=1.2.9"
