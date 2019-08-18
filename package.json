@@ -2,6 +2,7 @@
   "name": "solid",
   "version": "0.0.1",
   "scripts": {
+    "spell": "yaspeller pages/**/*.mdx",
     "dev": "next",
     "test": "jest --watchAll",
     "now-build": "next build",
