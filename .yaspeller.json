@@ -1,5 +1,6 @@
 {
   "ignoreCapitalization": true,
+  "ignoreUrls": true,
   "dictionary": [
     
   ]
