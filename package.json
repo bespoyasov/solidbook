@@ -2,7 +2,7 @@
   "name": "solid",
   "version": "0.0.1",
   "scripts": {
-    "spell": "yaspeller pages/**/*.mdx",
+    "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
     "dev": "next",
     "test": "jest --watchAll",
     "now-build": "next build",
