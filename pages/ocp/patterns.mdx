@@ -14,7 +14,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ## Абстрактная фабрика
 
-[Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory) — это сущность которая создаёт другие сущности по заданным правилам, например, создаёт экземпляры классов или объекты.
+[Фабрика](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-simple-factory) — это сущность, которая создаёт другие сущности по заданным правилам, например, создаёт экземпляры классов или объекты.
 
 [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory) — это фабрика, которая создаёт фабрики.
 
@@ -26,7 +26,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ```ts
 // часть с интерфейсом Formatter и классами,
-// имплементирующими его, остаётся такой же
+// реализующими его, остаётся такой же
 
 // добавляется новый интерфейс, описывающий фабрику фабрик
 interface FormatterFactory {
@@ -74,7 +74,7 @@ class AppConfigurator {
 
 В прошлом примере мы избавились от необходимости менять код форматеров при добавлении новых требований. Но вы могли заметить, что в методе `configure` класса `AppConfigurator` есть условие, которое проверяет тип формата для отчёта.
 
-По-хорошему подобные условия [следует заменять](https://softwareengineering.stackexchange.com/a/302782) на динамический выбор нужных сущностей. С этим может помочь ещё один шаблон — [стратегия](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-strategy).
+По-хорошему, подобные условия [следует заменять](https://softwareengineering.stackexchange.com/a/302782) на динамический выбор нужных сущностей. С этим может помочь ещё один шаблон — [стратегия](https://github.com/kamranahmedse/design-patterns-for-humans/blob/master/README.md#-strategy).
 
 Этот шаблон позволяет менять настройки, конфигурацию или алгоритм в зависимости от ситуации и требований. В нашем случае стратегии мы отдадим выбор необходимой фабрики:
 
