@@ -43,7 +43,7 @@ class ReportExporter {
   }
 
   export(reportType: ReportTypes): string {
-    const formatter: Formatter = new FormatSelector(reportType)
+    const formatter: Formatter = FormatSelector.selectFor(reportType)
     return formatter.format(this.data)
   }
 }
@@ -83,18 +83,18 @@ class TxtFormatter implements Formatter {
 
 ```ts
 class FormatSelector {
-  formatters = {
+  private static formatters = {
     [ReportTypes.Html]: HtmlFormatter,
     [ReportTypes.Txt]: TxtFormatter,
   }
 
-  constructor(reportType: ReportTypes) {
-    const FormatterFactory = this.formatters[reportType]
-    return new FormatterFactory()
+  static selectFor(reportType: ReportTypes) {
+    const FormatterFactory = FormatSelector.formatters[reportType]
+    return new FormatterFactory();
   }
 }
 
-const dynamicFormatter = new FormatSelector(ReportTypes.Html)
+const dynamicFormatter = FormatSelector.selectFor(ReportTypes.Html)
 dynamicFormatter.format(/*...*/)
 ```
 
