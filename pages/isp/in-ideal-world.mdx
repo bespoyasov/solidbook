@@ -17,12 +17,12 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 Допустим, у нас есть класс `Programmer`, который описывает программиста из офиса некоторой компании. Сотрудники пишут код и иногда едят пиццу, которую компания заказывает в офис.
 
 ```ts
-interface Progammer {
+interface Programmer {
   writeCode(): void
   eatPizza(slicesCount: number): void
 }
 
-class RegularProgrammer implements Progammer {
+class RegularProgrammer implements Programmer {
   constructor() {/*...*/}
   writeCode(): void {/*...*/}
   eatPizza(slicesCount: number): void {/*...*/}
