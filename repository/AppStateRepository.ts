@@ -13,7 +13,7 @@ class AppStateRepository {
   load(): { quizes: object } | null {
     try {
       const base64String = localStorage.getItem(this.localstorageKey)
-      const jsonState = atob(base64String)
+      const jsonState = atob(base64String!)
       const state = JSON.parse(jsonState)
       return state
     } catch {

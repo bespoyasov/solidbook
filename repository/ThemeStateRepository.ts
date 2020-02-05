@@ -1,11 +1,11 @@
 import { setCookie, parseCookies } from 'nookies'
-import { NextContext } from 'next'
+import { NextPageContext } from 'next'
 import { Instance } from 'mobx-state-tree'
 import { ThemeModel } from '~/models/theme'
 
 class ThemeStateRepository {
   private static _instance: ThemeStateRepository
-  private ctx: NextContext
+  private ctx?: NextPageContext
   private key: string
 
   public static get instance() {
@@ -16,7 +16,7 @@ class ThemeStateRepository {
     this.key = 'solid_book_theme'
   }
 
-  public setContext(ctx: NextContext) {
+  public setContext(ctx: NextPageContext) {
     this.ctx = ctx
   }
 

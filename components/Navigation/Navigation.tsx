@@ -6,12 +6,15 @@ import { Nav, Section, SubSection } from './style'
 import NavigationItem from '../NavigationItem'
 import routes from './routes'
 import { countOccurencies } from '../../lib'
+import {WithRouterProps} from 'next/dist/client/with-router'
 
-interface Props {
+interface NavigationOwnProps {
   router?: SingletonRouter
 }
 
-class Navigation extends PureComponent<Props> {
+type NavigationProps = WithRouterProps & NavigationOwnProps
+
+class Navigation extends PureComponent<NavigationProps> {
   isSection = (link: string): boolean => !['/', '/afterwords'].includes(link)
 
   isActive = (link: string): boolean => this.props.router.pathname === link

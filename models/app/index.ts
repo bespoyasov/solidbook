@@ -1,5 +1,5 @@
 import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
-import Quiz, { createEmptyQuiz } from '~/models/quiz'
+import Quiz, { createEmptyQuiz } from '../quiz'
 import { SaveOnChangeMiddleware } from '../saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
 import AppStateRepository from '~/repository/AppStateRepository'
@@ -68,7 +68,7 @@ const AppModel = types
     }
   }))
 
-function createAppModel(initState?): Instance<typeof AppModel> {
+function createAppModel(initState?: typeof AppModel): Instance<typeof AppModel> {
   let appModel: Instance<typeof AppModel>
 
   if (initState) {

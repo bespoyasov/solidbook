@@ -4,6 +4,7 @@ import { withRouter, SingletonRouter } from 'next/router'
 import { PureComponent } from 'react'
 import { Container, Column } from './style'
 import routes, { RouteShape } from '../Navigation/routes'
+import { WithRouterProps } from 'next/dist/client/with-router'
 
 function flattenRoutes(routes: RouteShape[]): RouteShape[] {
   return routes.reduce((list: RouteShape[], route: RouteShape) => {
@@ -12,11 +13,13 @@ function flattenRoutes(routes: RouteShape[]): RouteShape[] {
   }, [])
 }
 
-interface Props {
+interface PrevNextOwnProps {
   router?: SingletonRouter
 }
 
-class PrevNext extends PureComponent<Props> {
+type PrevNextProps = WithRouterProps & PrevNextOwnProps
+
+class PrevNext extends PureComponent<PrevNextProps> {
   flatRoutes = flattenRoutes(routes)
 
   get activeIndex(): number {

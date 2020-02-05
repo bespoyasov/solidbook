@@ -1,11 +1,11 @@
-import React, { ReactChild, ReactElement } from 'react'
+import React, { ReactChild, ReactElement, ReactNode } from 'react'
 import Typografy from '~/domain/typografy'
 import TextNode from '~/domain/react/textNode'
 import typografTextWithNeighbors from '~/domain/typografy/textWithNeighbors'
 import { getType, TYPES } from '~/domain/react/childType'
 
 class TypografyReactChildren {
-  public static processElement(node: ReactChild) {
+  public static processElement(node: ReactNode) {
     switch (getType(node)) {
       case TYPES.STRING:
         return Typografy.instance.transform(node as string)
@@ -18,7 +18,7 @@ class TypografyReactChildren {
 
       case TYPES.REACT_ELEMENT_WITH_CHILDREN:
         return this.processElementList(
-          React.Children.toArray((node as ReactElement).props.children),
+          React.Children.toArray((node as unknown as JSX.Element).props.children),
           node as ReactElement
         )
 
@@ -27,7 +27,7 @@ class TypografyReactChildren {
     }
   }
 
-  public static processElementList(elements: ReactChild[], parent: ReactElement): ReactElement {
+  public static processElementList(elements: ReactNode[], parent: ReactElement): ReactElement {
     switch (elements.length) {
       case 0:
         return React.cloneElement(parent, { children: elements })
@@ -41,7 +41,7 @@ class TypografyReactChildren {
         }
 
       default: {
-        const result = elements.reduce((acc, element, index, elements) => {
+        const result = elements.reduce((acc: ReactNode[], element, index, elements) => {
           const hasNext = index < elements.length - 1
           const hasPrev = index > 0
 

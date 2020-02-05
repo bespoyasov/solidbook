@@ -13,7 +13,7 @@ const ThemeModel = types
     }
   }))
 
-function createThemeModel(savedState) {
+function createThemeModel(savedState: any) {
   const stateRepository = ThemeStateRepository.instance
   const themeModel = savedState ? ThemeModel.create(savedState) : ThemeModel.create({ using: 'light' })
 

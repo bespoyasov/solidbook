@@ -2,20 +2,18 @@ import * as React from 'react'
 import { PureComponent } from 'react'
 import refractor from 'refractor'
 import rehype from 'rehype'
-import 'prismjs/themes/prism.css'
-import './override.css'
 
-type Props = {
-  children?: React.ReactNode
+type CodeProps = {
+  children?: JSX.Element
   lang: string
 }
 
-class Code extends PureComponent<Props> {
+class Code extends PureComponent<CodeProps> {
   static defaultProps = {
     lang: 'ts'
   }
 
-  highlight = (source: React.ReactElement) => {
+  highlight = (source: string) => {
     return rehype()
       .stringify({
         type: 'root',

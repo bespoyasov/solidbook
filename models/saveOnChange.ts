@@ -1,4 +1,4 @@
-import { addMiddleware, IAnyStateTreeNode } from 'mobx-state-tree'
+import { addMiddleware, IAnyStateTreeNode, IMiddlewareHandler } from 'mobx-state-tree'
 
 interface IStateRepository {
   load(): object | null
@@ -20,7 +20,7 @@ class SaveOnChangeMiddleware {
     addMiddleware(this.store, this.saveOnChange)
   }
 
-  saveOnChange = (call, next, _abort) => {
+  saveOnChange: IMiddlewareHandler = (call, next) => {
     next(call)
 
     if (this.actions.includes(call.name)) {
