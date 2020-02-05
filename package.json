@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^1.5.5",
+    "@mdx-js/react": "^1.5.5",
     "@mdx-js/runtime": "^1.5.5",
     "@mdx-js/tag": "^0.20.3",
     "@next/mdx": "^9.2.1",
