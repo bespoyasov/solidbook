@@ -8,8 +8,7 @@ export default class MyDocument extends Document<IProps> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
     const page = ctx.renderPage(
-      (App: any) =>
-      (props: any) =>
+      (App: any) => (props: any) =>
         sheet.collectStyles(<App {...props} />) as React.ReactElement<any>
     )
     const styleTags = sheet.getStyleElement()
@@ -24,10 +23,10 @@ export default class MyDocument extends Document<IProps> {
         <Head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/public/favicon/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon/favicon-16x16.png" />
-          <link rel="mask-icon" href="/public/favicon/safari-pinned-tab.svg" color="#f8364c" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+          <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#f8364c" />
           <meta name="msapplication-TileColor" content="#f8364c" />
           <meta name="theme-color" content="#ffffff" />
 
@@ -35,7 +34,7 @@ export default class MyDocument extends Document<IProps> {
           <meta property="og:title" content="SOLID BOOK" />
           <meta property="og:site_name" content="Open Tech Authors, SOLID" />
           <meta property="og:url" content="https://ota-solid.now.sh" />
-          <meta property="og:image" content="https://ota-solid.now.sh/public/socials.png" />
+          <meta property="og:image" content="https://ota-solid.now.sh/socials.png" />
           <meta property="article:author" content="https://bespoyasov.ru" />
           <meta property="article:author" content="https://github.com/dex157" />
 
@@ -43,7 +42,7 @@ export default class MyDocument extends Document<IProps> {
           <meta name="twitter:site" content="https://ota-solid.now.sh" />
           <meta name="twitter:title" content="SOLID BOOK" />
           <meta name="twitter:description" content="Книга о принципах объектно-ориентированного дизайна" />
-          <meta name="twitter:image" content="https://ota-solid.now.sh/public/socials.png" />
+          <meta name="twitter:image" content="https://ota-solid.now.sh/socials.png" />
           <style>{`
             *,
             *::after,

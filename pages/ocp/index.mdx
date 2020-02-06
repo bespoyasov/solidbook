@@ -35,13 +35,13 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 ## На примере
 На схеме ниже объект `Client` непосредственно связан с объектом `Server`. Если нам вдруг понадобится, чтобы `Client` мог работать с разными объектами `Server`, нам придётся поменять его код.
 <Figure>
-  <img src="/static/ocp-violation.svg" />
+  <img src="/ocp-violation.svg" />
   <figcaption>Структура, нарушающая OCP</figcaption>
 </Figure>
 
 Чтобы решить эту проблему, необходимо связывать объекты не напрямую, а через абстракции. Если все объекты `Server` реализуют интерфейс `Abstract Server`, то нам уже не придётся менять код объекта `Client` для замены одного объекта `Server` на другой.
 <Figure>
-  <img src="/static/ocp-resolve.svg" />
+  <img src="/ocp-resolve.svg" />
   <figcaption>Абстракция помогает развязать модули</figcaption>
 </Figure>
 
