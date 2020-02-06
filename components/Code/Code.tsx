@@ -38,7 +38,7 @@ class Code extends PureComponent<CodeProps> {
         {React.Children.map(
           children,
           (child: React.ReactElement): React.ReactElement => {
-            if (child.props && child.props.name !== 'code') return child
+            if (child.props && child.props.originalType !== 'code') return child
             if (typeof child === 'string') return this.createCodeElement(this.highlight(child))
             return this.createCodeElement(this.highlight(child.props.children))
           }
