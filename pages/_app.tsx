@@ -1,6 +1,5 @@
 import React from 'react'
 import App from 'next/app'
-import Head from 'next/head'
 import { Instance } from 'mobx-state-tree'
 import { Provider as MobxProvider } from 'mobx-react'
 import createAppModel, { AppModel } from '~/models/app'
@@ -49,7 +48,6 @@ export default class MyApp extends App {
 
     return (
       <>
-        <Head>{null}</Head>
         <MobxProvider {...this.models}>
           <>
             <ServicesManager />

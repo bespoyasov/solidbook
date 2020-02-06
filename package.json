@@ -31,7 +31,7 @@
     "react-no-ssr": "^1.1.0",
     "refractor": "^2.10.1",
     "rehype": "^9.0.1",
-    "styled-components": "^5.0.1",
+    "styled-components": "^4.4.1",
     "typescript": "^3.7.5",
     "typograf": "^6.11.0"
   },
@@ -42,7 +42,7 @@
     "@types/node": "^13.7.0",
     "@types/react": "16.9.19",
     "@types/refractor": "^2.8.0",
-    "@types/styled-components": "^4.4.2",
+    "@types/styled-components": "^4.4.1",
     "@zeit/next-mdx": "^1.2.0",
     "babel-plugin-root-import": "^6.4.1",
     "babel-plugin-styled-components": "^1.10.7",
