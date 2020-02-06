@@ -7,6 +7,7 @@ import createThemeModel, { ThemeModel } from '~/models/theme'
 import ServicesManager from '~/services/ServicesManager'
 import ThemeStateRepository from '~/repository/ThemeStateRepository'
 import ThemeUpdateObserver from '~/components/ThemeUpdateObserver'
+
 import 'prismjs/themes/prism.css'
 import '~/components/Code/override.css'
 import 'ilyabirman-likely/release/likely.css'
@@ -55,7 +56,7 @@ export default class MyApp extends App {
               <Component {...pageProps} />
             </ThemeUpdateObserver>
           </>
-            </MobxProvider>
+        </MobxProvider>
       </>
     )
   }

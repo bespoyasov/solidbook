@@ -18,7 +18,7 @@ class TypografyReactChildren {
 
       case TYPES.REACT_ELEMENT_WITH_CHILDREN:
         return this.processElementList(
-          React.Children.toArray((node as unknown as JSX.Element).props.children),
+          React.Children.toArray(((node as unknown) as JSX.Element).props.children),
           node as ReactElement
         )
 

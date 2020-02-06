@@ -7,9 +7,8 @@ interface IProps {
 export default class MyDocument extends Document<IProps> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
-    const page = ctx.renderPage(
-      (App: any) => (props: any) =>
-        sheet.collectStyles(<App {...props} />) as React.ReactElement<any>
+    const page = ctx.renderPage((App: any) => (props: any) =>
+      sheet.collectStyles(<App {...props} />) as React.ReactElement<any>
     )
     const styleTags = sheet.getStyleElement()
     return { ...page, styleTags }

@@ -1,8 +1,8 @@
 import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
-import Quiz, { createEmptyQuiz } from '../quiz'
-import { SaveOnChangeMiddleware } from '../saveOnChange'
 import makeInspectable from 'mobx-devtools-mst'
 import AppStateRepository from '~/repository/AppStateRepository'
+import Quiz, { createEmptyQuiz } from '../quiz'
+import { SaveOnChangeMiddleware } from '../saveOnChange'
 
 const START_SCORE = 0
 const MAX_SCORE = 100

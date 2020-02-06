@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 import makeInspectable from 'mobx-devtools-mst'
-import { SaveOnChangeMiddleware } from '../saveOnChange'
 import ThemeStateRepository from '~/repository/ThemeStateRepository'
+import { SaveOnChangeMiddleware } from '../saveOnChange'
 
 const ThemeModel = types
   .model({

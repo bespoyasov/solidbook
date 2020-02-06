@@ -1,10 +1,10 @@
 import * as React from 'react'
-import Link from 'next/link'
-import { withRouter, SingletonRouter } from 'next/router'
 import { PureComponent } from 'react'
-import { Container, Column } from './style'
-import routes, { RouteShape } from '../Navigation/routes'
 import { WithRouterProps } from 'next/dist/client/with-router'
+import { withRouter, SingletonRouter } from 'next/router'
+import Link from 'next/link'
+import routes, { RouteShape } from '../Navigation/routes'
+import { Container, Column } from './style'
 
 function flattenRoutes(routes: RouteShape[]): RouteShape[] {
   return routes.reduce((list: RouteShape[], route: RouteShape) => {

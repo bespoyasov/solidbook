@@ -6,12 +6,12 @@ import { MDXProvider } from '@mdx-js/react'
 import styled from 'styled-components'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
-import Center from './Center'
 import ThemeToggle from '~/components/ThemeToggle'
 import Paragraph from '~/components/Paragraph'
 import PrevNext from '~/components/PrevNext'
 import Abbr from '~/components/Formatters/Abbr'
 import Code from '~/components/Code'
+import Center from './Center'
 
 const Grid = styled.div`
   width: 100%;
