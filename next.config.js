@@ -9,5 +9,9 @@ const withMDX = require('@next/mdx')({
 })
 
 module.exports = withCSS(
-  withMDX(withSourceMaps({ pageExtensions: ["md", "mdx", "tsx"] }))
+  withMDX(
+    withSourceMaps(
+      { pageExtensions: ["md", "mdx", "tsx"] }
+    )
+  )
 )
