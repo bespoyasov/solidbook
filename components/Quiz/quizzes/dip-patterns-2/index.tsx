@@ -1,7 +1,7 @@
 import { IQuiz } from '../IQuiz'
 import Variant3 from './variant-3.mdx'
 
-const quiz: IQuiz = {
+export const dipPatterns2: IQuiz = {
   name: 'dip-patterns-2',
   question: 'В чём особенности разных видов инъекции?',
   variants: [
@@ -24,5 +24,3 @@ const quiz: IQuiz = {
     correctAnswers: [1, 3]
   }
 }
-
-export default quiz

@@ -3,7 +3,7 @@ import Question from './question.mdx'
 import Variant1 from './variant-1.mdx'
 import Variant2 from './variant-2.mdx'
 
-const quiz: IQuiz = {
+export const lspIntro2: IQuiz = {
   name: 'lsp-intro-2',
   question: <Question />,
   variants: [
@@ -25,5 +25,3 @@ const quiz: IQuiz = {
     correctAnswers: [1]
   }
 }
-
-export default quiz

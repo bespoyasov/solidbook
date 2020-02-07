@@ -1,7 +1,7 @@
 import { IQuiz } from '../IQuiz'
 import Variant3 from './variant-3.mdx'
 
-const quiz: IQuiz = {
+export const lspPatterns3: IQuiz = {
   name: 'lsp-patterns-3',
   question: 'В чём польза приёма с извлечением суперкласса в примере выше?',
   variants: [
@@ -21,5 +21,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

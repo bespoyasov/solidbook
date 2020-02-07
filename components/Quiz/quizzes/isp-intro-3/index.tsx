@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const ispIntro3: IQuiz = {
   name: 'isp-intro-3',
   question: 'В чём недостаток разделения через делегирование?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 1]
   }
 }
-
-export default quiz

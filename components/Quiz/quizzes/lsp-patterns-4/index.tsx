@@ -6,7 +6,7 @@ import Variant3 from './variant-3.mdx'
 import Description2 from './description-2.mdx'
 import Description3 from './description-3.mdx'
 
-const quiz: IQuiz = {
+export const lspPatterns4: IQuiz = {
   name: 'lsp-patterns-4',
   question: <Question />,
   variants: [
@@ -26,5 +26,3 @@ const quiz: IQuiz = {
     correctAnswers: [0]
   }
 }
-
-export default quiz

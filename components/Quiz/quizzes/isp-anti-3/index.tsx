@@ -2,7 +2,7 @@ import { IQuiz } from '../IQuiz'
 import Variant2 from './variant-2.mdx'
 import Description2 from './description-2.mdx'
 
-const quiz: IQuiz = {
+export const ispAnti3: IQuiz = {
   name: 'isp-anti-3',
   question: 'В чём заключается опасность «пустой» реализации интерфейса?',
   variants: [
@@ -15,13 +15,10 @@ const quiz: IQuiz = {
       description: <Description2 />
     },
     {
-      text:
-        '«Пустая» реализация не даёт гарантий, что метод будет удовлетворять контракту или ожиданиям от него'
+      text: '«Пустая» реализация не даёт гарантий, что метод будет удовлетворять контракту или ожиданиям от него'
     }
   ],
   meta: {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

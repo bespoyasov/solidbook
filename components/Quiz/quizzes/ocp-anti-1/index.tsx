@@ -1,7 +1,7 @@
 import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 
-const quiz: IQuiz = {
+export const ocpAnti1: IQuiz = {
   name: 'ocp-anti-1',
   question: <Question />,
   variants: [
@@ -22,5 +22,3 @@ const quiz: IQuiz = {
     correctAnswers: [1, 2]
   }
 }
-
-export default quiz

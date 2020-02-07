@@ -1,1 +1,1 @@
-export { default } from './Abbr'
+export * from './Abbr'

@@ -1,7 +1,7 @@
 import { IQuiz } from '../IQuiz'
 import Description2 from './description-2.mdx'
 
-const quiz: IQuiz = {
+export const ocpPatterns1: IQuiz = {
   name: 'ocp-patterns-1',
   question: 'Чем полезен шаблон «Абстрактная фабрика» с точки зрения принципа открытости-закрытости?',
   variants: [
@@ -22,5 +22,3 @@ const quiz: IQuiz = {
     correctAnswers: [2]
   }
 }
-
-export default quiz

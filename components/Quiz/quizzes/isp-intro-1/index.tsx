@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const ispIntro1: IQuiz = {
   name: 'isp-intro-1',
   question: 'В чём заключается суть принципа разделения интерфейса?',
   variants: [
@@ -23,5 +23,3 @@ const quiz: IQuiz = {
     correctAnswers: [1]
   }
 }
-
-export default quiz

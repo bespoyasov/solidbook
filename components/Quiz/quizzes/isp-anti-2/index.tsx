@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const ispAnti2: IQuiz = {
   name: 'isp-anti-2',
   question: 'Какие приёмы помогают избегать грязных интерфейсов или рефакторить их?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [1, 2]
   }
 }
-
-export default quiz

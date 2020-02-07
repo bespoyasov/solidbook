@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpPatterns1: IQuiz = {
   name: 'srp-patterns-1',
   question: 'Чем полезен приём «Выделение класса»?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

@@ -10,7 +10,7 @@ const route = (link: string, name: string, subnav?: RouteShape[]): RouteShape =>
   subnav
 })
 
-export default [
+export const routes = [
   route('/', 'Введение'),
   route('/srp', 'Принцип единой ответственности', [
     route('/srp', 'Введение и понятия'),

@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpIntro1: IQuiz = {
   name: 'srp-intro-1',
   question: 'В чём заключается суть принципа единой ответственности?',
   variants: [
@@ -22,5 +22,3 @@ const quiz: IQuiz = {
     correctAnswers: [1]
   }
 }
-
-export default quiz

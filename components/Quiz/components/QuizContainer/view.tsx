@@ -1,9 +1,8 @@
-import * as React from 'react'
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { Container, Heading } from './style'
-import Variant from '~/components/Quiz/components/Variant'
-import Button from '~/components/Button'
-import QuizModel from '~/models/quiz'
+import { Variant } from '~/components/Quiz/components/Variant'
+import { Button } from '~/components/Button'
+import { Quiz as QuizModel } from '~/models/quiz'
 import { Instance } from 'mobx-state-tree'
 import { IVariant } from '../../quizzes/IQuiz'
 import { observer } from 'mobx-react'
@@ -16,7 +15,7 @@ interface IProps {
   variants: IVariant[]
 }
 
-class QuizContainer extends Component<IProps> {
+class BaseQuizContainer extends Component<IProps> {
   static defaultProps = {
     completed: false,
     variants: []
@@ -55,4 +54,4 @@ class QuizContainer extends Component<IProps> {
   }
 }
 
-export default observer(QuizContainer)
+export const QuizContainer = observer(BaseQuizContainer)

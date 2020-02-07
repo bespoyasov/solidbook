@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import QuizInitiator from './QuizInitiator'
+import { QuizInitiator } from './QuizInitiator'
 import { inject } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
 import { AppModel } from '~/models/app'
@@ -15,7 +15,7 @@ export interface Service {
   shutdown: () => void
 }
 
-class ServicesManager extends Component {
+class BaseServicesManager extends Component {
   shouldComponentUpdate() {
     return false
   }
@@ -37,4 +37,4 @@ class ServicesManager extends Component {
   }
 }
 
-export default inject('app')(ServicesManager)
+export const ServicesManager = inject('app')(BaseServicesManager)

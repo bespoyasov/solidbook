@@ -4,7 +4,7 @@ import Variant2 from './variant-2.mdx'
 import Variant3 from './variant-3.mdx'
 import Description1 from './description-1.mdx'
 
-const quiz: IQuiz = {
+export const ocpPatterns6: IQuiz = {
   name: 'ocp-patterns-6',
   question: 'Какой из классов ниже правильно использует декоратор для удаления всех пробелов из приветствия?',
   variants: [
@@ -24,5 +24,3 @@ const quiz: IQuiz = {
     correctAnswers: [2]
   }
 }
-
-export default quiz

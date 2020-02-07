@@ -5,7 +5,7 @@ import Variant1 from './variants/variant-1.mdx'
 import Variant2 from './variants/variant-2.mdx'
 import Variant3 from './variants/variant-3.mdx'
 
-const quiz: IQuiz = {
+export const srpPatterns2: IQuiz = {
   name: 'srp-patterns-2',
   question: <Question />,
   variants: [
@@ -26,5 +26,3 @@ const quiz: IQuiz = {
     correctAnswers: [2]
   }
 }
-
-export default quiz

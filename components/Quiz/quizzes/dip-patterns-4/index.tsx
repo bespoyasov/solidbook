@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const dipPatterns4: IQuiz = {
   name: 'dip-patterns-4',
   question: 'В чём заключается суть шаблонного метода?',
   variants: [
@@ -18,5 +18,3 @@ const quiz: IQuiz = {
     correctAnswers: [1]
   }
 }
-
-export default quiz

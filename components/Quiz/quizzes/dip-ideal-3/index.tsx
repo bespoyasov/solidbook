@@ -6,7 +6,7 @@ import Variant3 from './variant-3.mdx'
 import Description1 from './description-1.mdx'
 import Description2 from './description-2.mdx'
 
-const quiz: IQuiz = {
+export const dipIdeal3: IQuiz = {
   name: 'dip-ideal-3',
   question: <Question />,
   variants: [
@@ -26,5 +26,3 @@ const quiz: IQuiz = {
     correctAnswers: [2]
   }
 }
-
-export default quiz

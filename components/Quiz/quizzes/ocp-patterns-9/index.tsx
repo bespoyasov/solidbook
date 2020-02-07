@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const ocpPatterns9: IQuiz = {
   name: 'ocp-patterns-9',
   question: 'В чём польза замены прямого наследования на полиморфизм?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [1]
   }
 }
-
-export default quiz
