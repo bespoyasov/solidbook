@@ -1,9 +1,9 @@
-import { ReactChild, ReactElement } from 'react'
+import { ReactChild, ReactElement, ReactNode } from 'react'
 import { getType, TYPES } from '~/domain/react/childType'
 
 class ReactTextNode {
-  node: ReactChild
-  public constructor(node: ReactChild) {
+  node: ReactNode
+  public constructor(node: ReactNode) {
     this.node = node
   }
 
@@ -15,15 +15,15 @@ class ReactTextNode {
     return ReactTextNode.lastNodeWord(this.node)
   }
 
-  private static firstNodeWord(node: ReactChild): string | undefined {
+  private static firstNodeWord(node: ReactNode): string | undefined {
     return this.getWordByPosition(node, 'first')
   }
 
-  private static lastNodeWord(node: ReactChild): string | undefined {
+  private static lastNodeWord(node: ReactNode): string | undefined {
     return this.getWordByPosition(node, 'last')
   }
 
-  private static getWordByPosition(node: ReactChild, position: 'first' | 'last'): string | undefined {
+  private static getWordByPosition(node: ReactNode, position: 'first' | 'last'): string | undefined {
     switch (getType(node)) {
       case TYPES.NUMBER:
         return String(node)

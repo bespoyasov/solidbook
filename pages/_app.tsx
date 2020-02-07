@@ -1,6 +1,5 @@
 import React from 'react'
-import App, { Container } from 'next/app'
-import Head from 'next/head'
+import App from 'next/app'
 import { Instance } from 'mobx-state-tree'
 import { Provider as MobxProvider } from 'mobx-react'
 import createAppModel, { AppModel } from '~/models/app'
@@ -9,11 +8,15 @@ import ServicesManager from '~/services/ServicesManager'
 import ThemeStateRepository from '~/repository/ThemeStateRepository'
 import ThemeUpdateObserver from '~/components/ThemeUpdateObserver'
 
+import 'prismjs/themes/prism.css'
+import '~/components/Code/override.css'
+import 'ilyabirman-likely/release/likely.css'
+
 export default class MyApp extends App {
   appModel: Instance<typeof AppModel>
   themeModel: Instance<typeof ThemeModel>
 
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx }: any) {
     const themeRepository = ThemeStateRepository.instance
     themeRepository.setContext(ctx)
 
@@ -35,7 +38,7 @@ export default class MyApp extends App {
     }
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props)
     this.appModel = createAppModel()
     this.themeModel = createThemeModel(props.pageProps.savedTheme)
@@ -45,8 +48,7 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props
 
     return (
-      <Container>
-        <Head />
+      <>
         <MobxProvider {...this.models}>
           <>
             <ServicesManager />
@@ -55,7 +57,7 @@ export default class MyApp extends App {
             </ThemeUpdateObserver>
           </>
         </MobxProvider>
-      </Container>
+      </>
     )
   }
 }

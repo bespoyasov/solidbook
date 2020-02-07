@@ -2,16 +2,16 @@ import * as React from 'react'
 import { PureComponent } from 'react'
 import Head from 'next/head'
 import Navigation from '~/components/Navigation'
-import { MDXProvider } from '@mdx-js/tag'
+import { MDXProvider } from '@mdx-js/react'
 import styled from 'styled-components'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
-import Center from './Center'
 import ThemeToggle from '~/components/ThemeToggle'
 import Paragraph from '~/components/Paragraph'
 import PrevNext from '~/components/PrevNext'
 import Abbr from '~/components/Formatters/Abbr'
 import Code from '~/components/Code'
+import Center from './Center'
 
 const Grid = styled.div`
   width: 100%;

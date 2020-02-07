@@ -2,20 +2,18 @@ import * as React from 'react'
 import { PureComponent } from 'react'
 import refractor from 'refractor'
 import rehype from 'rehype'
-import 'prismjs/themes/prism.css'
-import './override.css'
 
-type Props = {
-  children?: React.ReactNode
+type CodeProps = {
+  children?: JSX.Element
   lang: string
 }
 
-class Code extends PureComponent<Props> {
+class Code extends PureComponent<CodeProps> {
   static defaultProps = {
     lang: 'ts'
   }
 
-  highlight = (source: React.ReactElement) => {
+  highlight = (source: string) => {
     return rehype()
       .stringify({
         type: 'root',
@@ -40,7 +38,7 @@ class Code extends PureComponent<Props> {
         {React.Children.map(
           children,
           (child: React.ReactElement): React.ReactElement => {
-            if (child.props && child.props.name !== 'code') return child
+            if (child.props && child.props.originalType !== 'code') return child
             if (typeof child === 'string') return this.createCodeElement(this.highlight(child))
             return this.createCodeElement(this.highlight(child.props.children))
           }

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import 'ilyabirman-likely/release/likely.css'
 
 export const Container = styled.div`
   position: relative;
