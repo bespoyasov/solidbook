@@ -1,0 +1,60 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier"],
+  "rules": {
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/member-delimiter-style": [
+      "off",
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }
+    ],
+    "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/semi": ["off", null],
+    "@typescript-eslint/space-within-parens": ["off", "never"],
+    "@typescript-eslint/type-annotation-spacing": "off",
+    "arrow-parens": ["off", "as-needed"],
+    "comma-dangle": "off",
+    "eol-last": "off",
+    "linebreak-style": "off",
+    "max-len": "off",
+    "new-parens": "off",
+    "newline-per-chained-call": "off",
+    "no-extra-semi": "off",
+    "no-irregular-whitespace": "off",
+    "no-multiple-empty-lines": "off",
+    "no-trailing-spaces": "off",
+    "quote-props": "off",
+    "space-before-function-paren": "off",
+    "@typescript-eslint/tslint/config": [
+      "error",
+      {
+        "rules": {
+          "jsx-boolean-value": true,
+          "jsx-key": true,
+          "jsx-no-bind": true,
+          "jsx-no-lambda": true,
+          "jsx-no-string-ref": true,
+          "jsx-self-close": true
+        }
+      }
+    ]
+  }
+}
