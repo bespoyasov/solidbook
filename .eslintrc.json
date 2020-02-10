@@ -55,6 +55,9 @@
   },
   "settings": {
     "import/resolver": {
+      "babel-plugin-root-import": {
+        "extensions": [".ts", ".tsx"]
+      },
       "node": {
         "extensions": [".ts", ".tsx"]
       }
