@@ -9,10 +9,11 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["import", "@typescript-eslint"],
   "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier"],
   "rules": {
     "@typescript-eslint/indent": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/member-delimiter-style": [
       "off",
       {
@@ -33,6 +34,8 @@
     "arrow-parens": ["off", "as-needed"],
     "comma-dangle": "off",
     "eol-last": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
     "linebreak-style": "off",
     "max-len": "off",
     "new-parens": "off",
@@ -42,19 +45,13 @@
     "no-multiple-empty-lines": "off",
     "no-trailing-spaces": "off",
     "quote-props": "off",
-    "space-before-function-paren": "off",
-    "@typescript-eslint/tslint/config": [
-      "error",
-      {
-        "rules": {
-          "jsx-boolean-value": true,
-          "jsx-key": true,
-          "jsx-no-bind": true,
-          "jsx-no-lambda": true,
-          "jsx-no-string-ref": true,
-          "jsx-self-close": true
-        }
+    "space-before-function-paren": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx"]
       }
-    ]
+    }
   }
 }
