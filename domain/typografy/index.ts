@@ -5,7 +5,7 @@ import Typograf from 'typograf'
  *
  * @class Typografy
  */
-class Typografy {
+export class Typografy {
   private static _instance: Typografy
   private typograf: any
   public static get instance() {
@@ -23,5 +23,3 @@ class Typografy {
     return this.typograf.execute(text)
   }
 }
-
-export default Typografy

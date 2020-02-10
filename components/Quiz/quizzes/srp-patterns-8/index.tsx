@@ -4,7 +4,7 @@ import Variant1 from './variants/variant-1.mdx'
 import Variant2 from './variants/variant-2.mdx'
 import Variant3 from './variants/variant-3.mdx'
 
-const quiz: IQuiz = {
+export const srpPatterns8: IQuiz = {
   name: 'srp-patterns-8',
   question:
     'Допустим, нам необходимо создать прокси, который бы кешировал ответы на запросы. Какой из вариантов реализации не содержит ошибок?',
@@ -26,5 +26,3 @@ const quiz: IQuiz = {
     correctAnswers: [0]
   }
 }
-
-export default quiz

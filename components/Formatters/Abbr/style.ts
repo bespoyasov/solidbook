@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default styled.abbr`
+export const AbbrWrapper = styled.abbr`
   text-transform: uppercase;
   text-decoration: none;
   font-size: 0.875em;

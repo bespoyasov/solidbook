@@ -1,16 +1,15 @@
-import * as React from 'react'
-import { Component } from 'react'
-import Share from '~/components/Share'
-import { Container, Big, Counter, Label, ShareContainer } from './style'
+import React, { Component } from 'react'
+import { Instance } from 'mobx-state-tree'
 import { inject, observer } from 'mobx-react'
 import { AppModel } from '~/models/app'
-import { Instance } from 'mobx-state-tree'
+import { Share } from '~/components/Share'
+import { Container, Big, Counter, Label, ShareContainer } from './style'
 
 interface IInjectedProps {
   app: Instance<typeof AppModel>
 }
 
-class PointsCounter extends Component {
+class BasePointsCounter extends Component {
   public root: HTMLElement
   public animationTimeout: number
   public updatesCount: number = 0
@@ -51,4 +50,4 @@ class PointsCounter extends Component {
   }
 }
 
-export default inject('app')(observer(PointsCounter))
+export const PointsCounter = inject('app')(observer(BasePointsCounter))

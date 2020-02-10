@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpPatterns7: IQuiz = {
   name: 'srp-patterns-7',
   question: 'В чём польза паттерна прокси?',
   variants: [
@@ -18,5 +18,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 1, 2]
   }
 }
-
-export default quiz

@@ -1,3 +1,2 @@
 import { createContext } from 'react'
-const QuizContext = createContext({})
-export default QuizContext
+export const QuizContext = createContext({})

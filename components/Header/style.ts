@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default styled.header`
+export const HeaderWrapper = styled.header`
   ${props =>
     props.theme.using === 'light'
       ? `box-shadow: 0px 6px 20px ${props.theme.decorationColorSecondary};`

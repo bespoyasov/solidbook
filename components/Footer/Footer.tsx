@@ -1,9 +1,8 @@
-import * as React from 'react'
-import { PureComponent } from 'react'
-import Center from '../layouts/Center'
+import React, { PureComponent } from 'react'
+import { Center } from '../layouts/Center'
 import { Wrapper, Container, BasicExternalLink, GithubLink, PatreonLink } from './style'
 
-class Footer extends PureComponent {
+export class Footer extends PureComponent {
   render() {
     return (
       <Wrapper>
@@ -24,5 +23,3 @@ class Footer extends PureComponent {
     )
   }
 }
-
-export default Footer

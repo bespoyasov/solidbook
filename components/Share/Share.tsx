@@ -20,7 +20,7 @@ interface IInjectedProps {
   app: Instance<typeof AppModel>
 }
 
-class Share extends Component {
+class BaseShare extends Component {
   get injected() {
     return this.props as IInjectedProps & MainThemeProps
   }
@@ -54,4 +54,4 @@ class Share extends Component {
   }
 }
 
-export default inject('app')(observer(withTheme(Share)))
+export const Share = inject('app')(observer(withTheme(BaseShare)))

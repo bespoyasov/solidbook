@@ -6,7 +6,7 @@ import Variant3 from './variant-3.mdx'
 import Variant4 from './variant-4.mdx'
 import Description3 from './description-3.mdx'
 
-const quiz: IQuiz = {
+export const ocpIdeal1: IQuiz = {
   name: 'ocp-ideal-1',
   question: <Question />,
   variants: [
@@ -28,5 +28,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 3]
   }
 }
-
-export default quiz

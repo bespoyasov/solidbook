@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const dipIntro2: IQuiz = {
   name: 'dip-intro-2',
   question: 'Для устойчивой системы характерны:',
   variants: [
@@ -23,5 +23,3 @@ const quiz: IQuiz = {
     correctAnswers: [0]
   }
 }
-
-export default quiz

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default styled.div`
+export const LogoWrapper = styled.div`
   font-size: 2.3rem;
   font-weight: 900;
   text-transform: uppercase;

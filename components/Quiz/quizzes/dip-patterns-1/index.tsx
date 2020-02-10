@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const dipPatterns1: IQuiz = {
   name: 'dip-patterns-1',
   question: 'В чём польза инъекции зависимостей?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [1, 2]
   }
 }
-
-export default quiz

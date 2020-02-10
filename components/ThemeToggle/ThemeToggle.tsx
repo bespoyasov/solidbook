@@ -2,7 +2,7 @@ import * as React from 'react'
 import clsx from 'clsx'
 import { inject, observer } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
-import VisuallyHidden from '~/components/VisuallyHidden'
+import { VisuallyHidden } from '~/components/VisuallyHidden'
 import { ThemeModel } from '~/models/theme'
 import { Container, Toggle, Shaft, Trolley } from './style'
 
@@ -10,7 +10,7 @@ interface InjectedProps {
   theme: Instance<typeof ThemeModel>
 }
 
-class ThemeToggle extends React.Component {
+class BaseThemeToggle extends React.Component {
   get injected() {
     return this.props as InjectedProps
   }
@@ -34,4 +34,4 @@ class ThemeToggle extends React.Component {
   }
 }
 
-export default inject('theme')(observer(ThemeToggle))
+export const ThemeToggle = inject('theme')(observer(BaseThemeToggle))

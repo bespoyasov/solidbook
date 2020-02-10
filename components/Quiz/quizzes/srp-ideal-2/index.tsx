@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpIdeal2: IQuiz = {
   name: 'srp-ideal-2',
   question: 'Какую главную ошибку исправляет выделение форматов данных в отдельные классы?',
   variants: [
@@ -25,5 +25,3 @@ const quiz: IQuiz = {
     correctAnswers: [0]
   }
 }
-
-export default quiz

@@ -7,7 +7,7 @@ import Variant3 from './variants/text-3.mdx'
 import Description2 from './variants/description-2.mdx'
 import Description3 from './variants/description-3.mdx'
 
-const quiz: IQuiz = {
+export const srpIdeal3: IQuiz = {
   name: 'srp-ideal-3',
   question: <Question />,
   variants: [
@@ -27,5 +27,3 @@ const quiz: IQuiz = {
     correctAnswers: [0]
   }
 }
-
-export default quiz

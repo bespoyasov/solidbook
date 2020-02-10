@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpAnti2: IQuiz = {
   name: 'srp-anti-2',
   question: 'В чём корень главной проблемы синглтона с точки зрения принципа единственной ответственности?',
   variants: [
@@ -22,5 +22,3 @@ const quiz: IQuiz = {
     correctAnswers: [1]
   }
 }
-
-export default quiz

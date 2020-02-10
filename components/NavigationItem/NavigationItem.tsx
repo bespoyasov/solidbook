@@ -1,8 +1,7 @@
-import * as React from 'react'
+import React, { PureComponent } from 'react'
 import clsx from 'clsx'
-import { PureComponent } from 'react'
 import Link from 'next/link'
-import Container from './style'
+import { Container } from './style'
 
 interface Props {
   href: string
@@ -13,7 +12,7 @@ interface Props {
   children: React.ReactChild
 }
 
-class NavigationItem extends PureComponent<Props> {
+export class NavigationItem extends PureComponent<Props> {
   static defaultProps = {
     depth: 1
   }
@@ -32,5 +31,3 @@ class NavigationItem extends PureComponent<Props> {
     )
   }
 }
-
-export default NavigationItem

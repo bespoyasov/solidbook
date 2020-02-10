@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default styled.div`
+export const Center = styled.div`
   max-width: 1100px;
   padding: 0 2rem;
   margin: auto;

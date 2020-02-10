@@ -1,12 +1,11 @@
-import * as React from 'react'
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import { withRouter, SingletonRouter } from 'next/router'
 import { countOccurencies } from '../../lib'
-import PointsCounter from '../PointsCounter'
-import NavigationItem from '../NavigationItem'
+import { PointsCounter } from '../PointsCounter'
+import { NavigationItem } from '../NavigationItem'
 import { Nav, Section, SubSection } from './style'
-import routes from './routes'
+import { routes } from './routes'
 
 interface NavigationOwnProps {
   router?: SingletonRouter
@@ -14,7 +13,7 @@ interface NavigationOwnProps {
 
 type NavigationProps = WithRouterProps & NavigationOwnProps
 
-class Navigation extends PureComponent<NavigationProps> {
+class BaseNavigation extends PureComponent<NavigationProps> {
   isSection = (link: string): boolean => !['/', '/afterwords'].includes(link)
 
   isActive = (link: string): boolean => this.props.router.pathname === link
@@ -83,4 +82,4 @@ class Navigation extends PureComponent<NavigationProps> {
   }
 }
 
-export default withRouter(Navigation)
+export const Navigation = withRouter(BaseNavigation)

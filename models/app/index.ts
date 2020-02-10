@@ -1,13 +1,13 @@
 import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
 import makeInspectable from 'mobx-devtools-mst'
-import AppStateRepository from '~/repository/AppStateRepository'
-import Quiz, { createEmptyQuiz } from '../quiz'
+import { AppStateRepository } from '~/repository/AppStateRepository'
+import { Quiz, createEmptyQuiz } from '../quiz'
 import { SaveOnChangeMiddleware } from '../saveOnChange'
 
 const START_SCORE = 0
 const MAX_SCORE = 100
 
-const AppModel = types
+export const AppModel = types
   .model('App', {
     quizes: types.map(Quiz)
   })
@@ -68,7 +68,7 @@ const AppModel = types
     }
   }))
 
-function createAppModel(initState?: typeof AppModel): Instance<typeof AppModel> {
+export function createAppModel(initState?: typeof AppModel): Instance<typeof AppModel> {
   let appModel: Instance<typeof AppModel>
 
   if (initState) {
@@ -84,6 +84,3 @@ function createAppModel(initState?: typeof AppModel): Instance<typeof AppModel> 
   makeInspectable(appModel)
   return appModel
 }
-
-export default createAppModel
-export { AppModel }
