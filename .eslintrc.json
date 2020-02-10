@@ -9,20 +9,15 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "plugins": ["import", "react", "@typescript-eslint"],
+  "plugins": ["react", "import", "@typescript-eslint"],
   "extends": [
     "airbnb",
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
     "prettier"
   ],
   "rules": {
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/member-delimiter-style": [
