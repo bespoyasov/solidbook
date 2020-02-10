@@ -11,6 +11,7 @@ class ThemeStateRepository {
   private key: string
 
   public static get instance() {
+    // eslint-disable-next-line no-return-assign
     return this._instance || (this._instance = new this())
   }
 
