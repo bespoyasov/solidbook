@@ -16,20 +16,20 @@ export interface Service {
 }
 
 class ServicesManager extends Component {
-  shouldComponentUpdate() {
-    return false
-  }
-
-  get injected() {
-    return this.props as IInjectedProps
-  }
-
   componentDidMount() {
     services.forEach(service => service.init(this.injected.app))
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   componentWillUnmount() {
     services.forEach(service => service.shutdown())
+  }
+
+  get injected() {
+    return this.props as IInjectedProps
   }
 
   render() {

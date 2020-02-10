@@ -3,7 +3,7 @@ import { Service } from './ServicesManager'
 import * as quizList from '~/components/Quiz/quiz-list'
 import AppStateRepository from '~/repository/AppStateRepository'
 import { AppModel } from '~/models/app'
-import Quiz from "~/models/quiz"
+import Quiz from '~/models/quiz'
 
 class QuizCreator implements Service {
   init(app: Instance<typeof AppModel>) {
@@ -22,8 +22,8 @@ class QuizCreator implements Service {
 
     quizNames.forEach(quizName => {
       let model: Instance<typeof Quiz>
-      if (!app.has(quizName)) model = app.createQuiz(quizName);
-      else model = app.getByName(quizName);
+      if (!app.has(quizName)) model = app.createQuiz(quizName)
+      else model = app.getByName(quizName)
       model.setCorrectAnswers(quizList[quizName].meta.correctAnswers)
     })
   }

@@ -3,7 +3,8 @@ class AppStateRepository {
 
   private localstorageKey: string
 
-  public static get instance() {
+  public static get instance(): AppStateRepository {
+    // eslint-disable-next-line no-return-assign
     return this._instance || (this._instance = new this())
   }
 
@@ -11,7 +12,7 @@ class AppStateRepository {
     this.localstorageKey = 'solid-book'
   }
 
-  load(): { quizes: object } | null {
+  public load(): { quizes: object } | null {
     try {
       const base64String = localStorage.getItem(this.localstorageKey)
       const jsonState = atob(base64String!)
@@ -22,7 +23,7 @@ class AppStateRepository {
     }
   }
 
-  save(state: object) {
+  public save(state: object): void {
     const jsonState = JSON.stringify(state)
     const base64String = btoa(jsonState)
     localStorage.setItem(this.localstorageKey, base64String)
