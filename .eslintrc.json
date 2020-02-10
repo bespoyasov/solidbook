@@ -38,6 +38,7 @@
     "@typescript-eslint/space-within-parens": ["off", "never"],
     "@typescript-eslint/type-annotation-spacing": "off",
     "arrow-parens": ["off", "as-needed"],
+    "class-methods-use-this": "off",
     "comma-dangle": "off",
     "eol-last": "off",
     "import/extensions": "off",
