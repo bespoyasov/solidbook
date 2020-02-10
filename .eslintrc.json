@@ -9,8 +9,13 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "plugins": ["import", "@typescript-eslint"],
-  "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["import", "react", "@typescript-eslint"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": [
       "error",
@@ -50,6 +55,7 @@
     "no-irregular-whitespace": "off",
     "no-multiple-empty-lines": "off",
     "no-trailing-spaces": "off",
+    "no-underscore-dangle": "off",
     "quote-props": "off",
     "space-before-function-paren": "off"
   },
