@@ -5,7 +5,8 @@
     "dev": "next",
     "test": "jest --watchAll",
     "now-build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint --fix \"./**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@mdx-js/loader": "^1.5.5",
