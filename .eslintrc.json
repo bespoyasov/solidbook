@@ -12,6 +12,12 @@
   "plugins": ["import", "@typescript-eslint"],
   "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier"],
   "rules": {
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/member-delimiter-style": [
