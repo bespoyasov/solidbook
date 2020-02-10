@@ -5,7 +5,9 @@ import { ThemeModel } from '~/models/theme'
 
 class ThemeStateRepository {
   private static _instance: ThemeStateRepository
+
   private ctx?: NextPageContext
+
   private key: string
 
   public static get instance() {

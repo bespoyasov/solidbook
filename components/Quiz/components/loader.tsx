@@ -2,10 +2,10 @@ import * as React from 'react'
 import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
+import camelcase from 'camelcase'
 import { AppModel } from '~/models/app'
 import QuizContainer from '~/components/Quiz/components/QuizContainer'
 import { IQuiz } from '~/components/Quiz/quizzes/IQuiz'
-import camelcase from 'camelcase'
 import * as quizzes from '../quiz-list'
 
 interface IProps {
@@ -22,6 +22,7 @@ interface IState {
 
 class QuizLoader extends Component<IProps, IState> {
   module: IQuiz
+
   moduleName: string
 
   constructor(props) {
@@ -52,11 +53,11 @@ class QuizLoader extends Component<IProps, IState> {
 
     if (error) {
       return this.renderError()
-    } else if (quizModel) {
+    } if (quizModel) {
       return this.renderQuiz()
-    } else {
+    } 
       return null
-    }
+    
   }
 
   renderError() {

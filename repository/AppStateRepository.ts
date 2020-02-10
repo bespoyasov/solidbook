@@ -1,5 +1,6 @@
 class AppStateRepository {
   private static _instance: AppStateRepository
+
   private localstorageKey: string
 
   public static get instance() {

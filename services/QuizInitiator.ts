@@ -1,13 +1,13 @@
+import { Instance } from 'mobx-state-tree'
 import { Service } from './ServicesManager'
 import * as quizList from '~/components/Quiz/quiz-list'
 import AppStateRepository from '~/repository/AppStateRepository'
-import { Instance } from 'mobx-state-tree'
 import { AppModel } from '~/models/app'
 import Quiz from "~/models/quiz"
 
 class QuizCreator implements Service {
   init(app: Instance<typeof AppModel>) {
-    let state: { quizes: object } = AppStateRepository.instance.load()
+    const state: { quizes: object } = AppStateRepository.instance.load()
 
     const quizNames = Object.keys(quizList)
 

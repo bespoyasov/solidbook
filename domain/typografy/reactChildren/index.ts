@@ -47,9 +47,9 @@ class TypografyReactChildren {
 
           if (index === 0 && element === ' ') {
             return acc
-          } else if (index === elements.length - 1 && element === ' ') {
+          } if (index === elements.length - 1 && element === ' ') {
             return acc
-          } else {
+          } 
             switch (getType(element)) {
               case TYPES.STRING:
                 acc.push(
@@ -78,7 +78,7 @@ class TypografyReactChildren {
                 acc.push(element)
                 break
             }
-          }
+          
 
           return acc
         }, [])

@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { Instance } from 'mobx-state-tree'
+import { observer } from 'mobx-react'
 import { Container, Heading } from './style'
 import Variant from '~/components/Quiz/components/Variant'
 import Button from '~/components/Button'
 import QuizModel from '~/models/quiz'
-import { Instance } from 'mobx-state-tree'
 import { IVariant } from '../../quizzes/IQuiz'
-import { observer } from 'mobx-react'
 
 interface IProps {
   quizModel: Instance<typeof QuizModel>

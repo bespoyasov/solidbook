@@ -3,11 +3,11 @@ import { Component } from 'react'
 import likely from 'ilyabirman-likely'
 import { withTheme } from 'styled-components'
 import { inject, observer } from 'mobx-react'
+import { Instance } from 'mobx-state-tree'
+import clsx from 'clsx'
 import { Container, Buttons, Label } from './style'
 import { AppModel } from '~/models/app'
 import { MainThemeProps } from '~/themes/main'
-import { Instance } from 'mobx-state-tree'
-import clsx from 'clsx'
 
 const networks = [
   { name: 'twitter', action: 'Твитнуть' },

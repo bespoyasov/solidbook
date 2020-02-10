@@ -3,6 +3,7 @@ import { getType, TYPES } from '~/domain/react/childType'
 
 class ReactTextNode {
   node: ReactNode
+
   public constructor(node: ReactNode) {
     this.node = node
   }

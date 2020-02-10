@@ -14,6 +14,7 @@ import 'ilyabirman-likely/release/likely.css'
 
 export default class MyApp extends App {
   appModel: Instance<typeof AppModel>
+
   themeModel: Instance<typeof ThemeModel>
 
   static async getInitialProps({ Component, ctx }: any) {

@@ -10,7 +10,10 @@ class Footer extends PureComponent {
         <Center>
           <Container>
             <span>
-              <BasicExternalLink href="https://bespoyasov.ru">Саша Беспоясов</BasicExternalLink> и{' '}
+              <BasicExternalLink href="https://bespoyasov.ru">Саша Беспоясов</BasicExternalLink>
+              {' '}
+              и
+              {' '}
               <BasicExternalLink href="https://github.com/dex157">Артём Самофалов</BasicExternalLink>
             </span>
 

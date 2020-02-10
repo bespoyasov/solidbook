@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { PureComponent } from 'react'
 import Head from 'next/head'
-import Navigation from '~/components/Navigation'
 import { MDXProvider } from '@mdx-js/react'
 import styled from 'styled-components'
+import Navigation from '~/components/Navigation'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import ThemeToggle from '~/components/ThemeToggle'
@@ -65,6 +65,7 @@ type Props = {
 
 class MainLayout extends PureComponent<Props> {
   static defaultProps = {}
+
   render() {
     const { meta = { title: 'Solid', description: '' }, children } = this.props
 

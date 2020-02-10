@@ -42,7 +42,8 @@ export default class MyDocument extends Document<IProps> {
           <meta name="twitter:title" content="SOLID BOOK" />
           <meta name="twitter:description" content="Книга о принципах объектно-ориентированного дизайна" />
           <meta name="twitter:image" content="https://ota-solid.now.sh/socials.png" />
-          <style>{`
+          <style>
+            {`
             *,
             *::after,
             *::before {
@@ -55,7 +56,8 @@ export default class MyDocument extends Document<IProps> {
               padding: 0;
               margin: 0;
             }
-          `}</style>
+          `}
+          </style>
           {styleTags}
         </Head>
         <body>

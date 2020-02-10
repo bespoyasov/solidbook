@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Component } from 'react'
+import { inject, observer } from 'mobx-react'
+import { Instance } from 'mobx-state-tree'
 import Share from '~/components/Share'
 import { Container, Big, Counter, Label, ShareContainer } from './style'
-import { inject, observer } from 'mobx-react'
 import { AppModel } from '~/models/app'
-import { Instance } from 'mobx-state-tree'
 
 interface IInjectedProps {
   app: Instance<typeof AppModel>
@@ -12,8 +12,10 @@ interface IInjectedProps {
 
 class PointsCounter extends Component {
   public root: HTMLElement
+
   public animationTimeout: number
-  public updatesCount: number = 0
+
+  public updatesCount = 0
 
   get injected() {
     return this.props as IInjectedProps
@@ -38,7 +40,10 @@ class PointsCounter extends Component {
       <Container ref={node => (this.root = node)}>
         <Counter>
           <Label>Ваш счёт:</Label>
-          <Big>{app.userScore}</Big> / {app.totalScore}
+          <Big>{app.userScore}</Big>
+          {' '}
+          /
+          {app.totalScore}
         </Counter>
 
         {app.userScore > 0 && (

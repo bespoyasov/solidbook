@@ -1,8 +1,8 @@
 import React from 'react'
 import { Instance } from 'mobx-state-tree'
 import { ThemeProvider } from 'styled-components'
-import { GlobalStyle, themes } from '../../themes/main'
 import { observer, inject } from 'mobx-react'
+import { GlobalStyle, themes } from '../../themes/main'
 import { ThemeModel } from '~/models/theme'
 
 interface ThemeObserverProps {

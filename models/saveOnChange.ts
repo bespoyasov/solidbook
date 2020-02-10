@@ -7,7 +7,9 @@ interface IStateRepository {
 
 class SaveOnChangeMiddleware {
   actions: string[]
+
   store: IAnyStateTreeNode
+
   repository: IStateRepository
 
   constructor(store: IAnyStateTreeNode, repository: IStateRepository, actions: string[]) {
