@@ -53,12 +53,15 @@
     "no-trailing-spaces": "off",
     "no-underscore-dangle": "off",
     "quote-props": "off",
+    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
     "space-before-function-paren": "off"
   },
   "settings": {
     "import/resolver": {
-      "babel-plugin-root-import": {
-        "extensions": [".ts", ".tsx"]
+      "eslint-import-resolver-custom-alias": {
+        "alias": {
+          "~": "."
+        }
       },
       "node": {
         "extensions": [".ts", ".tsx"]
