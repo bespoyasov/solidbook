@@ -54,8 +54,10 @@
     "no-trailing-spaces": "off",
     "no-underscore-dangle": "off",
     "quote-props": "off",
+    "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
     "react/react-in-jsx-scope": "off",
+    "react/static-property-placement": "off",
     "space-before-function-paren": "off"
   },
   "settings": {
@@ -65,7 +67,10 @@
         "alias": {
           "~": ".",
           "next": "node_modules/next",
-          "prismjs": "node_modules/prismjs"
+          "rehype": "node_modules/rehype",
+          "prismjs": "node_modules/prismjs",
+          "refractor": "node_modules/refractor",
+          "camelcase": "node_modules/camelcase"
         }
       },
       "node": {
