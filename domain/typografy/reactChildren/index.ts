@@ -47,38 +47,38 @@ class TypografyReactChildren {
 
           if (index === 0 && element === ' ') {
             return acc
-          } if (index === elements.length - 1 && element === ' ') {
+          }
+          if (index === elements.length - 1 && element === ' ') {
             return acc
-          } 
-            switch (getType(element)) {
-              case TYPES.STRING:
-                acc.push(
-                  typografTextWithNeighbors(
-                    element as string,
-                    hasPrev && new TextNode(elements[index - 1]).lastWord,
-                    hasNext && new TextNode(elements[index + 1]).firstWord
-                  )
+          }
+          switch (getType(element)) {
+            case TYPES.STRING:
+              acc.push(
+                typografTextWithNeighbors(
+                  element as string,
+                  hasPrev && new TextNode(elements[index - 1]).lastWord,
+                  hasNext && new TextNode(elements[index + 1]).firstWord
                 )
-                break
+              )
+              break
 
-              case TYPES.ARRAY:
-                acc.push(this.processElementList((element as unknown) as ReactChild[], element as ReactElement))
-                break
+            case TYPES.ARRAY:
+              acc.push(this.processElementList((element as unknown) as ReactChild[], element as ReactElement))
+              break
 
-              case TYPES.REACT_ELEMENT_WITH_CHILDREN:
-                acc.push(
-                  this.processElementList(
-                    React.Children.toArray((element as ReactElement).props.children),
-                    element as ReactElement
-                  )
+            case TYPES.REACT_ELEMENT_WITH_CHILDREN:
+              acc.push(
+                this.processElementList(
+                  React.Children.toArray((element as ReactElement).props.children),
+                  element as ReactElement
                 )
-                break
+              )
+              break
 
-              default:
-                acc.push(element)
-                break
-            }
-          
+            default:
+              acc.push(element)
+              break
+          }
 
           return acc
         }, [])

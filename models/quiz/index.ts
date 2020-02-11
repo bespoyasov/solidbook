@@ -19,7 +19,7 @@ const Quiz = types
       }
     },
     toggleComplete() {
-      if (self.isComplete == true) {
+      if (self.isComplete === true) {
         self.answers.splice(0)
       }
 

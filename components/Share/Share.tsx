@@ -21,12 +21,12 @@ interface IInjectedProps {
 }
 
 class Share extends Component {
-  get injected() {
-    return this.props as IInjectedProps & MainThemeProps
-  }
-
   componentDidMount() {
     likely.initiate()
+  }
+
+  get injected() {
+    return this.props as IInjectedProps & MainThemeProps
   }
 
   render() {
@@ -35,7 +35,12 @@ class Share extends Component {
 
     return (
       <Container>
-        <Label>Похвастаться 🤘</Label>
+        <Label>
+          Похвастаться{' '}
+          <span role="img" aria-label="Horns emoji">
+            🤘
+          </span>
+        </Label>
         <Buttons>
           <div className={className}>
             {networks.map(({ name, action }) => (

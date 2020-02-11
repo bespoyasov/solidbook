@@ -28,6 +28,7 @@ class QuizCreator implements Service {
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   shutdown() {}
 }
 

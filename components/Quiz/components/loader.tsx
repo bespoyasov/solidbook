@@ -27,18 +27,15 @@ class QuizLoader extends Component<IProps, IState> {
 
   constructor(props) {
     super(props)
+    const { name } = this.props
 
     this.state = { error: null }
 
-    this.moduleName = camelcase(this.props.name)
+    this.moduleName = camelcase(name)
     this.module = quizzes[this.moduleName]
 
     if (this.module == null)
       this.state = { error: `Module ${this.moduleName} not found. Check components/Quiz/quiz-list` }
-  }
-
-  get injected() {
-    return this.props as IInjectedProps & IProps
   }
 
   componentDidCatch(error) {
@@ -46,18 +43,8 @@ class QuizLoader extends Component<IProps, IState> {
     this.setState({ error: error.message })
   }
 
-  render() {
-    const { error } = this.state
-    const { app } = this.injected
-    const quizModel = app.getByName(this.moduleName)
-
-    if (error) {
-      return this.renderError()
-    } if (quizModel) {
-      return this.renderQuiz()
-    } 
-      return null
-    
+  get injected() {
+    return this.props as IInjectedProps & IProps
   }
 
   renderError() {
@@ -82,6 +69,20 @@ class QuizLoader extends Component<IProps, IState> {
         variants={this.module.variants}
       />
     )
+  }
+
+  render() {
+    const { error } = this.state
+    const { app } = this.injected
+    const quizModel = app.getByName(this.moduleName)
+
+    if (error) {
+      return this.renderError()
+    }
+    if (quizModel) {
+      return this.renderQuiz()
+    }
+    return null
   }
 }
 

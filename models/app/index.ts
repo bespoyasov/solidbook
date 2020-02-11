@@ -61,7 +61,7 @@ const AppModel = types
 
       const score = Math.ceil((MAX_SCORE - START_SCORE) * (correctAnswers / questionsCount)) + START_SCORE
 
-      return isNaN(score) ? START_SCORE : score
+      return Number.isNaN(score) ? START_SCORE : score
     },
     get totalScore() {
       return MAX_SCORE
