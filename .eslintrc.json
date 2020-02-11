@@ -50,10 +50,12 @@
     "no-extra-semi": "off",
     "no-irregular-whitespace": "off",
     "no-multiple-empty-lines": "off",
+    "no-param-reassign": "off",
     "no-trailing-spaces": "off",
     "no-underscore-dangle": "off",
     "quote-props": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react/react-in-jsx-scope": "off",
     "space-before-function-paren": "off"
   },
   "settings": {
@@ -61,7 +63,9 @@
       "eslint-import-resolver-custom-alias": {
         "extensions": [".ts", ".tsx"],
         "alias": {
-          "~": "."
+          "~": ".",
+          "next": "node_modules/next",
+          "prismjs": "node_modules/prismjs"
         }
       },
       "node": {
