@@ -59,6 +59,7 @@
   "settings": {
     "import/resolver": {
       "eslint-import-resolver-custom-alias": {
+        "extensions": [".ts", ".tsx"],
         "alias": {
           "~": "."
         }
