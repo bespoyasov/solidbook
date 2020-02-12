@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
 import { Container, Heading } from './style'
 import { Variant } from '~/components/Quiz/components/Variant'
