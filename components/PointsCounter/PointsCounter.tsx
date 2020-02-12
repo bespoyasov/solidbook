@@ -17,10 +17,6 @@ class PointsCounter extends Component {
 
   public updatesCount = 0
 
-  get injected() {
-    return this.props as IInjectedProps
-  }
-
   componentDidUpdate() {
     // don't show animation on initial update when mobx injects props
     this.updatesCount++
@@ -34,16 +30,17 @@ class PointsCounter extends Component {
     clearTimeout(this.animationTimeout)
   }
 
+  get injected() {
+    return this.props as IInjectedProps
+  }
+
   render() {
     const { app } = this.injected
     return (
       <Container ref={node => (this.root = node)}>
         <Counter>
           <Label>Ваш счёт:</Label>
-          <Big>{app.userScore}</Big>
-          {' '}
-          /
-          {app.totalScore}
+          <Big>{app.userScore}</Big> /{app.totalScore}
         </Counter>
 
         {app.userScore > 0 && (

@@ -42,7 +42,7 @@ class QuizContainer extends Component<IProps> {
             correct={quizModel.isComplete && quizModel.isCorrect(index)}
             index={index}
             variant={variant}
-            key={index}
+            key={index} // eslint-disable-line react/no-array-index-key
             onToggleAnswer={this.toggleAnswer}
           />
         ))}

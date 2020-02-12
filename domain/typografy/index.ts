@@ -8,7 +8,7 @@ import Typograf from 'typograf'
 class Typografy {
   private static _instance: Typografy
 
-  private typograf: any
+  private typograf: any // eslint-disable-line @typescript-eslint/no-explicit-any
 
   public static get instance() {
     return this._instance || (this._instance = new this())

@@ -6,8 +6,8 @@ import Link from 'next/link'
 import routes, { RouteShape } from '../Navigation/routes'
 import { Container, Column } from './style'
 
-function flattenRoutes(routes: RouteShape[]): RouteShape[] {
-  return routes.reduce((list: RouteShape[], route: RouteShape) => {
+function flattenRoutes(routesToFlat: RouteShape[]): RouteShape[] {
+  return routesToFlat.reduce((list: RouteShape[], route: RouteShape) => {
     if (!route.subnav) return [...list, route]
     return [...list, route, ...flattenRoutes(route.subnav.slice(1))]
   }, [])
@@ -23,7 +23,8 @@ class PrevNext extends PureComponent<PrevNextProps> {
   flatRoutes = flattenRoutes(routes)
 
   get activeIndex(): number {
-    return this.flatRoutes.findIndex(route => route.link === this.props.router.pathname)
+    const { router } = this.props
+    return this.flatRoutes.findIndex(route => route.link === router.pathname)
   }
 
   get prev(): RouteShape {

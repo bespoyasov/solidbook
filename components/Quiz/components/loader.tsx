@@ -39,7 +39,7 @@ class QuizLoader extends Component<IProps, IState> {
   }
 
   componentDidCatch(error) {
-    console.error(error)
+    console.error(error) // eslint-disable-line no-console
     this.setState({ error: error.message })
   }
 

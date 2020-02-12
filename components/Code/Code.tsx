@@ -14,10 +14,12 @@ class Code extends PureComponent<CodeProps> {
   }
 
   highlight = (source: string) => {
+    const { lang } = this.props
+
     return rehype()
       .stringify({
         type: 'root',
-        children: refractor.highlight(source, this.props.lang)
+        children: refractor.highlight(source, lang)
       })
       .toString()
   }
