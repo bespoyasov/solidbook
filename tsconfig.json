@@ -15,20 +15,10 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./*"
-      ]
+      "~/*": ["./*"]
     },
-    "typeRoots": [
-      "./types"
-    ],
-    "lib": [
-      "dom",
-      "es2015",
-      "dom.iterable",
-      "esnext",
-      "es2016"
-    ],
+    "typeRoots": ["./types"],
+    "lib": ["dom", "es2015", "dom.iterable", "esnext", "es2016"],
     "strict": false,
     "strictFunctionTypes": true,
     "forceConsistentCasingInFileNames": true,
@@ -37,16 +27,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.spec.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
