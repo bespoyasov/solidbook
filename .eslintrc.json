@@ -43,6 +43,7 @@
     "eol-last": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
+    "jsx-a11y/anchor-is-valid": "off",
     "linebreak-style": "off",
     "max-len": "off",
     "new-parens": "off",
@@ -51,11 +52,14 @@
     "no-irregular-whitespace": "off",
     "no-multiple-empty-lines": "off",
     "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-return-assign": "off",
     "no-trailing-spaces": "off",
     "no-underscore-dangle": "off",
     "quote-props": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
     "react/static-property-placement": "off",
     "space-before-function-paren": "off"
@@ -66,10 +70,10 @@
         "extensions": [".ts", ".tsx"],
         "alias": {
           "~": ".",
-          "next": "node_modules/next",
-          "rehype": "node_modules/rehype",
+          "next": "node_modules/next/",
+          "rehype": "node_modules/rehype/index.js",
           "prismjs": "node_modules/prismjs",
-          "refractor": "node_modules/refractor",
+          "refractor": "node_modules/refractor/index.js",
           "camelcase": "node_modules/camelcase"
         }
       },
