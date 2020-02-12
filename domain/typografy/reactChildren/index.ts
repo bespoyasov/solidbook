@@ -1,10 +1,10 @@
 import React, { ReactChild, ReactElement, ReactNode } from 'react'
-import Typografy from '~/domain/typografy'
-import TextNode from '~/domain/react/textNode'
-import typografTextWithNeighbors from '~/domain/typografy/textWithNeighbors'
+import { Typografy } from '~/domain/typografy'
+import { ReactTextNode as TextNode } from '~/domain/react/textNode'
+import { typografTextWithNeighbors } from '~/domain/typografy/textWithNeighbors'
 import { getType, TYPES } from '~/domain/react/childType'
 
-class TypografyReactChildren {
+export class TypografyReactChildren {
   public static processElement(node: ReactNode) {
     switch (getType(node)) {
       case TYPES.STRING:
@@ -89,5 +89,3 @@ class TypografyReactChildren {
     }
   }
 }
-
-export default TypografyReactChildren

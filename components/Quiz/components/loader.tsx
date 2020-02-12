@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
 import camelcase from 'camelcase'
 import { AppModel } from '~/models/app'
-import QuizContainer from '~/components/Quiz/components/QuizContainer'
+import { QuizContainer } from '~/components/Quiz/components/QuizContainer'
 import { IQuiz } from '~/components/Quiz/quizzes/IQuiz'
 import * as quizzes from '../quiz-list'
 
@@ -86,4 +86,4 @@ class QuizLoader extends Component<IProps, IState> {
   }
 }
 
-export default inject('app')(observer(QuizLoader))
+export const Quiz = inject('app')(observer(QuizLoader))

@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const ocpIntro2: IQuiz = {
   name: 'ocp-intro-2',
   question: 'Какую пользу приносит принцип открытости-закрытости?',
   variants: [
@@ -25,5 +25,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

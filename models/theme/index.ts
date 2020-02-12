@@ -1,9 +1,9 @@
 import { types } from 'mobx-state-tree'
 import makeInspectable from 'mobx-devtools-mst'
-import ThemeStateRepository from '~/repository/ThemeStateRepository'
+import { ThemeStateRepository } from '~/repository/ThemeStateRepository'
 import { SaveOnChangeMiddleware } from '../saveOnChange'
 
-const ThemeModel = types
+export const ThemeModel = types
   .model({
     using: types.enumeration(['light', 'dark'])
   })
@@ -13,7 +13,7 @@ const ThemeModel = types
     }
   }))
 
-function createThemeModel(savedState: typeof ThemeModel) {
+export function createThemeModel(savedState: typeof ThemeModel) {
   const stateRepository = ThemeStateRepository.instance
   const themeModel = savedState ? ThemeModel.create(savedState) : ThemeModel.create({ using: 'light' })
 
@@ -23,6 +23,3 @@ function createThemeModel(savedState: typeof ThemeModel) {
   makeInspectable(themeModel)
   return themeModel
 }
-
-export default createThemeModel
-export { ThemeModel }

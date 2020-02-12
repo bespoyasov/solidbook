@@ -10,7 +10,7 @@ interface ThemeObserverProps {
   children: React.ReactElement
 }
 
-class Observer extends React.Component {
+class BaseObserver extends React.Component {
   get injected() {
     return this.props as ThemeObserverProps
   }
@@ -28,4 +28,4 @@ class Observer extends React.Component {
   }
 }
 
-export default inject('theme')(observer(Observer))
+export const Observer = inject('theme')(observer(BaseObserver))

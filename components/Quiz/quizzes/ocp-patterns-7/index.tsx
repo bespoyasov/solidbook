@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const ocpPatterns7: IQuiz = {
   name: 'ocp-patterns-7',
   question: 'Чем полезен механизм подписки шаблона «Наблюдатель»?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 1, 2]
   }
 }
-
-export default quiz

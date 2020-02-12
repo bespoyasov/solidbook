@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpAnti1: IQuiz = {
   name: 'srp-anti-1',
   question: 'Как именно божественный объект нарушает принцип единой ответственности?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 1]
   }
 }
-
-export default quiz

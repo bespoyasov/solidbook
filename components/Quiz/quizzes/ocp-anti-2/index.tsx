@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const ocpAnti2: IQuiz = {
   name: 'ocp-anti-2',
   question: 'Как исправить проблему высокого сцепления модулей при связывании через конкретные классы?',
   variants: [
@@ -25,5 +25,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

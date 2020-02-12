@@ -1,2 +1,2 @@
-export { default } from './view'
+export * from './view'
 export * from './types'

@@ -1,7 +1,7 @@
 import { ReactChild, ReactElement, ReactNode } from 'react'
 import { getType, TYPES } from '~/domain/react/childType'
 
-class ReactTextNode {
+export class ReactTextNode {
   node: ReactNode
 
   public constructor(node: ReactNode) {
@@ -60,5 +60,3 @@ class ReactTextNode {
     return arr[arr.length - 1]
   }
 }
-
-export default ReactTextNode

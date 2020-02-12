@@ -3,7 +3,7 @@ import { NextPageContext } from 'next'
 import { Instance } from 'mobx-state-tree'
 import { ThemeModel } from '~/models/theme'
 
-class ThemeStateRepository {
+export class ThemeStateRepository {
   private static _instance: ThemeStateRepository
 
   private ctx?: NextPageContext
@@ -39,5 +39,3 @@ class ThemeStateRepository {
     })
   }
 }
-
-export default ThemeStateRepository

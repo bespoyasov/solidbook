@@ -1,6 +1,6 @@
 import { types, cast } from 'mobx-state-tree'
 
-const Quiz = types
+export const Quiz = types
   .model('Quiz', {
     answers: types.array(types.number),
     correct: types.array(types.number),
@@ -32,9 +32,6 @@ const Quiz = types
     }
   }))
 
-function createEmptyQuiz() {
+export function createEmptyQuiz() {
   return Quiz.create({ answers: [], isComplete: false, correct: [] })
 }
-
-export default Quiz
-export { createEmptyQuiz }

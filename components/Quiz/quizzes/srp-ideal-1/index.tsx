@@ -2,7 +2,7 @@ import * as React from 'react'
 import { IQuiz } from '../IQuiz'
 import Variant1 from './variants/variant-1.mdx'
 
-const quiz: IQuiz = {
+export const srpIdeal1: IQuiz = {
   name: 'srp-ideal-1',
   question: 'В чём главная причина того, что выбор формата данных вынесен в отдельный класс?',
   variants: [
@@ -26,5 +26,3 @@ const quiz: IQuiz = {
     correctAnswers: [0]
   }
 }
-
-export default quiz

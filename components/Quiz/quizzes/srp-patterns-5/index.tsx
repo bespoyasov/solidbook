@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpPatterns5: IQuiz = {
   name: 'srp-patterns-5',
   question: 'В чём потенциальная опасность фасада?',
   variants: [
@@ -20,5 +20,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

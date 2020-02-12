@@ -5,7 +5,7 @@ import Variant2 from './variant-2.mdx'
 import Variant3 from './variant-3.mdx'
 import Variant4 from './variant-4.mdx'
 
-const quiz: IQuiz = {
+export const lspAnti2: IQuiz = {
   name: 'lsp-anti-2',
   question: <Question />,
   variants: [
@@ -29,5 +29,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

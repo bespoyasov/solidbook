@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { inject } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
-import QuizInitiator from './QuizInitiator'
+import { QuizInitiator } from './QuizInitiator'
 import { AppModel } from '~/models/app'
 
 const services: Service[] = [new QuizInitiator()]
@@ -15,7 +15,7 @@ export interface Service {
   shutdown: () => void
 }
 
-class ServicesManager extends Component {
+class BaseServicesManager extends Component {
   componentDidMount() {
     services.forEach(service => service.init(this.injected.app))
   }
@@ -37,4 +37,4 @@ class ServicesManager extends Component {
   }
 }
 
-export default inject('app')(ServicesManager)
+export const ServicesManager = inject('app')(BaseServicesManager)

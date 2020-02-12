@@ -1,7 +1,6 @@
-import * as React from 'react'
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import clsx from 'clsx'
-import VisuallyHidden from '~/components/VisuallyHidden'
+import { VisuallyHidden } from '~/components/VisuallyHidden'
 import { Label, Description, Item } from './style'
 
 type IProps = {
@@ -17,7 +16,7 @@ type IProps = {
   onToggleAnswer: (value: number) => void
 }
 
-class QuizVariant extends PureComponent<IProps> {
+export class Variant extends PureComponent<IProps> {
   handleChange = () => {
     const { index, onToggleAnswer } = this.props
 
@@ -55,5 +54,3 @@ class QuizVariant extends PureComponent<IProps> {
     )
   }
 }
-
-export default QuizVariant

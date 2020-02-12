@@ -1,10 +1,9 @@
-import * as React from 'react'
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import Link from 'next/link'
-import LogoWrapper from './style'
-import Image from './Image'
+import { LogoWrapper } from './style'
+import { Image } from './Image'
 
-class Logo extends PureComponent {
+export class Logo extends PureComponent {
   render() {
     return (
       <LogoWrapper>
@@ -17,5 +16,3 @@ class Logo extends PureComponent {
     )
   }
 }
-
-export default Logo

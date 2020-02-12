@@ -1,8 +1,7 @@
-import * as React from 'react'
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
-import Share from '~/components/Share'
+import { Share } from '~/components/Share'
 import { Container, Big, Counter, Label, ShareContainer } from './style'
 import { AppModel } from '~/models/app'
 
@@ -10,7 +9,7 @@ interface IInjectedProps {
   app: Instance<typeof AppModel>
 }
 
-class PointsCounter extends Component {
+class BasePointsCounter extends Component {
   public root: HTMLElement
 
   public animationTimeout: number
@@ -53,4 +52,4 @@ class PointsCounter extends Component {
   }
 }
 
-export default inject('app')(observer(PointsCounter))
+export const PointsCounter = inject('app')(observer(BasePointsCounter))

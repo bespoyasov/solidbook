@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const lspAnti3: IQuiz = {
   name: 'lsp-anti-3',
   question: 'В чём заключается суть и опасность «пустой» реализации интерфейса?',
   variants: [
@@ -27,5 +27,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

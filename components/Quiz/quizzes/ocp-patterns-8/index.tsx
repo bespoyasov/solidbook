@@ -7,7 +7,7 @@ import Variant4 from './variant-4.mdx'
 import Description2 from './description-2.mdx'
 import Description4 from './description-4.mdx'
 
-const quiz: IQuiz = {
+export const ocpPatterns8: IQuiz = {
   name: 'ocp-patterns-8',
   question: <Question />,
   variants: [
@@ -31,5 +31,3 @@ const quiz: IQuiz = {
     correctAnswers: [2]
   }
 }
-
-export default quiz

@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const lspIntro1: IQuiz = {
   name: 'lsp-intro-1',
   question: 'В чём суть принцип подстановки Барбары Лисков?',
   variants: [
@@ -25,5 +25,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 2]
   }
 }
-
-export default quiz

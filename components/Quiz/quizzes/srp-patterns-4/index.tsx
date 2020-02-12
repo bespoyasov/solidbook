@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const srpPatterns4: IQuiz = {
   name: 'srp-patterns-4',
   question: 'За счёт чего фасад позволяет упростить взаимодействие между сущностями?',
   variants: [
@@ -22,5 +22,3 @@ const quiz: IQuiz = {
     correctAnswers: [0]
   }
 }
-
-export default quiz

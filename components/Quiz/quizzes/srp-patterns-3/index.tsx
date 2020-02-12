@@ -3,7 +3,7 @@ import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 import Description from './description.mdx'
 
-const quiz: IQuiz = {
+export const srpPatterns3: IQuiz = {
   name: 'srp-patterns-3',
   question: <Question />,
   variants: [
@@ -22,5 +22,3 @@ const quiz: IQuiz = {
     correctAnswers: [2]
   }
 }
-
-export default quiz

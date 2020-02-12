@@ -1,9 +1,8 @@
-import * as React from 'react'
-import { PureComponent } from 'react'
-import Logo from '../Logo'
-import HeaderWrapper from './style'
+import React, { PureComponent } from 'react'
+import { Logo } from '../Logo'
+import { HeaderWrapper } from './style'
 
-class Header extends PureComponent {
+export class Header extends PureComponent {
   render() {
     return (
       <HeaderWrapper>
@@ -12,5 +11,3 @@ class Header extends PureComponent {
     )
   }
 }
-
-export default Header

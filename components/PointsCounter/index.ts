@@ -1,1 +1,1 @@
-export { default } from './PointsCounter'
+export * from './PointsCounter'

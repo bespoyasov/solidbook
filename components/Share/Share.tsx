@@ -20,7 +20,7 @@ interface IInjectedProps {
   app: Instance<typeof AppModel>
 }
 
-class Share extends Component {
+class BaseShare extends Component {
   componentDidMount() {
     likely.initiate()
   }
@@ -59,4 +59,4 @@ class Share extends Component {
   }
 }
 
-export default inject('app')(observer(withTheme(Share)))
+export const Share = inject('app')(observer(withTheme(BaseShare)))

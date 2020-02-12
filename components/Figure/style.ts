@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default styled.figure`
+export const Figure = styled.figure`
   width: auto;
   max-width: 100%;
   text-align: center;

@@ -1,6 +1,6 @@
 import { IQuiz } from '../IQuiz'
 
-const quiz: IQuiz = {
+export const dipIntro3: IQuiz = {
   name: 'dip-intro-3',
   question: 'В чём заключается польза принципа инверсии зависимостей?',
   variants: [
@@ -21,5 +21,3 @@ const quiz: IQuiz = {
     correctAnswers: [0, 3]
   }
 }
-
-export default quiz

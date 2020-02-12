@@ -1,7 +1,7 @@
 import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 
-const quiz: IQuiz = {
+export const dipPatterns3: IQuiz = {
   name: 'dip-patterns-3',
   question: <Question />,
   variants: [
@@ -19,5 +19,3 @@ const quiz: IQuiz = {
     correctAnswers: [1]
   }
 }
-
-export default quiz

@@ -1,13 +1,12 @@
-import * as React from 'react'
-import { PureComponent } from 'react'
-import AbbrWrapper from './style'
+import React, { PureComponent } from 'react'
+import { AbbrWrapper } from './style'
 
 type Props = {
   title?: string
   children?: React.ReactNode
 }
 
-class Abbr extends PureComponent<Props> {
+export class Abbr extends PureComponent<Props> {
   static defaultProps = {}
 
   render() {
@@ -15,5 +14,3 @@ class Abbr extends PureComponent<Props> {
     return <AbbrWrapper title={title}>{children}</AbbrWrapper>
   }
 }
-
-export default Abbr

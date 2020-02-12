@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import refractor from 'refractor'
 import rehype from 'rehype'
 
@@ -8,7 +7,7 @@ type CodeProps = {
   lang: string
 }
 
-class Code extends PureComponent<CodeProps> {
+export class Code extends PureComponent<CodeProps> {
   static defaultProps = {
     lang: 'ts'
   }
@@ -49,5 +48,3 @@ class Code extends PureComponent<CodeProps> {
     )
   }
 }
-
-export default Code

@@ -1,11 +1,11 @@
 import { Instance } from 'mobx-state-tree'
 import { Service } from './ServicesManager'
 import * as quizList from '~/components/Quiz/quiz-list'
-import AppStateRepository from '~/repository/AppStateRepository'
+import { AppStateRepository } from '~/repository/AppStateRepository'
 import { AppModel } from '~/models/app'
-import Quiz from '~/models/quiz'
+import { Quiz } from '~/models/quiz'
 
-class QuizCreator implements Service {
+export class QuizInitiator implements Service {
   init(app: Instance<typeof AppModel>) {
     const state: { quizes: object } = AppStateRepository.instance.load()
 
@@ -31,5 +31,3 @@ class QuizCreator implements Service {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   shutdown() {}
 }
-
-export default QuizCreator

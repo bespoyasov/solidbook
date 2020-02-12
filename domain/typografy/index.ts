@@ -5,7 +5,7 @@ import Typograf from 'typograf'
  *
  * @class Typografy
  */
-class Typografy {
+export class Typografy {
   private static _instance: Typografy
 
   private typograf: any // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -26,5 +26,3 @@ class Typografy {
     return this.typograf.execute(text)
   }
 }
-
-export default Typografy

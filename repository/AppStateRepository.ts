@@ -1,4 +1,4 @@
-class AppStateRepository {
+export class AppStateRepository {
   private static _instance: AppStateRepository
 
   private localstorageKey: string
@@ -29,5 +29,3 @@ class AppStateRepository {
     localStorage.setItem(this.localstorageKey, base64String)
   }
 }
-
-export default AppStateRepository
