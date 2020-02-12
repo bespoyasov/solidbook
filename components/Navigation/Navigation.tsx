@@ -68,7 +68,7 @@ class Navigation extends PureComponent<NavigationProps> {
                       <ul>
                         {subnav.map(({ link: innerLink, name: innerName }) => (
                           <li key={innerLink}>
-                            <NavigationItem href={innerLink} active={this.isActive(link)} depth={2}>
+                            <NavigationItem href={innerLink} active={this.isActive(innerLink)} depth={2}>
                               {innerName}
                             </NavigationItem>
                           </li>
