@@ -11,7 +11,6 @@
   },
   "plugins": ["react", "import", "@typescript-eslint"],
   "extends": [
-    "airbnb",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "prettier"
