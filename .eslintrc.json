@@ -73,6 +73,9 @@
         "map": [["~", "."]],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
+    },
+    "import/order": {
+      "pathGroupsExcludedImportTypes": ["builtin"]
     }
   },
   "globals": {
