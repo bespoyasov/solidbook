@@ -67,7 +67,11 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".ts", ".tsx"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "alias": {
+        "map": [["~", "."]],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   },
