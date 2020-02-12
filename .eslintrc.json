@@ -81,5 +81,10 @@
         "extensions": [".ts", ".tsx"]
       }
     }
+  },
+  "globals": {
+    "expect": true,
+    "describe": true,
+    "it": true
   }
 }
