@@ -2,9 +2,11 @@ import React from 'react'
 import Document, { Head, Main, DocumentContext, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface IProps {
   styleTags: any
 }
+
 export default class MyDocument extends Document<IProps> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
@@ -69,3 +71,4 @@ export default class MyDocument extends Document<IProps> {
     )
   }
 }
+/* eslint-enable */

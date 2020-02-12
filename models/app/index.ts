@@ -29,7 +29,7 @@ const AppModel = types
         typecheck(AppModel, state)
         applySnapshot(self, state)
       } catch (error) {
-        console.error(error)
+        console.error(error) // eslint-disable-line no-console
       }
     }
   }))

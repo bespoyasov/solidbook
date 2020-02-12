@@ -41,6 +41,7 @@ class TypografyReactChildren {
         }
 
       default: {
+        // eslint-disable-next-line no-shadow
         const result = elements.reduce((acc: ReactNode[], element, index, elements) => {
           const hasNext = index < elements.length - 1
           const hasPrev = index > 0
