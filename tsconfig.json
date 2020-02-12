@@ -17,6 +17,7 @@
     "paths": {
       "~/*": ["./*"]
     },
+    "types": ["jest"],
     "typeRoots": ["./types"],
     "lib": ["dom", "es2015", "dom.iterable", "esnext", "es2016"],
     "strict": false,

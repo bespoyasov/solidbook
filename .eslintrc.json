@@ -74,7 +74,7 @@
           "rehype": "node_modules/rehype/index.js",
           "prismjs": "node_modules/prismjs",
           "refractor": "node_modules/refractor/index.js",
-          "camelcase": "node_modules/camelcase"
+          "camelcase": "node_modules/camelcase/index.js"
         }
       },
       "node": {
