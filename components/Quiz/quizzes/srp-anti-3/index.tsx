@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 

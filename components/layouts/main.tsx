@@ -1,16 +1,17 @@
-import React, { PureComponent } from 'react'
-import Head from 'next/head'
-import { Navigation } from '~/components/Navigation'
 import { MDXProvider } from '@mdx-js/react'
+import Head from 'next/head'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import { Header } from '~/components/Header'
+
+import { Center } from './Center'
+import { Code } from '~/components/Code'
 import { Footer } from '~/components/Footer'
-import { ThemeToggle } from '~/components/ThemeToggle'
+import { Abbr } from '~/components/Formatters/Abbr'
+import { Header } from '~/components/Header'
+import { Navigation } from '~/components/Navigation'
 import { Paragraph } from '~/components/Paragraph'
 import { PrevNext } from '~/components/PrevNext'
-import { Abbr } from '~/components/Formatters/Abbr'
-import { Code } from '~/components/Code'
-import { Center } from './Center'
+import { ThemeToggle } from '~/components/ThemeToggle'
 
 const Grid = styled.div`
   width: 100%;
@@ -64,6 +65,7 @@ type Props = {
 
 export class MainLayout extends PureComponent<Props> {
   static defaultProps = {}
+
   render() {
     const { meta = { title: 'Solid', description: '' }, children } = this.props
 

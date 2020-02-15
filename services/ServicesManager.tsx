@@ -1,7 +1,8 @@
-import { Component } from 'react'
-import { QuizInitiator } from './QuizInitiator'
 import { inject } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
+import { Component } from 'react'
+
+import { QuizInitiator } from './QuizInitiator'
 import { AppModel } from '~/models/app'
 
 const services: Service[] = [new QuizInitiator()]
@@ -16,20 +17,20 @@ export interface Service {
 }
 
 class BaseServicesManager extends Component {
-  shouldComponentUpdate() {
-    return false
-  }
-
-  get injected() {
-    return this.props as IInjectedProps
-  }
-
   componentDidMount() {
     services.forEach(service => service.init(this.injected.app))
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
   componentWillUnmount() {
     services.forEach(service => service.shutdown())
+  }
+
+  get injected() {
+    return this.props as IInjectedProps
   }
 
   render() {

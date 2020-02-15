@@ -1,8 +1,10 @@
 import { ReactChild, ReactElement, ReactNode } from 'react'
+
 import { getType, TYPES } from '~/domain/react/childType'
 
 export class ReactTextNode {
   node: ReactNode
+
   public constructor(node: ReactNode) {
     this.node = node
   }

@@ -1,7 +1,8 @@
 import { createGlobalStyle, ThemeProps } from 'styled-components'
-import { theme as light } from '../light'
-import { theme as dark } from '../dark'
+
 import { common } from '../common'
+import { theme as dark } from '../dark'
+import { theme as light } from '../light'
 
 const defaultTheme = {
   ...common,

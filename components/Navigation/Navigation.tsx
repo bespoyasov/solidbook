@@ -1,11 +1,12 @@
-import React, { PureComponent } from 'react'
 import { WithRouterProps } from 'next/dist/client/with-router'
 import { withRouter, SingletonRouter } from 'next/router'
-import { countOccurencies } from '../../lib'
-import { PointsCounter } from '../PointsCounter'
+import React, { PureComponent } from 'react'
+
 import { NavigationItem } from '../NavigationItem'
-import { Nav, Section, SubSection } from './style'
+import { PointsCounter } from '../PointsCounter'
 import { routes } from './routes'
+import { Nav, Section, SubSection } from './style'
+import { countOccurencies } from '~/lib'
 
 interface NavigationOwnProps {
   router?: SingletonRouter
@@ -16,6 +17,7 @@ type NavigationProps = WithRouterProps & NavigationOwnProps
 class BaseNavigation extends PureComponent<NavigationProps> {
   isSection = (link: string): boolean => !['/', '/afterwords'].includes(link)
 
+  // eslint-disable-next-line react/destructuring-assignment
   isActive = (link: string): boolean => this.props.router.pathname === link
 
   isSectionRoot = (link: string): boolean => countOccurencies(/\//g, link) === 1
@@ -23,7 +25,8 @@ class BaseNavigation extends PureComponent<NavigationProps> {
   isLastPage = (link: string): boolean => link === routes[routes.length - 1].link
 
   isCompleted = (navLink: string): boolean => {
-    const activeLink = this.props.router.pathname
+    const { router } = this.props
+    const activeLink = router.pathname
     const activeSection = this.isSectionRoot(activeLink)
       ? activeLink
       : activeLink.substr(0, activeLink.lastIndexOf('/'))
@@ -34,7 +37,8 @@ class BaseNavigation extends PureComponent<NavigationProps> {
   }
 
   containsActive = (link: string): boolean => {
-    return this.props.router.pathname.includes(link) && this.isSection(link) && this.isSectionRoot(link)
+    const { router } = this.props
+    return router.pathname.includes(link) && this.isSection(link) && this.isSectionRoot(link)
   }
 
   render() {
@@ -62,10 +66,10 @@ class BaseNavigation extends PureComponent<NavigationProps> {
                   {!!subnav && containsActive && (
                     <SubSection>
                       <ul>
-                        {subnav.map(({ link, name }) => (
-                          <li key={link}>
-                            <NavigationItem href={link} active={this.isActive(link)} depth={2}>
-                              {name}
+                        {subnav.map(({ link: innerLink, name: innerName }) => (
+                          <li key={innerLink}>
+                            <NavigationItem href={innerLink} active={this.isActive(innerLink)} depth={2}>
+                              {innerName}
                             </NavigationItem>
                           </li>
                         ))}

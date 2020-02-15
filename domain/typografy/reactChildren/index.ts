@@ -1,8 +1,9 @@
 import React, { ReactChild, ReactElement, ReactNode } from 'react'
-import { Typografy } from '~/domain/typografy'
-import { ReactTextNode as TextNode } from '~/domain/react/textNode'
-import { typografTextWithNeighbors } from '~/domain/typografy/textWithNeighbors'
+
 import { getType, TYPES } from '~/domain/react/childType'
+import { ReactTextNode as TextNode } from '~/domain/react/textNode'
+import { Typografy } from '~/domain/typografy'
+import { typografTextWithNeighbors } from '~/domain/typografy/textWithNeighbors'
 
 export class TypografyReactChildren {
   public static processElement(node: ReactNode) {
@@ -41,43 +42,44 @@ export class TypografyReactChildren {
         }
 
       default: {
+        // eslint-disable-next-line no-shadow
         const result = elements.reduce((acc: ReactNode[], element, index, elements) => {
           const hasNext = index < elements.length - 1
           const hasPrev = index > 0
 
           if (index === 0 && element === ' ') {
             return acc
-          } else if (index === elements.length - 1 && element === ' ') {
+          }
+          if (index === elements.length - 1 && element === ' ') {
             return acc
-          } else {
-            switch (getType(element)) {
-              case TYPES.STRING:
-                acc.push(
-                  typografTextWithNeighbors(
-                    element as string,
-                    hasPrev && new TextNode(elements[index - 1]).lastWord,
-                    hasNext && new TextNode(elements[index + 1]).firstWord
-                  )
+          }
+          switch (getType(element)) {
+            case TYPES.STRING:
+              acc.push(
+                typografTextWithNeighbors(
+                  element as string,
+                  hasPrev && new TextNode(elements[index - 1]).lastWord,
+                  hasNext && new TextNode(elements[index + 1]).firstWord
                 )
-                break
+              )
+              break
 
-              case TYPES.ARRAY:
-                acc.push(this.processElementList((element as unknown) as ReactChild[], element as ReactElement))
-                break
+            case TYPES.ARRAY:
+              acc.push(this.processElementList((element as unknown) as ReactChild[], element as ReactElement))
+              break
 
-              case TYPES.REACT_ELEMENT_WITH_CHILDREN:
-                acc.push(
-                  this.processElementList(
-                    React.Children.toArray((element as ReactElement).props.children),
-                    element as ReactElement
-                  )
+            case TYPES.REACT_ELEMENT_WITH_CHILDREN:
+              acc.push(
+                this.processElementList(
+                  React.Children.toArray((element as ReactElement).props.children),
+                  element as ReactElement
                 )
-                break
+              )
+              break
 
-              default:
-                acc.push(element)
-                break
-            }
+            default:
+              acc.push(element)
+              break
           }
 
           return acc

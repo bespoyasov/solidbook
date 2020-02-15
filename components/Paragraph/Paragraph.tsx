@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, ReactNode } from 'react'
+
 import { TypografyReactChildren as TypografReactNode } from '~/domain/typografy/reactChildren'
 
-export class Paragraph extends PureComponent {
+export class Paragraph extends PureComponent<{ children: ReactNode }> {
   render() {
     const { children } = this.props
     return TypografReactNode.processElement(<p>{children}</p>)

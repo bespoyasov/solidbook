@@ -1,14 +1,17 @@
 import Document, { Head, Main, DocumentContext, NextScript } from 'next/document'
+import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface IProps {
   styleTags: any
 }
+
 export default class MyDocument extends Document<IProps> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
-    const page = ctx.renderPage((App: any) => (props: any) =>
-      sheet.collectStyles(<App {...props} />) as React.ReactElement<any>
+    const page = ctx.renderPage(
+      (App: any) => (props: any) => sheet.collectStyles(<App {...props} />) as React.ReactElement<any> // eslint-disable-line react/jsx-props-no-spreading
     )
     const styleTags = sheet.getStyleElement()
     return { ...page, styleTags }
@@ -18,7 +21,7 @@ export default class MyDocument extends Document<IProps> {
     const { styleTags } = this.props
 
     return (
-      <html>
+      <html lang="ru">
         <Head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -42,7 +45,8 @@ export default class MyDocument extends Document<IProps> {
           <meta name="twitter:title" content="SOLID BOOK" />
           <meta name="twitter:description" content="Книга о принципах объектно-ориентированного дизайна" />
           <meta name="twitter:image" content="https://ota-solid.now.sh/socials.png" />
-          <style>{`
+          <style>
+            {`
             *,
             *::after,
             *::before {
@@ -55,7 +59,8 @@ export default class MyDocument extends Document<IProps> {
               padding: 0;
               margin: 0;
             }
-          `}</style>
+          `}
+          </style>
           {styleTags}
         </Head>
         <body>
@@ -66,3 +71,4 @@ export default class MyDocument extends Document<IProps> {
     )
   }
 }
+/* eslint-enable */

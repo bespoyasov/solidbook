@@ -1,11 +1,11 @@
 import { IQuiz } from '../IQuiz'
+import Description2 from './description-2.mdx'
+import Description4 from './description-4.mdx'
 import Question from './question.mdx'
 import Variant1 from './variant-1.mdx'
 import Variant2 from './variant-2.mdx'
 import Variant3 from './variant-3.mdx'
 import Variant4 from './variant-4.mdx'
-import Description2 from './description-2.mdx'
-import Description4 from './description-4.mdx'
 
 export const ocpPatterns8: IQuiz = {
   name: 'ocp-patterns-8',

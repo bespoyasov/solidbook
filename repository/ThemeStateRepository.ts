@@ -1,14 +1,18 @@
-import { setCookie, parseCookies } from 'nookies'
-import { NextPageContext } from 'next'
 import { Instance } from 'mobx-state-tree'
+import { NextPageContext } from 'next'
+import { setCookie, parseCookies } from 'nookies'
+
 import { ThemeModel } from '~/models/theme'
 
 export class ThemeStateRepository {
   private static _instance: ThemeStateRepository
+
   private ctx?: NextPageContext
+
   private key: string
 
   public static get instance() {
+    // eslint-disable-next-line no-return-assign
     return this._instance || (this._instance = new this())
   }
 

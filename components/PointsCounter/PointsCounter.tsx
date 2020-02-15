@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import { Instance } from 'mobx-state-tree'
 import { inject, observer } from 'mobx-react'
-import { AppModel } from '~/models/app'
-import { Share } from '~/components/Share'
+import { Instance } from 'mobx-state-tree'
+import React, { Component } from 'react'
+
 import { Container, Big, Counter, Label, ShareContainer } from './style'
+import { Share } from '~/components/Share'
+import { AppModel } from '~/models/app'
 
 interface IInjectedProps {
   app: Instance<typeof AppModel>
@@ -11,12 +12,10 @@ interface IInjectedProps {
 
 class BasePointsCounter extends Component {
   public root: HTMLElement
-  public animationTimeout: number
-  public updatesCount: number = 0
 
-  get injected() {
-    return this.props as IInjectedProps
-  }
+  public animationTimeout: number
+
+  public updatesCount = 0
 
   componentDidUpdate() {
     // don't show animation on initial update when mobx injects props
@@ -31,13 +30,17 @@ class BasePointsCounter extends Component {
     clearTimeout(this.animationTimeout)
   }
 
+  get injected() {
+    return this.props as IInjectedProps
+  }
+
   render() {
     const { app } = this.injected
     return (
       <Container ref={node => (this.root = node)}>
         <Counter>
           <Label>Ваш счёт:</Label>
-          <Big>{app.userScore}</Big> / {app.totalScore}
+          <Big>{app.userScore}</Big> /{app.totalScore}
         </Counter>
 
         {app.userScore > 0 && (

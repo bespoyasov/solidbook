@@ -1,13 +1,14 @@
+import clsx from 'clsx'
+import likely from 'ilyabirman-likely'
+import { inject, observer } from 'mobx-react'
+import { Instance } from 'mobx-state-tree'
 import * as React from 'react'
 import { Component } from 'react'
-import likely from 'ilyabirman-likely'
 import { withTheme } from 'styled-components'
-import { inject, observer } from 'mobx-react'
+
 import { Container, Buttons, Label } from './style'
 import { AppModel } from '~/models/app'
 import { MainThemeProps } from '~/themes/main'
-import { Instance } from 'mobx-state-tree'
-import clsx from 'clsx'
 
 const networks = [
   { name: 'twitter', action: 'Твитнуть' },
@@ -21,12 +22,12 @@ interface IInjectedProps {
 }
 
 class BaseShare extends Component {
-  get injected() {
-    return this.props as IInjectedProps & MainThemeProps
-  }
-
   componentDidMount() {
     likely.initiate()
+  }
+
+  get injected() {
+    return this.props as IInjectedProps & MainThemeProps
   }
 
   render() {
@@ -35,7 +36,12 @@ class BaseShare extends Component {
 
     return (
       <Container>
-        <Label>Похвастаться 🤘</Label>
+        <Label>
+          Похвастаться{' '}
+          <span role="img" aria-label="Horns emoji">
+            🤘
+          </span>
+        </Label>
         <Buttons>
           <div className={className}>
             {networks.map(({ name, action }) => (

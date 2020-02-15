@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react'
 import clsx from 'clsx'
-import { VisuallyHidden } from '~/components/VisuallyHidden'
+import React, { PureComponent } from 'react'
+
 import { Label, Description, Item } from './style'
+import { VisuallyHidden } from '~/components/VisuallyHidden'
 
 type IProps = {
   completed: boolean

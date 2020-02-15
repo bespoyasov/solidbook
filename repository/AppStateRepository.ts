@@ -1,8 +1,9 @@
 export class AppStateRepository {
   private static _instance: AppStateRepository
+
   private localstorageKey: string
 
-  public static get instance() {
+  public static get instance(): AppStateRepository {
     return this._instance || (this._instance = new this())
   }
 
@@ -10,7 +11,7 @@ export class AppStateRepository {
     this.localstorageKey = 'solid-book'
   }
 
-  load(): { quizes: object } | null {
+  public load(): { quizes: object } | null {
     try {
       const base64String = localStorage.getItem(this.localstorageKey)
       const jsonState = atob(base64String!)
@@ -21,7 +22,7 @@ export class AppStateRepository {
     }
   }
 
-  save(state: object) {
+  public save(state: object): void {
     const jsonState = JSON.stringify(state)
     const base64String = btoa(jsonState)
     localStorage.setItem(this.localstorageKey, base64String)

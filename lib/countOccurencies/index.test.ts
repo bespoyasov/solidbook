@@ -1,4 +1,4 @@
-import { countOccurencies } from '.'
+import { countOccurencies } from './index'
 
 const testRegexpString = /test/g
 const testRegexpSymbol = /\//g

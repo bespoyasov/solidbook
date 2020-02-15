@@ -2,7 +2,7 @@ import { ReactTextNode as TextNode } from '~/domain/react/textNode'
 import { Typografy } from '~/domain/typografy'
 
 export function typografTextWithNeighbors(node: string, prevWord?: string, nextWord?: string): string {
-  let words: string[] = []
+  const words: string[] = []
 
   if (prevWord) words.push(new TextNode(prevWord).lastWord)
   words.push(node)

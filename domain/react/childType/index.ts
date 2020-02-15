@@ -1,5 +1,6 @@
-import { isValidElement, ReactNode } from 'react'
 import { isNull } from 'util'
+
+import { isValidElement, ReactNode } from 'react'
 
 export enum TYPES {
   NULL,
@@ -24,7 +25,7 @@ export function getType(node: ReactNode) {
   } else if (typeof node === 'number') {
     return TYPES.NUMBER
   } else if (isValidElement(node)) {
-    if (node.props['children'] != null) {
+    if (node.props.children != null) {
       return TYPES.REACT_ELEMENT_WITH_CHILDREN
     } else {
       return TYPES.REACT_ELEMENT_WITHOUT_CHILDREN
