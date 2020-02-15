@@ -3,7 +3,6 @@ import { Instance } from 'mobx-state-tree'
 import { Component } from 'react'
 
 import { QuizInitiator } from './QuizInitiator'
-
 import { AppModel } from '~/models/app'
 
 const services: Service[] = [new QuizInitiator()]

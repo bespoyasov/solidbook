@@ -3,7 +3,6 @@ import { Instance } from 'mobx-state-tree'
 import React, { Component } from 'react'
 
 import { Container, Heading } from './style'
-
 import { Button } from '~/components/Button'
 import { Variant } from '~/components/Quiz/components/Variant'
 import { IVariant } from '~/components/Quiz/quizzes/IQuiz'

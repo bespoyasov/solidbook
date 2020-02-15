@@ -5,7 +5,6 @@ import * as React from 'react'
 import { Component } from 'react'
 
 import * as quizzes from '../quiz-list'
-
 import { QuizContainer } from '~/components/Quiz/components/QuizContainer'
 import { IQuiz } from '~/components/Quiz/quizzes/IQuiz'
 import { AppModel } from '~/models/app'

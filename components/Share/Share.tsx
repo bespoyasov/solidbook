@@ -7,7 +7,6 @@ import { Component } from 'react'
 import { withTheme } from 'styled-components'
 
 import { Container, Buttons, Label } from './style'
-
 import { AppModel } from '~/models/app'
 import { MainThemeProps } from '~/themes/main'
 

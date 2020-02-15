@@ -6,7 +6,6 @@ import { NavigationItem } from '../NavigationItem'
 import { PointsCounter } from '../PointsCounter'
 import { routes } from './routes'
 import { Nav, Section, SubSection } from './style'
-
 import { countOccurencies } from '~/lib'
 
 interface NavigationOwnProps {

@@ -4,7 +4,6 @@ import { Instance } from 'mobx-state-tree'
 import * as React from 'react'
 
 import { Container, Toggle, Shaft, Trolley } from './style'
-
 import { VisuallyHidden } from '~/components/VisuallyHidden'
 import { ThemeModel } from '~/models/theme'
 

@@ -1,7 +1,6 @@
 import { Instance } from 'mobx-state-tree'
 
 import { Service } from './ServicesManager'
-
 import * as quizList from '~/components/Quiz/quiz-list'
 import { AppModel } from '~/models/app'
 import { Quiz } from '~/models/quiz'

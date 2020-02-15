@@ -4,7 +4,6 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
 import { Center } from './Center'
-
 import { Code } from '~/components/Code'
 import { Footer } from '~/components/Footer'
 import { Abbr } from '~/components/Formatters/Abbr'

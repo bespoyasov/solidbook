@@ -75,11 +75,11 @@
           },
           {
             "pattern": "../**",
-            "group": "sibling"
+            "group": "internal"
           },
           {
             "pattern": "./**",
-            "group": "sibling"
+            "group": "internal"
           }
         ],
         "alphabetize": {

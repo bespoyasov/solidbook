@@ -3,7 +3,6 @@ import { Instance } from 'mobx-state-tree'
 import React, { Component } from 'react'
 
 import { Container, Big, Counter, Label, ShareContainer } from './style'
-
 import { Share } from '~/components/Share'
 import { AppModel } from '~/models/app'
 
