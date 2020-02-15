@@ -1,5 +1,6 @@
-import { isValidElement, ReactNode } from 'react'
 import { isNull } from 'util'
+
+import { isValidElement, ReactNode } from 'react'
 
 export enum TYPES {
   NULL,

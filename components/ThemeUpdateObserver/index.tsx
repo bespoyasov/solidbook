@@ -1,9 +1,10 @@
-import React from 'react'
-import { Instance } from 'mobx-state-tree'
-import { ThemeProvider } from 'styled-components'
 import { observer, inject } from 'mobx-react'
-import { GlobalStyle, themes } from '../../themes/main'
+import { Instance } from 'mobx-state-tree'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
 import { ThemeModel } from '~/models/theme'
+import { GlobalStyle, themes } from '~/themes/main'
 
 interface ThemeObserverProps {
   theme: Instance<typeof ThemeModel>

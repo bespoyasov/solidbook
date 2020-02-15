@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+
 import { AbbrWrapper } from './style'
 
 type Props = {

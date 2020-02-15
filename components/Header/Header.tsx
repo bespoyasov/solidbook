@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+
 import { Logo } from '../Logo'
 import { HeaderWrapper } from './style'
 

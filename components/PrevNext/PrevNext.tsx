@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react'
 import { WithRouterProps } from 'next/dist/client/with-router'
-import { withRouter, SingletonRouter } from 'next/router'
 import Link from 'next/link'
+import { withRouter, SingletonRouter } from 'next/router'
+import React, { PureComponent } from 'react'
+
 import { routes, RouteShape } from '../Navigation/routes'
 import { Container, Column } from './style'
 

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+
 import { Center } from '../layouts/Center'
 import { Wrapper, Container, BasicExternalLink, GithubLink, PatreonLink } from './style'
 

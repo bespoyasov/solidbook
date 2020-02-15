@@ -4,7 +4,6 @@ export class AppStateRepository {
   private localstorageKey: string
 
   public static get instance(): AppStateRepository {
-    // eslint-disable-next-line no-return-assign
     return this._instance || (this._instance = new this())
   }
 

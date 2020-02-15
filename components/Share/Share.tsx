@@ -1,11 +1,13 @@
-import * as React from 'react'
-import { Component } from 'react'
+import clsx from 'clsx'
 import likely from 'ilyabirman-likely'
-import { withTheme } from 'styled-components'
 import { inject, observer } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
-import clsx from 'clsx'
+import * as React from 'react'
+import { Component } from 'react'
+import { withTheme } from 'styled-components'
+
 import { Container, Buttons, Label } from './style'
+
 import { AppModel } from '~/models/app'
 import { MainThemeProps } from '~/themes/main'
 

@@ -36,6 +36,7 @@
     "@typescript-eslint/semi": ["off", null],
     "@typescript-eslint/space-within-parens": ["off", "never"],
     "@typescript-eslint/type-annotation-spacing": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "arrow-parens": ["off", "as-needed"],
     "class-methods-use-this": "off",
     "comma-dangle": "off",
@@ -49,7 +50,7 @@
     "newline-per-chained-call": "off",
     "no-extra-semi": "off",
     "no-irregular-whitespace": "off",
-    "no-multiple-empty-lines": "off",
+    "no-multiple-empty-lines": [2, { "max": 1 }],
     "no-param-reassign": "off",
     "no-plusplus": "off",
     "no-return-assign": "off",
@@ -62,7 +63,32 @@
     "react/no-array-index-key": "off",
     "react/react-in-jsx-scope": "off",
     "react/static-property-placement": "off",
-    "space-before-function-paren": "off"
+    "react/no-unescaped-entities": "off",
+    "space-before-function-paren": "off",
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "~/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "../**",
+            "group": "sibling"
+          },
+          {
+            "pattern": "./**",
+            "group": "sibling"
+          }
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
@@ -74,8 +100,8 @@
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     },
-    "import/order": {
-      "pathGroupsExcludedImportTypes": ["builtin"]
+    "react": {
+      "version": "detect"
     }
   },
   "globals": {

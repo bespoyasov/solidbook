@@ -1,6 +1,7 @@
-import { setCookie, parseCookies } from 'nookies'
-import { NextPageContext } from 'next'
 import { Instance } from 'mobx-state-tree'
+import { NextPageContext } from 'next'
+import { setCookie, parseCookies } from 'nookies'
+
 import { ThemeModel } from '~/models/theme'
 
 export class ThemeStateRepository {

@@ -1,8 +1,10 @@
-import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
 import makeInspectable from 'mobx-devtools-mst'
-import { AppStateRepository } from '~/repository/AppStateRepository'
+import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
+
 import { Quiz, createEmptyQuiz } from '../quiz'
 import { SaveOnChangeMiddleware } from '../saveOnChange'
+
+import { AppStateRepository } from '~/repository/AppStateRepository'
 
 const START_SCORE = 0
 const MAX_SCORE = 100
@@ -24,7 +26,7 @@ export const AppModel = types
       if (!quiz) quiz = self.createQuiz(name)
       return quiz
     },
-    hydrate(state: any) {
+    hydrate(state: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       try {
         typecheck(AppModel, state)
         applySnapshot(self, state)

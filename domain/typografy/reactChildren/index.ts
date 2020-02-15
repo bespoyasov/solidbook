@@ -1,8 +1,9 @@
 import React, { ReactChild, ReactElement, ReactNode } from 'react'
-import { Typografy } from '~/domain/typografy'
-import { ReactTextNode as TextNode } from '~/domain/react/textNode'
-import { typografTextWithNeighbors } from '~/domain/typografy/textWithNeighbors'
+
 import { getType, TYPES } from '~/domain/react/childType'
+import { ReactTextNode as TextNode } from '~/domain/react/textNode'
+import { Typografy } from '~/domain/typografy'
+import { typografTextWithNeighbors } from '~/domain/typografy/textWithNeighbors'
 
 export class TypografyReactChildren {
   public static processElement(node: ReactNode) {

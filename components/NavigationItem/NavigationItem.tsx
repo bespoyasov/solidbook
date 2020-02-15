@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
+import React, { PureComponent } from 'react'
+
 import { Container } from './style'
 
 interface Props {

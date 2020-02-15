@@ -1,5 +1,5 @@
-import React from 'react'
 import Document, { Head, Main, DocumentContext, NextScript } from 'next/document'
+import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

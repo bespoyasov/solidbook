@@ -1,4 +1,5 @@
 import React, { PureComponent, ReactNode } from 'react'
+
 import { TypografyReactChildren as TypografReactNode } from '~/domain/typografy/reactChildren'
 
 export class Paragraph extends PureComponent<{ children: ReactNode }> {

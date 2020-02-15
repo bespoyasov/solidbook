@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
-import { Share } from '~/components/Share'
+import React, { Component } from 'react'
+
 import { Container, Big, Counter, Label, ShareContainer } from './style'
+
+import { Share } from '~/components/Share'
 import { AppModel } from '~/models/app'
 
 interface IInjectedProps {
