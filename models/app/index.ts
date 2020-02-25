@@ -3,7 +3,7 @@ import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
 
 import { Quiz, createEmptyQuiz } from '../quiz'
 import { SaveOnChangeMiddleware } from '../saveOnChange'
-import { AppState } from '~/repository/AppState'
+import { AppState } from '~/localStorage/AppState'
 
 const START_SCORE = 0
 const MAX_SCORE = 100

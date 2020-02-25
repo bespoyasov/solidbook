@@ -8,7 +8,7 @@ import React from 'react'
 import { Observer as ThemeUpdateObserver } from '~/components/ThemeUpdateObserver'
 import { AppModel, createAppModel } from '~/models/app'
 import { ThemeModel, createThemeModel } from '~/models/theme'
-import { ThemeState } from '~/repository/ThemeState'
+import { ThemeState } from '~/localStorage/ThemeState'
 import { ServicesManager } from '~/services/ServicesManager'
 
 import 'prismjs/themes/prism.css'

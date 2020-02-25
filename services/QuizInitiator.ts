@@ -4,7 +4,7 @@ import { Service } from './ServicesManager'
 import * as quizList from '~/components/Quiz/quiz-list'
 import { AppModel } from '~/models/app'
 import { Quiz } from '~/models/quiz'
-import { AppState } from '~/repository/AppState'
+import { AppState } from '~/localStorage/AppState'
 
 export class QuizInitiator implements Service {
   init(app: Instance<typeof AppModel>) {
