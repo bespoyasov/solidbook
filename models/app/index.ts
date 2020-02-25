@@ -3,7 +3,7 @@ import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
 
 import { Quiz, createEmptyQuiz } from '../quiz'
 import { SaveOnChangeMiddleware } from '../saveOnChange'
-import { AppStateRepository } from '~/repository/AppStateRepository'
+import { AppState } from '~/repository/AppState'
 
 const START_SCORE = 0
 const MAX_SCORE = 100
@@ -25,7 +25,8 @@ export const AppModel = types
       if (!quiz) quiz = self.createQuiz(name)
       return quiz
     },
-    hydrate(state: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
+    hydrate(state: any) {
+      // eslint-disable-line @typescript-eslint/no-explicit-any
       try {
         typecheck(AppModel, state)
         applySnapshot(self, state)
@@ -78,7 +79,7 @@ export function createAppModel(initState?: typeof AppModel): Instance<typeof App
     appModel = AppModel.create({ quizes: {} })
   }
 
-  const appStateRepository = AppStateRepository.instance
+  const appStateRepository = AppState.instance
   const middleware = new SaveOnChangeMiddleware(appModel, appStateRepository, ['toggleComplete', 'toggleAnswer'])
   middleware.enable()
 

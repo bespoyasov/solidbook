@@ -1,9 +1,9 @@
-export class AppStateRepository {
-  private static _instance: AppStateRepository
+export class AppState {
+  private static _instance: AppState
 
   private localstorageKey: string
 
-  public static get instance(): AppStateRepository {
+  public static get instance(): AppState {
     return this._instance || (this._instance = new this())
   }
 
