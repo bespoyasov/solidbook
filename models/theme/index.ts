@@ -2,7 +2,7 @@ import makeInspectable from 'mobx-devtools-mst'
 import { types } from 'mobx-state-tree'
 
 import { SaveOnChangeMiddleware } from '../saveOnChange'
-import { ThemeStateRepository } from '~/repository/ThemeStateRepository'
+import { ThemeState } from '~/repository/ThemeState'
 
 export const ThemeModel = types
   .model({
@@ -15,7 +15,7 @@ export const ThemeModel = types
   }))
 
 export function createThemeModel(savedState: typeof ThemeModel) {
-  const stateRepository = ThemeStateRepository.instance
+  const stateRepository = ThemeState.instance
   const themeModel = savedState ? ThemeModel.create(savedState) : ThemeModel.create({ using: 'light' })
 
   const middleware = new SaveOnChangeMiddleware(themeModel, stateRepository, ['toggleTheme'])
