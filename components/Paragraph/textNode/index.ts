@@ -1,6 +1,6 @@
 import { ReactChild, ReactElement, ReactNode } from 'react'
 
-import { getType, TYPES } from '~/domain/react/childType'
+import { getType, TYPES } from '../childType'
 
 export class ReactTextNode {
   node: ReactNode

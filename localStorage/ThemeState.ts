@@ -4,8 +4,8 @@ import { setCookie, parseCookies } from 'nookies'
 
 import { ThemeModel } from '~/models/theme'
 
-export class ThemeStateRepository {
-  private static _instance: ThemeStateRepository
+export class ThemeState {
+  private static _instance: ThemeState
 
   private ctx?: NextPageContext
 

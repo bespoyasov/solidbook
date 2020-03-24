@@ -8,7 +8,7 @@ import React from 'react'
 import { Observer as ThemeUpdateObserver } from '~/components/ThemeUpdateObserver'
 import { AppModel, createAppModel } from '~/models/app'
 import { ThemeModel, createThemeModel } from '~/models/theme'
-import { ThemeStateRepository } from '~/repository/ThemeStateRepository'
+import { ThemeState } from '~/localStorage/ThemeState'
 import { ServicesManager } from '~/services/ServicesManager'
 
 import 'prismjs/themes/prism.css'
@@ -17,7 +17,7 @@ import 'ilyabirman-likely/release/likely.css'
 
 interface MyAppInitialProps {
   pageProps: {
-    savedTheme: ReturnType<typeof ThemeStateRepository.instance.load>
+    savedTheme: ReturnType<typeof ThemeState.instance.load>
   }
 }
 
@@ -27,7 +27,7 @@ export default class MyApp extends App<MyAppInitialProps> {
   themeModel: Instance<typeof ThemeModel>
 
   static async getInitialProps({ Component, ctx }: AppContextType<Router>) {
-    const themeRepository = ThemeStateRepository.instance
+    const themeRepository = ThemeState.instance
     themeRepository.setContext(ctx)
 
     let pageProps = {
@@ -35,7 +35,7 @@ export default class MyApp extends App<MyAppInitialProps> {
     }
 
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx) as any // eslint-disable-line @typescript-eslint/no-explicit-any
+      pageProps = (await Component.getInitialProps(ctx)) as any // eslint-disable-line @typescript-eslint/no-explicit-any
     }
 
     return { pageProps }

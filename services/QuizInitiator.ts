@@ -4,11 +4,11 @@ import { Service } from './ServicesManager'
 import * as quizList from '~/components/Quiz/quiz-list'
 import { AppModel } from '~/models/app'
 import { Quiz } from '~/models/quiz'
-import { AppStateRepository } from '~/repository/AppStateRepository'
+import { AppState } from '~/localStorage/AppState'
 
 export class QuizInitiator implements Service {
   init(app: Instance<typeof AppModel>) {
-    const state: { quizes: object } = AppStateRepository.instance.load()
+    const state: { quizes: object } = AppState.instance.load()
 
     const quizNames = Object.keys(quizList)
 
