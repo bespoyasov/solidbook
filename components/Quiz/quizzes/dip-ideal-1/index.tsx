@@ -13,7 +13,7 @@ export const dipIdeal1: IQuiz = {
       text: <Variant2 />
     },
     {
-      text: 'Снижает сцепление модулей друг с другом'
+      text: 'Снижает зацепление модулей друг с другом'
     }
   ],
   meta: {
