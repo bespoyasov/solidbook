@@ -12,7 +12,7 @@ const route = (link: string, name: string, subnav?: RouteShape[]): RouteShape =>
 
 export const routes = [
   route('/', 'Введение'),
-  route('/srp', 'Принцип единой ответственности', [
+  route('/srp', 'Принцип единственной ответственности', [
     route('/srp', 'Введение и понятия'),
     route('/srp/in-ideal-world', 'Примеры из идеального мира'),
     route('/srp/in-real-life', 'Примеры из реальной жизни'),
