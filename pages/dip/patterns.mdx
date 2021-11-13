@@ -34,28 +34,40 @@ class Building {
 }
 ```
 
-Если зависимостей много, перечисление их всех в конструкторе может стать проблемой. Эту проблему частично решает инъекция через сеттер.
+Иногда необходимо изменять зависимости класса в процессе работы приложения. Инъекция через конструктор этого не позволяет сделать. В этом случае проблему решает инъекция через сеттер.
 
 ### Инъекция через сеттер
 
-При таком внедрении каждая зависимость указывается в поле, которое можно изменить через `set`. Тогда внутри функции `Builder` вначале мы создаём объект `house`, а затем устанавливаем зависимости как значения для полей.
+При таком внедрении каждая зависимость указывается в поле, которое можно изменить через `set`. Важно, чтобы такие зависимости были опциональными и не нарушали работу экземпляра класса. Внутри функции `Builder` вначале мы создаём объект `house`, а затем устанавливаем зависимости как значения для полей.
 
 ```ts
-class Building {
-  public floor: Floor
-  public ceiling: Ceiling
-  public wall: Wall
 
-  constructor() {/*...*/}
+class Building {
+  floor: Floor
+  ceiling: Ceiling
+  wall: Wall
+  armchair?: Armchair // без кресла в доме прожить можно :)
+
+  constructor(floor: Floor, ceiling: Ceiling, wall: Wall) {
+    this.floor = floor
+    this.ceiling = ceiling
+    this.wall = wall
+  }
 }
 
 function Builder(): Building {
-  const house = new Building()
-  house.ceiling = new Ceiling()
-  house.floor = new Floor()
-  house.wall = new Wall()
+  const house = new Building(new Ceiling(), new Floor(), new Wall())
+  house.armchair = new Armchair()
   return house
 }
+
+
+
+ /*где-то в другом месте приложения */
+
+  house.armchair = new ModernArmchair()
+
+
 ```
 
 Проблема этого подхода в том, что поля с зависимостями становятся `public`, что не всегда приемлемо.
@@ -66,38 +78,39 @@ function Builder(): Building {
 
 ```ts
 interface BuildingDependencies {
-  injectWall(dep: Wall): void
-  injectFloor(dep: Floor): void
-  injectCeiling(dep: Ceiling): void
+  injectArmchair(dep: Armchair): void
 }
 
 class Building implements BuildingDependencies {
   floor: Floor
   ceiling: Ceiling
   wall: Wall
+  armchair?: Armchair
 
-  constructor() {/*...*/}
 
-  injectCeiling(ceiling: Ceiling) {
-    this.ceiling = ceiling
-  }
-
-  injectFloor(floor: Floor) {
+  constructor(floor: Floor, ceiling: Ceiling, wall: Wall) {
     this.floor = floor
+    this.ceiling = ceiling
+    this.wall = wall
   }
 
-  injectWall(wall: Wall) {
-    this.wall = wall
+
+  injectArmchair(armchair: Armchair) {
+    this.armchair: Armchair
   }
 }
 
 function Builder(): Building {
-  const house = new Building()
-  house.injectCeiling(new Ceiling())
-  house.injectFloor(new floor())
-  house.injectWall(new Wall())
+  const house = new Building(new Ceiling(), new Floor(), new Wall())
+  house.injectArmchair(new Armchair())
   return house
 }
+
+ /*где-то в другом месте приложения */
+
+  house.injectArmchair(new ModernArmchair())
+
+
 ```
 
 ## Вопросы
