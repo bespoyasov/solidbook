@@ -61,11 +61,12 @@ function Builder(): Building {
   return house
 }
 
+const house = Builder();
 
 
- /*где-то в другом месте приложения */
+/*где-то в другом месте приложения */
 
-  house.armchair = new ModernArmchair()
+house.armchair = new ModernArmchair()
 
 
 ```
@@ -106,9 +107,12 @@ function Builder(): Building {
   return house
 }
 
- /*где-то в другом месте приложения */
+const house = Builder();
 
-  house.injectArmchair(new ModernArmchair())
+
+/*где-то в другом месте приложения */
+
+house.injectArmchair(new ModernArmchair())
 
 
 ```
