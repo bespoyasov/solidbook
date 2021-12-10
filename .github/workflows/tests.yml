@@ -26,4 +26,4 @@ jobs:
         run: yarn lint
 
       - name: Run unit-tests
-        run: yarn test
+        run: yarn jest
