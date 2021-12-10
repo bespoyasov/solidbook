@@ -17,3 +17,9 @@ jobs:
       
       - name: Check text spelling with yaspeller
         run: yarn spell
+
+      - name: Lint code with eslint
+        run: yarn lint
+
+      - name: Run unit-tests
+        run: yarn test
