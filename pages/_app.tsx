@@ -6,9 +6,9 @@ import { Router } from 'next/router'
 import React from 'react'
 
 import { Observer as ThemeUpdateObserver } from '~/components/ThemeUpdateObserver'
+import { ThemeState } from '~/localStorage/ThemeState'
 import { AppModel, createAppModel } from '~/models/app'
 import { ThemeModel, createThemeModel } from '~/models/theme'
-import { ThemeState } from '~/localStorage/ThemeState'
 import { ServicesManager } from '~/services/ServicesManager'
 
 import 'prismjs/themes/prism.css'

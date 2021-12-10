@@ -1,4 +1,5 @@
 import { ReactTextNode as TextNode } from '../../textNode'
+
 import { Typografy } from '..'
 
 export function typografTextWithNeighbors(node: string, prevWord?: string, nextWord?: string): string {

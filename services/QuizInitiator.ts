@@ -2,9 +2,9 @@ import { Instance } from 'mobx-state-tree'
 
 import { Service } from './ServicesManager'
 import * as quizList from '~/components/Quiz/quiz-list'
+import { AppState } from '~/localStorage/AppState'
 import { AppModel } from '~/models/app'
 import { Quiz } from '~/models/quiz'
-import { AppState } from '~/localStorage/AppState'
 
 export class QuizInitiator implements Service {
   init(app: Instance<typeof AppModel>) {
