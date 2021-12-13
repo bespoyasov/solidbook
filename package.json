@@ -1,7 +1,6 @@
 {
   "name": "solid",
   "version": "0.0.1",
-  "license": "UNLICENSED",
   "scripts": {
     "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
     "dev": "next",
