@@ -2,6 +2,7 @@ import React, { ReactChild, ReactElement, ReactNode } from 'react'
 
 import { getType, TYPES } from '../../childType'
 import { ReactTextNode as TextNode } from '../../textNode'
+
 import { Typografy } from '..'
 import { typografTextWithNeighbors } from '../textWithNeighbors'
 

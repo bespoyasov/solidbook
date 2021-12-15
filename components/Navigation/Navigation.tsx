@@ -4,9 +4,9 @@ import React, { PureComponent } from 'react'
 
 import { NavigationItem } from '../NavigationItem'
 import { PointsCounter } from '../PointsCounter'
+import { countOccurencies } from './countOccurencies'
 import { routes } from './routes'
 import { Nav, Section, SubSection } from './style'
-import { countOccurencies } from './countOccurencies'
 
 interface NavigationOwnProps {
   router?: SingletonRouter

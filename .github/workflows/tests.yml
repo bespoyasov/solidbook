@@ -1,0 +1,29 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      
+      - name: Install all dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Check text spelling with yaspeller
+        run: yarn spell
+
+      - name: Lint code with eslint
+        run: yarn lint
+
+      - name: Run unit-tests
+        run: yarn jest
