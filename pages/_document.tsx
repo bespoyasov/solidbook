@@ -1,4 +1,4 @@
-import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
+import Document, { Head, Main, DocumentContext, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
