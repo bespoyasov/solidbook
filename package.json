@@ -5,9 +5,10 @@
     "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
     "dev": "next",
     "test": "jest --watchAll",
-    "now-build": "next build",
+    "now-build": "next build && npm run gen_book",
     "start": "next start",
-    "lint": "eslint \"./**/*.{ts,tsx}\""
+    "lint": "eslint \"./**/*.{ts,tsx}\"",
+    "gen_book": "npx esbuild services/PdfConverter.ts  --bundle --outfile=services/PdfConverter.js --platform=node --external:puppeteer --external:md-to-pdf && node services/PdfConverter.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.5.5",
@@ -15,6 +16,7 @@
     "@mdx-js/runtime": "^1.5.5",
     "@mdx-js/tag": "^0.20.3",
     "@next/mdx": "^9.2.1",
+    "@types/marked": "^4.0.3",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
     "@zeit/next-css": "^1.0.1",
@@ -31,6 +33,8 @@
     "eslint-plugin-react": "^7.18.3",
     "ilyabirman-likely": "^2.4.0",
     "jest": "^25.1.0",
+    "marked": "^4.0.15",
+    "md-to-pdf": "^5.1.0",
     "mobx": "^5.15.4",
     "mobx-devtools-mst": "^0.9.21",
     "mobx-react": "^6.1.4",
@@ -43,9 +47,14 @@
     "react-no-ssr": "^1.1.0",
     "refractor": "^2.10.1",
     "rehype": "^9.0.1",
+    "remark-mdx": "^2.1.1",
+    "remark-parse": "^10.0.1",
+    "remark-stringify": "^10.0.2",
     "styled-components": "^4.4.1",
     "typescript": "^3.7.5",
-    "typograf": "^6.11.0"
+    "typograf": "^6.11.0",
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",

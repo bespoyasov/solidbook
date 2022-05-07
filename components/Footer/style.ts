@@ -47,6 +47,8 @@ const DecoratedLink = styled(BasicLink)`
 const DecoratedExternalLink = styled(DecoratedLink).attrs(externalLinkAttrs)``
 
 export const GithubLink = styled(DecoratedExternalLink)`
+  margin-left: 1em;
+
   &::before {
     content: '😻';
   }
@@ -57,5 +59,11 @@ export const PatreonLink = styled(DecoratedExternalLink)`
 
   &::before {
     content: '💖';
+  }
+`
+
+export const BookLink = styled(DecoratedExternalLink)`
+  &::before {
+    content: '📖';
   }
 `
