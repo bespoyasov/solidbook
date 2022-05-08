@@ -5,8 +5,11 @@ import { Pdf } from './pdf'
 
 export class MarkdownPdfAdapter {
   markdownToPdf = async (markdown: Markdown): Promise<Pdf> => {
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    const pdf = await mdToPdf({ content: markdown.content }, { document_title: 'SOLID book' }).catch(console.error)
+    const pdf = await mdToPdf(
+      { content: markdown.content },
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      { document_title: 'SOLID book', launch_options: { args: ['--no-sandbox'] } }
+    ).catch(console.error)
 
     if (pdf) {
       return new Pdf(pdf.content)
