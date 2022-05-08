@@ -27,6 +27,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "exclude": ["node_modules", "services/PdfConverter.ts"],
+  "exclude": ["node_modules", "services/BookBuilder/PdfConverter.ts"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

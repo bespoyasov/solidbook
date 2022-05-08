@@ -8,7 +8,7 @@
     "now-build": "next build && npm run gen_book",
     "start": "next start",
     "lint": "eslint \"./**/*.{ts,tsx}\"",
-    "gen_book": "npx esbuild services/PdfConverter.ts  --bundle --outfile=services/PdfConverter.js --platform=node --external:puppeteer --external:md-to-pdf && node services/PdfConverter.js"
+    "gen_book": "npx esbuild services/BookBuilder/index.ts  --bundle --outfile=services/BookBuilder.js --platform=node --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.5.5",
@@ -50,10 +50,12 @@
     "remark-mdx": "^2.1.1",
     "remark-parse": "^10.0.1",
     "remark-stringify": "^10.0.2",
+    "remark-toc": "^8.0.1",
     "styled-components": "^4.4.1",
     "typescript": "^3.7.5",
     "typograf": "^6.11.0",
     "unified": "^10.1.2",
+    "unist-util-filter": "^4.0.0",
     "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
