@@ -1,11 +1,13 @@
 import fs from 'fs'
+
 import { visit } from 'unist-util-visit'
-import { MarkdownPdfAdapter } from './mdToPdf'
-import { MdxBookMarkdownBookAdapter } from './mdxToMd'
-import { Markdown, MarkdownBook, MarkdownBookMarkdownAdapter, MarkdownBookSection, MarkdownBookSubsection } from './md'
-import { MdxBook, MdxBookSection, MdxBookSubSection } from './mdx'
+
 import { Glossary, GlossaryMarkdownAdapter } from './glossary'
+import { Markdown, MarkdownBook, MarkdownBookMarkdownAdapter, MarkdownBookSection, MarkdownBookSubsection } from './md'
+import { MarkdownPdfAdapter } from './mdToPdf'
 import { MdTree } from './mdTree'
+import { MdxBook, MdxBookSection, MdxBookSubSection } from './mdx'
+import { MdxBookMarkdownBookAdapter } from './mdxToMd'
 
 /**
  *
@@ -25,8 +27,8 @@ const formatBook = (book: MarkdownBook) => {
   book.sections.forEach((section) => {
     section.subsections.forEach((subsection) => {
       const { name } = subsection
-      let mdxTreeRoot = mdTree.parse(new Markdown(subsection.mdx.content))
-      let markdownTreeRoot = mdTree.parse(new Markdown(subsection.content.content))
+      const mdxTreeRoot = mdTree.parse(new Markdown(subsection.mdx.content))
+      const markdownTreeRoot = mdTree.parse(new Markdown(subsection.content.content))
 
       subsection.content.changeContent((markdown) => {
         markdown.content = ''

@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs'
+
 import { Markdown } from './md'
 
 export class MdxBookSubSection {

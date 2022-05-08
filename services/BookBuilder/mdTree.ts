@@ -1,9 +1,10 @@
-import remarkParse from 'remark-parse'
 import remarkMdx from 'remark-mdx'
-import { unified } from 'unified'
+import remarkParse from 'remark-parse'
 import remarkStringify from 'remark-stringify'
-import { Markdown } from './md'
 import remarkToc from 'remark-toc'
+import { unified } from 'unified'
+
+import { Markdown } from './md'
 
 export class MdTree {
   parse = (markdown: Markdown) => {

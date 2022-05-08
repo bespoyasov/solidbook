@@ -1,5 +1,21 @@
 import { MdxBookSubSection } from './mdx'
 
+export class Markdown {
+  content: string
+
+  constructor(markdown: string) {
+    this.content = markdown
+  }
+
+  addText = (text: string) => {
+    this.content += text
+  }
+
+  changeContent = (fn: (content: this) => string) => {
+    this.content = fn(this)
+  }
+}
+
 export class MarkdownBookSubsection {
   name: string
   content: Markdown
@@ -42,21 +58,5 @@ export class MarkdownBookMarkdownAdapter {
     })
 
     return markdown
-  }
-}
-
-export class Markdown {
-  content: string
-
-  constructor(markdown: string) {
-    this.content = markdown
-  }
-
-  addText = (text: string) => {
-    this.content += text
-  }
-
-  changeContent = (fn: (content: this) => string) => {
-    this.content = fn(this)
   }
 }

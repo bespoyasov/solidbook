@@ -1,8 +1,9 @@
-import { Markdown, MarkdownBook, MarkdownBookSection, MarkdownBookSubsection } from './md'
-import { MdxBook } from './mdx'
 import { filter } from 'unist-util-filter'
-import type { Test } from 'unist-util-is'
+import { Test } from 'unist-util-is'
+
+import { Markdown, MarkdownBook, MarkdownBookSection, MarkdownBookSubsection } from './md'
 import { MdTree } from './mdTree'
+import { MdxBook } from './mdx'
 
 const invalidTypes = ['mdxjsEsm', 'mdxJsxFlowElement']
 
