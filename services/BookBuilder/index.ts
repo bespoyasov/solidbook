@@ -1,5 +1,6 @@
 import fs from 'fs'
 
+import { Parent } from 'unist-util-filter'
 import { visit } from 'unist-util-visit'
 
 import { Glossary, GlossaryMarkdownAdapter } from './glossary'
@@ -90,7 +91,7 @@ const generateGlossary = (markdownBook: MdxBook) => {
 
   markdownBook.sections.forEach((section) => {
     section.subsections.forEach((subsection) => {
-      const treeRoot = mdTree.parse(new Markdown(subsection.content))
+      const treeRoot = mdTree.parse(new Markdown(subsection.content)) as Parent
 
       const lastElem = treeRoot.children[treeRoot.children.length - 1]
 

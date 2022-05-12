@@ -52,7 +52,7 @@
     "remark-stringify": "^10.0.2",
     "remark-toc": "^8.0.1",
     "styled-components": "^4.4.1",
-    "typescript": "^3.7.5",
+    "typescript": "^3.8.2",
     "typograf": "^6.11.0",
     "unified": "^10.1.2",
     "unist-util-filter": "^4.0.0",
