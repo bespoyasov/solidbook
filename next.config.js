@@ -1,5 +1,4 @@
 const withSourceMaps = require('@zeit/next-source-maps')
-const withCSS = require('@zeit/next-css')
 
 const withMDX = require('@next/mdx')({
   extension: /\.(md|mdx)$/,
@@ -8,10 +7,4 @@ const withMDX = require('@next/mdx')({
   }
 })
 
-module.exports = withCSS(
-  withMDX(
-    withSourceMaps(
-      { pageExtensions: ["md", "mdx", "tsx"] }
-    )
-  )
-)
+module.exports = withMDX(withSourceMaps({ pageExtensions: ['md', 'mdx', 'tsx'] }))
