@@ -1,7 +1,8 @@
 const withMDX = require('@next/mdx')({
   extension: /\.(md|mdx)$/,
   options: {
-    remarkPlugins: [require('remark-abbr'), require('remark-sectionize')]
+    providerImportSource: '@mdx-js/react',
+    remarkPlugins: [/*require('remark-abbr'),*/ require('remark-sectionize')]
   }
 })
 
