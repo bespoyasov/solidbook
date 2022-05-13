@@ -14,7 +14,7 @@ export class MarkdownPdfAdapter {
     if (pdf) {
       return new Pdf(pdf.content)
     } else {
-      throw new Error('pdf creation was failed')
+      throw new Error('PDF creation failed.')
     }
   }
 }
