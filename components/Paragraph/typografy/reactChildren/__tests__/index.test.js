@@ -1,8 +1,8 @@
 import React from 'react'
+
 import { TypografyReactChildren } from '../index'
 
 const NON_BREAK_SPACE_CODE = 160
-const BREAK_SPACE_CODE = 32
 const LESS_THEN_EQUAL_CODE = 8804
 const BREAK_SPACE_SYBMOL = ' '
 
@@ -34,7 +34,7 @@ describe('Typograf rules', () => {
   it('common/nbsp/afterShortWord with nested component #3', () => {
     const resultNode = TypografyReactChildren.processElement([
       BREAK_SPACE_SYBMOL,
-      <p>ООП</p>,
+      <p key="oop">ООП</p>,
       BREAK_SPACE_SYBMOL,
       'вызывает'
     ])

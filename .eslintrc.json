@@ -7,7 +7,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "tsconfig.json",
-    "sourceType": "module"
+    "sourceType": "module",
+    "createDefaultProgram": true
   },
   "plugins": ["react", "import", "@typescript-eslint"],
   "extends": [
@@ -58,7 +59,10 @@
     "no-underscore-dangle": "off",
     "quote-props": "off",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".tsx"] }
+    ],
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",
     "react/react-in-jsx-scope": "off",
