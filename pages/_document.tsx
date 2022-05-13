@@ -1,4 +1,4 @@
-import Document, { Head, Main, DocumentContext, NextScript } from 'next/document'
+import Document, { Html, Head, Main, DocumentContext, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
@@ -10,18 +10,34 @@ interface IProps {
 export default class MyDocument extends Document<IProps> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
-    const page = ctx.renderPage(
-      (App: any) => (props: any) => sheet.collectStyles(<App {...props} />) as React.ReactElement<any> // eslint-disable-line react/jsx-props-no-spreading
-    )
-    const styleTags = sheet.getStyleElement()
-    return { ...page, styleTags }
+    const originalRenderPage = ctx.renderPage
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />)
+        })
+
+      const initialProps = await Document.getInitialProps(ctx)
+      return {
+        ...initialProps,
+        styleTags: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        )
+      }
+    } finally {
+      sheet.seal()
+    }
   }
 
   render() {
     const { styleTags } = this.props
 
     return (
-      <html lang="ru">
+      <Html lang="ru">
         <Head>
           <style>
             {`
@@ -45,7 +61,7 @@ export default class MyDocument extends Document<IProps> {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }
