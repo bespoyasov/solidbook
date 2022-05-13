@@ -1,13 +1,12 @@
-import React, { PureComponent } from 'react'
+import React, { PropsWithChildren, PureComponent } from 'react'
 import { refractor } from 'refractor'
 import { rehype } from 'rehype'
 
 type CodeProps = {
-  children?: JSX.Element
-  lang: string
+  lang?: string
 }
 
-export class Code extends PureComponent<CodeProps> {
+export class Code extends PureComponent<PropsWithChildren<CodeProps>> {
   static defaultProps = {
     lang: 'ts'
   }
@@ -30,9 +29,12 @@ export class Code extends PureComponent<CodeProps> {
 
     return (
       <pre>
-        {React.Children.map(children, (child: React.ReactElement): React.ReactElement => {
-          if (child.props?.originalType && child.props.originalType !== 'code') return child
+        {React.Children.map(children, (child) => {
+          if (typeof child === 'number' || typeof child === 'boolean') return child
           if (typeof child === 'string') return this.createCodeElement(this.highlight(child))
+
+          if (!('props' in child)) return child
+          if (child.props?.originalType && child.props.originalType !== 'code') return child
           return this.createCodeElement(this.highlight(child.props.children))
         })}
       </pre>
