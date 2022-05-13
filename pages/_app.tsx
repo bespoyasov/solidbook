@@ -2,8 +2,6 @@ import { Provider as MobxProvider } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
 import Head from 'next/head'
 import App from 'next/app'
-import { AppContextType } from 'next/dist/next-server/lib/utils'
-import { Router } from 'next/router'
 import React from 'react'
 
 import { Observer as ThemeUpdateObserver } from '~/components/ThemeUpdateObserver'
@@ -27,7 +25,7 @@ export default class MyApp extends App<MyAppInitialProps> {
 
   themeModel: Instance<typeof ThemeModel>
 
-  static async getInitialProps({ Component, ctx }: AppContextType<Router>) {
+  static async getInitialProps({ Component, ctx }) {
     const themeRepository = ThemeState.instance
     themeRepository.setContext(ctx)
 
