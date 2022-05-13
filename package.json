@@ -17,7 +17,6 @@
     "@next/mdx": "^12.1.6",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
-    "@zeit/next-source-maps": "^0.0.3",
     "@zeit/next-typescript": "^1.1.1",
     "camelcase": "^6.3.0",
     "clsx": "^1.1.0",
