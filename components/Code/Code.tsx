@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import refractor from 'refractor'
-import rehype from 'rehype'
+import { refractor } from 'refractor'
+import { rehype } from 'rehype'
 
 type CodeProps = {
   children?: JSX.Element
@@ -14,13 +14,7 @@ export class Code extends PureComponent<CodeProps> {
 
   highlight = (source: string) => {
     const { lang } = this.props
-
-    return rehype()
-      .stringify({
-        type: 'root',
-        children: refractor.highlight(source, lang)
-      })
-      .toString()
+    return rehype().stringify(refractor.highlight(source, lang)).toString()
   }
 
   createCodeElement = (innerHtml: string) => {
@@ -36,14 +30,11 @@ export class Code extends PureComponent<CodeProps> {
 
     return (
       <pre>
-        {React.Children.map(
-          children,
-          (child: React.ReactElement): React.ReactElement => {
-            if (child.props && child.props.originalType !== 'code') return child
-            if (typeof child === 'string') return this.createCodeElement(this.highlight(child))
-            return this.createCodeElement(this.highlight(child.props.children))
-          }
-        )}
+        {React.Children.map(children, (child: React.ReactElement): React.ReactElement => {
+          if (child.props?.originalType && child.props.originalType !== 'code') return child
+          if (typeof child === 'string') return this.createCodeElement(this.highlight(child))
+          return this.createCodeElement(this.highlight(child.props.children))
+        })}
       </pre>
     )
   }
