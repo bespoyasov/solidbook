@@ -30,7 +30,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 - трудно тестируется — глобальный объект хранит большое количество данных и может находиться в большом количестве различных состояний, из-за чего модульные тесты могут показывать непредсказуемые результаты.
 
 ## Смешение архитектурных слоёв
-[Паттерн MVC](https://ru.wikipedia.org/wiki/Model-View-Controller) подразумевает три сущности: модель, представление и контроллер. Модель отвечает за хранение данных; представление — за их отображение; контроллер — за преобразование и обработку.
+[Паттерн Model-View-Controller, MVC](https://ru.wikipedia.org/wiki/Model-View-Controller) подразумевает три сущности: модель, представление и контроллер. Модель отвечает за хранение данных; представление — за их отображение; контроллер — за преобразование и обработку.
 
 Смешение слоёв — это неправильное распределение или размазывание ответственностей между слоями. Оно может приводить:
 - к [разрастанию контроллера](https://gunnarpeipman.com/aspnet/why-to-avoid-fat-controllers/), что делает его код трудным для понимания;
@@ -49,6 +49,3 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 <Quiz name='srp-anti-1' />
 <Quiz name='srp-anti-2' />
 <Quiz name='srp-anti-3' />
-
-*[SRP]:Single responsibility principle
-*[MVC]:Model-view-controller
