@@ -1,4 +1,4 @@
-import { ReactChild, ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
 import { getType, TYPES } from '../childType'
 
@@ -36,7 +36,7 @@ export class ReactTextNode {
       case TYPES.ARRAY:
         return position === 'first'
           ? this.firstNodeWord(node[0])
-          : this.lastNodeWord(this.lastElement((node as unknown) as Array<ReactChild>))
+          : this.lastNodeWord(this.lastElement(node as unknown as ReactNode[]))
 
       case TYPES.REACT_ELEMENT_WITH_CHILDREN:
         return position === 'first'
