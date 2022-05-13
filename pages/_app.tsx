@@ -1,7 +1,7 @@
 import { Provider as MobxProvider } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
-import Head from 'next/head'
 import App from 'next/app'
+import Head from 'next/head'
 import React from 'react'
 
 import { Observer as ThemeUpdateObserver } from '~/components/ThemeUpdateObserver'

@@ -1,9 +1,9 @@
 import React, { ReactElement, ReactNode } from 'react'
 
+import { Typografy } from '..'
 import { getType, TYPES } from '../../childType'
 import { ReactTextNode as TextNode } from '../../textNode'
 
-import { Typografy } from '..'
 import { typografTextWithNeighbors } from '../textWithNeighbors'
 
 export class TypografyReactChildren {
