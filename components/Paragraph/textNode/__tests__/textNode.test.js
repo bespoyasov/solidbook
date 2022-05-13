@@ -1,13 +1,14 @@
 import React from 'react'
+
 import { ReactTextNode } from '../index'
 
 describe('ReactTextNode firstWord', () => {
   it('return "1" from <p>1 asd asd</p>', () => {
-    expect(new ReactTextNode((<p>1 asd asd</p>)).firstWord).toEqual('1')
+    expect(new ReactTextNode(<p>1 asd asd</p>).firstWord).toEqual('1')
   })
 
   it('return "s" from <p>s aasdf</p>', () => {
-    expect(new ReactTextNode((<p>s aasdf</p>)).firstWord).toEqual('s')
+    expect(new ReactTextNode(<p>s aasdf</p>).firstWord).toEqual('s')
   })
 
   it('return "super" from <p><span>super</span>duper</p>', () => {
@@ -29,11 +30,11 @@ describe('ReactTextNode firstWord', () => {
 
 describe('ReactTextNode lastWord', () => {
   it('return "asd" from <p>1 asd asd</p>', () => {
-    expect(new ReactTextNode((<p>1 asd asd</p>)).lastWord).toEqual('asd')
+    expect(new ReactTextNode(<p>1 asd asd</p>).lastWord).toEqual('asd')
   })
 
   it('return "aasdf" from <p>s aasdf</p>', () => {
-    expect(new ReactTextNode((<p>s aasdf</p>)).lastWord).toEqual('aasdf')
+    expect(new ReactTextNode(<p>s aasdf</p>).lastWord).toEqual('aasdf')
   })
 
   it('return "duper" from <p><span>super</span>duper</p>', () => {
