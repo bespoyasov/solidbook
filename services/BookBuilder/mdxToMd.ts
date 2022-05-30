@@ -7,18 +7,13 @@ import { MdxBook } from './mdx'
 
 const invalidTypes = ['mdxjsEsm', 'mdxJsxFlowElement']
 
-const mdTree = new MdTree()
+const isForbiddenElement = (el: Node) => invalidTypes.includes(el.type)
+const isQuestionsChapterHeading = (el: Node) => el.type === 'heading' && el.children[0].value === 'Вопросы'
+const isAnnotationList = (el: Node, index: number, parent: Parent) =>
+  parent && parent.type === 'root' && index === parent.children.length - 1 && el.type === 'paragraph'
 
-// удаляем лишние элементы из markdown
-const changeNode: Test = (el, index, parent) => {
-  if (invalidTypes.includes(el.type)) {
-    // исключаем все не-markdown элементы
-    return false
-  } else if (el.type === 'heading' && el.children[0].value === 'Вопросы') {
-    // исключаем заголовок "Вопросы"
-    return false
-  } else if (parent && parent.type === 'root' && index === parent.children.length - 1 && el.type === 'paragraph') {
-    // исключаем список подсказок
+const filterMdElement: Test = (el, index, parent) => {
+  if (isForbiddenElement(el) || isQuestionsChapterHeading(el) || isAnnotationList(el, index, parent)) {
     return false
   }
   return true
