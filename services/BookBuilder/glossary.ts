@@ -16,7 +16,7 @@ export class GlossaryMarkdownAdapter {
     const keys = Object.keys(glossary.terms).sort()
 
     keys.forEach((definite) => {
-      markdown += `_${definite}_ - ${glossary.terms[definite]} <br></br> \n`
+      markdown += `- _${definite}_ - ${glossary.terms[definite]} \n`
     })
 
     return new Markdown(markdown)
