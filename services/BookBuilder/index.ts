@@ -1,179 +1,206 @@
 import fs from 'fs'
 
-import { Parent } from 'unist-util-filter'
 import { visit } from 'unist-util-visit'
 
-import { Glossary, GlossaryMarkdownAdapter } from './glossary'
-import { Markdown, MarkdownBook, MarkdownBookMarkdownAdapter, MarkdownBookSection, MarkdownBookSubsection } from './md'
-import { MarkdownPdfAdapter } from './mdToPdf'
-import { MdTree } from './mdTree'
-import { MdxBook, MdxBookSection, MdxBookSubSection } from './mdx'
+import { MarkdownBook, MdxBook } from './books'
+import { GlossaryMarkdownAdapter } from './glossary'
+import { MarkdownTreeMarkdownAdapter } from './markdown'
+import { MdAstTreeAdapter, MarkdownAstTreeNode } from './mdAstTree'
 import { MdxBookMarkdownBookAdapter } from './mdxToMd'
+import { MarkdownPdfAdapter } from './pdf'
 
 /**
  *
  * TODO:
  *  [] - Содержание не поддерживается читалками (adobe reader, mac os preview, edge browser)
- *  [] - Внутренние ссылки второго уровня глубины сломаны (/lsp/in-real-life)
- *  [] - не работает разрыв между страницами в начале каждого раздела
+ *  [] - Внутренние ссылки второго уровня глубины сломаны (/lsp/in-real-life) (можно обернуть заголовок в тег и добавить якорь,
+ *  например <h1 id="lsp/patterns">Шаблоны проектирования и приёмы рефакторинга</h1>
+ *  ,пока это не работает, так как remark определяет такой элемент как paragraph, а не heading
+ *  https://github.com/mdx-js/mdx/issues/1488)
  */
 
-const mdxBookMarkdownBookAdapter = new MdxBookMarkdownBookAdapter()
-const markdownBookMarkdownAdapter = new MarkdownBookMarkdownAdapter()
-const markdownPdfAdapter = new MarkdownPdfAdapter()
-const mdTree = new MdTree()
 const regexForTitle = new RegExp("title: '(.*)'", '')
 
-const formatBook = (book: MarkdownBook) => {
-  book.sections.forEach((section) => {
-    section.subsections.forEach((subsection) => {
-      const { name } = subsection
-      const mdxTreeRoot = mdTree.parse(new Markdown(subsection.mdx.content))
-      const markdownTreeRoot = mdTree.parse(new Markdown(subsection.content.content))
+const formatBook = (mdxBook: MdxBook) => (book: MarkdownBook) => {
+  for (let sectionIndex = 0; sectionIndex < book.sections.length; sectionIndex++) {
+    const mdSection = book.sections[sectionIndex]
+    const mdxSection = mdxBook.sections[sectionIndex]
 
-      subsection.content.changeContent((markdown) => {
-        markdown.content = ''
+    for (let subSectionIndex = 0; subSectionIndex < mdSection.subsections.length; subSectionIndex++) {
+      const mdSubSection = mdSection.subsections[subSectionIndex]
+      const mdxSubSection = mdxSection.subsections[subSectionIndex]
 
-        // заменяем внутренние ссылки на якоря
-        visit(markdownTreeRoot, 'link', (node: { url: string }) => {
-          if (node.url[0] === '/') {
-            node.url = node.url.replace('/', '#')
+      const markdownAstTree = MdAstTreeAdapter.parse(mdSubSection.content)
+      const mdxAstTree = MdAstTreeAdapter.parse(mdxSubSection.content)
+
+      mdSubSection.updateContent('')
+
+      // заменяем внутренние ссылки на якоря
+      visit(markdownAstTree, 'link', (node: { url: string }) => {
+        if (node.url[0] === '/') {
+          node.url = node.url.replace('/', '#')
+        }
+      })
+
+      // добавляем заголовок для раздела "Введение"
+      if (mdSubSection.name.search('pages/index.mdx') !== -1) {
+        visit(mdxAstTree, 'mdxjsEsm', (node: MarkdownAstTreeNode) => {
+          if (node.value.search('export const meta') !== -1) {
+            const title = regexForTitle.exec(node.value)[1]
+            mdSubSection.addContent(`# ${title}\n`)
           }
         })
+        // добавляем заголовок для остальных разделов
+      } else if (mdSubSection.name.search('index.mdx') !== -1) {
+        visit(mdxAstTree, 'mdxjsEsm', (node: MarkdownAstTreeNode) => {
+          if (node.value.search('export const meta') !== -1) {
+            const title = regexForTitle.exec(node.value)[1]
+            const titleLeftPart = title.split('|')[0]
+            mdSubSection.addContent(`# ${titleLeftPart}\n`)
+          }
+        })
+      }
 
-        // добавляем заголовок для раздела "Введение"
-        if (subsection.name.search('pages/index.mdx') !== -1) {
-          visit(mdxTreeRoot, 'mdxjsEsm', (node: { value: string; depth: number; type: string; content: string }) => {
-            if (node.value.search('export const meta') !== -1) {
-              const title = regexForTitle.exec(node.value)[1]
-              markdown.addText(`# ${title}\n`)
-            }
-          })
-          // добавляем заголовок для остальных разделов
-        } else if (subsection.name.search('index.mdx') !== -1) {
-          visit(mdxTreeRoot, 'mdxjsEsm', (node: { value: string; depth: number; type: string; content: string }) => {
-            if (node.value.search('export const meta') !== -1) {
-              const title = regexForTitle.exec(node.value)[1]
-              const titleLeftPart = title.split('|')[0]
-              markdown.addText(`# ${titleLeftPart}\n`)
-            }
-          })
-        }
+      // увеличиваем глубину заголовков, так как ранее мы добавили заголовки первого уровня
+      if (mdSubSection.name.search('pages/afterwords.mdx') === -1) {
+        visit(markdownAstTree, 'heading', (node: { depth: number }) => {
+          node.depth = node.depth + 1
+        })
+      }
 
-        // увеличиваем глубину заголовков, так как ранее мы добавили заголовки первого уровня
-        if (name.search('pages/afterwords.mdx') === -1) {
-          visit(markdownTreeRoot, 'heading', (node: { depth: number }) => {
-            node.depth = node.depth + 1
-          })
-        }
+      mdSubSection.addContent(MdAstTreeAdapter.stringify(markdownAstTree))
 
-        markdown.addText(mdTree.stringify(markdownTreeRoot) as string)
-        // добавляем отступы после каждого подраздела
-        markdown.addText('<br></br>\n\n')
+      // добавляем отступы после каждого подраздела
+      mdSubSection.content.addText('<br></br>\n\n')
+    }
 
-        return markdown.content
-      })
-      subsection.content.addText('<br></br>\n\n')
-    })
-    section.addSubSection(
-      new MarkdownBookSubsection('', new Markdown(`\n\n <br></br> <div class="page-break"></div> <br></br> \n\n`))
-    )
-  })
-
+    mdSection.addSubSection(`\n <div class="page-break">&nbsp;</div> \n`)
+  }
   return book
 }
 
-const regexForAnnotation = new RegExp('\\*\\[(.*)\\]:(.*)', 'gm')
+enum Section {
+  ROOT = '.',
+  SRP = 'srp',
+  OCP = 'ocp',
+  LSP = 'lsp',
+  ISP = 'isp',
+  DIP = 'dip'
+}
 
-const generateGlossary = (markdownBook: MdxBook) => {
-  const glossary = new Glossary()
-  const glossaryMarkdownAdapter = new GlossaryMarkdownAdapter()
+enum SubSection {
+  Index = 'index',
+  Ideal = 'in-ideal-world',
+  Real = 'in-real-life',
+  Patterns = 'patterns',
+  Antipatterns = 'antipatterns',
+  Limits = 'limits-and-caveats',
+  Afterwords = 'afterwords'
+}
 
-  markdownBook.sections.forEach((section) => {
-    section.subsections.forEach((subsection) => {
-      const treeRoot = mdTree.parse(new Markdown(subsection.content)) as Parent
+const BookSchema: {
+  sections: {
+    name: Section
+    subSections: SubSection[]
+  }[]
+} = {
+  sections: [
+    {
+      name: Section.ROOT,
+      subSections: [SubSection.Index]
+    },
+    {
+      name: Section.SRP,
+      subSections: [
+        SubSection.Index,
+        SubSection.Ideal,
+        SubSection.Real,
+        SubSection.Patterns,
+        SubSection.Antipatterns,
+        SubSection.Limits
+      ]
+    },
+    {
+      name: Section.OCP,
+      subSections: [
+        SubSection.Index,
+        SubSection.Ideal,
+        SubSection.Real,
+        SubSection.Patterns,
+        SubSection.Antipatterns,
+        SubSection.Limits
+      ]
+    },
+    {
+      name: Section.LSP,
+      subSections: [
+        SubSection.Index,
+        SubSection.Ideal,
+        SubSection.Real,
+        SubSection.Patterns,
+        SubSection.Antipatterns,
+        SubSection.Limits
+      ]
+    },
+    {
+      name: Section.ISP,
+      subSections: [
+        SubSection.Index,
+        SubSection.Ideal,
+        SubSection.Real,
+        SubSection.Patterns,
+        SubSection.Antipatterns,
+        SubSection.Limits
+      ]
+    },
+    {
+      name: Section.DIP,
+      subSections: [
+        SubSection.Index,
+        SubSection.Ideal,
+        SubSection.Real,
+        SubSection.Patterns,
+        SubSection.Antipatterns,
+        SubSection.Limits
+      ]
+    },
+    {
+      name: Section.ROOT,
+      subSections: [SubSection.Afterwords]
+    }
+  ]
+}
 
-      const lastElem = treeRoot.children[treeRoot.children.length - 1]
+const fillMdxBookWithContent = (mdxBook: MdxBook): void => {
+  mdxBook.addSection().getLastSection().addSubSection('# Содержание')
 
-      if (lastElem.type === 'paragraph') {
-        let groups = null
+  BookSchema.sections.forEach((section) => {
+    const newSection = mdxBook.addSection().getLastSection()
 
-        // и попутно добавляем подсказки в список словаря
-        while ((groups = regexForAnnotation.exec(lastElem.children[0].value)) !== null) {
-          const [, term, description] = groups
-          glossary.addTerm(term, description)
-        }
-      }
+    section.subSections.forEach((subSection) => {
+      const filePath = `pages/${section.name}/${subSection}.mdx`
+
+      newSection.addSubSection(fs.readFileSync(filePath, 'utf8'), filePath)
     })
   })
-
-  const markdown = glossaryMarkdownAdapter.convertToMarkdown(glossary)
-  markdown.changeContent((markdown) => {
-    return `\n # Словарь  \n` + markdown.content
-  })
-  return markdown
 }
 
 const run = async () => {
   const mdxBook = new MdxBook()
 
-  mdxBook.addSection(new MdxBookSection().addSubSection(new MdxBookSubSection('', '# Содержание')))
-  mdxBook.addSection(new MdxBookSection().addSubSection(new MdxBookSubSection('pages/index.mdx')))
-  mdxBook.addSection(
-    new MdxBookSection()
-      .addSubSection(new MdxBookSubSection('pages/srp/index.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/srp/in-ideal-world.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/srp/patterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/srp/antipatterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/srp/limits-and-caveats.mdx'))
-  )
-  mdxBook.addSection(
-    new MdxBookSection()
-      .addSubSection(new MdxBookSubSection('pages/ocp/index.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/ocp/in-ideal-world.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/ocp/patterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/ocp/antipatterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/ocp/limits-and-caveats.mdx'))
-  )
-  mdxBook.addSection(
-    new MdxBookSection()
-      .addSubSection(new MdxBookSubSection('pages/lsp/index.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/lsp/in-ideal-world.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/lsp/patterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/lsp/antipatterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/lsp/limits-and-caveats.mdx'))
-  )
-  mdxBook.addSection(
-    new MdxBookSection()
-      .addSubSection(new MdxBookSubSection('pages/isp/index.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/isp/in-ideal-world.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/isp/patterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/isp/antipatterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/isp/limits-and-caveats.mdx'))
-  )
-  mdxBook.addSection(
-    new MdxBookSection()
-      .addSubSection(new MdxBookSubSection('pages/dip/index.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/dip/in-ideal-world.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/dip/patterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/dip/antipatterns.mdx'))
-      .addSubSection(new MdxBookSubSection('pages/dip/limits-and-caveats.mdx'))
-  )
-  mdxBook.addSection(new MdxBookSection().addSubSection(new MdxBookSubSection('pages/afterwords.mdx')))
+  fillMdxBookWithContent(mdxBook)
 
-  const markdownBook = mdxBookMarkdownBookAdapter.mdxBookToMarkdownBook(mdxBook)
+  const markdownBook = MdxBookMarkdownBookAdapter.mdxBookToMarkdownBook(mdxBook)
+  const formattedBook = markdownBook.format(formatBook(mdxBook))
 
-  const formattedBook = formatBook(markdownBook)
+  const glossaryMarkdown = GlossaryMarkdownAdapter.generateGlossary(mdxBook)
+  formattedBook.addSection().getLastSection().addSubSection(glossaryMarkdown.content)
 
-  const glossaryMarkdown = generateGlossary(mdxBook)
-  const GlossarySection = new MarkdownBookSection().addSubSection(
-    new MarkdownBookSubsection('glossary', glossaryMarkdown)
-  )
-  formattedBook.addSection(GlossarySection)
+  const markdownContent = MarkdownTreeMarkdownAdapter.markdownTreeToMarkdown(formattedBook)
 
-  const BookWithTableOfContent = mdTree.addTableOfContents(markdownBookMarkdownAdapter.bookToMarkdown(formattedBook))
+  const markdownWithTableOfContents = MdAstTreeAdapter.addTableOfContents(markdownContent)
 
-  const pdf = await markdownPdfAdapter.markdownToPdf(BookWithTableOfContent)
+  const pdf = await MarkdownPdfAdapter.markdownToPdf(markdownWithTableOfContents)
   fs.writeFileSync('public/solid_book.pdf', pdf.content)
 }
 

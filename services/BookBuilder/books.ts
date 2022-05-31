@@ -1,8 +1,20 @@
 import { filter } from 'unist-util-filter'
 import { Test, TestFunctionAnything } from 'unist-util-is'
 
-import { MarkdownBook, MdxBook } from './books'
+import { MarkdownTree } from './markdownTree'
 import { MdAstTreeAdapter } from './mdAstTree'
+
+export class MdxBook extends MarkdownTree {
+  constructor() {
+    super()
+  }
+}
+
+export class MarkdownBook extends MarkdownTree {
+  constructor() {
+    super()
+  }
+}
 
 const invalidTypes = ['mdxjsEsm', 'mdxJsxFlowElement']
 

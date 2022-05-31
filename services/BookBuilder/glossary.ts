@@ -1,4 +1,8 @@
-import { Markdown } from './md'
+import { Markdown } from './markdown'
+import { MdAstTreeAdapter } from './mdAstTree'
+import { MdxBook } from './books'
+
+const regexForAnnotation = new RegExp('\\*\\[(.*)\\]:(.*)', 'gm')
 
 export class Glossary {
   terms: {
@@ -10,15 +14,45 @@ export class Glossary {
   }
 }
 
-export class GlossaryMarkdownAdapter {
-  convertToMarkdown = (glossary: Glossary): Markdown => {
-    let markdown = ''
-    const keys = Object.keys(glossary.terms).sort()
+export abstract class GlossaryMarkdownAdapter {
+  private static convertToMarkdown = (glossary: Glossary): Markdown => {
+    const glossaryMarkdown = new Markdown('')
+    const sortedTerms = Object.keys(glossary.terms).sort()
 
-    keys.forEach((definite) => {
-      markdown += `- _${definite}_ - ${glossary.terms[definite]} \n`
+    sortedTerms.forEach((term) => {
+      const description = glossary.terms[term]
+      glossaryMarkdown.addText(`- _${term}_ - ${description} \n`)
     })
 
-    return new Markdown(markdown)
+    return glossaryMarkdown
+  }
+
+  public static generateGlossary = (markdownBook: MdxBook) => {
+    const glossary = new Glossary()
+
+    markdownBook.sections.forEach((section) => {
+      section.subsections.forEach((subsection) => {
+        const astTree = MdAstTreeAdapter.parse(subsection.content)
+
+        const lastElem = astTree.children[astTree.children.length - 1]
+
+        if (lastElem.type === 'paragraph') {
+          let groups: RegExpExecArray = null
+
+          while ((groups = regexForAnnotation.exec(lastElem.children[0].value)) !== null) {
+            const [, term, description] = groups
+            glossary.addTerm(term, description)
+          }
+        }
+      })
+    })
+
+    if (Object.keys(glossary.terms).length > 0) {
+      const markdown = this.convertToMarkdown(glossary)
+      markdown.updateContent(`\n # Словарь  \n` + markdown.content)
+      return markdown
+    } else {
+      return new Markdown('')
+    }
   }
 }
