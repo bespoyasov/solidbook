@@ -20,7 +20,7 @@ const Grid = styled.div`
   align-items: start;
   grid-template-columns: 34% 66%;
 
-  @media (max-width: ${props => props.theme.breakpoint}) {
+  @media (max-width: ${(props) => props.theme.breakpoint}) {
     grid-template-columns: 100%;
     padding-top: 1.2rem;
   }
@@ -36,7 +36,7 @@ const Aside = styled.div`
   position: sticky;
   top: 20px;
 
-  @media (max-width: ${props => props.theme.breakpoint}) {
+  @media (max-width: ${(props) => props.theme.breakpoint}) {
     position: relative;
     top: auto;
   }
@@ -47,7 +47,7 @@ const ToggleContainer = styled.div`
   position: relative;
   z-index: 1;
 
-  @media (max-width: ${props => props.theme.breakpoint}) {
+  @media (max-width: ${(props) => props.theme.breakpoint}) {
     position: absolute;
     top: -10px;
     right: 0;
@@ -87,7 +87,13 @@ export class MainLayout extends PureComponent<Props> {
               </ToggleContainer>
             </Aside>
             <div>
-              <MDXProvider components={{ abbr: Abbr, pre: Code, p: Paragraph }}>
+              <MDXProvider
+                components={{
+                  abbr: Abbr,
+                  pre: Code,
+                  p: Paragraph
+                }}
+              >
                 <MainContent>{children}</MainContent>
               </MDXProvider>
               <PrevNext />

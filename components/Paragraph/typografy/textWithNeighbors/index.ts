@@ -1,6 +1,5 @@
-import { ReactTextNode as TextNode } from '../../textNode'
-
 import { Typografy } from '..'
+import { ReactTextNode as TextNode } from '../../textNode'
 
 export function typografTextWithNeighbors(node: string, prevWord?: string, nextWord?: string): string {
   const words: string[] = []

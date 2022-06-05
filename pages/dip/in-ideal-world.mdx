@@ -62,9 +62,9 @@ class Auth {
 
 ## OCP и LSP автоматом
 
-Исправленный вариант автоматически удовлетворяет двум другим принципам: [OCP](/ocp) и [LSP](/lsp).
+Исправленный вариант автоматически удовлетворяет двум другим принципам: [открытости-закрытости (OCP)](/ocp) и [подстановки Лисков (LSP)](/lsp).
 
-Мы можем заменить одну БД на другую, если она реализует интерфейс `DataBaseConnection`, и приложение не сломается, как этого требует LSP. При изменении базы нам не придётся изменять код модуля `Auth` — так мы удовлетворяем OCP.
+Мы можем заменить одну базу данных на другую, если она реализует интерфейс `DataBaseConnection`, и приложение не сломается, как этого требует LSP. При изменении базы нам не придётся изменять код модуля `Auth` — так мы удовлетворяем OCP.
 
 ## Материалы к разделу
 - [Принцип инверсии зависимостей, MakeDev](https://makedev.org/principles/solid/dip.html)
@@ -75,9 +75,3 @@ class Auth {
 <Quiz name='dip-ideal-1' />
 <Quiz name='dip-ideal-2' />
 <Quiz name='dip-ideal-3' />
-
-*[DIP]:Dependency Inversion Principle
-*[OCP]:Open-Closed Principle
-*[LSP]:Liskov Substitution Principle
-*[ISP]:Interface Segregation Principle
-*[БД]:База данных

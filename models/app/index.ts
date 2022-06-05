@@ -12,21 +12,21 @@ export const AppModel = types
   .model('App', {
     quizes: types.map(Quiz)
   })
-  .actions(self => ({
+  .actions((self) => ({
     createQuiz(name: string): Instance<typeof Quiz> {
       const quiz = createEmptyQuiz()
       self.quizes.set(name, quiz)
       return quiz
     }
   }))
-  .actions(self => ({
+  .actions((self) => ({
     getOrCreateQuizModel(name: string) {
       let quiz = self.quizes.get(name)
       if (!quiz) quiz = self.createQuiz(name)
       return quiz
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hydrate(state: any) {
-      // eslint-disable-line @typescript-eslint/no-explicit-any
       try {
         typecheck(AppModel, state)
         applySnapshot(self, state)
@@ -35,7 +35,7 @@ export const AppModel = types
       }
     }
   }))
-  .views(self => ({
+  .views((self) => ({
     getByName(name: string) {
       return self.quizes.get(name)
     },
@@ -49,10 +49,10 @@ export const AppModel = types
       let correctAnswers = 0
       const questionsCount = self.quizes.size
 
-      self.quizes.forEach(quiz => {
+      self.quizes.forEach((quiz) => {
         if (quiz.isComplete) {
           if (quiz.correct.length === quiz.answers.length) {
-            const isAllAnswersCorrect = quiz.answers.every(index => quiz.correct.includes(index))
+            const isAllAnswersCorrect = quiz.answers.every((index) => quiz.correct.includes(index))
 
             if (isAllAnswersCorrect) {
               correctAnswers += 1

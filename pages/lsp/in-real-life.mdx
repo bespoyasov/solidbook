@@ -15,7 +15,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 LSP помогает выявлять проблемные абстракции при проектировании и строить иерархию сущностей с учётом подобных проблем.
 
-Как и [OCP](/ocp), LSP подводит к выводу, что большие и сложные иерархии сущностей, основанные на наследовании, — это хрупкий и опасный инструмент, вместо которого [лучше использовать композицию](https://en.wikipedia.org/wiki/Composition_over_inheritance).
+Как и [принцип открытости-закрытости OCP](/ocp), LSP подводит к выводу, что большие и сложные иерархии сущностей, основанные на наследовании, — это хрупкий и опасный инструмент, вместо которого [лучше использовать композицию](https://en.wikipedia.org/wiki/Composition_over_inheritance).
 
 ## Иерархия пользователей
 
@@ -153,7 +153,7 @@ class Guest extends BaseUser implements UserWithAccess {
 
 ## React и JSX
 
-Ещё один пример LSP — это React-компоненты, а точнее их реализация в JSX. [Синтаксис JSX](https://ru.reactjs.org/docs/introducing-jsx.html) построен таким образом, что мы можем писать разметку компонентов в HTML-подобном виде:
+Ещё один пример LSP — это React-компоненты, а точнее их реализация в JSX (JavaScript XML). [Синтаксис JSX](https://ru.reactjs.org/docs/introducing-jsx.html) построен таким образом, что мы можем писать разметку компонентов в HTML-подобном виде:
 
 ```ts
 interface ComponentProps {
@@ -180,9 +180,3 @@ const ExampleReactComponent: FunctionComponent<ComponentProps> = ({ title }) => 
 - [Composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
 - [Liskov Substitution Principle and the Composition Root - A Perspective](https://www.dotnetcurry.com/patterns-practices/1259/liskov-substitution-principle-perspective)
 - [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)
-
-*[OCP]:Open-closed principle
-*[LSP]:Liskov Substitution Principle
-*[ООП]:Объектно-ориентированное программирование
-*[JSX]:JavaScript XML
-*[HTML]:Hypertext markup language
