@@ -1,3 +1,5 @@
+import { Literal } from 'mdast'
+
 import { MdxBook } from './books'
 import { Markdown } from './markdown'
 import { MdAstTreeAdapter } from './mdAstTree'
@@ -39,7 +41,7 @@ export abstract class GlossaryMarkdownAdapter {
         if (lastElem.type === 'paragraph') {
           let groups: RegExpExecArray = null
 
-          while ((groups = regexForAnnotation.exec(lastElem.children[0].value)) !== null) {
+          while ((groups = regexForAnnotation.exec((lastElem.children[0] as Literal).value)) !== null) {
             const [, term, description] = groups
             glossary.addTerm(term, description)
           }

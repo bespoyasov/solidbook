@@ -1,11 +1,12 @@
-import fs from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 
+import { Heading } from 'mdast'
 import { visit } from 'unist-util-visit'
 
 import { MarkdownBook, MdxBook } from './books'
 import { GlossaryMarkdownAdapter } from './glossary'
 import { MarkdownTreeMarkdownAdapter } from './markdownTreeMarkdownAdapter'
-import { MdAstTreeAdapter, MarkdownAstTreeNode } from './mdAstTree'
+import { MdAstTreeAdapter } from './mdAstTree'
 import { MdxBookMarkdownBookAdapter } from './mdxToMd'
 import { MarkdownPdfAdapter } from './pdf'
 
@@ -44,7 +45,7 @@ const formatBook = (mdxBook: MdxBook) => (book: MarkdownBook) => {
 
       // добавляем заголовок для раздела "Введение"
       if (mdSubSection.name.search('pages/index.mdx') !== -1) {
-        visit(mdxAstTree, 'mdxjsEsm', (node: MarkdownAstTreeNode) => {
+        visit(mdxAstTree, 'mdxjsEsm', (node) => {
           if (node.value.search('export const meta') !== -1) {
             const title = regexForTitle.exec(node.value)[1]
             mdSubSection.addContent(`# ${title}\n`)
@@ -52,7 +53,7 @@ const formatBook = (mdxBook: MdxBook) => (book: MarkdownBook) => {
         })
         // добавляем заголовок для остальных разделов
       } else if (mdSubSection.name.search('index.mdx') !== -1) {
-        visit(mdxAstTree, 'mdxjsEsm', (node: MarkdownAstTreeNode) => {
+        visit(mdxAstTree, 'mdxjsEsm', (node) => {
           if (node.value.search('export const meta') !== -1) {
             const title = regexForTitle.exec(node.value)[1]
             const titleLeftPart = title.split('|')[0]
@@ -63,8 +64,8 @@ const formatBook = (mdxBook: MdxBook) => (book: MarkdownBook) => {
 
       // увеличиваем глубину заголовков, так как ранее мы добавили заголовки первого уровня
       if (mdSubSection.name.search('pages/afterwords.mdx') === -1) {
-        visit(markdownAstTree, 'heading', (node: { depth: number }) => {
-          node.depth = node.depth + 1
+        visit(markdownAstTree, 'heading', (node) => {
+          node.depth = (node.depth + 1) as Heading['depth']
         })
       }
 
@@ -180,7 +181,7 @@ const fillMdxBookWithContent = (mdxBook: MdxBook): void => {
     section.subSections.forEach((subSection) => {
       const filePath = `pages/${section.name}/${subSection}.mdx`
 
-      newSection.addSubSection(fs.readFileSync(filePath, 'utf8'), filePath)
+      newSection.addSubSection(readFileSync(filePath, 'utf8'), filePath)
     })
   })
 }
@@ -201,7 +202,7 @@ const run = async () => {
   const markdownWithTableOfContents = MdAstTreeAdapter.addTableOfContents(markdownContent)
 
   const pdf = await MarkdownPdfAdapter.markdownToPdf(markdownWithTableOfContents)
-  fs.writeFileSync('public/solid_book.pdf', pdf.content)
+  writeFileSync('public/solid_book.pdf', pdf.content)
 }
 
 run()

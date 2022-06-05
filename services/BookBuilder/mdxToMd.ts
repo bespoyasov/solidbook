@@ -1,3 +1,4 @@
+import { Literal, Parent } from 'unist'
 import { filter } from 'unist-util-filter'
 import { Test, TestFunctionAnything } from 'unist-util-is'
 
@@ -6,9 +7,14 @@ import { MdAstTreeAdapter } from './mdAstTree'
 
 const invalidTypes = ['mdxjsEsm', 'mdxJsxFlowElement']
 
+interface Element extends Parent {
+  type: string
+  children: Literal[]
+}
+
 const isForbiddenElement: TestFunctionAnything = (el) => invalidTypes.includes(el.type)
 const isQuestionsChapterHeading: TestFunctionAnything = (el) =>
-  el.type === 'heading' && el.children[0].value === 'Вопросы'
+  (el as Element).type === 'heading' && (el as Element).children[0].value === 'Вопросы'
 const isAnnotationList: TestFunctionAnything = (el, index, parent) =>
   parent && parent.type === 'root' && index === parent.children.length - 1 && el.type === 'paragraph'
 
