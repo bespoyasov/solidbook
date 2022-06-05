@@ -4,7 +4,7 @@ import { visit } from 'unist-util-visit'
 
 import { MarkdownBook, MdxBook } from './books'
 import { GlossaryMarkdownAdapter } from './glossary'
-import { MarkdownTreeMarkdownAdapter } from './markdown'
+import { MarkdownTreeMarkdownAdapter } from './markdownTreeMarkdownAdapter'
 import { MdAstTreeAdapter, MarkdownAstTreeNode } from './mdAstTree'
 import { MdxBookMarkdownBookAdapter } from './mdxToMd'
 import { MarkdownPdfAdapter } from './pdf'
