@@ -28,6 +28,6 @@
     "isolatedModules": true,
     "incremental": true
   },
-  "exclude": ["node_modules", "services/BookBuilder/*.ts"],
+  "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

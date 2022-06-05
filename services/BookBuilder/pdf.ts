@@ -14,7 +14,6 @@ export abstract class MarkdownPdfAdapter {
   public static markdownToPdf = async (markdown: Markdown): Promise<Pdf> => {
     const pdf = await mdToPdf(
       { content: markdown.content },
-      // eslint-disable-next-line @typescript-eslint/camelcase
       { document_title: 'SOLID book', launch_options: { args: ['--no-sandbox'] } }
     ).catch(console.error)
 

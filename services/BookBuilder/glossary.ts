@@ -1,6 +1,6 @@
+import { MdxBook } from './books'
 import { Markdown } from './markdown'
 import { MdAstTreeAdapter } from './mdAstTree'
-import { MdxBook } from './books'
 
 const regexForAnnotation = new RegExp('\\*\\[(.*)\\]:(.*)', 'gm')
 
