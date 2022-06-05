@@ -1,5 +1,3 @@
-import { isNull } from 'util'
-
 import { isValidElement, ReactNode } from 'react'
 
 export enum TYPES {
@@ -14,7 +12,7 @@ export enum TYPES {
 }
 
 export function getType(node: ReactNode) {
-  if (isNull(node)) {
+  if (node === null) {
     return TYPES.NULL
   } else if (typeof node === 'boolean') {
     return TYPES.BOOLEAN

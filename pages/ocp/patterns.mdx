@@ -237,7 +237,7 @@ class HrAgency implements NewPositionObservable {
 
 Модули, зависящие от конкретных классов, связаны с ними слишком сильно, из-за чего изменение в одном модуле затронет изменение в другом.
 
-[Замена](https://blog.goyello.com/2014/02/11/example-of-just-in-time-design-refactor-to-open-closed/) прямого наследования на полиморфизм или композицию — это приём рефакторинга, который ослабляет зацепление модулей через введение абстракций: интерфейсов, обёрток и т.д.
+[Замена](https://blog.aspiresys.pl/technology/example-of-just-in-time-design-refactor-to-open-closed/) прямого наследования на полиморфизм или композицию — это приём рефакторинга, который ослабляет зацепление модулей через введение абстракций: интерфейсов, обёрток и т.д.
 
 Примером может послужить [пример](/ocp/in-ideal-world) из раздела «В идеальном мире», где мы вводили прослойку из интерфейса `Shape`. Когда класс `AreaCalculator` начинает зависеть от интерфейса, а не от конкретных классов, изменение в требованиях не затрагивает код класса `AreaCalculator`.
 
@@ -253,14 +253,9 @@ class HrAgency implements NewPositionObservable {
 - [Фабричный метод и применение стратегии](https://sergeyzhuk.me/2018/01/25/factory-method-and-open-closed/)
 - [Реализация стратегии на TypeScript](https://github.com/torokmark/design_patterns_in_typescript/blob/master/strategy/strategy.ts)
 - [Декоратор](https://refactoring.guru/ru/design-patterns/decorator)
-- [Decorator and Factory, Colorado CS, PDF](https://www.cs.colorado.edu/~kena/classes/5448/f09/lectures/18-decoratorfactory.pdf)
+- [Decorator and Factory, Colorado Computer Science, PDF](https://www.cs.colorado.edu/~kena/classes/5448/f09/lectures/18-decoratorfactory.pdf)
 - [Реализация декоратора на TypeScript](https://github.com/torokmark/design_patterns_in_typescript/blob/master/decorator/decorator.ts)
 - [Наблюдатель](https://refactoring.guru/ru/design-patterns/observer)
 - [Реализация наблюдателя на TypeScript](https://github.com/torokmark/design_patterns_in_typescript/blob/master/observer/observer.ts)
 - [Example of Just-in-time design: refatoring to OCP](https://blog.goyello.com/2014/02/11/example-of-just-in-time-design-refactor-to-open-closed/)
 - [Refactor to the Open-Closed, PDF](http://www.netobjectives.net/files/books/esad/essential-skills-refactor-open-closed.pdf)
-
-*[OCP]:Open-closed principle
-*[SRP]:Single responsibility principle
-*[CS]:Computer science
-*[PDF]:Portable document format

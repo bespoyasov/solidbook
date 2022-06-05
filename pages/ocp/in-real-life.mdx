@@ -29,7 +29,7 @@ class StorageService {
 
 Чтобы протестировать метод `get`, необходимо создать глобальный [мок-объект](https://ru.wikipedia.org/wiki/Mock-объект) `localStorage`. Такие объекты и переменные при тестировании могут привести к неправильной работе соседних тестов. (Например, если кто-то забыл сбросить `localStorage` после использования.)
 
-Если же мы привяжем зависимость не через конкретный объект, а через интерфейс, то получим возможность подменять зависимости на лету. Этот паттерн называется [инъекция зависимостей](https://ru.wikipedia.org/wiki/Внедрение_зависимости) (DI).
+Если же мы привяжем зависимость не через конкретный объект, а через интерфейс, то получим возможность подменять зависимости на лету. Этот паттерн называется [инъекция зависимостей](https://ru.wikipedia.org/wiki/Внедрение_зависимости) (Dependency injection, DI).
 
 ```ts
 interface Storage {
@@ -171,8 +171,3 @@ const storageServiceWithSophisticatedStorage = new StorageService({
 - [Разработка через тестирование](https://bespoyasov.ru/ttt-tdd/)
 - [Адаптер, шаблон](https://ru.wikipedia.org/wiki/Адаптер_(шаблон_проектирования))
 - [Jest](https://jestjs.io)
-
-*[OCP]:Open-closed principle
-*[TDD]:Test driven development
-*[DI]:Dependency injection
-*[API]:Application programming interface

@@ -1,9 +1,9 @@
-import React, { ReactChild, ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
+import { Typografy } from '..'
 import { getType, TYPES } from '../../childType'
 import { ReactTextNode as TextNode } from '../../textNode'
 
-import { Typografy } from '..'
 import { typografTextWithNeighbors } from '../textWithNeighbors'
 
 export class TypografyReactChildren {
@@ -16,11 +16,11 @@ export class TypografyReactChildren {
         return Typografy.instance.transform(String(node))
 
       case TYPES.ARRAY:
-        return this.processElementList((node as unknown) as Array<ReactChild>, ([] as unknown) as ReactElement)
+        return this.processElementList(node as unknown as ReactNode[], [] as unknown as ReactElement)
 
       case TYPES.REACT_ELEMENT_WITH_CHILDREN:
         return this.processElementList(
-          React.Children.toArray(((node as unknown) as JSX.Element).props.children),
+          React.Children.toArray((node as unknown as JSX.Element).props.children),
           node as ReactElement
         )
 
@@ -66,7 +66,7 @@ export class TypografyReactChildren {
               break
 
             case TYPES.ARRAY:
-              acc.push(this.processElementList((element as unknown) as ReactChild[], element as ReactElement))
+              acc.push(this.processElementList(element as unknown as ReactNode[], element as ReactElement))
               break
 
             case TYPES.REACT_ELEMENT_WITH_CHILDREN:

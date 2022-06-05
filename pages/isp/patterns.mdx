@@ -18,7 +18,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 С точки зрения ISP этот шаблон помогает держать интерфейсы чистыми и понятными, а при необходимости совместить несовместимые модули через специальную прослойку (адаптер).
 
-Приложение [Курсовик](https://bespoyasov.ru/blog/kursovik/) показывает курс доллара к рублю. Оно берёт данные курсов с сайта Центрального банка России. ЦБ отдаёт их в формате XML, а Курсовик работает с JSON.
+Приложение [Курсовик](https://bespoyasov.ru/blog/kursovik/) показывает курс доллара к рублю. Оно берёт данные курсов с сайта Центрального банка России. Центробанк отдаёт их в формате XML, а Курсовик работает с JSON.
 
 Адаптер помогает «подружить» модули, которые работают с XML, и модули, которые работают с JSON.
 
@@ -101,10 +101,3 @@ applyMixins(Horse, [Animal, Transport])
 ## Вопросы
 <Quiz name='isp-patterns-1' />
 <Quiz name='isp-patterns-2' />
-
-*[ISP]:Interface Segregation Principle
-*[LSP]:Liskov Substitution Principle
-*[XML]:eXtensible Markup Language
-*[JSON]:Javascript Object Notation
-*[ЦБ]:Центральный банк
-*[API]:Application Programming Interface
