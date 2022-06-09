@@ -5,10 +5,10 @@
     "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
     "dev": "next",
     "test": "jest --watchAll",
-    "now-build": "next build && npm run gen_book",
+    "now-build": "next build && npm run book:generate",
     "start": "next start",
     "lint": "eslint \"./**/*.{ts,tsx}\"",
-    "gen_book": "npx esbuild services/BookBuilder/index.ts  --bundle --outfile=services/BookBuilder.js --platform=node --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
+    "book:generate": "npx esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.1.1",
