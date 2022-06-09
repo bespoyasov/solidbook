@@ -15,7 +15,7 @@ export class Footer extends PureComponent {
             </span>
 
             <span>
-              <BookLink href="/solid_book.pdf">Скачать в PDF</BookLink>
+              <BookLink href="/solid-book.pdf">Скачать в PDF</BookLink>
               <GithubLink href="https://github.com/open-tech-authors">Github</GithubLink>
               <PatreonLink href="https://www.patreon.com/open_tech_authors">Patreon</PatreonLink>
             </span>
