@@ -5,9 +5,10 @@
     "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
     "dev": "next",
     "test": "jest --watchAll",
-    "now-build": "next build",
+    "now-build": "next build && npm run gen_book",
     "start": "next start",
-    "lint": "eslint \"./**/*.{ts,tsx}\""
+    "lint": "eslint \"./**/*.{ts,tsx}\"",
+    "gen_book": "npx esbuild services/BookBuilder/index.ts  --bundle --outfile=services/BookBuilder.js --platform=node --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.1.1",
@@ -28,6 +29,7 @@
     "eslint-plugin-react": "^7.18.3",
     "ilyabirman-likely": "^2.4.0",
     "jest": "^28.1.0",
+    "md-to-pdf": "^5.1.0",
     "mobx": "^6.5.0",
     "mobx-devtools-mst": "^0.9.21",
     "mobx-react": "^7.4.0",
@@ -40,9 +42,16 @@
     "react-no-ssr": "^1.1.0",
     "refractor": "^4.7.0",
     "rehype": "^12.0.1",
+    "remark-mdx": "^2.1.1",
+    "remark-parse": "^10.0.1",
+    "remark-stringify": "^10.0.2",
+    "remark-toc": "^8.0.1",
     "styled-components": "^5.3.5",
     "typescript": "^4.6.4",
-    "typograf": "^6.11.0"
+    "typograf": "^6.11.0",
+    "unified": "^10.1.2",
+    "unist-util-filter": "^4.0.0",
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "@types/jest": "^28.1.0",
@@ -62,5 +71,8 @@
   },
   "peerDependencies": {
     "fsevents": ">=1.2.9"
+  },
+  "resolutions": {
+    "puppeteer": "13.0.0"
   }
 }
