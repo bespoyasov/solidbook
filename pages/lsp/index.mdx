@@ -122,7 +122,7 @@ class Timer extends Disposable {
     this.source = setTimeout(fn, delay);
   }
 
-  dispose = () => clearInterval(this.source);
+  dispose = () => clearTimeout(this.source);
 }
 ```
 
