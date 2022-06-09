@@ -34,3 +34,9 @@
 - [Артём Самофалов](https://github.com/dex157) — ведущий фронтенд-разработчик в [Social Discovery Ventures](https://sdventures.com), бывший преподаватель в [LoftSchool](https://loftschool.com).
 
 ...И [контрибьюторы проекта](https://github.com/open-tech-authors/solid/graphs/contributors) ❤️
+
+## Лицензии
+
+Текст и иллюстрации книги распространяются под лицензией [CC BY-NC-SA 4.0](./LICENSE-SA.md). Вы можете дополнять, менять и использовать их в проектах на некоммерческой основе при сохранении лицензии и указании авторов.
+
+Исходный код проекта распространяется под лицензией [MIT](./LICENSE-MIT.md).
