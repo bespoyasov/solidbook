@@ -23,3 +23,6 @@ yarn-error.log*
 .vscode
 .next
 dist
+
+/public/solid-book.pdf
+/services/BookBuilder.js

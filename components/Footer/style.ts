@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.footer`
-  border-top: 1px solid ${props => props.theme.decorationColorSecondary};
+  border-top: 1px solid ${(props) => props.theme.decorationColorSecondary};
   padding: 1rem 0 1.1rem;
 
-  @media (max-width: ${props => props.theme.breakpoint}) {
+  @media (max-width: ${(props) => props.theme.breakpoint}) {
     padding: 0.5rem 0 0.8rem;
-    font-size: ${props => props.theme.fontSizeTiny};
+    font-size: ${(props) => props.theme.fontSizeTiny};
   }
 `
 
@@ -14,7 +14,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media (max-width: ${props => props.theme.breakpoint}) {
+  @media (max-width: ${(props) => props.theme.breakpoint}) {
     display: block;
 
     span {
@@ -25,7 +25,7 @@ export const Container = styled.div`
 
 const externalLinkAttrs = {
   target: '_blank',
-  rel: 'noopener',
+  rel: 'noopener'
 }
 
 export const BasicLink = styled.a``
@@ -47,6 +47,8 @@ const DecoratedLink = styled(BasicLink)`
 const DecoratedExternalLink = styled(DecoratedLink).attrs(externalLinkAttrs)``
 
 export const GithubLink = styled(DecoratedExternalLink)`
+  margin-left: 1em;
+
   &::before {
     content: '😻';
   }
@@ -57,5 +59,11 @@ export const PatreonLink = styled(DecoratedExternalLink)`
 
   &::before {
     content: '💖';
+  }
+`
+
+export const BookLink = styled(DecoratedExternalLink)`
+  &::before {
+    content: '📖';
   }
 `

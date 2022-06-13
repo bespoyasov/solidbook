@@ -45,6 +45,130 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
   <figcaption>Абстракция помогает развязать модули</figcaption>
 </Figure>
 
+### В коде
+
+Если попробовать выразить этот принцип в коде, то самым простым примером будет замена множественных проверок на принадлежность к типу на абстракцию.
+
+Например, мы пишем сервис рассылки сообщений. Он принимает текст, который надо выслать, и сервис стороннего API для отправки СМС, пушей или электронных писем. Плохо спроектированный сервис мог бы выглядеть так:
+
+```ts
+class SmsSender {
+  sendSms(message: MessageText) { /* ... */ }
+}
+
+class PushSender {
+  sendPush(message: MessageText) { /* ... */ }
+}
+
+class EmailSender {
+  sendEmail(message: MessageText) { /* ... */ }
+}
+
+class Notifier {
+  constructor(private api: SmsSender | PushSender | EmailSender) {}
+
+  notify(): void {
+    const message = 'Some user notification';
+
+    if (this.api instanceof SmsSender) {
+      this.api.sendSms(message)
+    } else if (this.api instanceof PushSender) {
+      this.api.sendPush(message)
+    } else if (this.api instanceof EmailSender) {
+      this.api.sendEmail(message)
+    }
+  }
+}
+```
+
+Проблема этого кода в том, что при _добавлении_ нового типа стороннего API — голубиной почты — нам придётся _менять_ уже существующий код.
+
+```ts
+// ...Предыдущие классы.
+
+// Добавили новый тип стороннего API:
+class DoveSender {
+  sendDove(message: MessageText) { /* ... */ }
+}
+
+class Notifier {
+  constructor(private api: SmsSender | PushSender | EmailSender | DoveSender) {}
+
+  notify(): void {
+    const message = 'Some user notification';
+
+    if (this.api instanceof SmsSender) {
+      this.api.sendSms(message)
+    } else if (this.api instanceof PushSender) {
+      this.api.sendPush(message)
+    } else if (this.api instanceof EmailSender) {
+      this.api.sendEmail(message)
+    } else if (this.api instanceof DoveSender) { // Последние 3 строчки —
+      this.api.sendDove(message)                 // ...это новый код,
+    }                                            // ...который пришлось добавить.
+  }
+}
+```
+
+### Вместо этого
+
+OCP же предлагает не проверять конкретные типы, а использовать абстракцию, которая позволит не менять код класса `Notifier`. Для этого мы создадим интерфейс `Sender`, который будут реализовывать классы `SmsSender`, `PushSender` и `EmailSender`:
+
+```ts
+// Интерфейс будет абстракцией, которая описывает контракт,
+// по которому должны работать классы, реализующий этот интерфейс.
+interface Sender {
+  sendMessage(message: MessageText): void
+}
+
+class SmsSender implements Sender {
+  sendMessage(message: MessageText) {
+    /* То, что раньше было внутри метода sendSms. */
+  }
+}
+
+class PushSender implements Sender {
+  sendMessage(message: MessageText) {
+    /* То, что раньше было внутри метода sendPush. */
+  }
+}
+
+class EmailSender implements Sender {
+  sendMessage(message: MessageText) {
+    /* То, что раньше было внутри метода sendEmail. */
+  }
+}
+```
+
+Тогда классу `Notifier` перестанет быть нужно проверять конкретный тип, и он сможет положиться на контракт, описанный в интерфейсе:
+
+```ts
+class Notifier {
+  constructor(private api: Sender) {}
+
+  notify(): void {
+    const message = 'Some user notification';
+    this.api.sendMessage(message);
+  }
+}
+```
+
+### В результате
+
+Теперь при _добавлении_ голубиной почты, нам уже не потребуется _менять_ код класса `Notifier`, зависящего от интерфейса `Sender`:
+
+```ts
+class DoveSender implements Sender {
+  sendMessage(message: MessageText) {
+    /* То, что раньше было внутри метода sendDove. */
+  }
+}
+
+// Код класса Notifier останется тем же.
+```
+
+Таким образом, вводя адекватную абстракцию мы «расцепляем» модули. Мы делим зоны ответственности между разными частями приложения и уменьшаем количество кода, который нужно изменять при добавлении новой функциональности.
+
 ## Коротко
 Принцип открытости-закрытости:
 - заставляет проектировать модули так, чтобы они делали только одну вещь и делали её хорошо;
