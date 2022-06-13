@@ -39,7 +39,6 @@ export default class MyDocument extends Document<IProps> {
     return (
       <Html lang="ru">
         <Head>
-          <link rel="manifest" href="/favicon/site.webmanifest" />
           <style>
             {`
             *,
