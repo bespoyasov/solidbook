@@ -1,6 +1,7 @@
 {
   "name": "solid",
   "description": "Книга о принципах SOLID и объектно-ориентированном дизайне программ.",
+  "private": true,
   "version": "1.0.0",
   "scripts": {
     "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
