@@ -1,3 +1,4 @@
+const withPWA = require('next-pwa')
 const withMDX = require('@next/mdx')({
   extension: /\.(md|mdx)$/,
   options: {
@@ -6,7 +7,14 @@ const withMDX = require('@next/mdx')({
   }
 })
 
-module.exports = withMDX({
-  pageExtensions: ['md', 'mdx', 'tsx'],
-  productionBrowserSourceMaps: true
-})
+module.exports = withMDX(withPWA(
+  {
+    pageExtensions: ["md", "mdx", "tsx"],
+    pwa: {
+      dest: 'public',
+      modifyURLPrefix: {
+        'static/': '_next/static/',
+      }
+    }
+  }
+))
