@@ -65,7 +65,7 @@
     "babel-plugin-root-import": "^6.4.1",
     "babel-plugin-styled-components": "^2.0.7",
     "esbuild": "^0.15.5",
-    "puppeteer": "^15.5.0",
+    "puppeteer": "^16.2.0",
     "remark-sectionize": "^1.1.0",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
