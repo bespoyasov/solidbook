@@ -15,10 +15,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      
+
       - name: Install all dependencies
         run: yarn install --frozen-lockfile
-      
+
       - name: Check text spelling with yaspeller
         run: yarn spell
 
