@@ -1,6 +1,6 @@
 # Солидбук
 
-> Read [in English](./docs/en.md).
+> Read the [description in English](./docs/en.md). The translation is on the way. Hold tight and stay tuned!
 
 [Книга о принципах SOLID](https://ota-solid.vercel.app) и объектно-ориентированном дизайне программ.
 
