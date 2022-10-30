@@ -69,8 +69,8 @@ export default class MyApp extends App<MyAppInitialProps> {
           <meta name="theme-color" content="#ffffff" />
 
           <meta property="og:type" content="article" />
-          <meta property="og:title" content="SOLID BOOK" />
-          <meta property="og:site_name" content="Open Tech Authors, SOLID" />
+          <meta property="og:title" content="Солидбук" />
+          <meta property="og:site_name" content="Солидбук. Книга о принципах объектно-ориентированного дизайна" />
           <meta property="og:url" content="https://solidbook.vercel.app" />
           <meta property="og:image" content="https://solidbook.vercel.app/socials.png" />
           <meta property="article:author" content="https://bespoyasov.ru" />
@@ -78,7 +78,7 @@ export default class MyApp extends App<MyAppInitialProps> {
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="https://solidbook.vercel.app" />
-          <meta name="twitter:title" content="SOLID BOOK" />
+          <meta name="twitter:title" content="Солидбук" />
           <meta name="twitter:description" content="Книга о принципах объектно-ориентированного дизайна" />
           <meta name="twitter:image" content="https://solidbook.vercel.app/socials.png" />
         </Head>
