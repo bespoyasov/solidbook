@@ -35,7 +35,7 @@
 - [Саша Беспоясов](https://bespoyasov.ru) — разработчик в [0+X](https://0x.se), соавтор [Тяжеловато](https://fuckgrechka.ru/tzlvt/), бывший преподаватель в [Нетологии](https://netology.ru);
 - [Артём Самофалов](https://github.com/dex157) — ведущий фронтенд-разработчик в [Social Discovery Ventures](https://sdventures.com), бывший преподаватель в [LoftSchool](https://loftschool.com).
 
-...И [контрибьюторы проекта](https://github.com/open-tech-authors/solid/graphs/contributors) ❤️
+...И [контрибьюторы проекта](https://github.com/bespoyasov/solidbook/graphs/contributors) ❤️
 
 ## Лицензии
 

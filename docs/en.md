@@ -35,7 +35,7 @@ This book was written by:
 - [Alex Bespoyasov](https://bespoyasov.ru), developer at [0+X](https://0x.se), co-author of [Tzlvt](https://fuckgrechka.ru/tzlvt/), former teacher at [Netology](https://netology.ru);
 - [Artem Samofalov](https://github.com/dex157), lead frontend developer at [Social Discovery Ventures](https://sdventures.com), former teacher at [LoftSchool](https://loftschool.com).
 
-...And [project contributors](https://github.com/open-tech-authors/solid/graphs/contributors) ❤️
+...And [project contributors](https://github.com/bespoyasov/solidbook/graphs/contributors) ❤️
 
 ## Licenses
 
