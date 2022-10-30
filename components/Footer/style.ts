@@ -54,14 +54,6 @@ export const GithubLink = styled(DecoratedExternalLink)`
   }
 `
 
-export const PatreonLink = styled(DecoratedExternalLink)`
-  margin-left: 1em;
-
-  &::before {
-    content: '💖';
-  }
-`
-
 export const BookLink = styled(DecoratedExternalLink)`
   &::before {
     content: '📖';
