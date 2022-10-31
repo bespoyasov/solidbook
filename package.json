@@ -67,9 +67,6 @@
     "esbuild": "^0.15.5",
     "puppeteer": "^16.2.0",
     "remark-sectionize": "^1.1.0",
-    "tslint": "^6.0.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^5.0.0",
     "yaspeller": "^8.0.0"
   },
   "peerDependencies": {
