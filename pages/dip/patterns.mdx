@@ -32,6 +32,16 @@ class Room {
     this.table = table
   }
 }
+
+// Или используя короткий вариант записи:
+
+class Room {
+  constructor(
+    private chair: Chair,
+    private couch: Couch,
+    private table: Table
+  ) {}
+}
 ```
 
 Непосредственно внедрением обычно занимается специальная сущность — [DI-контейнер](https://stackoverflow.com/a/50724263). Контейнеры автоматизируют создание экземпляров нужных классов и помогают в управлении их жизненным циклом.
