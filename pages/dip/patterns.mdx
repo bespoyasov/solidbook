@@ -18,18 +18,18 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ### Инъекция через конструктор
 
-Самый распространённый вид инъекции — через конструктор. При создании класса в конструкторе мы перечисляем все зависимости, которые требуются для создания экземпляра.
+Самый распространённый вид инъекции — через конструктор. При создании класса в конструкторе мы перечисляем все зависимости, которые требуются для создания экземпляра:
 
 ```ts
-class Building {
-  floor: Floor
-  ceiling: Ceiling
-  wall: Wall
+class Room {
+  private chair: Chair
+  private couch: Couch
+  private table: Table
 
-  constructor(floor: Floor, ceiling: Ceiling, wall: Wall) {
-    this.floor = floor
-    this.ceiling = ceiling
-    this.wall = wall
+  constructor(chair: Chair, couch: Couch, table: Table) {
+    this.chair = chair
+    this.couch = couch
+    this.table = table
   }
 }
 ```
@@ -44,13 +44,13 @@ const container = new DIContainer();
 // При регистрации зависимостей мы будто объявляем «соответствие»
 // между абстрактным типом или интерфейсом и конкретной реализацией:
 
-container.registerSingleton<Ceiling, TwoMeterCeiling>();
-container.registerSingleton<Floor, WoodenFloor>();
-container.registerSingleton<Wall, BrickWall>();
+container.registerSingleton<Chair, WoodenChair>();
+container.registerSingleton<Couch, LeatherCouch>();
+container.registerSingleton<Table, DiningTable>();
 
 // Мы будто говорим:
-// — Контейнер, если увидишь в коде тип `Ceiling`,
-//   замени его на экземпляр класса `TwoMeterCeiling`.
+// — Контейнер, если увидишь в коде тип `Chair`,
+//   замени его на экземпляр класса `WoodenChair`.
 ```
 
 Это, например, помогает подменять зависимости во время тестирования, заменив регистрацию:
@@ -60,9 +60,9 @@ container.registerSingleton<Wall, BrickWall>();
 // которые будут реализовывать те же интерфейсы,
 // но, например, будут представлять собой моки или стабы:
 
-container.registerSingleton<Ceiling, TestCeiling>();
-container.registerSingleton<Floor, TestFloor>();
-container.registerSingleton<Wall, TestWall>();
+container.registerSingleton<Chair, TestChair>();
+container.registerSingleton<Couch, TestCouch>();
+container.registerSingleton<Table, TestTable>();
 ```
 
 В TypeScript также существуют DI-контейнеры, которые работают на декораторах, но подобное внедрение выглядит не так чисто и требует изменений непосредственно кода. Внедрение же, основанное на типах, [помогает отделить «инфраструктурный» код от кода приложения](https://bespoyasov.ru/blog/di-ts-in-practice/).
