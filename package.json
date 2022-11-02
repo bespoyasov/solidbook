@@ -15,8 +15,6 @@
   "dependencies": {
     "@mdx-js/loader": "^2.1.1",
     "@mdx-js/react": "^2.1.1",
-    "@mdx-js/runtime": "^1.5.5",
-    "@mdx-js/tag": "^0.20.3",
     "@next/mdx": "^12.1.6",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
