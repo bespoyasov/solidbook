@@ -106,41 +106,44 @@ livingRoom.couch = new FabricCouch();
 
 ### Инъекция с помощью интерфейса
 
-Внедрение с помощью интерфейса похоже на предыдущий подход, только в нём используются не сеттеры, а отдельные методы-инжекторы. Их мы описываем в интерфейсе `BuildingDependencies`, который реализует класс `Building`. Внутри функции `Builder` мы вызываем инжекторы, передавая как аргумент нужную зависимость.
+Внедрение с помощью интерфейса похоже на предыдущий подход, только в нём используются не сеттеры, а отдельные методы-инжекторы. Их мы описываем в интерфейсе `RoomBuilder`, который реализует класс `Room`:
 
 ```ts
-interface BuildingDependencies {
-  injectWall(dep: Wall): void
-  injectFloor(dep: Floor): void
-  injectCeiling(dep: Ceiling): void
+interface RoomBuilder {
+  injectChair(dep: Chair): void
+  injectCouch(dep: Couch): void
+  injectTable(dep: Table): void
 }
 
-class Building implements BuildingDependencies {
-  floor: Floor
-  ceiling: Ceiling
-  wall: Wall
+class Room implements RoomBuilder {
+  private chair?: Chair
+  private couch?: Couch
+  private table?: Table
 
-  constructor() {/*...*/}
-
-  injectCeiling(ceiling: Ceiling) {
-    this.ceiling = ceiling
+  injectChair(chair: Chair) {
+    this.chair = chair
   }
 
-  injectFloor(floor: Floor) {
-    this.floor = floor
+  injectCouch(couch: Couch) {
+    this.couch = couch
   }
 
-  injectWall(wall: Wall) {
-    this.wall = wall
+  injectTable(table: Table) {
+    this.table = table
   }
 }
+```
 
-function Builder(): Building {
-  const house = new Building()
-  house.injectCeiling(new Ceiling())
-  house.injectFloor(new floor())
-  house.injectWall(new Wall())
-  return house
+Часто такое внедрение используют вместе с паттерном «Фабрика» для более явного и инкапсулированного построения экземпляра. Например, внутри функции `roomFactory` мы создаём экземпляр класса `Room`, а потом вызываем инжекторы, передавая в аргументах нужные зависимости:
+
+```ts
+function roomFactory(): Room {
+  const room = new Room()
+
+  room.injectChair(new WoodenChair())
+  room.injectTable(new WoodenTable())
+
+  return room
 }
 ```
 
