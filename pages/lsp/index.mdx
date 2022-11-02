@@ -67,8 +67,8 @@ class Square extends Rectangle {
 ```ts
 declare const square: Square
 
-square.setWidth(20) // меняет ширину и высоту, всё верно
-square.setHeight(40) // тоже меняет ширину и высоту, ок
+square.setWidth(20) // Меняет ширину и высоту, всё верно.
+square.setHeight(40) // Тоже меняет ширину и высоту, ок.
 ```
 
 Но если мы используем класс `Rectangle` в качестве интерфейса, а работаем с конкретным классом `Square`, то могут возникнуть проблемы:
@@ -78,7 +78,9 @@ function testShapeSize(figure: Rectangle) {
   figure.setWidth(10)
   figure.setHeight(20)
   assert(figure.areaOf() === 200)
-  // условие не сработает, если figure — экземпляр класса Square
+
+  // Условие не сработает, если `figure` —
+  // экземпляр класса `Square`.
 }
 ```
 
@@ -162,7 +164,9 @@ assert((figure.width === newWidth) && (figure.height === oldHeight))
 const oldHeight = figure.height
 figure.setWidth(newWidth)
 
-// постусловие ослаблено, абстракция неправильная
+// Постусловие ослаблено,
+// абстракция неправильная:
+
 assert((figure.width === newWidth))
 ```
 

@@ -65,7 +65,9 @@ interface Calculator {
 
 ```ts
 class ArithmeticCalculator implements Calculator {
-  // функциональность методов, которые нужны, описываем полностью
+  // Функциональность методов, которые нужны,
+  // описываем полностью:
+
   add(a: number, b: number): number {
     return a + b
   }
@@ -83,9 +85,10 @@ class ArithmeticCalculator implements Calculator {
     return a / b
   }
 
-  // остальные методы не нужны;
-  // но интерфейс Calculator требует их реализации,
-  // приходится писать заглушки
+  // Остальные методы не нужны,
+  // но интерфейс `Calculator` требует их реализации,
+  // приходится писать заглушки:
+
   sqrt(a: number): number
   power(base: number, power: number): number
   sin(x: number): number { return 0 }

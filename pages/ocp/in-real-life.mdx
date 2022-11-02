@@ -43,15 +43,16 @@ interface StorageDependencies {
 class StorageService {
   storage: Storage
 
-  // указываем, какие зависимости следует использовать
-  // JSON тоже стоит внедрять подобным образом,
-  // но для простоты примера берём в расчёт только localStorage
+  // Указываем, какие зависимости следует использовать.
+  // JSON тоже можно внедрить подобным образом,
+  // но для простоты примера берём в расчёт только `localStorage`:
+
   constructor({ storage = localStorage }: StorageDependencies) {
     this.storage = storage
   }
 
   get(key: string): any {
-    // используем зависимость через интерфейс
+    // Используем зависимость через интерфейс:
     return JSON.parse(this.storage.getItem(key))
   }
 }
@@ -60,8 +61,8 @@ class StorageService {
 Теперь при тестировании мы можем указать мок-объект для `Storage` локально. При этом нам не потребуется эмулировать работу объекта `localStorage` полностью. Нам достаточно описать метод `getItem`, работу которого мы и проверим. Например, используя [Jest](https://jestjs.io):
 
 ```ts
-describe('StorageService', () => {
-  it('should return specified value', () => {
+describe('when called with a specific key', () => {
+  it('should return the specified value', () => {
     const mock: Storage = {
       getItem: (key: string) => '42'
     }
@@ -75,8 +76,8 @@ describe('StorageService', () => {
 Если нам важно проверить, вызвался ли правильный метод у зависимости, DI снова сделает решение задачи проще:
 
 ```ts
-describe('StorageService', () => {
-  it('should call now method of dependency object', () => {
+describe('when called with a specific key', () => {
+  it('should call a specified method of the dependency object', () => {
     const mock: Storage = {
       getItem: jest.fn()
     }
@@ -122,23 +123,26 @@ interface Storage {
   getItem(key: string): any
 }
 
-// добавляем адаптер для verySophisticatedStorage;
-// он будет реализовывать интерфейс Storage,
-// поэтому его можно будет передать как зависимость для StorageService
+// Добавляем адаптер для `verySophisticatedStorage`;
+// он будет реализовывать интерфейс `Storage`,
+// поэтому его можно будет передать как зависимость для `StorageService`:
+
 class SophisticatedStorageAdapter implements Storage {
   getItem(key: string): any {
     return verySophisticatedStorage.getByKey(key)
   }
 }
 
-// то же для localStorage
+// То же для `localStorage`:
+
 class LocalStorageAdapter implements Storage {
   getItem(key: string): any {
     return JSON.parse(localStorage.getItem(key))
   }
 }
 
-// код класса StorageService не меняется!
+// Код класса `StorageService` не меняется!
+
 class StorageService {
   storage: Storage
 
@@ -147,17 +151,19 @@ class StorageService {
   }
 
   get(key: string): any {
-    // вся реализация методов обоих хранилищ скрыта за адаптерами
+    // Вся реализация методов обоих хранилищ скрыта за адаптерами:
     return this.storage.getItem(key)
   }
 }
 
-// работает как со старым хранилищем
+// Работает как со старым хранилищем:
+
 const storageServiceWithLocalStorage = new StorageService({
   storage: new LocalStorageAdapter()
 })
 
-// так и с новым
+// ...Так и с новым:
+
 const storageServiceWithSophisticatedStorage = new StorageService({
   storage: new SophisticatedStorageAdapter()
 })

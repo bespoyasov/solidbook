@@ -65,19 +65,19 @@ class PostconditionException extends ContractException {
 class EvenNumbersSummator {
   contract: Contract
 
-  // создаём контракт для проверки и записываем в this.contract
+  // Создаём контракт для проверки и записываем в `this.contract`:
   constructor(contract: Contract = new ContractAssert()) {
     this.contract = contract
   }
 
   add(a: number, b: number): number {
-    // перед работой метода проверяем все предусловия
+    // Перед работой метода проверяем все предусловия:
     this.contract.require(a % 2 === 0, 'first arg is not even')
     this.contract.require(b % 2 === 0, 'second arg is not even')
 
     const result = a + b
 
-    // перед тем, как вернуть результат проверяем постусловия
+    // Перед тем, как вернуть результат проверяем постусловия:
     this.contract.ensure(result % 2 === 0, 'result is not even')
     this.contract.ensure(result === a + b, 'result is not equal to expected')
     return result
@@ -100,9 +100,10 @@ class EvenNumbersSummator {
 Если разобрать изменения по шагам, то на первом шаге, чтобы не нарушать LSP, нам бы пришлось сделать `Guest` отдельным классом. Так мы бы избавились от усиления предусловий в методе `updateProfile`, но класс `Guest` начал бы дублировать функциональность, описанную в `User`:
 
 ```ts
-// класс не наследуется от User;
-// метода updateProfile уже нет,
-// но есть дублирование функциональности
+// Класс не наследуется от `User`;
+// метода `updateProfile` уже нет,
+// но есть дублирование функциональности:
+
 class Guest {
   constructor() {
     // ...

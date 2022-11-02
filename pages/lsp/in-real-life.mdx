@@ -50,22 +50,23 @@ class User {
 В какой-то момент в приложении появился «гостевой режим». У гостей были ограниченные права, и не было профиля. Из-за отсутствия профиля в классе `Guest` метод `updateProfile` усиливал своё предусловие:
 
 ```ts
-// гости наследуются от пользователей
+// Гости наследуются от пользователей:
 class Guest extends User {
   constructor() {
     super()
   }
 
   hasAccess(action: Actions): boolean {
-    // тут всё ок, описываем логику доступов для гостей
+    // Описываем логику доступов для гостей:
     return access
   }
 
   updateProfile(data: Profile): CommandStatus {
-    // а вот тут проблема: у гостей профиля нет,
-    // из-за чего приходится выбрасывать исключение;
-    // гостевой режим как бы заставляет нас учитывать большее количество
-    // обстоятельств, прежде чем выполнить обновление профиля
+    // А вот тут проблема: у гостей профиля нет,
+    // из-за чего приходится выбрасывать исключение.
+    // Гостевой режим как бы заставляет нас учитывать большее количество
+    // обстоятельств, прежде чем выполнить обновление профиля:
+
     throw new Error(`Guests don't have profiles`)
   }
 }
@@ -86,12 +87,12 @@ interface User {
 Для описания доступов и работы с данными профиля создадим отдельные интерфейсы: `UserWithAccess` и `UserWithProfile`:
 
 ```ts
-// здесь всё, что относится к доступам
+// Здесь всё, что относится к доступам:
 interface UserWithAccess {
   hasAccess(action: Actions): boolean
 }
 
-// здесь — к профилю
+// Здесь всё, что относится к профилю:
 interface UserWithProfile {
   updateProfile(data: Profile): CommandStatus
 }
@@ -110,8 +111,9 @@ class BaseUser implements User {
   }
 }
 
-// у обычных пользователей добавляем методы
-// для работы с профилем и для работы с доступами
+// У обычных пользователей добавляем методы
+// для работы с профилем и для работы с доступами:
+
 class RegularUser extends BaseUser implements UserWithAccess, UserWithProfile {
   constructor() {
     super()
@@ -128,7 +130,8 @@ class RegularUser extends BaseUser implements UserWithAccess, UserWithProfile {
   }
 }
 
-// для гостей же достаточно описать только доступы
+// Для гостей же достаточно описать только доступы:
+
 class Guest extends BaseUser implements UserWithAccess {
   constructor() {
     super()
@@ -160,7 +163,7 @@ interface ComponentProps {
   title: string
 }
 
-// пример React-компонента
+// Пример React-компонента:
 const ExampleReactComponent: FunctionComponent<ComponentProps> = ({ title }) => (
   <div>
     <h1>{title}</h1>

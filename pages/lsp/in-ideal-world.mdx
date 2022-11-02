@@ -24,8 +24,9 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ```ts
 abstract class RightAngleShape {
-  // используется для изменения ширины или высоты,
+  // Используется для изменения ширины или высоты,
   // доступен только внутри класса и наследников:
+
   protected setSide(size: number, side?: 'width' | 'height'): void {}
 
   abstract areaOf(): number
@@ -43,7 +44,7 @@ class Square extends RightAngleShape {
     this.edge = size
   }
 
-  // переопределяем изменение стороны квадрата...
+  // Переопределяем изменение стороны квадрата...
   protected setSide(size: number): void {
     this.edge = size
   }
@@ -52,7 +53,7 @@ class Square extends RightAngleShape {
     this.setSide(size)
   }
 
-  // ...и вычисление площади
+  // ...И вычисление площади:
   areaOf(): number {
     return this.edge ** 2
   }
@@ -68,7 +69,7 @@ class Rectangle extends RightAngleShape {
     this.height = height
   }
 
-  // переопределяем изменение ширины и высоты...
+  // Переопределяем изменение ширины и высоты...
   protected setSide(size: number, side: 'width' | 'height'): void {
     this[side] = size
   }
@@ -81,7 +82,7 @@ class Rectangle extends RightAngleShape {
     this.setSide(size, 'height')
   }
 
-  // ...и вычисление площади
+  // ...И вычисление площади:
   areaOf(): number {
     return this.width *  this.height
   }
@@ -113,7 +114,8 @@ interface HeightfulShape {
 Классы `Rectangle` и `Square` тогда могут реализовать их так:
 
 ```ts
-// указываем, что необходимо реализовать в этом классе
+// Указываем, что необходимо реализовать в этом классе:
+
 type SquareShape = Shape & WidthfulShape
 
 class Square implements SquareShape {
@@ -127,20 +129,22 @@ class Square implements SquareShape {
     this.edge = size
   }
 
-  // указываем метод, меняющий ширину (описан в WidthfulShape)...
+  // Указываем метод, меняющий ширину (описан в `WidthfulShape`)...
   setWidth(size: number) {
     this.setSide(size)
   }
 
-  // ...и метод, который считает площадь (описан в Shape)
+  // ...И метод, который считает площадь (описан в `Shape`):
   areaOf(): number {
     return this.edge ** 2
   }
 }
 
 
-// для прямоугольника, кроме площади и ширины, необходимо указать и высоту,
-// поэтому добавляем интерфейс HeightfulShape...
+// Для прямоугольника, кроме площади и ширины,
+// необходимо указать и высоту,
+// поэтому добавляем интерфейс `HeightfulShape`:
+
 type RectShape = Shape & WidthfulShape & HeightfulShape
 type ShapeSide = 'width' | 'height'
 
@@ -161,7 +165,7 @@ class Rectangle implements RectShape {
     this.setSide(size, 'width')
   }
 
-  // ...и реализуем метод, описанный в HeightfulShape
+  // ...И реализуем метод, описанный в `HeightfulShape`:
   setHeight(size: number) {
     this.setSide(size, 'height')
   }

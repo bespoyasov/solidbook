@@ -19,20 +19,23 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 Мы создадим класс `ReportExporter`, который будет заниматься только экспортом данных. Определять необходимый формат будет класс `FormatSelector`. А форматированием данных будут заниматься классы: `HtmlFormatter` и `TxtFormatter`.
 
 ```ts
-// тип данных для отчёта
+// Тип данных для отчёта:
+
 type ReportData = {
   content: string,
   date: Date,
   size: number,
 }
 
-// возможные форматы
+// Возможные форматы:
+
 enum ReportTypes {
   Html,
   Txt,
 }
 
-// класс, который занимается экспортом данных
+// Класс, который занимается экспортом данных:
+
 class ReportExporter {
   name: string
   data: ReportData
@@ -58,18 +61,20 @@ interface Formatter {
   format(data: ReportData): string
 }
 
-// класс для форматирования в HTML
+// Класс для форматирования в HTML:
 class HtmlFormatter implements Formatter {
   format(data: ReportData): string {
-    // форматируем данные в HTML и возвращаем:
+
+    // ...Форматируем данные в HTML и возвращаем:
     return 'html string'
   }
 }
 
-// класс для форматирования в TXT
+// Класс для форматирования в TXT:
 class TxtFormatter implements Formatter {
   format(data: ReportData): string {
-    // форматируем данные в TXT и возвращаем:
+
+    // ...Форматируем данные в TXT и возвращаем:
     return 'txt string'
   }
 }

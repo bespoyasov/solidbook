@@ -17,8 +17,9 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ```ts
 class Auth {
-  // обратите внимание на отсутствие аргументов у конструктора
-  // и ключевое слово new внутри
+  // Обратите внимание на отсутствие аргументов у конструктора
+  // и ключевое слово `new` внутри:
+
   constructor() {
     this.connection = new MySqlConnection()
   }

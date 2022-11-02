@@ -20,7 +20,8 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 В примере ниже до рефакторинга мы имеем класс `Person`, который содержит логику преобразования телефонного номера. После — эта функциональность вынесена в класс `PhoneNumber`.
 
 ```ts
-// до рефакторинга
+// До рефакторинга:
+
 class Person {
   name: string
   phone: string
@@ -37,7 +38,8 @@ class Person {
   }
 }
 
-// после
+// После:
+
 interface IPhoneNumber {
   phone: string
   officeCode: string
@@ -114,7 +116,8 @@ class Circle extends Figure {
   }
 }
 
-// применение фасада
+// Применение «Фасада»:
+
 class ShapeFacade {
   square: Square
   circle: Circle

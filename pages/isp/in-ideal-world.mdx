@@ -35,9 +35,10 @@ class RegularProgrammer implements Programmer {
 class Freelancer implements Programmer {
   constructor() {/*...*/}
   writeCode(): void {/*...*/}
+
   eatPizza(slicesCount: number): void {
-    // здесь будет пусто —
-    // это сигнал, что интерфейс надо дробить
+    // Здесь будет пусто —
+    // это сигнал, что интерфейс надо дробить.
   }
 }
 ```
@@ -68,7 +69,7 @@ class RegularProgrammer implements CodeProducer, PizzaConsumer {
 class Freelancer implements CodeProducer {
   constructor() {/*...*/}
   writeCode(): void {/*...*/}
-  // метод eatPizza уже не нужен
+  // Метод `eatPizza` уже не нужен.
 }
 ```
 

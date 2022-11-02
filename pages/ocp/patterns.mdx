@@ -25,16 +25,17 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 В этом примере работа для абстрактной фабрики — выбор класса, который будет заниматься форматированием.
 
 ```ts
-// часть с интерфейсом Formatter и классами,
-// реализующими его, остаётся такой же
+// Часть с интерфейсом `Formatter` и классами,
+// реализующими его, остаётся такой же.
+// Добавляется новый интерфейс, описывающий фабрику фабрик:
 
-// добавляется новый интерфейс, описывающий фабрику фабрик
 interface FormatterFactory {
   createFormatter(data: ReportData): Formatter
 }
 
-// метод createFormatter возвращает абстрактный интерфейс,
-// поэтому обе фабрики ниже взаимозаменяемы
+// Метод `createFormatter` возвращает абстрактный интерфейс,
+// поэтому обе фабрики ниже взаимозаменяемы:
+
 class HtmlFormatterFactory implements FormatterFactory {
   createFormatter(data: ReportData) {
     return new HtmlFormatter(data)
@@ -47,9 +48,13 @@ class TxtFormatterFactory implements FormatterFactory {
   }
 }
 
-// при конфигурации приложение выберет нужный тип фабрики и будет работать с ним;
-// коду приложения при этом будет не важно, с какой фабрикой он будет работать,
-// потому что он будет зависеть от интерфейсов, а не от конкретных классов
+// При конфигурации приложение выберет нужный
+// тип фабрики и будет работать с ним.
+// Коду приложения при этом будет не важно,
+// с какой фабрикой он будет работать,
+// потому что он будет зависеть от интерфейсов,
+// а не от конкретных классов:
+
 class AppConfigurator {
   reportType: ReportTypes
 
@@ -110,8 +115,9 @@ interface Greeting {
   greet(): string
 }
 
-// базовая функциональность описывается в классе,
-// который будет обёрнут с помощью декораторов
+// Базовая функциональность описывается в классе,
+// который будет обёрнут с помощью декораторов:
+
 class BaseGreeting implements Greeting {
   username: string
 
@@ -124,7 +130,9 @@ class BaseGreeting implements Greeting {
   }
 }
 
-// wrappee — объект, функциональность которого мы будем расширять
+// Здесь `wrappee` — это объект,
+// функциональность которого мы будем расширять:
+
 interface GreetingDecorator {
   wrappee: Greeting
   greet(): string
@@ -138,9 +146,10 @@ class GreetingWithUppercase implements GreetingDecorator {
   }
 
   greet(): string {
-    // 1. используем базовое поведение
+    // 1. Используем базовое поведение:
     const baseGreeting = this.wrappee.greet()
-    // 2. расширяем его
+
+    // 2. Расширяем его:
     return baseGreeting.toUpperCase()
   }
 }
@@ -161,14 +170,17 @@ class GreetingWithUppercase implements GreetingDecorator {
 В примере ниже у нас есть класс `SoftwareEngineerApplicant`, который реагирует на появление вакансий в экземпляре класса `HrAgency`.
 
 ```ts
-// интерфейс соискателя описывает его имя и желаемую позицию
+// Интерфейс соискателя описывает его имя и желаемую позицию:
+
 interface Applicant {
   name: string
   position: string
 }
 
-// интерфейс наблюдателя описывает метод,
-// который будет вызываться наблюдаемым объектом при наступлении события
+// Интерфейс наблюдателя описывает метод,
+// который будет вызываться наблюдаемым объектом
+// при наступлении события:
+
 interface Observer {
   update(data: any): void
 }
@@ -192,15 +204,17 @@ class SoftwareEngineerApplicant implements NewPositionObserver {
   }
 }
 
-// базовый интерфейс наблюдаемого объекта
+// Базовый интерфейс наблюдаемого объекта:
+
 interface Observable {
   subscribe(observer: Observer): void
   unsubscribe(observer: Observer): void
   notify(data: any): void
 }
 
-// наблюдаемый объект хранит в себе список наблюдателей,
-// которых будет уведомлять о наступлении события
+// Наблюдаемый объект хранит в себе список наблюдателей,
+// которых будет уведомлять о наступлении события:
+
 interface NewPositionObservable extends Observable {
   listeners: NewPositionObserver[]
   notify(position: string): void
@@ -218,7 +232,9 @@ class HrAgency implements NewPositionObservable {
       listener.name !== applicant.name)
   }
 
-  // уведомляем всех наблюдателей, когда появляется новая вакансия
+  // Уведомляем всех наблюдателей,
+  // когда появляется новая вакансия:
+
   notify(position: string): void {
     this.listeners.forEach(listener => {
       listener.update(position)

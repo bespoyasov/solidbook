@@ -56,8 +56,8 @@ class Published extends Article {
     super({ status: ArticleStatus.Published })
   }
 
-  // упс!
   publish(): void {
+    // Упс!
     throw new Error('article is already published')
   }
 }
@@ -91,8 +91,9 @@ class Published extends Article {
   // ...
 
   publish(): void {
-    // ArticlePublishedException наследуется от ArticleException,
-    // указанного в классе Article, поэтому здесь нарушения нет
+    // `ArticlePublishedException` наследуется от `ArticleException`,
+    // указанного в классе `Article`, поэтому здесь нарушения нет:
+
     throw new ArticlePublishedException()
   }
 }
@@ -125,13 +126,14 @@ class Article {
   // ...
 
   publish(): void {
-    // проверяем, что состояние позволяет публиковать статью
-    // именно эта проверка в Published вызовет ошибку
+    // Проверяем, что состояние позволяет публиковать статью
+    // именно эта проверка в `Published` вызовет ошибку:
+
     this.contract.require(this.canPublish() === true)
 
     // ...
 
-    // проверяем, что состояние поменялось на Published
+    // Проверяем, что состояние поменялось на `Published`:
     this.contract.ensure(this.status === ArticleStatus.Published)
   }
 }
