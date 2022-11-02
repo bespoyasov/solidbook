@@ -18,7 +18,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 ### Инъекция через конструктор
 
-Самый простой вид инъекции — через конструктор. При создании класса в конструкторе мы перечисляем все зависимости, которые требуются для создания экземпляра.
+Самый распространённый вид инъекции — через конструктор. При создании класса в конструкторе мы перечисляем все зависимости, которые требуются для создания экземпляра.
 
 ```ts
 class Building {
@@ -33,6 +33,39 @@ class Building {
   }
 }
 ```
+
+Непосредственно внедрением обычно занимается специальная сущность — [DI-контейнер](https://stackoverflow.com/a/50724263). Контейнеры автоматизируют создание экземпляров нужных классов и помогают в управлении их жизненным циклом.
+
+В языках со статической типизацией DI опирается на _типы_ зависимостей, объявленных в конструкторе. Используя эти типы и конфигурацию приложения, контейнер выбирает конкретные классы, которые будет внедрять:
+
+```ts
+const container = new DIContainer();
+
+// При регистрации зависимостей мы будто объявляем «соответствие»
+// между абстрактным типом или интерфейсом и конкретной реализацией:
+
+container.registerSingleton<Ceiling, TwoMeterCeiling>();
+container.registerSingleton<Floor, WoodenFloor>();
+container.registerSingleton<Wall, BrickWall>();
+
+// Мы будто говорим:
+// — Контейнер, если увидишь в коде тип `Ceiling`,
+//   замени его на экземпляр класса `TwoMeterCeiling`.
+```
+
+Это, например, помогает подменять зависимости во время тестирования, заменив регистрацию:
+
+```ts
+// Во время тестирования мы укажем другие классы,
+// которые будут реализовывать те же интерфейсы,
+// но, например, будут представлять собой моки или стабы:
+
+container.registerSingleton<Ceiling, TestCeiling>();
+container.registerSingleton<Floor, TestFloor>();
+container.registerSingleton<Wall, TestWall>();
+```
+
+В TypeScript также существуют DI-контейнеры, которые работают на декораторах, но подобное внедрение выглядит не так чисто и требует изменений непосредственно кода. Внедрение же, основанное на типах, [помогает отделить «инфраструктурный» код от кода приложения](https://bespoyasov.ru/blog/di-ts-in-practice/).
 
 Если зависимостей много, перечисление их всех в конструкторе может стать проблемой. Эту проблему частично решает инъекция через сеттер.
 
@@ -191,3 +224,4 @@ class CoffeeMachine extends BeverageMachine {
 - [Three Design Patterns That Use IoC](https://www.sitepoint.com/three-design-patterns-that-use-inversion-of-control/)
 - [Dependency Injection and its variations](https://medium.com/@sawomirkowalski/design-patterns-dependency-injection-and-its-variations-16007d0fa367)
 - [Внедрение зависимостей с TypeScript на практике](https://bespoyasov.ru/blog/di-ts-in-practice/)
+- [What is a DI Container?](https://stackoverflow.com/a/50724263)
