@@ -92,7 +92,7 @@ livingRoom.couch = new LeatherCouch();
 livingRoom.table = new OakTable();
 ```
 
-Это же позволяет заменять зависимости во время работы, что может быть полезно при использовании паттерна «Стратегия»:
+Это же позволяет заменять зависимости во время работы, что может быть полезно при использовании [паттерна «Стратегия»](https://refactoring.guru/ru/design-patterns/strategy):
 
 ```ts
 livingRoom.couch = new LeatherCouch();
@@ -134,7 +134,7 @@ class Room implements RoomBuilder {
 }
 ```
 
-Часто такое внедрение используют вместе с паттерном «Фабрика» для более явного и инкапсулированного построения экземпляра. Например, внутри функции `roomFactory` мы создаём экземпляр класса `Room`, а потом вызываем инжекторы, передавая в аргументах нужные зависимости:
+Часто такое внедрение используют вместе с паттерном «Фабрика» или «Строитель» для более явного построения экземпляра. Например, внутри функции `roomFactory` мы создаём экземпляр класса `Room`, а потом вызываем инжекторы, передавая в аргументах нужные зависимости:
 
 ```ts
 function roomFactory(): Room {
@@ -231,6 +231,7 @@ class CoffeeMachine extends BeverageMachine {
 
 ## Материалы к разделу
 - [Наблюдатель](https://refactoring.guru/ru/design-patterns/observer)
+- [Стратегия](https://refactoring.guru/ru/design-patterns/strategy)
 - [Реализация наблюдателя на TypeScript](https://github.com/torokmark/design_patterns_in_typescript/blob/master/observer/observer.ts)
 - [Шаблонный метод](https://refactoring.guru/ru/design-patterns/template-method)
 - [Реализация шаблонного метода на TypeScript](https://github.com/torokmark/design_patterns_in_typescript/blob/master/template_method/templateMethod.ts)
