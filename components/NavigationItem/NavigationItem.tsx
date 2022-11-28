@@ -25,9 +25,7 @@ export class NavigationItem extends PureComponent<Props> {
       <Container
         className={clsx({ deep: depth > 1 }, { active }, { completed }, { 'contains-active': containsActive })}
       >
-        <Link href={href}>
-          <a>{children}</a>
-        </Link>
+        <Link href={href}>{children}</Link>
       </Container>
     )
   }

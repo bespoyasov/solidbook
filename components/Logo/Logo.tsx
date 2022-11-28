@@ -9,9 +9,7 @@ export class Logo extends PureComponent {
     return (
       <LogoWrapper>
         <Link href="/">
-          <a>
-            <Image />
-          </a>
+          <Image />
         </Link>
       </LogoWrapper>
     )

@@ -24,7 +24,7 @@ class BasePrevNext extends PureComponent<PrevNextProps> {
 
   get activeIndex(): number {
     const { router } = this.props
-    return this.flatRoutes.findIndex(route => route.link === router.pathname)
+    return this.flatRoutes.findIndex((route) => route.link === router.pathname)
   }
 
   get prev(): RouteShape {
@@ -38,20 +38,8 @@ class BasePrevNext extends PureComponent<PrevNextProps> {
   render() {
     return (
       <Container>
-        <Column>
-          {!!this.prev && (
-            <Link href={this.prev.link}>
-              <a>{this.prev.name}</a>
-            </Link>
-          )}
-        </Column>
-        <Column>
-          {!!this.next && (
-            <Link href={this.next.link}>
-              <a>{this.next.name}</a>
-            </Link>
-          )}
-        </Column>
+        <Column>{!!this.prev && <Link href={this.prev.link}>{this.prev.name}</Link>}</Column>
+        <Column>{!!this.next && <Link href={this.next.link}>{this.next.name}</Link>}</Column>
       </Container>
     )
   }
