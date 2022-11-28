@@ -130,24 +130,24 @@ class BaseGreeting implements Greeting {
   }
 }
 
-// Здесь `wrappee` — это объект,
+// Здесь `decorated` — это объект,
 // функциональность которого мы будем расширять:
 
 interface GreetingDecorator {
-  wrappee: Greeting
+  decorated: Greeting
   greet(): string
 }
 
 class GreetingWithUppercase implements GreetingDecorator {
-  wrappee: Greeting
+  decorated: Greeting
 
-  constructor(wrappee: Greeting) {
-    this.wrappee = wrappee
+  constructor(decorated: Greeting) {
+    this.decorated = decorated
   }
 
   greet(): string {
     // 1. Используем базовое поведение:
-    const baseGreeting = this.wrappee.greet()
+    const baseGreeting = this.decorated.greet()
 
     // 2. Расширяем его:
     return baseGreeting.toUpperCase()
