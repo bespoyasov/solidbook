@@ -203,6 +203,7 @@ const run = async () => {
 
   const pdf = await MarkdownPdfAdapter.markdownToPdf(markdownWithTableOfContents)
   writeFileSync('public/solid-book.pdf', pdf.content)
+  process.exit(0)
 }
 
 run()
