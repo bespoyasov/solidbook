@@ -1,11 +1,11 @@
 1.
 ```ts
 class EventEmitterAdapter extends EventEmitter {
-  private adaptee: Adaptee
+  private adapted: Adapted
 
-  constructor(adaptee: Adaptee) {
+  constructor(adapted: Adapted) {
     super()
-    this.adaptee = adaptee
+    this.adapted = adapted
   }
 
   public emit(e: EventTypes): string {

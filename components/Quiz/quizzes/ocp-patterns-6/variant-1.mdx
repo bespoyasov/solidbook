@@ -1,14 +1,14 @@
 1.
 ```ts
 class GreetingWithoutSpaces {
-  wrappee: object
+  decorated: object
 
-  constructor(wrappee) {
-    this.wrappee = wrappee
+  constructor(decorated) {
+    this.decorated = decorated
   }
 
   greet(): string {
-    return this.wrappee.greet().replace(/\s/g, '')
+    return this.decorated.greet().replace(/\s/g, '')
   }
 }
 ```

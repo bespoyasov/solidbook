@@ -162,15 +162,15 @@ class RequestClient {
 }
 
 class LoggedRequest {
-  loggee: RequestClient
+  client: RequestClient
 
-  constructor(loggee: RequestClient) {
-    this.loggee = loggee
+  constructor(client: RequestClient) {
+    this.client = client
   }
 
   async request(url: string): Promise<any> {
     console.log(`Performed request to ${url}`)
-    return await this.loggee.request(url)
+    return await this.client.request(url)
   }
 }
 ```
