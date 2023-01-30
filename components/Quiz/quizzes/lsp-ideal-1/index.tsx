@@ -1,6 +1,6 @@
-import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 import Variant3 from './variant-3.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const lspIdeal1: IQuiz = {
   name: 'lsp-ideal-1',

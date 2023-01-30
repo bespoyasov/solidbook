@@ -2,11 +2,11 @@ import { WithRouterProps } from 'next/dist/client/with-router'
 import { withRouter, SingletonRouter } from 'next/router'
 import React, { PureComponent } from 'react'
 
-import { NavigationItem } from '../NavigationItem'
-import { PointsCounter } from '../PointsCounter'
 import { countOccurencies } from './countOccurencies'
 import { routes } from './routes'
 import { Nav, Section, SubSection } from './style'
+import { NavigationItem } from '../NavigationItem'
+import { PointsCounter } from '../PointsCounter'
 
 interface NavigationOwnProps {
   router?: SingletonRouter

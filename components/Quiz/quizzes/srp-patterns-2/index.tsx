@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 import Variant1 from './variants/variant-1.mdx'
 import Variant2 from './variants/variant-2.mdx'
 import Variant3 from './variants/variant-3.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const srpPatterns2: IQuiz = {
   name: 'srp-patterns-2',

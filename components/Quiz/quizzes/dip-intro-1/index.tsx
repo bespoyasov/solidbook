@@ -1,5 +1,5 @@
-import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const dipIntro1: IQuiz = {
   name: 'dip-intro-1',

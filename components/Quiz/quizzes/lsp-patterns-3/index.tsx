@@ -1,5 +1,5 @@
-import { IQuiz } from '../IQuiz'
 import Variant3 from './variant-3.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const lspPatterns3: IQuiz = {
   name: 'lsp-patterns-3',

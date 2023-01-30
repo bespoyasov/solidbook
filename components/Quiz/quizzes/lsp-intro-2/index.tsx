@@ -1,7 +1,7 @@
-import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 import Variant1 from './variant-1.mdx'
 import Variant2 from './variant-2.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const lspIntro2: IQuiz = {
   name: 'lsp-intro-2',

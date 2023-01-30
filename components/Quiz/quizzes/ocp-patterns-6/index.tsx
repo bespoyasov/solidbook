@@ -1,8 +1,8 @@
-import { IQuiz } from '../IQuiz'
 import Description1 from './description-1.mdx'
 import Variant1 from './variant-1.mdx'
 import Variant2 from './variant-2.mdx'
 import Variant3 from './variant-3.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const ocpPatterns6: IQuiz = {
   name: 'ocp-patterns-6',

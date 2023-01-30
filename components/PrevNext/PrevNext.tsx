@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { withRouter, SingletonRouter } from 'next/router'
 import React, { PureComponent } from 'react'
 
-import { routes, RouteShape } from '../Navigation/routes'
 import { Container, Column } from './style'
+import { routes, RouteShape } from '../Navigation/routes'
 
 function flattenRoutes(routesToFlat: RouteShape[]): RouteShape[] {
   return routesToFlat.reduce((list: RouteShape[], route: RouteShape) => {

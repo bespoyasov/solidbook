@@ -1,5 +1,5 @@
-import { IQuiz } from '../IQuiz'
 import Description2 from './description-2.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const ocpPatterns1: IQuiz = {
   name: 'ocp-patterns-1',

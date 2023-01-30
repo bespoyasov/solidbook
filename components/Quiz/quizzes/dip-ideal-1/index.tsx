@@ -1,6 +1,6 @@
-import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
 import Variant2 from './variant-2.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const dipIdeal1: IQuiz = {
   name: 'dip-ideal-1',

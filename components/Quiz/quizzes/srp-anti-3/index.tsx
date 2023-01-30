@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { IQuiz } from '../IQuiz'
 import Question from './question.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const srpAnti3: IQuiz = {
   name: 'srp-anti-3',

@@ -1,6 +1,6 @@
-import { IQuiz } from '../IQuiz'
 import Description2 from './description-2.mdx'
 import Variant2 from './variant-2.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const ispAnti3: IQuiz = {
   name: 'isp-anti-3',

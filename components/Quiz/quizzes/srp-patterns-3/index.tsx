@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { IQuiz } from '../IQuiz'
 import Description from './description.mdx'
 import Question from './question.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const srpPatterns3: IQuiz = {
   name: 'srp-patterns-3',

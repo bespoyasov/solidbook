@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { IQuiz } from '../IQuiz'
 import Variant1 from './variants/variant-1.mdx'
+import { IQuiz } from '../IQuiz'
 
 export const srpIdeal1: IQuiz = {
   name: 'srp-ideal-1',
