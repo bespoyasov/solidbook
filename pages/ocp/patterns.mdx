@@ -84,7 +84,7 @@ class AppConfigurator {
 Этот шаблон позволяет менять настройки, конфигурацию или алгоритм в зависимости от ситуации и требований. В нашем случае стратегии мы отдадим выбор необходимой фабрики:
 
 ```ts
-function formatterStrategy(reportType: ReportTypes): FormatterFactory {
+function formatterStrategy(reportType: ReportTypes) {
   const formatters = {
     [ReportTypes.Html]: HtmlFormatterFactory,
     [ReportTypes.Txt]: TxtFormatterFactory,
