@@ -11,7 +11,7 @@
     "now-build": "next build && npm run book:generate",
     "start": "next start",
     "lint": "eslint \"./**/*.{ts,tsx}\"",
-    "book:generate": "yarn esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
+    "book:generate": "yarn esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --format=esm --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.1.1",
