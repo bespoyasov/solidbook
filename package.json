@@ -3,6 +3,7 @@
   "description": "Книга о принципах SOLID и объектно-ориентированном дизайне программ.",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
     "dev": "next",
@@ -63,7 +64,7 @@
     "babel-plugin-styled-components": "^2.0.7",
     "esbuild": "^0.17.5",
     "puppeteer": "^19.2.0",
-    "remark-sectionize": "^1.1.0",
+    "remark-sectionize": "^2.0.0",
     "yaspeller": "^8.0.0"
   },
   "peerDependencies": {
