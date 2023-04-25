@@ -5751,10 +5751,10 @@ typescript@^5.0.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.4.tgz#b217fd20119bd61a94d4011274e0ab369058da3b"
   integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
 
-typograf@^6.11.0:
-  version "6.15.1"
-  resolved "https://registry.yarnpkg.com/typograf/-/typograf-6.15.1.tgz#592ac2998fb46a06acdddcd8dbd461082589a254"
-  integrity sha512-G1IIJlh4ycW+rvTspdgZKQoj/fKpmwif6MUhrmn3LY50W8njRnBqdFIJcfDqbmDg+RmmP51R9jdjjMwBYA5P0Q==
+typograf@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/typograf/-/typograf-7.0.0.tgz#13f2b755b34156b3adceb93fd8102b5af4bc2640"
+  integrity sha512-QyNNvih64CL3xwdz2y47ClA3sdcU0Vp5pmvs1kN5Xc2jqEtmOB6XKJ2b8Fyy8TD+qTGEDVydMSOTKgl0+cRhHg==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
