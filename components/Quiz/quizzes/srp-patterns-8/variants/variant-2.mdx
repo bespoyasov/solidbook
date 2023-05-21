@@ -1,19 +1,17 @@
 2.
 ```ts
 class CachedRequest {
-  cached: RequestClient
+  client: RequestClient
   cache: { [name: string]: any }
 
-  constructor(cached: RequestClient) {
-    this.cached = cached
+  constructor(client: RequestClient) {
+    this.client = client
     this.cache = {}
   }
 
   async request(url: string): Promise<any> {
-    Promise.resolve(this.cache[url])
-    const result = await this.cached.request(url)
-    this.cache[url] = result
-    return result
+    const result = await this.client.request(url)
+    return Promise.resolve(this.cache[url])
   }
 }
 ```
