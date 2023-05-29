@@ -12,7 +12,6 @@ import { MainThemeProps } from '~/themes/main'
 
 const networks = [
   { name: 'twitter', action: 'Твитнуть' },
-  { name: 'vkontakte', action: 'Поделиться' },
   { name: 'facebook', action: 'Зафейсбучить' },
   { name: 'telegram', action: 'Телеграмнуть' }
 ]
