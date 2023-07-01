@@ -3,8 +3,6 @@ import likely from 'ilyabirman-likely'
 import { inject, observer } from 'mobx-react'
 import { Instance } from 'mobx-state-tree'
 import * as React from 'react'
-import { Component } from 'react'
-import { withTheme } from 'styled-components'
 
 import { Container, Buttons, Label } from './style'
 import { AppModel } from '~/models/app'
@@ -20,7 +18,7 @@ interface IInjectedProps {
   app: Instance<typeof AppModel>
 }
 
-class BaseShare extends Component {
+class BaseShare extends React.Component {
   componentDidMount() {
     likely.initiate()
   }
@@ -59,4 +57,4 @@ class BaseShare extends Component {
   }
 }
 
-export const Share = inject('app')(observer(withTheme(BaseShare)))
+export const Share = inject('app', 'theme')(observer(BaseShare))
