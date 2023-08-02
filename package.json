@@ -49,8 +49,8 @@
     "typescript": "^5.0.3",
     "typograf": "^7.0.0",
     "unified": "^10.1.2",
-    "unist-util-filter": "^4.0.0",
-    "unist-util-visit": "^4.1.0"
+    "unist-util-filter": "^5.0.0",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.2.3",
