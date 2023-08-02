@@ -36,7 +36,8 @@ export class ThemeState {
 
   public save(state: object) {
     setCookie(this.ctx, this.key, JSON.stringify(state), {
-      maxAge: 12 * 30 * 24 * 60 * 60
+      maxAge: 12 * 30 * 24 * 60 * 60,
+      path: '/'
     })
   }
 }
