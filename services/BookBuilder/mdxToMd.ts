@@ -1,6 +1,6 @@
 import { Literal, Parent } from 'unist'
 import { filter } from 'unist-util-filter'
-import { Test, TestFunctionAnything } from 'unist-util-is'
+import { Test, TestFunction } from 'unist-util-is'
 
 import { MarkdownBook, MdxBook } from './books'
 import { MdAstTreeAdapter } from './mdAstTree'
@@ -12,10 +12,10 @@ interface Element extends Parent {
   children: Literal[]
 }
 
-const isForbiddenElement: TestFunctionAnything = (el) => invalidTypes.includes(el.type)
-const isQuestionsChapterHeading: TestFunctionAnything = (el) =>
+const isForbiddenElement: TestFunction = (el) => invalidTypes.includes(el.type)
+const isQuestionsChapterHeading: TestFunction = (el) =>
   (el as Element).type === 'heading' && (el as Element).children[0].value === 'Вопросы'
-const isAnnotationList: TestFunctionAnything = (el, index, parent) =>
+const isAnnotationList: TestFunction = (el, index, parent) =>
   parent && parent.type === 'root' && index === parent.children.length - 1 && el.type === 'paragraph'
 
 const excludeMdxElement: Test = (...args) => {

@@ -65,6 +65,7 @@
     "esbuild": "^0.18.11",
     "puppeteer": "^21.0.0",
     "remark-sectionize": "^2.0.0",
+    "unist-util-is": "^6.0.0",
     "yaspeller": "^8.0.0"
   },
   "peerDependencies": {
