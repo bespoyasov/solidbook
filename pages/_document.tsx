@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, DocumentContext, NextScript } from 'next/document'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -15,7 +15,7 @@ export default class MyDocument extends Document<IProps> {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />)
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />) as ReactElement<any>
         })
 
       const initialProps = await Document.getInitialProps(ctx)
