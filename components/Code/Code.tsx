@@ -13,7 +13,12 @@ export class Code extends PureComponent<PropsWithChildren<CodeProps>> {
 
   highlight = (source: string) => {
     const { lang } = this.props
-    return rehype().stringify(refractor.highlight(source, lang)).toString()
+    return (
+      rehype()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .stringify(refractor.highlight(source, lang) as any)
+        .toString()
+    )
   }
 
   createCodeElement = (innerHtml: string) => {
