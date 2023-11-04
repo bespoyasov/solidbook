@@ -26,4 +26,4 @@ jobs:
         run: npm run lint
 
       - name: Run unit-tests
-        run: npm test
+        run: npx jest
