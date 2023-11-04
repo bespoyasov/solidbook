@@ -1,4 +1,3 @@
-import makeInspectable from 'mobx-devtools-mst'
 import { types, typecheck, Instance, applySnapshot } from 'mobx-state-tree'
 
 import { Quiz, createEmptyQuiz } from '../quiz'
@@ -83,6 +82,5 @@ export function createAppModel(initState?: typeof AppModel): Instance<typeof App
   const middleware = new SaveOnChangeMiddleware(appModel, appStateRepository, ['toggleComplete', 'toggleAnswer'])
   middleware.enable()
 
-  makeInspectable(appModel)
   return appModel
 }

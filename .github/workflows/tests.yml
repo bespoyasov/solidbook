@@ -17,13 +17,13 @@ jobs:
           node-version: 16
 
       - name: Install all dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Check text spelling with yaspeller
-        run: yarn spell
+        run: npm run spell
 
       - name: Lint code with eslint
-        run: yarn lint
+        run: npm run lint
 
       - name: Run unit-tests
-        run: yarn jest
+        run: npm test

@@ -11,7 +11,7 @@
     "now-build": "next build && npm run book:generate",
     "start": "next start",
     "lint": "eslint \"./**/*.{ts,tsx}\"",
-    "book:generate": "yarn esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --format=esm --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
+    "book:generate": "npx esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --format=esm --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.1.1",
@@ -31,7 +31,6 @@
     "jest": "^29.0.1",
     "md-to-pdf": "^5.1.0",
     "mobx": "^6.5.0",
-    "mobx-devtools-mst": "^0.9.21",
     "mobx-react": "^9.0.1",
     "mobx-state-tree": "^5.1.5",
     "next": "^13.0.5",
@@ -54,7 +53,6 @@
   },
   "devDependencies": {
     "@types/jest": "^29.2.3",
-    "@types/mobx-devtools-mst": "0.9.7",
     "@types/next": "9.0.0",
     "@types/node": "^20.2.5",
     "@types/react": "18.0.25",
