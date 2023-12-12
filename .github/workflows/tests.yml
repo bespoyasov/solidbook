@@ -19,9 +19,6 @@ jobs:
       - name: Install all dependencies
         run: npm ci
 
-      - name: Check text spelling with yaspeller
-        run: npm run spell
-
       - name: Lint code with eslint
         run: npm run lint
 

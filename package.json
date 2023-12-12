@@ -5,7 +5,6 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "spell": "yaspeller pages/**/*.mdx components/Quiz/quizzes/**/*.mdx components/Quiz/quizzes/**/*.tsx",
     "dev": "next",
     "test": "jest --watchAll",
     "now-build": "next build && npm run book:generate",
@@ -63,8 +62,7 @@
     "esbuild": "^0.19.4",
     "puppeteer": "^21.0.0",
     "remark-sectionize": "^2.0.0",
-    "unist-util-is": "^6.0.0",
-    "yaspeller": "^9.1.0"
+    "unist-util-is": "^6.0.0"
   },
   "engines": {
     "node": ">=18"
