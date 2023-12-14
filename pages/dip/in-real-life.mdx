@@ -27,8 +27,8 @@ describe('Auth', () => {
     auth = new Auth(connection)
   })
 
-  it('should successfully authentificate user', async () => {
-    const result: AuthResult = await auth.authentificate('Alex', '123')
+  it('should successfully authenticate user', async () => {
+    const result: AuthResult = await auth.authenticate('Alex', '123')
     expect(result.status).toEqual(200)
   })
 })
