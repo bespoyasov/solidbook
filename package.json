@@ -10,7 +10,7 @@
     "now-build": "next build && npm run book:generate",
     "start": "next start",
     "lint": "eslint \"./**/*.{ts,tsx}\"",
-    "book:generate": "npx esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --format=esm --external:playwright --external:md-to-pdf && node services/BookBuilder.js"
+    "book:generate": "npx esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --format=esm --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.0",
@@ -60,7 +60,7 @@
     "babel-plugin-root-import": "^6.4.1",
     "babel-plugin-styled-components": "^2.0.7",
     "esbuild": "^0.19.4",
-    "playwright": "^1.40.1",
+    "puppeteer": "^21.6.1",
     "remark-sectionize": "^2.0.0",
     "unist-util-is": "^6.0.0"
   },
