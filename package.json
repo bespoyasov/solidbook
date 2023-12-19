@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next",
     "test": "jest --watchAll",
-    "now-build": "next build && npm run book:generate",
+    "now-build": "next build",
     "start": "next start",
     "lint": "eslint \"./**/*.{ts,tsx}\"",
     "book:generate": "npx esbuild services/BookBuilder/index.ts --bundle --outfile=services/BookBuilder.js --platform=node --format=esm --external:puppeteer --external:md-to-pdf && node services/BookBuilder.js"

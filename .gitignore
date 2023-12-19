@@ -20,8 +20,6 @@ npm-debug.log*
 
 .vscode
 .next
-.cache
 dist
 
-/public/solid-book.pdf
 /services/BookBuilder.js
