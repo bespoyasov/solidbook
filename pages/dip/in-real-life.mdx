@@ -9,7 +9,7 @@ export default ({ children }) => <MainLayout meta={meta}>{children}</MainLayout>
 
 # В реальной жизни
 
-Для большего контроля над зависимостями и упрощения тестирования DIP предлагает использовать [инверсию контроля](https://en.wikipedia.org/wiki/Inversion_of_control) (Inversion of Control, IoC) и [инъекцию зависимостей](https://en.wikipedia.org/wiki/Dependency_injection) (Dependency Injection, DI).
+Для большего контроля над зависимостями и упрощения тестирования DIP предлагает использовать [инверсию управления](https://en.wikipedia.org/wiki/Inversion_of_control) (Inversion of Control, IoC) и [инъекцию зависимостей](https://en.wikipedia.org/wiki/Dependency_injection) (Dependency Injection, DI).
 
 ## DIP, DI и тестирование
 
@@ -66,9 +66,9 @@ describe('Auth', () => {
 
 Класс `DbMock` реализует интерфейс `DataBaseConnection`. Мы можем спроектировать его максимально простым и лёгким, это ускорит работу теста.
 
-## Инверсия контроля
+## Инверсия управления
 
-DI — это частный случай [инверсии контроля](https://en.wikipedia.org/wiki/Inversion_of_control). При этом подходе контроль за выполнением программы отдаётся фреймворку, который знает, в какой момент и какую функцию надо вызвать. Цель IoC — сделать систему расширяемой.
+DI — это частный случай [инверсии управления](https://en.wikipedia.org/wiki/Inversion_of_control). При этом подходе контроль за выполнением программы отдаётся фреймворку, который знает, в какой момент и какую функцию надо вызвать. Цель IoC — сделать систему расширяемой.
 
 [Inversify](http://inversify.io/) предлагает решение для IoC на TypeScript. Inversify предоставляет API для создания контейнеров с указанием зависимостей, которые потом подставляются автоматически.
 
