@@ -202,7 +202,7 @@ const run = async () => {
   const markdownWithTableOfContents = MdAstTreeAdapter.addTableOfContents(markdownContent)
 
   const pdf = await MarkdownPdfAdapter.markdownToPdf(markdownWithTableOfContents)
-  writeFileSync('public/solid-book.pdf', pdf.content)
+  writeFileSync('book.pdf', pdf.content)
   process.exit(0)
 }
 
